@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Router } from "@reach/router";
+import Header from "./components/Header/Header";
+import AnonymousRoute from "./helpers/AnonymousRoute/AnonymousRoute";
+import ProtectedRoute from "./helpers/ProtectedRoute/ProtectedRoute";
+import ListServices from "./domain/Services/ListServices/ListServices";
+import ListUsers from "./domain/Users/ListUsers/ListUsers";
+import Login from "./domain/Authentication/Login/Login";
+import Register from "./domain/Authentication/Register/Register";
+import PageNotFound from "./domain/Error/PageNotFound/PageNotFound";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <div>
+        <Router>
+          <AnonymousRoute as={Login} path="/" />
+          <AnonymousRoute as={Register} path="/register" />
+          <ProtectedRoute as={ListServices} path="/services" />
+          <ProtectedRoute as={ListUsers} path="/users" />
+          <PageNotFound default />
+        </Router>
+      </div>
     </div>
   );
 }
