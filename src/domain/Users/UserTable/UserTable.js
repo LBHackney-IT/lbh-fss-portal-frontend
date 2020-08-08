@@ -34,7 +34,7 @@ const UserTable = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const users = await UserService.retrieveUsers();
+      const users = await UserService.retrieveUsers({});
 
       setData(users);
       setIsLoading(false);

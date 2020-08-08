@@ -1,4 +1,4 @@
-let mockUsers = require("./mockUsers.json");
+let mockUsers = require("./mockServices.json");
 
 module.exports = (req, res) => {
   const sort = req.query.sort || "name";
@@ -15,7 +15,7 @@ module.exports = (req, res) => {
     .filter((item) => {
       return search.length
         ? cleanString(item.name).includes(searchClean) ||
-            cleanString(item.description).includes(searchClean)
+            cleanString(item.author).includes(searchClean)
         : true;
     })
     .sort(function (a, b) {
