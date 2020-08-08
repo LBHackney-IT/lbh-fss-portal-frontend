@@ -6,13 +6,13 @@ const UserForm = ({ onSubmit, submitLabel = "Save" }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label for="name">Name</label>
+      <label htmlFor="name">Name</label>
       <input
         name="name"
         type="text"
         ref={register({ required: true, maxLength: 255 })}
       />
-      <label for="email">Email</label>
+      <label htmlFor="email">Email</label>
       <input
         name="email"
         type="email"

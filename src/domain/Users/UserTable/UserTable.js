@@ -41,7 +41,7 @@ const UserTable = () => {
     }
 
     fetchData();
-  }, []);
+  }, [setData, setIsLoading]);
 
   // Use the state and functions returned from useTable to build your UI
   const {
@@ -56,7 +56,7 @@ const UserTable = () => {
   });
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return <span>Loading</span>;
   }
 
   // Render the UI for your table

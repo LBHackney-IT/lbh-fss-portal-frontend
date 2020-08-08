@@ -12,6 +12,7 @@ import AddUser from "./domain/Users/AddUser/AddUser";
 import EditUser from "./domain/Users/EditUser/EditUser";
 import ListUsers from "./domain/Users/ListUsers/ListUsers";
 import MyAccount from "./domain/Users/MyAccount/MyAccount";
+import AnalyticsDashboard from "./domain/Analytics/AnalyticsDashboard/AnalyticsDashboard";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <ProtectedRoute as={AddUser} path="/users/add" />
           <ProtectedRoute as={EditUser} path="/users/:userId/edit" />
           <ProtectedRoute as={MyAccount} path="/users/account" />
+          <ProtectedRoute as={AnalyticsDashboard} path="/analytics" />
           <PageNotFound default />
         </Router>
       </div>
