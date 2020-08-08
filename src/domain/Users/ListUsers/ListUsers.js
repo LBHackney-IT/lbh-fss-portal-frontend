@@ -1,9 +1,15 @@
-import React from 'react';
+import React from "react";
+import { Link } from "@reach/router";
 
 const ListUsers = () => {
-    return <>
+  return (
+    <>
+      <div>
         <h1>Users</h1>
+        <Link to="/users/add">Add user</Link>
+      </div>
     </>
-}
+  );
+};
 
-export default ListUsers
+export default ListUsers;

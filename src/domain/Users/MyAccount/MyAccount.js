@@ -1,17 +1,17 @@
 import React from "react";
 import UserForm from "../UserForm/UserForm";
 
-const EditUser = () => {
+const MyAccount = () => {
   const onSubmit = () => {
-    alert("Edit user");
+    alert("My account");
   };
 
   return (
     <>
-      <h1>Edit user</h1>
+      <h1>My account</h1>
       <UserForm onSubmit={onSubmit} />
     </>
   );
 };
 
-export default EditUser;
+export default MyAccount;
