@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const AnonymousLayout = ({ children }) => {
   return (
@@ -9,6 +10,10 @@ const AnonymousLayout = ({ children }) => {
       </div>
     </div>
   );
+};
+
+AnonymousLayout.propTypes = {
+  children: PropTypes.node,
 };
 
 export default AnonymousLayout;

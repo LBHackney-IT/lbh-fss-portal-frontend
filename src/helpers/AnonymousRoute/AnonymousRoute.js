@@ -4,7 +4,7 @@ import AnonymousLayout from "../../components/AnonymousLayout/AnonymousLayout";
 
 const AnonymousRoute = ({ as: Component, ...props }) => {
   //const { user } = useContext(UserContext)
-  const user = true;
+  const user = false;
   return (
     <>
       {user ? (

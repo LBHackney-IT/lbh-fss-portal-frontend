@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import PropTypes from "prop-types";
 
 const UserForm = ({ onSubmit, submitLabel = "Save" }) => {
   const { register, handleSubmit } = useForm();
@@ -21,6 +22,11 @@ const UserForm = ({ onSubmit, submitLabel = "Save" }) => {
       <input type="submit" value={submitLabel} />
     </form>
   );
+};
+
+UserForm.propTypes = {
+  onSubmit: PropTypes.func,
+  submitLabel: PropTypes.string,
 };
 
 export default UserForm;

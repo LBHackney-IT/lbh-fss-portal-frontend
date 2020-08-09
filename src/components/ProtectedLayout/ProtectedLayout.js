@@ -1,5 +1,6 @@
 import React from "react";
 import NavLink from "../NavLink/NavLink";
+import PropTypes from "prop-types";
 
 const ProtectedLayout = ({ children }) => {
   return (
@@ -23,6 +24,10 @@ const ProtectedLayout = ({ children }) => {
       </div>
     </div>
   );
+};
+
+ProtectedLayout.propTypes = {
+  children: PropTypes.node,
 };
 
 export default ProtectedLayout;

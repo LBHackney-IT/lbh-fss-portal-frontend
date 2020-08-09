@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const AnalyticsTile = ({ label, fetchValue, color }) => {
   const [value, setValue] = useState(false);
@@ -25,6 +26,12 @@ const AnalyticsTile = ({ label, fetchValue, color }) => {
       <div>{value}</div>
     </div>
   );
+};
+
+AnalyticsTile.propTypes = {
+  label: PropTypes.string,
+  fetchValue: PropTypes.func,
+  color: PropTypes.string,
 };
 
 export default AnalyticsTile;

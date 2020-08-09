@@ -4,7 +4,7 @@ import ProtectedLayout from "../../components/ProtectedLayout/ProtectedLayout";
 
 const ProtectedRoute = ({ as: Component, ...props }) => {
   //const { user } = useContext(UserContext)
-  const user = true;
+  const user = false;
   return (
     <>
       {user ? (
