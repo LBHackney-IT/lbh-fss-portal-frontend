@@ -3,9 +3,9 @@ import axios from "axios";
 const AuthenticationService = {
   async login(email, password) {
     try {
-      await axios.post("/api/sessions", { email, password });
+      const { data } = await axios.post("/api/session", { email, password });
 
-      return true;
+      return data;
     } catch (error) {
       return false;
     }
@@ -15,6 +15,15 @@ const AuthenticationService = {
       const { data } = await axios.get("/api/me");
 
       return data;
+    } catch (error) {
+      return false;
+    }
+  },
+  async logout() {
+    try {
+      await axios.post("/api/logout");
+
+      return true;
     } catch (error) {
       return false;
     }

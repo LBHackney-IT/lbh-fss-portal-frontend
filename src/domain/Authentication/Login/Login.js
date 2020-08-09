@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "@reach/router";
 import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
@@ -6,22 +6,26 @@ import { navigate } from "@reach/router";
 import Input from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 import StatusMessage from "../../../components/StatusMessage/StatusMessage";
+import UserContext from "../../../context/UserContext/UserContext";
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const setUser = useContext(UserContext)[1];
 
   async function doLogin({ email, password }) {
     if (isLoading) return;
 
     setIsLoading(true);
 
-    const loginSuccess = await AuthenticationService.login(email, password);
+    const user = await AuthenticationService.login(email, password);
 
     setIsLoading(false);
 
-    if (loginSuccess) {
+    if (user) {
+      setUser(user);
+
       navigate("/services");
     } else {
       setErrorMessage("Invalid email or password.");

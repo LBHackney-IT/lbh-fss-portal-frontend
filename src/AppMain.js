@@ -15,10 +15,10 @@ import ResetPassword from "./domain/Authentication/ResetPassword/ResetPassword";
 import AuthenticationService from "./services/AuthenticationService/AuthenticationService";
 import UserContext from "./context/UserContext/UserContext";
 import AppLoading from "./AppLoading";
+import Logout from "./domain/Authentication/Logout/Logout";
 
 const AppMain = () => {
-  // eslint-disable-next-line
-  const [user, setUser] = useContext(UserContext);
+  const setUser = useContext(UserContext)[1];
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -43,8 +43,9 @@ const AppMain = () => {
       <ProtectedRoute as={ListUsers} path="/users" />
       <ProtectedRoute as={AddUser} path="/users/add" />
       <ProtectedRoute as={EditUser} path="/users/:userId/edit" />
-      <ProtectedRoute as={MyAccount} path="/users/account" />
+      <ProtectedRoute as={MyAccount} path="/account" />
       <ProtectedRoute as={AnalyticsDashboard} path="/analytics" />
+      <ProtectedRoute as={Logout} path="/logout" />
       <PageNotFound default />
     </Router>
   );

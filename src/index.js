@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import AxiosInterceptorService from "./services/AxiosInterceptorService/AxiosInterceptorService";
+
+AxiosInterceptorService.setupInterceptors();
 
 ReactDOM.render(
   <React.StrictMode>

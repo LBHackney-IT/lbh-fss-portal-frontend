@@ -13,8 +13,9 @@ const ProtectedLayout = ({ children }) => {
         <nav>
           <NavLink to="/services">Services</NavLink>
           <NavLink to="/users">Users</NavLink>
-          <NavLink to="/users/account">My account</NavLink>
+          <NavLink to="/account">My account</NavLink>
           <NavLink to="/analytics">Analytics</NavLink>
+          <NavLink to="/logout">Log out</NavLink>
         </nav>
       </div>
       {children}

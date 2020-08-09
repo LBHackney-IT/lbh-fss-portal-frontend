@@ -22,6 +22,8 @@ const UserService = {
       return response.data.entries;
     } catch (error) {
       console.error(error);
+
+      return false;
     }
   },
 

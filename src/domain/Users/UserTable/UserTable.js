@@ -36,7 +36,7 @@ const UserTable = () => {
     async function fetchData() {
       const users = await UserService.retrieveUsers({});
 
-      setData(users);
+      setData(users || []);
       setIsLoading(false);
     }
 
