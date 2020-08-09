@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Redirect } from "@reach/router";
 import ProtectedLayout from "../../components/ProtectedLayout/ProtectedLayout";
+import UserContext from "../../context/UserContext/UserContext";
 
 const ProtectedRoute = ({ as: Component, ...props }) => {
-  //const { user } = useContext(UserContext)
-  const user = false;
+  const user = useContext(UserContext)[0];
+
   return (
     <>
       {user ? (

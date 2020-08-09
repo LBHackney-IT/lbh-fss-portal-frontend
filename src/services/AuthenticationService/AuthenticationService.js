@@ -12,9 +12,9 @@ const AuthenticationService = {
   },
   async me() {
     try {
-      await axios.post("/api/me");
+      const { data } = await axios.get("/api/me");
 
-      return true;
+      return data;
     } catch (error) {
       return false;
     }
