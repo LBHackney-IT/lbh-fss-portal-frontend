@@ -1,15 +1,22 @@
 import React from "react";
+import styled from "styled-components";
+import { defaultTheme } from "../../settings";
+
+const StyledHeader = styled.header`
+  background: ${defaultTheme.headerBackgroundColor};
+  color: ${defaultTheme.textColorInverted};
+`;
 
 const Header = () => {
   return (
-    <header>
+    <StyledHeader>
       <div>Voluntary and Community Organisations Support</div>
       <div>
         <span>Hackney</span>
         <span>NHS</span>
         <span>City of London</span>
       </div>
-    </header>
+    </StyledHeader>
   );
 };
 
