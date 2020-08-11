@@ -1,14 +1,8 @@
 import React from "react";
 import NavLink from "../NavLink/NavLink";
 import PropTypes from "prop-types";
-import StatusMessage from "../StatusMessage/StatusMessage";
 
-const ProtectedLayout = ({ children, location }) => {
-  const redirectMessage =
-    location && location.state && location.state.data
-      ? location.state.data.redirectMessage
-      : false;
-
+const ProtectedLayout = ({ children }) => {
   return (
     <div>
       <div>
@@ -24,14 +18,6 @@ const ProtectedLayout = ({ children, location }) => {
           <NavLink to="/logout">Log out</NavLink>
         </nav>
       </div>
-      {redirectMessage ? (
-        <StatusMessage
-          type={redirectMessage.type}
-          message={redirectMessage.message}
-        />
-      ) : (
-        ""
-      )}
       {children}
       <div>
         If you need support please email:{" "}

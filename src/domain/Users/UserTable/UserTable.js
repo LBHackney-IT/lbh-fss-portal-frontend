@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useTable } from "react-table";
 import UserService from "../../../services/UserService/UserService";
+import { Link } from "@reach/router";
 
 const UserTable = () => {
   const columns = useMemo(
@@ -8,10 +9,13 @@ const UserTable = () => {
       {
         Header: "Name",
         accessor: "name",
+        Cell: (e) => {
+          return <Link to={`/users/${e.row.original.id}/edit`}>{e.value}</Link>;
+        },
       },
       {
         Header: "Organisation",
-        accessor: "organisation",
+        accessor: "organisation.name",
       },
       {
         Header: "Roles",

@@ -1,42 +1,66 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-import Input from "../../../components/Input/Input";
+import FormInput from "../../../components/FormInput/FormInput";
 import Button from "../../../components/Button/Button";
-import StatusMessage from "../../../components/StatusMessage/StatusMessage";
+import FormCheckbox from "../../../components/FormCheckbox/FormCheckbox";
+import FormFieldset from "../../../components/FormFieldset/FormFieldset";
 
 const UserForm = ({
   onSubmit,
   defaultValues = {},
   submitLabel = "Save",
   submitDisabled = false,
-  errorMessage = false,
 }) => {
   const { register, handleSubmit, errors } = useForm({ defaultValues });
 
   return (
     <>
-      {errorMessage ? (
-        <StatusMessage type="error" message={errorMessage} />
-      ) : (
-        ""
-      )}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          name="name"
-          type="name"
-          register={register}
-          error={errors.name}
-          required
-        />
-        <Input
+        <FormInput
           name="email"
           type="email"
+          label="Email"
           register={register}
           error={errors.email}
           required
         />
-
+        <FormInput
+          name="name"
+          type="text"
+          label="Name"
+          register={register}
+          error={errors.name}
+          required
+        />
+        <FormInput
+          name="organisationName"
+          type="text"
+          register={register}
+          label="Organisation name"
+          error={errors.organisationName}
+          required
+        />
+        <FormFieldset label="Roles">
+          <FormCheckbox
+            name="roles"
+            label="VSCO Contributer"
+            value="vsco_contributer"
+            register={register}
+          />
+          <FormCheckbox
+            name="roles"
+            label="Hackney Viewer"
+            value="hackney_viewer"
+            register={register}
+          />
+          <FormCheckbox
+            name="roles"
+            label="Hackney Admin"
+            value="hackney_admin"
+            register={register}
+          />
+        </FormFieldset>
         <Button type="submit" label={submitLabel} disabled={submitDisabled} />
       </form>
     </>

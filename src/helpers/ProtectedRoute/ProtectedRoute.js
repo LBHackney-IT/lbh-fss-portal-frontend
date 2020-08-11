@@ -8,8 +8,8 @@ const ProtectedRoute = ({ as: Component, ...props }) => {
   return (
     <>
       {user ? (
-        <ProtectedLayout {...props}>
-          <Component />
+        <ProtectedLayout>
+          <Component {...props} />
         </ProtectedLayout>
       ) : (
         <Redirect to="/" noThrow />

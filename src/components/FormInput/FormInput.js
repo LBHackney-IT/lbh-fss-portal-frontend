@@ -1,14 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Input = ({ type, name, label, register, required, error }) => {
+const FormInput = ({
+  type,
+  name,
+  label,
+  register,
+  required,
+  error,
+  inputRef,
+}) => {
   return (
     <>
       <label htmlFor={name}>{label}</label>
       <input
         name={name}
         type={type}
-        ref={register({ required })}
+        ref={(e) => {
+          register(e, { required });
+          if (inputRef) inputRef.current = e;
+        }}
         aria-invalid={error ? "true" : "false"}
       />
       {error && error.type === "required" && (
@@ -21,7 +32,7 @@ const Input = ({ type, name, label, register, required, error }) => {
   );
 };
 
-Input.propTypes = {
+FormInput.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string,
   label: PropTypes.string,
@@ -30,4 +41,4 @@ Input.propTypes = {
   error: PropTypes.object,
 };
 
-export default Input;
+export default FormInput;
