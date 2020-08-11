@@ -17,7 +17,7 @@ import UserContext from "./context/UserContext/UserContext";
 import AppLoading from "./AppLoading";
 import Logout from "./domain/Authentication/Logout/Logout";
 
-const AppMain = () => {
+const AppMain = ({ location }) => {
   const setUser = useContext(UserContext)[1];
   const [isLoading, setIsLoading] = useState(true);
 

@@ -5,12 +5,11 @@ import UserContext from "../../context/UserContext/UserContext";
 
 const ProtectedRoute = ({ as: Component, ...props }) => {
   const user = useContext(UserContext)[0];
-
   return (
     <>
       {user ? (
-        <ProtectedLayout>
-          <Component {...props} />
+        <ProtectedLayout {...props}>
+          <Component />
         </ProtectedLayout>
       ) : (
         <Redirect to="/" noThrow />

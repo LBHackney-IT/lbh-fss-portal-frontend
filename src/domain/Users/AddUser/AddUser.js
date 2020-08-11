@@ -22,7 +22,16 @@ const AddUser = () => {
     setIsLoading(false);
 
     if (user) {
-      navigate("/users");
+      navigate("/users", {
+        state: {
+          data: {
+            redirectMessage: {
+              type: "success",
+              message: `New user ${user.name} invited.`,
+            },
+          },
+        },
+      });
     } else {
       setErrorMessage("Unable to add user.");
     }

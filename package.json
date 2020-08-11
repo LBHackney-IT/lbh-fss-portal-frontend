@@ -17,8 +17,7 @@
     "react-scripts": "3.4.1",
     "react-table": "^7.5.0",
     "styled-components": "^5.1.1",
-    "styled-components-breakpoint": "^3.0.0-preview.20",
-    "underscore": "^1.10.2"
+    "styled-components-breakpoint": "^3.0.0-preview.20"
   },
   "scripts": {
     "start": "react-scripts start",

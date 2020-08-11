@@ -1,6 +1,9 @@
-const _ = require("underscore");
-let mockUsers = require("./mockUsers.json");
-
 module.exports = (req, res) => {
-  res.status(200).json(_.sample(mockUsers));
+  const { name, email } = req.body;
+
+  res.status(200).json({
+    id: 1,
+    name,
+    email,
+  });
 };

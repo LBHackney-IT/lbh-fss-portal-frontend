@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "@reach/router";
 import UserTable from "../UserTable/UserTable";
 
-const ListUsers = () => {
+const ListUsers = ({ location }) => {
   return (
     <>
       <div>
