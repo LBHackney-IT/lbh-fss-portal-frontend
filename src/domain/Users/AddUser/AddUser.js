@@ -1,15 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import UserForm from "../UserForm/UserForm";
+import UserService from "../../../services/UserService/UserService";
+import { navigate } from "@reach/router";
 
 const AddUser = () => {
-  const onSubmit = () => {
-    alert("Add user");
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+
+  async function doAddUser({ name, email, organisationName, roles }) {
+    if (isLoading) return;
+
+    setIsLoading(true);
+
+    const user = await UserService.addUser({
+      name,
+      email,
+      organisationName,
+      roles,
+    });
+
+    setIsLoading(false);
+
+    if (user) {
+      navigate("/users");
+    } else {
+      setErrorMessage("Unable to add user.");
+    }
+  }
 
   return (
     <>
       <h1>Add user</h1>
-      <UserForm onSubmit={onSubmit} submitLabel="Create account" />
+      <UserForm
+        onSubmit={doAddUser}
+        submitLabel="Create account"
+        submitDisabled={isLoading}
+        errorMessage={errorMessage}
+      />
     </>
   );
 };

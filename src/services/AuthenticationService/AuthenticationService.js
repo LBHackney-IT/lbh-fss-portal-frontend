@@ -12,7 +12,7 @@ const AuthenticationService = {
   },
   async me() {
     try {
-      const { data } = await axios.get("/api/me");
+      const { data } = await axios.get("/api/account");
 
       return data;
     } catch (error) {

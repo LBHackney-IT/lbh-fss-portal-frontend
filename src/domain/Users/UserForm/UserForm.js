@@ -1,26 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import Input from "../../../components/Input/Input";
+import Button from "../../../components/Button/Button";
+import StatusMessage from "../../../components/StatusMessage/StatusMessage";
 
-const UserForm = ({ onSubmit, submitLabel = "Save" }) => {
-  const { register, handleSubmit } = useForm();
+const UserForm = ({
+  onSubmit,
+  defaultValues = {},
+  submitLabel = "Save",
+  submitDisabled = false,
+  errorMessage = false,
+}) => {
+  const { register, handleSubmit, errors } = useForm({ defaultValues });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="name">Name</label>
-      <input
-        name="name"
-        type="text"
-        ref={register({ required: true, maxLength: 255 })}
-      />
-      <label htmlFor="email">Email</label>
-      <input
-        name="email"
-        type="email"
-        ref={register({ required: true, maxLength: 255 })}
-      />
-      <input type="submit" value={submitLabel} />
-    </form>
+    <>
+      {errorMessage ? (
+        <StatusMessage type="error" message={errorMessage} />
+      ) : (
+        ""
+      )}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          name="name"
+          type="name"
+          register={register}
+          error={errors.name}
+          required
+        />
+        <Input
+          name="email"
+          type="email"
+          register={register}
+          error={errors.email}
+          required
+        />
+
+        <Button type="submit" label={submitLabel} disabled={submitDisabled} />
+      </form>
+    </>
   );
 };
 
