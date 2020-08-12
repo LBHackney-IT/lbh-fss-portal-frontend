@@ -3,14 +3,18 @@ import { Redirect } from "@reach/router";
 import ProtectedLayout from "../../components/ProtectedLayout/ProtectedLayout";
 import UserContext from "../../context/UserContext/UserContext";
 
-const ProtectedRoute = ({ as: Component, ...props }) => {
+const ProtectedRoute = ({ as: Component, withLayout = true, ...props }) => {
   const user = useContext(UserContext)[0];
   return (
     <>
       {user ? (
-        <ProtectedLayout>
+        withLayout ? (
+          <ProtectedLayout>
+            <Component {...props} />
+          </ProtectedLayout>
+        ) : (
           <Component {...props} />
-        </ProtectedLayout>
+        )
       ) : (
         <Redirect to="/" noThrow />
       )}

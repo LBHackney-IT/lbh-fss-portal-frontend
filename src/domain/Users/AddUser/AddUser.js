@@ -32,6 +32,7 @@ const AddUser = () => {
         onSubmit={doAddUser}
         submitLabel="Create account"
         submitDisabled={isLoading}
+        showPassword={false}
       />
     </>
   );

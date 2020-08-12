@@ -55,7 +55,7 @@ const UserService = {
       return false;
     }
   },
-  async updateUser(id, { name, email, organisationName, roles }) {
+  async updateUser(id, { name, email, organisationName, roles, password }) {
     try {
       const response = await axios.patch(`/api/users/${id}`, {
         name,
@@ -64,6 +64,7 @@ const UserService = {
         organisation: {
           name: organisationName,
         },
+        password,
       });
 
       return response.data;

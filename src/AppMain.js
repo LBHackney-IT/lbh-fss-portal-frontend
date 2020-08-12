@@ -45,7 +45,7 @@ const AppMain = ({ location }) => {
       <ProtectedRoute as={EditUser} path="/users/:userId/edit" />
       <ProtectedRoute as={MyAccount} path="/account" />
       <ProtectedRoute as={AnalyticsDashboard} path="/analytics" />
-      <ProtectedRoute as={Logout} path="/logout" />
+      <ProtectedRoute as={Logout} path="/logout" withLayout={false} />
       <PageNotFound default />
     </Router>
   );

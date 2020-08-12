@@ -13,8 +13,11 @@ const UserForm = ({
   showDeleteButton = false,
   submitLabel = "Save",
   submitDisabled = false,
+  showPassword = true,
 }) => {
-  const { register, handleSubmit, errors } = useForm({ defaultValues });
+  const { register, handleSubmit, errors, getValues } = useForm({
+    defaultValues,
+  });
 
   return (
     <>
@@ -43,6 +46,33 @@ const UserForm = ({
           error={errors.organisationName}
           required
         />
+        {showPassword ? (
+          <>
+            <FormInput
+              name="password"
+              type="password"
+              register={register}
+              label="Password"
+              error={errors.password}
+            />
+            <FormInput
+              name="confirmPassword"
+              type="password"
+              register={register}
+              label="Confirm password"
+              error={errors.confirmPassword}
+              validate={{
+                passwordMatch: (value) => {
+                  return (
+                    value === getValues().password || "Passwords should match."
+                  );
+                },
+              }}
+            />
+          </>
+        ) : (
+          ""
+        )}
         <FormFieldset label="Roles">
           <FormCheckbox
             name="roles"

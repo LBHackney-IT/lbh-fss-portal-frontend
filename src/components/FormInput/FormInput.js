@@ -9,6 +9,7 @@ const FormInput = ({
   required,
   error,
   inputRef,
+  validate,
 }) => {
   return (
     <>
@@ -17,17 +18,18 @@ const FormInput = ({
         name={name}
         type={type}
         ref={(e) => {
-          register(e, { required });
+          register(e, { required, validate });
           if (inputRef) inputRef.current = e;
         }}
         aria-invalid={error ? "true" : "false"}
       />
       {error && error.type === "required" && (
-        <span role="alert">This is required</span>
+        <span role="alert">{label} is required.</span>
       )}
       {error && error.type === "maxLength" && (
-        <span role="alert">Max length exceeded</span>
+        <span role="alert">Max length exceeded.</span>
       )}
+      {error && error.message && <span role="alert">{error.message}</span>}
     </>
   );
 };

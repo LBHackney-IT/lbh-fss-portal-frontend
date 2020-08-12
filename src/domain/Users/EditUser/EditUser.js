@@ -4,10 +4,10 @@ import UserService from "../../../services/UserService/UserService";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import useUserFetch from "../../../hooks/useUserFetch";
 
 const EditUser = (props) => {
-  const [user, setUser] = useState(false);
-  const [fetchIsLoading, setFetchIsLoading] = useState(true);
+  const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);
   const [editIsLoading, setEditIsLoading] = useState(false);
   const [deleteIsLoading, setDeleteIsLoading] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
@@ -17,24 +17,6 @@ const EditUser = (props) => {
 
     setDeleteModalIsOpen(!deleteModalIsOpen);
   }
-
-  useEffect(() => {
-    async function fetchUser() {
-      const newUser = await UserService.getUser(props.userId);
-
-      if (newUser) {
-        setUser(newUser);
-
-        setFetchIsLoading(false);
-      } else {
-        toast.error("Unable to find user.");
-
-        navigate("/users");
-      }
-    }
-
-    fetchUser();
-  }, [props.userId, setUser, setFetchIsLoading]);
 
   const onSubmit = (formValues) => {
     async function doEditUser() {
