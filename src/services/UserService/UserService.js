@@ -73,7 +73,17 @@ const UserService = {
       return false;
     }
   },
-  async deleteUser() {},
+  async deleteUser(id) {
+    try {
+      await axios.delete(`/api/users/${id}`);
+
+      return true;
+    } catch (error) {
+      console.error(error);
+
+      return false;
+    }
+  },
 };
 
 export default UserService;

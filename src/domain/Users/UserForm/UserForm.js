@@ -9,6 +9,8 @@ import FormFieldset from "../../../components/FormFieldset/FormFieldset";
 const UserForm = ({
   onSubmit,
   defaultValues = {},
+  onDelete = () => {},
+  showDeleteButton = false,
   submitLabel = "Save",
   submitDisabled = false,
 }) => {
@@ -62,6 +64,11 @@ const UserForm = ({
           />
         </FormFieldset>
         <Button type="submit" label={submitLabel} disabled={submitDisabled} />
+        {showDeleteButton ? (
+          <Button label={"Delete account"} onClick={onDelete} />
+        ) : (
+          ""
+        )}
       </form>
     </>
   );

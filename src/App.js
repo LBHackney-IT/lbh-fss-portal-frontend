@@ -5,6 +5,7 @@ import AppMain from "./AppMain";
 import { GlobalStyle } from "./helpers/GlobalStyle/GlobalStyle";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ModalProvider } from "styled-react-modal";
 
 function App() {
   const userState = useState(false);
@@ -12,10 +13,12 @@ function App() {
   return (
     <div className="App">
       <UserContext.Provider value={userState}>
-        <Header />
-        <AppMain />
-        <ToastContainer />
-        <GlobalStyle />
+        <ModalProvider>
+          <Header />
+          <AppMain />
+          <ToastContainer />
+          <GlobalStyle />
+        </ModalProvider>
       </UserContext.Provider>
     </div>
   );

@@ -3,11 +3,20 @@ import UserForm from "../UserForm/UserForm";
 import UserService from "../../../services/UserService/UserService";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 const EditUser = (props) => {
   const [user, setUser] = useState(false);
   const [fetchIsLoading, setFetchIsLoading] = useState(true);
   const [editIsLoading, setEditIsLoading] = useState(false);
+  const [deleteIsLoading, setDeleteIsLoading] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+
+  function toggleDeleteModal() {
+    if (deleteIsLoading) return;
+
+    setDeleteModalIsOpen(!deleteModalIsOpen);
+  }
 
   useEffect(() => {
     async function fetchUser() {
@@ -49,6 +58,32 @@ const EditUser = (props) => {
     doEditUser();
   };
 
+  async function doDelete() {
+    if (deleteIsLoading) return;
+
+    setDeleteIsLoading(true);
+
+    const deleteSuccess = await UserService.deleteUser(props.userId);
+
+    setDeleteIsLoading(false);
+
+    setDeleteModalIsOpen(false);
+
+    if (deleteSuccess) {
+      toast.success(`User ${user.name} deleted.`);
+
+      navigate("/users");
+    } else {
+      toast.error("Unable to delete user.");
+    }
+  }
+
+  const onDelete = (e) => {
+    e.preventDefault();
+
+    setDeleteModalIsOpen(e);
+  };
+
   if (fetchIsLoading) {
     return "Loading";
   }
@@ -65,6 +100,14 @@ const EditUser = (props) => {
           roles: user.roles || "",
         }}
         submitDisabled={editIsLoading}
+        showDeleteButton={true}
+        onDelete={onDelete}
+      />
+      <DeleteModal
+        isOpen={deleteModalIsOpen}
+        toggleModal={toggleDeleteModal}
+        onConfirm={doDelete}
+        user={user}
       />
     </>
   );

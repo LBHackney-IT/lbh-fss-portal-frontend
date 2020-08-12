@@ -13,7 +13,7 @@ const roles = ["vsco_contributer", "hackney_admin", "hackney_viewer"];
 
 for (let i = 0; i < count; i++) {
   const newUser = {
-    id: i,
+    id: i + 1,
     name: faker.name.findName(),
     email: faker.internet.email(),
     organisation: {

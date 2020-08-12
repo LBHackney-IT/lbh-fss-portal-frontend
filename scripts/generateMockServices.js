@@ -7,7 +7,7 @@ let services = [];
 
 for (let i = 0; i < count; i++) {
   const newService = {
-    id: i,
+    id: i + 1,
     name: faker.random
       .words(2)
       .toLowerCase()
