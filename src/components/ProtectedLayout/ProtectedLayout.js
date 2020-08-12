@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import NavLink from "../NavLink/NavLink";
 import PropTypes from "prop-types";
+import UserContext from "../../context/UserContext/UserContext";
 
 const ProtectedLayout = ({ children }) => {
+  const { organisation } = useContext(UserContext)[0];
+
   return (
     <div>
       <div>
         <div>
           <div>Your organisation</div>
-          <div>Your organisation name</div>
+          <div>{organisation.name}</div>
         </div>
         <nav>
           <NavLink to="/services">Services</NavLink>
