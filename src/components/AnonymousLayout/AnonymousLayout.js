@@ -14,6 +14,8 @@ const StyledLayoutInner = styled.div`
   margin: 0 auto;
   background-color: ${neutral[100]};
   padding: 30px 20px;
+  border-radius: 3px;
+  box-shadow: 4px 4px 4px rgba(0, 30, 58, 0.15);
 `;
 
 const StyledHeading = styled.div`

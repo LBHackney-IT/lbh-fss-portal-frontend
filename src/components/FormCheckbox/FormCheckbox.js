@@ -1,11 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+import FormError from "../FormError/FormError";
+
+const StyledLabel = styled.label`
+  display: block;
+  margin-bottom: 5px;
+`;
+
+const StyledCheckbox = styled.input`
+  margin-right: 5px;
+`;
 
 const FormCheckbox = ({ name, label, register, required, error, value }) => {
   return (
     <>
-      <label>
-        <input
+      <StyledLabel>
+        <StyledCheckbox
           name={name}
           type="checkbox"
           ref={register({ required })}
@@ -13,9 +24,9 @@ const FormCheckbox = ({ name, label, register, required, error, value }) => {
           value={value}
         />
         {label}
-      </label>
+      </StyledLabel>
       {error && error.type === "required" && (
-        <span role="alert">This is required</span>
+        <FormError error="This is required" />
       )}
     </>
   );

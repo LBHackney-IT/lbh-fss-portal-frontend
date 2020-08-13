@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useTable } from "react-table";
 import UserService from "../../../services/UserService/UserService";
 import { Link } from "@reach/router";
+import { roles } from "../../../settings";
 
 const UserTable = () => {
   const columns = useMemo(
@@ -20,6 +21,15 @@ const UserTable = () => {
       {
         Header: "Roles",
         accessor: "roles",
+        Cell: (e) => {
+          return (
+            <ul>
+              {e.value.map((item) => {
+                return <li>{roles[item]}</li>;
+              })}
+            </ul>
+          );
+        },
       },
       {
         Header: "Member for",

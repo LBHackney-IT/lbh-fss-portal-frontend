@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { defaultTheme } from "../../settings";
+import { defaultTheme, blue } from "../../settings";
 import { normalize } from "polished";
 import openSansV17Latin700Ttf from "../../fonts/open-sans-v17-latin/open-sans-v17-latin-700.ttf";
 import openSansV17Latin700Woff from "../../fonts/open-sans-v17-latin/open-sans-v17-latin-700.woff";
@@ -7,6 +7,7 @@ import openSansV17Latin700Woff2 from "../../fonts/open-sans-v17-latin/open-sans-
 import openSansV17LatinRegularTtf from "../../fonts/open-sans-v17-latin/open-sans-v17-latin-regular.ttf";
 import openSansV17LatinRegularWoff from "../../fonts/open-sans-v17-latin/open-sans-v17-latin-regular.woff";
 import openSansV17LatinRegularWoff2 from "../../fonts/open-sans-v17-latin/open-sans-v17-latin-regular.woff2";
+import { darken } from "polished";
 
 export const GlobalStyle = createGlobalStyle`
 ${normalize()}
@@ -47,6 +48,14 @@ body {
 
 h1 {
   font-size: 24px;
+}
+
+a {
+  color: ${blue[400]};
+
+  &:hover {
+    color: ${darken(0.1, blue[400])};
+  }
 }
 
 `;

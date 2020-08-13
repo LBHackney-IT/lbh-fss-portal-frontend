@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { neutral } from "../../settings";
+import FormError from "../FormError/FormError";
 
 const StyledLabel = styled.label`
   display: block;
@@ -18,12 +19,6 @@ const StyledInput = styled.input`
   height: 50px;
   border: 1px solid ${neutral[500]};
   padding: 15px;
-`;
-
-const StyledError = styled.span`
-  display: block;
-  margin-bottom: 20px;
-  width: 100%;
 `;
 
 const FormInput = ({
@@ -49,14 +44,12 @@ const FormInput = ({
         aria-invalid={error ? "true" : "false"}
       />
       {error && error.type === "required" && (
-        <StyledError role="alert">{label} is required.</StyledError>
+        <FormError error={`${label} is required.`} />
       )}
       {error && error.type === "maxLength" && (
-        <StyledError role="alert">Max length exceeded.</StyledError>
+        <FormError error="Max length exceeded." />
       )}
-      {error && error.message && (
-        <StyledError role="alert">{error.message}</StyledError>
-      )}
+      {error && error.message && <FormError error={error.message} />}
     </>
   );
 };

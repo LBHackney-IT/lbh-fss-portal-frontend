@@ -1,4 +1,6 @@
-export const blue = {};
+export const blue = {
+  400: "#025EA6",
+};
 
 export const green = {
   400: "#00664F",

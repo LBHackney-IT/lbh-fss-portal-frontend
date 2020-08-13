@@ -10,8 +10,9 @@ const StyledButton = styled.button`
   color: ${neutral[100]};
   background-color: ${green[400]};
   border: none;
-  padding: 13px;
+  padding: 13px 57px;
   font-size: 19px;
+  cursor: pointer;
 
   &:hover {
     background-color: ${darken(0.1, green[400])};

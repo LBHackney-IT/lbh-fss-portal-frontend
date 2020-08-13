@@ -5,6 +5,7 @@ import FormInput from "../../../components/FormInput/FormInput";
 import Button from "../../../components/Button/Button";
 import FormCheckbox from "../../../components/FormCheckbox/FormCheckbox";
 import FormFieldset from "../../../components/FormFieldset/FormFieldset";
+import { roles } from "../../../settings/roles";
 
 const UserForm = ({
   onSubmit,
@@ -74,24 +75,16 @@ const UserForm = ({
           ""
         )}
         <FormFieldset label="Roles">
-          <FormCheckbox
-            name="roles"
-            label="VSCO Contributer"
-            value="vsco_contributer"
-            register={register}
-          />
-          <FormCheckbox
-            name="roles"
-            label="Hackney Viewer"
-            value="hackney_viewer"
-            register={register}
-          />
-          <FormCheckbox
-            name="roles"
-            label="Hackney Admin"
-            value="hackney_admin"
-            register={register}
-          />
+          {Object.keys(roles).map((item) => {
+            return (
+              <FormCheckbox
+                name="roles"
+                label={roles[item]}
+                value={item}
+                register={register}
+              />
+            );
+          })}
         </FormFieldset>
         <Button type="submit" label={submitLabel} disabled={submitDisabled} />
         {showDeleteButton ? (
