@@ -7,6 +7,11 @@ import FormInput from "../../../components/FormInput/FormInput";
 import Button from "../../../components/Button/Button";
 import UserContext from "../../../context/UserContext/UserContext";
 import { toast } from "react-toastify";
+import styled from "styled-components";
+
+const StyledButton = styled(Button)`
+  width: 100%;
+`;
 
 const Login = () => {
   const { register, handleSubmit, errors, reset } = useForm();
@@ -57,7 +62,7 @@ const Login = () => {
           error={errors.password}
           required
         />
-        <Button type="submit" label="Login" disabled={isLoading} />
+        <StyledButton type="submit" label="Login" disabled={isLoading} />
         <Link to="/password">Forgot Password</Link>
       </form>
     </>

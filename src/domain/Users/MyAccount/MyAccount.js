@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import UserForm from "../UserForm/UserForm";
-import useUserFetch from "../../../hooks/useUserFetch";
+import useUserFetch from "../../../hooks/useUserFetch/useUserFetch";
 import UserContext from "../../../context/UserContext/UserContext";
 import UserService from "../../../services/UserService/UserService";
 import { toast } from "react-toastify";

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import UserForm from "../UserForm/UserForm";
 import UserService from "../../../services/UserService/UserService";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
 import DeleteModal from "../DeleteModal/DeleteModal";
-import useUserFetch from "../../../hooks/useUserFetch";
+import useUserFetch from "../../../hooks/useUserFetch/useUserFetch";
 
 const EditUser = (props) => {
   const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);

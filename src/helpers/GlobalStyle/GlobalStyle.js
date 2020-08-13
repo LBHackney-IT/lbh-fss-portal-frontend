@@ -45,4 +45,8 @@ body {
     url(${openSansV17Latin700Ttf}) format('truetype');
 }
 
+h1 {
+  font-size: 24px;
+}
+
 `;

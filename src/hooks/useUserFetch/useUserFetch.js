@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import UserService from "../services/UserService/UserService";
+import UserService from "../../services/UserService/UserService";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
 
