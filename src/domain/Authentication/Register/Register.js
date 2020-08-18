@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const Register = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
-  async function doRegister() {
-    alert("register");
+  async function doRegister(formValues) {
+    toast.success(`Hello ${formValues.name}`);
   }
 
   return (
@@ -19,6 +20,8 @@ const Register = () => {
           type="text"
           ref={register({ required: true, maxLength: 255 })}
         />
+        {errors.name && errors.name.type === "required" && (<p>Please enter a name</p>)}
+        {errors.name && errors.name.type === "maxLength" && (<p>Maximum length is 255 characters</p>)}
         <label htmlFor="email">Email</label>
         <input
           name="email"
