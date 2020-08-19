@@ -15,7 +15,6 @@ const Register = () => {
       <form onSubmit={handleSubmit(doRegister)}>
         <label htmlFor="name">Your name</label>
         <input
-          aria-label="name"
           name="name"
           type="text"
           ref={register({ required: true, maxLength: 255 })}
