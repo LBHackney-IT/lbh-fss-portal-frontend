@@ -44,7 +44,7 @@ const Login = () => {
   return (
     <>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit(doLogin)}>
+      <form onSubmit={handleSubmit(doLogin)} data-testid="form">
         <FormInput
           label="Email"
           name="email"

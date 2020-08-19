@@ -35,6 +35,7 @@ const FormInput = ({
     <>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
       <StyledInput
+        aria-label={name}
         name={name}
         type={type}
         ref={(e) => {
