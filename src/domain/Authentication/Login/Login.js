@@ -48,11 +48,18 @@ const Login = () => {
         <FormInput
           label="Email"
           name="email"
-          type="email"
           inputRef={emailRef}
           register={register}
-          error={errors.email}
           required
+          validate={{
+            maxLength: (value) => {
+              return value.length <= 255
+            },
+            pattern: (value) => {
+              return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) || "Enter a valid e-mail address"
+            }
+          }}
+          error={errors.email}
         />
         <FormInput
           label="Password"
@@ -61,6 +68,20 @@ const Login = () => {
           register={register}
           error={errors.password}
           required
+          validate={{
+            maxLength: (value) => {
+              return value.length <= 255
+            },
+            minLength: (value) => {
+              return value.length > 6 || "Password must be more than 6 characters"
+            },
+            oneCapital: (value) => {
+              return value.match(/[[A-Z]/) || "Password must contain at least one capital letter"
+            },
+            oneNumber: (value) => {
+              return value.match(/[[0-9]/) || "Password must contain at least one number"
+            },
+          }}
         />
         <StyledButton type="submit" label="Login" disabled={isLoading} />
         <Link to="/password">Forgot Password</Link>
