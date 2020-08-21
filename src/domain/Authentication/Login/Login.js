@@ -51,10 +51,8 @@ const Login = () => {
           inputRef={emailRef}
           register={register}
           required
+          maxLength={255}
           validate={{
-            maxLength: (value) => {
-              return value.length <= 255
-            },
             pattern: (value) => {
               return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) || "Enter a valid e-mail address"
             }
@@ -68,13 +66,9 @@ const Login = () => {
           register={register}
           error={errors.password}
           required
+          maxLength={255}
+          minLength={6}
           validate={{
-            maxLength: (value) => {
-              return value.length <= 255
-            },
-            minLength: (value) => {
-              return value.length > 6 || "Password must be more than 6 characters"
-            },
             oneCapital: (value) => {
               return value.match(/[[A-Z]/) || "Password must contain at least one capital letter"
             },
