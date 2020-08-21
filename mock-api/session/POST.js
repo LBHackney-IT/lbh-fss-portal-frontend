@@ -1,4 +1,4 @@
-var mockUsers = require("../users/mockUsers.json");
+var mockUsers = require("../mockUsers.json");
 var sample = require("lodash/sample");
 
 module.exports = (req, res) => {

@@ -5,62 +5,88 @@ import hackneyLogo from "./logos/hackney-logo.svg";
 import nhsLogo from "./logos/nhs-logo.svg";
 import cityOfLondonLogo from "./logos/city-of-london-logo.svg";
 
-const StyledHeader = styled.header`
-  padding: 20px;
+const StyledHeader = styled.header``;
+
+const StyledHeaderTop = styled.div`
+  padding: 10px 15px;
   background: ${defaultTheme.headerBackgroundColor};
   color: ${defaultTheme.textColorInverted};
   display: flex;
-  justify-content: end;
+  justify-content: start;
   align-items: center;
-`;
-
-const StyledHeading = styled.div`
-  font-size: 19px;
-  font-weight: bold;
-  margin-right: auto;
+  margin-bottom: 15px;
 `;
 
 const StyledLogo = styled.span`
   background-repeat: no-repeat;
   display: inline-block;
-  margin-left: 22px;
+  margin-right: 22px;
   text-indent: -999999px;
   background-size: contain;
+`;
+
+const StyledLines = styled.div`
+  width: 100%;
+  height: 4px;
+  background-color: #0cac3e;
+  position: relative;
+
+  &:before {
+    content: "";
+    left: 0;
+    right: 0;
+    background-color: #006e50;
+    height: 4px;
+    margin-bottom: 7px;
+    position: absolute;
+    top: -7px;
+  }
+
+  &:after {
+    content: "";
+    left: 0;
+    right: 0;
+    background-color: #85b70a;
+    height: 2px;
+    margin-top: 7px;
+    position: absolute;
+    top: 0px;
+  }
 `;
 
 const Header = () => {
   return (
     <StyledHeader>
-      <StyledHeading>
-        Voluntary and Community Organisations Support
-      </StyledHeading>
-      <StyledLogo
-        style={{
-          width: "112.38px",
-          height: "21.61px",
-          backgroundImage: `url(${hackneyLogo})`,
-        }}
-      >
-        Hackney
-      </StyledLogo>
-      <StyledLogo
-        style={{
-          width: "47.55px",
-          height: "19.88px",
-          backgroundImage: `url(${nhsLogo})`,
-        }}
-      >
-        NHS
-      </StyledLogo>
-      <StyledLogo
-        style={{
-          width: "29.39px",
-          height: "40.63px",
-          backgroundImage: `url(${cityOfLondonLogo})`,
-        }}
-      >
-        City of London
-      </StyledLogo>
+      <StyledHeaderTop>
+        <StyledLogo
+          style={{
+            width: "172px",
+            height: "33px",
+            backgroundImage: `url(${hackneyLogo})`,
+          }}
+        >
+          Hackney
+        </StyledLogo>
+        <StyledLogo
+          style={{
+            width: "42.64px",
+            height: "58.94px",
+            backgroundImage: `url(${cityOfLondonLogo})`,
+          }}
+        >
+          City of London
+        </StyledLogo>
+        <StyledLogo
+          style={{
+            width: "68px",
+            height: "27.52px",
+            backgroundImage: `url(${nhsLogo})`,
+          }}
+        >
+          NHS
+        </StyledLogo>
+      </StyledHeaderTop>
+      <StyledLines />
     </StyledHeader>
   );
 };

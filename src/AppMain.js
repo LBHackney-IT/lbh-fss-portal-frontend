@@ -16,6 +16,8 @@ import AuthenticationService from "./services/AuthenticationService/Authenticati
 import UserContext from "./context/UserContext/UserContext";
 import AppLoading from "./AppLoading";
 import Logout from "./domain/Authentication/Logout/Logout";
+import AddService from "./domain/Services/AddService/AddService";
+import EditService from "./domain/Services/EditService/EditService";
 
 const AppMain = ({ location }) => {
   const setUser = useContext(UserContext)[1];
@@ -46,6 +48,10 @@ const AppMain = ({ location }) => {
       <ProtectedRoute as={MyAccount} path="/account" />
       <ProtectedRoute as={AnalyticsDashboard} path="/analytics" />
       <ProtectedRoute as={Logout} path="/logout" withLayout={false} />
+      <ProtectedRoute as={AddService} path="/services/add/" />
+      <ProtectedRoute as={AddService} path="/services/add/:step" />
+      <ProtectedRoute as={EditService} path="/services/:serviceId/edit/" />
+      <ProtectedRoute as={EditService} path="/services/:serviceId/edit/:step" />
       <PageNotFound default />
     </Router>
   );
