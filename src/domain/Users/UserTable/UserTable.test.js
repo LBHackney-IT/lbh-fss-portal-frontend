@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import axiosMock from 'axios';
 import UserTable from './UserTable';
 
