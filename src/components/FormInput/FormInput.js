@@ -27,6 +27,8 @@ const FormInput = ({
   label,
   register,
   required,
+  maxLength,
+  minLength,
   error,
   inputRef,
   validate,
@@ -35,10 +37,11 @@ const FormInput = ({
     <>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
       <StyledInput
+        aria-label={name}
         name={name}
         type={type}
         ref={(e) => {
-          register(e, { required, validate });
+          register(e, { required, 'minLength': minLength, 'maxLength': maxLength, validate });
           if (inputRef) inputRef.current = e;
         }}
         aria-invalid={error ? "true" : "false"}
@@ -48,6 +51,9 @@ const FormInput = ({
       )}
       {error && error.type === "maxLength" && (
         <FormError error="Max length exceeded." />
+      )}
+      {error && error.type === "minLength" && (
+        <FormError error={`${label} must be at least ${minLength} ${type === 'number' ? 'digits' : 'characters'}.`} />
       )}
       {error && error.message && <FormError error={error.message} />}
     </>
@@ -60,6 +66,8 @@ FormInput.propTypes = {
   label: PropTypes.string,
   register: PropTypes.func,
   required: PropTypes.bool,
+  maxLength: PropTypes.number,
+  minLength: PropTypes.number,
   error: PropTypes.object,
 };
 

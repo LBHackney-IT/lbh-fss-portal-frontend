@@ -44,15 +44,20 @@ const Login = () => {
   return (
     <>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit(doLogin)}>
+      <form onSubmit={handleSubmit(doLogin)} data-testid="form">
         <FormInput
           label="Email"
           name="email"
-          type="email"
           inputRef={emailRef}
           register={register}
-          error={errors.email}
           required
+          maxLength={255}
+          validate={{
+            pattern: (value) => {
+              return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) || "Enter a valid e-mail address"
+            }
+          }}
+          error={errors.email}
         />
         <FormInput
           label="Password"
@@ -61,6 +66,16 @@ const Login = () => {
           register={register}
           error={errors.password}
           required
+          maxLength={255}
+          minLength={6}
+          validate={{
+            oneCapital: (value) => {
+              return value.match(/[[A-Z]/) || "Password must contain at least one capital letter"
+            },
+            oneNumber: (value) => {
+              return value.match(/[[0-9]/) || "Password must contain at least one number"
+            },
+          }}
         />
         <StyledButton type="submit" label="Login" disabled={isLoading} />
         <Link to="/password">Forgot Password</Link>
