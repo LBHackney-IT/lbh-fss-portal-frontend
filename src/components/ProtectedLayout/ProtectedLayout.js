@@ -36,7 +36,9 @@ const StyledContactInfo = styled.div`
 `;
 
 const ProtectedLayout = ({ children }) => {
-  const { organisation } = useContext(UserContext)[0];
+  const { roles, organisation } = useContext(UserContext)[0];
+
+  const viewAll = roles.includes('hackney_viewer') || roles.includes('hackney_admin')
 
   return (
     <StyledLayout>
@@ -47,9 +49,9 @@ const ProtectedLayout = ({ children }) => {
         </div>
         <nav>
           <NavLink to="/services">Services</NavLink>
-          <NavLink to="/users">Users</NavLink>
+          {viewAll ? (<NavLink to="/users">Users</NavLink>) : null}
           <NavLink to="/account">My account</NavLink>
-          <NavLink to="/analytics">Analytics</NavLink>
+          {viewAll ? (<NavLink to="/analytics">Analytics</NavLink>) : null}
           <NavLink to="/logout">Log out</NavLink>
         </nav>
       </StyledLayoutTop>
