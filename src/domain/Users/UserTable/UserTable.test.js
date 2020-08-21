@@ -39,7 +39,7 @@ test('table has correct number of rows', async () => {
 });
 
 
-test('first row of table data in correct row', async () => {
+test('first row of table data in correct columns', async () => {
     axiosMock.get.mockImplementationOnce(() => Promise.resolve({ data: mockUsers }));
 
     render(<UserTable />);
