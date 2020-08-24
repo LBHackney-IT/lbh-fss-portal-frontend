@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import axiosMock from 'axios';
 import App from '../../../App'
-var mockUsers = require("../../../../mock-api/users/mockUsers.json");
+var mockUsers = require("../../../../mock-api/mockUsers.json");
 var sample = require("lodash/sample");
 
 beforeEach(() => {
@@ -13,7 +13,7 @@ beforeEach(() => {
 const mockUser = sample(mockUsers);
 
 test('Logout redirects to Login page', async () => {
-    // mock user data (so as to authenticate)
+    // mock user data (so as to ensure user is authenticated)
     axiosMock.get.mockImplementationOnce(() => Promise.resolve({ data: mockUser }));
 
     // render App
