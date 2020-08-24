@@ -1,4 +1,4 @@
-var mockUsers = require("../mockUsers.json");
+var mockUsers = require("../../mockUsers.json");
 
 module.exports = (req, res) => {
   const { userId } = req.params;
