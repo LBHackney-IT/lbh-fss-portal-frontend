@@ -18,3 +18,7 @@ export const neutral = {
   500: "#0B0C0C",
   600: "#000000",
 };
+
+export const grey = {
+  400: "#525A5B"
+}
