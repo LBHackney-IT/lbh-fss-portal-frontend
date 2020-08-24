@@ -44,15 +44,22 @@ const Login = () => {
   return (
     <>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit(doLogin)}>
+      <form onSubmit={handleSubmit(doLogin)} data-testid="form">
         <FormInput
           label="Email"
           name="email"
-          type="email"
           inputRef={emailRef}
           register={register}
-          error={errors.email}
           required
+          validate={{
+            pattern: (value) => {
+              return (
+                value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
+                "Enter a valid e-mail address"
+              );
+            },
+          }}
+          error={errors.email}
         />
         <FormInput
           label="Password"
