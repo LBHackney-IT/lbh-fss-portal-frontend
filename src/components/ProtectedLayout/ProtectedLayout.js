@@ -38,7 +38,7 @@ const StyledContactInfo = styled.div`
 const ProtectedLayout = ({ children }) => {
   const { roles, organisation } = useContext(UserContext)[0];
 
-  const viewAll = roles.includes('hackney_viewer') || roles.includes('hackney_admin')
+  const viewAll = roles.includes('viewer') || roles.includes('admin')
 
   return (
     <StyledLayout>

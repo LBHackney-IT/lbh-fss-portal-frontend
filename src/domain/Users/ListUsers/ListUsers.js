@@ -8,7 +8,7 @@ const ListUsers = ({ location }) => {
 
   const { roles } = useContext(UserContext)[0];
 
-  const accessPermission = roles.includes('hackney_viewer') || roles.includes('hackney_admin')
+  const accessPermission = roles.includes('viewer') || roles.includes('admin')
 
   return accessPermission ? (
     <>
