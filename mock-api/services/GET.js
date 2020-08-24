@@ -1,4 +1,4 @@
-let mockUsers = require("./mockServices.json");
+let mockUsers = require("../mockServices.json");
 
 module.exports = (req, res) => {
   const sort = req.query.sort || "name";

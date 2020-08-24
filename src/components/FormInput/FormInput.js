@@ -21,6 +21,8 @@ const StyledInput = styled.input`
   padding: 15px;
 `;
 
+const StyledHelp = styled.p``;
+
 const FormInput = ({
   type,
   name,
@@ -32,16 +34,18 @@ const FormInput = ({
   error,
   inputRef,
   validate,
+  help,
 }) => {
   return (
     <>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
+      {help ? <StyledHelp>{help}</StyledHelp> : ""}
       <StyledInput
         aria-label={name}
         name={name}
         type={type}
         ref={(e) => {
-          register(e, { required, 'minLength': minLength, 'maxLength': maxLength, validate });
+          register(e, { required, minLength, maxLength, validate });
           if (inputRef) inputRef.current = e;
         }}
         aria-invalid={error ? "true" : "false"}
@@ -53,7 +57,11 @@ const FormInput = ({
         <FormError error="Max length exceeded." />
       )}
       {error && error.type === "minLength" && (
-        <FormError error={`${label} must be at least ${minLength} ${type === 'number' ? 'digits' : 'characters'}.`} />
+        <FormError
+          error={`${label} must be at least ${minLength} ${
+            type === "number" ? "digits" : "characters"
+          }.`}
+        />
       )}
       {error && error.message && <FormError error={error.message} />}
     </>

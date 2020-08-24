@@ -31,7 +31,7 @@ const AddUser = () => {
       <UserForm
         onSubmit={doAddUser}
         submitLabel="Create account"
-        submitDisabled={isLoading}
+        submitLoading={isLoading}
         showPassword={false}
       />
     </>

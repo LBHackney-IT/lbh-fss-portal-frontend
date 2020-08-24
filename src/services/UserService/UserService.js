@@ -26,16 +26,9 @@ const UserService = {
       return false;
     }
   },
-  async createUser({ name, email, organisationName, roles }) {
+  async createUser(values) {
     try {
-      const response = await axios.post("/api/users", {
-        name,
-        email,
-        roles,
-        organisation: {
-          name: organisationName,
-        },
-      });
+      const response = await axios.post("/api/users", values);
 
       return response.data;
     } catch (error) {
@@ -55,17 +48,9 @@ const UserService = {
       return false;
     }
   },
-  async updateUser(id, { name, email, organisationName, roles, password }) {
+  async updateUser(id, values) {
     try {
-      const response = await axios.patch(`/api/users/${id}`, {
-        name,
-        email,
-        roles,
-        organisation: {
-          name: organisationName,
-        },
-        password,
-      });
+      const response = await axios.patch(`/api/users/${id}`, values);
 
       return response.data;
     } catch (error) {

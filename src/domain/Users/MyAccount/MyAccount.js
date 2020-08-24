@@ -47,10 +47,9 @@ const MyAccount = (props) => {
         defaultValues={{
           name: user.name || "",
           email: user.email || "",
-          organisationName: user.organisation.name || "",
           roles: user.roles || "",
         }}
-        submitDisabled={editIsLoading}
+        submitLoading={editIsLoading}
       />
     </>
   );

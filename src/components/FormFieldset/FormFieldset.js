@@ -13,10 +13,13 @@ const StyledLegend = styled.legend`
   margin-bottom: 5px;
 `;
 
-const FormFieldset = ({ label, children }) => {
+const StyledHelp = styled.p``;
+
+const FormFieldset = ({ label, children, help }) => {
   return (
     <StyledFieldset>
       <StyledLegend>{label}</StyledLegend>
+      {help ? <StyledHelp>{help}</StyledHelp> : ""}
       {children}
     </StyledFieldset>
   );
