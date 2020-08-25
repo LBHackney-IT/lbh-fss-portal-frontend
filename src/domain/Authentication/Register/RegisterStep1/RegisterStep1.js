@@ -1,26 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import FormInput from "../../../components/FormInput/FormInput";
-import FormCheckbox from "../../../components/FormCheckbox/FormCheckbox";
-import StyledButton from "../../../components/Button/Button";
-import { flexRender } from "react-table/dist/react-table.development";
+import FormInput from "../../../../components/FormInput/FormInput";
+import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
+import StyledButton from "../../../../components/Button/Button";
 import { navigate } from "@reach/router";
+import Cookies from "js-cookie";
 
-const Register = () => {
-  const { register, handleSubmit, errors, reset } = useForm();
-  const [isLoading, setIsLoading] = useState(false);
+const RegisterStep1 = () => {
+  let defaultValues = {
+    name: "",
+    email: "",
+  };
 
-  async function doRegister() {
-    // make call to 
-    alert("register");
+  if (Cookies.get("registerStep1Values")) {
+    try {
+      defaultValues = JSON.parse(Cookies.get("registerStep1Values"));
+    } catch (err) {
+      Cookies.remove("registerStep1Values");
+    }
+  }
 
-    navigate('/')
+  const { register, handleSubmit, errors } = useForm({
+    defaultValues: defaultValues,
+  });
+
+  function onSubmit({ name, email, agreeToTerms }) {
+    Cookies.set("registerStep1Values", {
+      name: name,
+      email: email,
+      agreeToTerms: agreeToTerms,
+    });
+
+    navigate("/register/step-2");
   }
 
   return (
     <>
       <h1>Create an account</h1>
-      <form onSubmit={handleSubmit(doRegister)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           label="Your name"
           name="name"
@@ -28,14 +45,6 @@ const Register = () => {
           required
           maxLength={255}
           error={errors.name}
-        />
-        <FormInput
-          label="Organisation"
-          name="organisation"
-          register={register}
-          required
-          maxLength={255}
-          error={errors.organisation}
         />
         <FormInput
           label="Email"
@@ -61,10 +70,10 @@ const Register = () => {
           required
           error={errors.agreeToTerms}
         />
-        <StyledButton type="submit" label="Login" disabled={isLoading} />
+        <StyledButton type="submit" label="Create Account" />
       </form>
     </>
   );
 };
 
-export default Register;
+export default RegisterStep1;
