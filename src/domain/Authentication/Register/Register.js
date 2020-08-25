@@ -4,14 +4,17 @@ import FormInput from "../../../components/FormInput/FormInput";
 import FormCheckbox from "../../../components/FormCheckbox/FormCheckbox";
 import StyledButton from "../../../components/Button/Button";
 import { flexRender } from "react-table/dist/react-table.development";
-import { Link } from "@reach/router";
+import { navigate } from "@reach/router";
 
 const Register = () => {
   const { register, handleSubmit, errors, reset } = useForm();
   const [isLoading, setIsLoading] = useState(false);
 
   async function doRegister() {
+    // make call to 
     alert("register");
+
+    navigate('/')
   }
 
   return (
