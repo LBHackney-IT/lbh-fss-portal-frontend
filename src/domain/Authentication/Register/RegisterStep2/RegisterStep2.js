@@ -30,12 +30,12 @@ const RegisterStep2 = () => {
     }
   }
 
-  async function onRegister({ password }) {
+  async function doRegister({ password }) {
     if (
       registerStep1Values.name.length > 255 ||
       registerStep1Values.name.length === 0 ||
       registerStep1Values.email.length > 255 ||
-      registerStep1Values.email.match(
+      !registerStep1Values.email.match(
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
       )
     ) {
@@ -58,9 +58,10 @@ const RegisterStep2 = () => {
       toast.error("Please agree to the service terms and conditions.");
       navigate("/register/step-1");
     } else if (user) {
-      setUser(user);
-      Cookies.remove("registerStep1Values");
-      navigate("/services");
+      toast.success(
+        `A confirmation code has been sent to ${registerStep1Values.email}.`
+      );
+      navigate("/register/step-3");
     } else {
       toast.error("Registration failed.");
       navigate("/register/step-1");
@@ -74,7 +75,7 @@ const RegisterStep2 = () => {
       ) : (
         <>
           <h1>Create your password</h1>
-          <form onSubmit={handleSubmit(onRegister)}>
+          <form onSubmit={handleSubmit(doRegister)}>
             <FormInput
               type="password"
               label="Password"
