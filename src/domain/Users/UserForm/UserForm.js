@@ -20,15 +20,25 @@ const UserForm = ({
     defaultValues,
   });
 
+  let loopIteration = 0;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
         name="email"
-        type="email"
         label="Email"
         register={register}
         error={errors.email}
         required
+        maxLength={255}
+        validate={{
+          pattern: (value) => {
+            return (
+              value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
+              "Enter a valid e-mail address"
+            );
+          },
+        }}
       />
       <FormInput
         name="name"
@@ -37,6 +47,7 @@ const UserForm = ({
         register={register}
         error={errors.name}
         required
+        maxLength={255}
       />
       {showPassword ? (
         <>
@@ -67,6 +78,7 @@ const UserForm = ({
       )}
       <FormFieldset label="Roles">
         {Object.keys(roles).map((item) => {
+          loopIteration++;
           return (
             <FormCheckbox
               key={item}
@@ -74,6 +86,7 @@ const UserForm = ({
               label={roles[item]}
               value={item}
               register={register}
+              dataTestid={`checkbox-${loopIteration}`}
             />
           );
         })}
