@@ -1,5 +1,5 @@
 export const roles = {
-  vsco_contributer: "VSCO Contributer",
-  hackney_viewer: "Hackney Viewer",
-  hackney_admin: "Hackney Admin",
+  vcso: "VCSO Contributer",
+  viewer: "Hackney Viewer",
+  admin: "Hackney Admin",
 };

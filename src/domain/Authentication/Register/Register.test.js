@@ -2,16 +2,11 @@ import React from "react";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import Register from "./Register";
 import axiosMock from "axios";
-import { repeat } from "lodash";
-var mockUsers = require("../../../../mock-api/mockUsers.json");
-var sample = require("lodash/sample");
+import { mockUser } from '../../../utils/testing/testing'
 
 beforeEach(() => {
   axiosMock.post.mockClear();
 });
-
-// grab mock user data
-const mockUser = sample(mockUsers);
 
 /*test("email and password fields present", async () => {
   const { getByLabelText } = render(<Register />);
