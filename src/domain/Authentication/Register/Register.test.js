@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import Register from "./Register";
 import axiosMock from "axios";
-import { mockUser } from "../../../utils/testing/testing";
+import { mockUser } from '../../../utils/testing/testing'
 
 beforeEach(() => {
   axiosMock.post.mockClear();

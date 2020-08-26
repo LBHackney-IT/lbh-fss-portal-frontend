@@ -24,8 +24,8 @@ const UserTable = () => {
         Cell: (e) => {
           return (
             <ul>
-              {e.value.map((item) => {
-                return <li>{roles[item]}</li>;
+              {e.value.map((item, i) => {
+                return <li key={i}>{roles[item]}</li>;
               })}
             </ul>
           );
