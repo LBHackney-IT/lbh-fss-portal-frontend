@@ -3,10 +3,21 @@ export const blue = {
 };
 
 export const green = {
+  300: "#267D69",
   400: "#00664F",
 };
 
-export const yellow = {};
+export const limeGreen = {
+  400: "#85b70a",
+};
+
+export const yellow = {
+  400: "#ffc844",
+};
+
+export const orange = {
+  400: "#ff9d14",
+};
 
 export const red = {};
 
