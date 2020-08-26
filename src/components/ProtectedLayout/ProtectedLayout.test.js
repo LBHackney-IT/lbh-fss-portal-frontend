@@ -1,33 +1,41 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import ProtectedLayout from './ProtectedLayout';
-import UserContext from '../../context/UserContext/UserContext';
+import React from "react";
+import { screen } from "@testing-library/react";
+import ProtectedLayout from "./ProtectedLayout";
 import {
-    renderWithAccessPermissions,
-    renderWithoutAccessPermissions
-} from '../../utils/testing/testing'
+  renderWithInternalPermissions,
+  renderWithVcsoPermissions,
+} from "../../utils/testing/testing";
 
+test("internal team menu links appear for users with permissions", async () => {
+  renderWithInternalPermissions(<ProtectedLayout />);
+  const menuLinks = await screen.getAllByRole("navigation");
+  expect(menuLinks[0]).toHaveTextContent("View site");
+  expect(menuLinks[1]).toHaveTextContent("Users");
+  expect(menuLinks[1]).toHaveTextContent("Organisations");
+  expect(menuLinks[1]).toHaveTextContent("Analytics");
+  expect(menuLinks[1]).toHaveTextContent("Search");
+});
 
-test('"users" menu link does appear for users with permissions', async () => {
-    renderWithAccessPermissions(<ProtectedLayout />)
-    const menuLinks = await screen.findByRole('navigation')
-    expect(menuLinks).toHaveTextContent('Users')
-})
+test("internal team menu links do not appear for users without permissions", async () => {
+  renderWithVcsoPermissions(<ProtectedLayout />);
+  const menuLinks = await screen.getAllByRole("navigation");
+  expect(menuLinks[0]).not.toHaveTextContent("View site");
+  expect(menuLinks[1]).not.toHaveTextContent("Users");
+  expect(menuLinks[1]).not.toHaveTextContent("Organisations");
+  expect(menuLinks[1]).not.toHaveTextContent("Analytics");
+  expect(menuLinks[1]).not.toHaveTextContent("Search");
+});
 
-test('"analytics" menu link does appear for users with permissions', async () => {
-    renderWithAccessPermissions(<ProtectedLayout />)
-    const menuLinks = await screen.findByRole('navigation')
-    expect(menuLinks).toHaveTextContent('Analytics')
-})
+test("vcso menu links appear for users with permissions", async () => {
+  renderWithVcsoPermissions(<ProtectedLayout />);
+  const menuLinks = await screen.getAllByRole("navigation");
+  expect(menuLinks[1]).toHaveTextContent("Your organisation");
+  expect(menuLinks[1]).toHaveTextContent("Your listings");
+});
 
-test('"users" menu link does not appear for users without permissions', async () => {
-    renderWithoutAccessPermissions(<ProtectedLayout />)
-    const menuLinks = await screen.findByRole('navigation')
-    expect(menuLinks).not.toHaveTextContent('Users')
-})
-
-test('"analytics" menu link does not appear for users without permissions', async () => {
-    renderWithoutAccessPermissions(<ProtectedLayout />)
-    const menuLinks = await screen.findByRole('navigation')
-    expect(menuLinks).not.toHaveTextContent('Analytics')
-})
+test("vcso team menu links do not appear for users without permissions", async () => {
+  renderWithInternalPermissions(<ProtectedLayout />);
+  const menuLinks = await screen.getAllByRole("navigation");
+  expect(menuLinks[1]).not.toHaveTextContent("Your organisation");
+  expect(menuLinks[1]).not.toHaveTextContent("Your listings");
+});
