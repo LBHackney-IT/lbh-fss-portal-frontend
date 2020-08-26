@@ -7,8 +7,11 @@ import UserContext from "../../../../context/UserContext/UserContext";
 import AuthenticationService from "../../../../services/AuthenticationService/AuthenticationService";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import ButtonAction from "../../../../components/ButtonAction/ButtonAction";
+import FormError from "../../../../components/FormError/FormError";
 
 const RegisterStep3 = () => {
+  // initalise form default values
   let defaultValues = {
     email: "",
     code: "",
@@ -16,6 +19,7 @@ const RegisterStep3 = () => {
 
   let registerStep1Values = {};
 
+  // fetch email value from cookie, if cookie exists
   if (Cookies.get("registerStep1Values")) {
     try {
       registerStep1Values = JSON.parse(Cookies.get("registerStep1Values"));
@@ -25,12 +29,22 @@ const RegisterStep3 = () => {
     }
   }
 
-  const { register, handleSubmit, errors } = useForm({
+  // initalise form with default values
+  const {
+    register,
+    handleSubmit,
+    errors,
+    getValues,
+    setValue,
+    clearErrors,
+  } = useForm({
     defaultValues: defaultValues,
   });
   const [isLoading, setIsLoading] = useState(false);
   const setUser = useContext(UserContext)[1];
+  const [emailValidationStatus, setEmailValidationStatus] = useState("pass");
 
+  // define function to trigger on form submission
   async function doRegisterConfirmation({ email, code }) {
     setIsLoading(true);
 
@@ -44,6 +58,40 @@ const RegisterStep3 = () => {
       navigate("/services");
     } else {
       toast.error("Registration failed.");
+    }
+  }
+
+  // define function to trigger on 'Resend confirmation code' button click
+  async function doResendRegisterConfirmation(e, email) {
+    e.preventDefault();
+    setValue("code", "");
+    clearErrors();
+
+    if (email.length === 0) {
+      setEmailValidationStatus("missing");
+      return false;
+    } else if (email.length > 255) {
+      setEmailValidationStatus("exceedMaxLength");
+      return false;
+    } else if (!email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)) {
+      setEmailValidationStatus("invalidPattern");
+      return false;
+    } else {
+      setEmailValidationStatus("pass");
+    }
+
+    setIsLoading(true);
+
+    const responseSuccess = await AuthenticationService.resendRegisterConfirmation(
+      email
+    );
+
+    setIsLoading(false);
+
+    if (responseSuccess) {
+      toast.success(`A confirmation code has been re-sent to ${email}.`);
+    } else {
+      toast.error(`Failed to re-send a confirmation code to ${email}.`);
     }
   }
 
@@ -67,13 +115,27 @@ const RegisterStep3 = () => {
           }}
           error={errors.email}
         />
+        {emailValidationStatus === "missing" ? (
+          <FormError error={"Email is required"} />
+        ) : null}
+        {emailValidationStatus === "exceedMaxLength" ? (
+          <FormError error={"Max length exceeded."} />
+        ) : null}
+        {emailValidationStatus === "invalidPattern" ? (
+          <FormError error={"Enter a valid e-mail address"} />
+        ) : null}
         <FormInput
           label="Code"
           name="code"
           register={register}
+          required
           error={errors.code}
         />
         <StyledButton type="submit" label="Submit" disabled={isLoading} />
+        <ButtonAction
+          onClick={(e) => doResendRegisterConfirmation(e, getValues().email)}
+          label={"Resend confirmation code"}
+        />
       </form>
     </>
   );

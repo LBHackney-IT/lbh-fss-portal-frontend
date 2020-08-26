@@ -2,6 +2,10 @@ export const blue = {
   400: "#025EA6",
 };
 
+export const hoverBlue = {
+  400: "#014174",
+};
+
 export const green = {
   400: "#00664F",
 };
@@ -20,5 +24,5 @@ export const neutral = {
 };
 
 export const grey = {
-  400: "#525A5B"
-}
+  400: "#525A5B",
+};

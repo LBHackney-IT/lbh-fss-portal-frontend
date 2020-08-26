@@ -26,6 +26,20 @@ const AuthenticationService = {
       return false;
     }
   },
+  async resendRegisterConfirmation(email) {
+    try {
+      const { data } = await axios.post(
+        "/api/registration/confirmation/resend-request",
+        {
+          email,
+        }
+      );
+
+      return data;
+    } catch (error) {
+      return false;
+    }
+  },
   async login(email, password) {
     try {
       const { data } = await axios.post("/api/session", { email, password });
