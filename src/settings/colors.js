@@ -8,7 +8,9 @@ export const green = {
 
 export const yellow = {};
 
-export const red = {};
+export const red = {
+  400: "#BE3A35",
+};
 
 export const neutral = {
   100: "#ffffff",

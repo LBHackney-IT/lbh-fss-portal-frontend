@@ -6,6 +6,26 @@ import Button from "../../../components/Button/Button";
 import FormCheckbox from "../../../components/FormCheckbox/FormCheckbox";
 import FormFieldset from "../../../components/FormFieldset/FormFieldset";
 import { roles } from "../../../settings/roles";
+import styled from "styled-components";
+import { green, red } from "../../../settings";
+import { darken } from "polished";
+
+const StyledDeleteButton = styled(Button)`
+  background-color: ${red[400]};
+  &:hover {
+    background-color: ${darken(0.1, red[400])};
+  }
+`;
+
+const StyledActionDiv = styled.div`
+  display: flex;
+  & > * {
+    margin-right: 10px;
+    flex: 1 1 0;
+    max-width: 219px;
+    padding: 20px;
+  }
+`;
 
 const UserForm = ({
   onSubmit,
@@ -78,12 +98,14 @@ const UserForm = ({
           );
         })}
       </FormFieldset>
-      <Button type="submit" label={submitLabel} disabled={submitLoading} />
-      {showDeleteButton ? (
-        <Button label={"Delete account"} onClick={onDelete} />
-      ) : (
-        ""
-      )}
+      <StyledActionDiv>
+        {showDeleteButton ? (
+          <StyledDeleteButton label={"Delete account"} onClick={onDelete} />
+        ) : (
+          ""
+        )}
+        <Button type="submit" label={submitLabel} disabled={submitLoading} />
+      </StyledActionDiv>
     </form>
   );
 };
