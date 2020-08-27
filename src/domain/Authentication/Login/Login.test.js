@@ -2,12 +2,11 @@ import React from "react";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import Login from "./Login";
 import axiosMock from "axios";
-import { mockUser } from '../../../utils/testing/testing'
+import { mockUser } from "../../../utils/testing/testing";
 
 beforeEach(() => {
   axiosMock.post.mockClear();
 });
-
 
 test("email and password fields present", async () => {
   const { getByLabelText } = render(<Login />);
@@ -28,12 +27,12 @@ test("empty fields trigger validation message", async () => {
   expect(passwordAlert).toBeInTheDocument();
 });
 
-test("emails with incorrect pattern trigger validation", async () => {
-  render(<Login />);
+const emailsWithIncorrectPattern = ["test@.com", "test", "a@b", "abc@com"];
 
-  const emailsWithIncorrectPattern = ["test@.com", "test", "a@b", "abc@com"];
+emailsWithIncorrectPattern.forEach(async (email) => {
+  test(`email: ${email} with incorrect pattern trigger validation`, async () => {
+    render(<Login />);
 
-  emailsWithIncorrectPattern.forEach(async (email) => {
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { value: email },
     });
@@ -41,31 +40,29 @@ test("emails with incorrect pattern trigger validation", async () => {
     fireEvent.submit(screen.getByTestId("form"));
 
     const emailAlert = await screen.findByText(/Enter a valid e-mail address/i);
-
     expect(emailAlert).toBeInTheDocument();
   });
 });
 
-test("emails with correct pattern do not trigger validation", async () => {
-  render(<Login />);
+const emailsWithCorrectPattern = [
+  "test@example.com",
+  "test12D@gmail.com",
+  "nudge@nudgedigital.co.uk",
+  "microsoft@hotmail.com",
+];
 
-  const emailsWithIncorrectPattern = [
-    "test@example.com",
-    "test12D@gmail.com",
-    "nudge@nudgedigital.co.uk",
-    "microsoft@hotmail.com",
-  ];
+emailsWithCorrectPattern.forEach(async (email) => {
+  test(`email: ${email} with correct pattern does not trigger validation`, async () => {
+    render(<Login />);
 
-  emailsWithIncorrectPattern.forEach(async (email) => {
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { value: email },
     });
 
     fireEvent.submit(screen.getByTestId("form"));
 
-    const emailAlert = await screen.findByText(/Enter a valid e-mail address/i);
-
-    expect(emailAlert).not.toBeInTheDocument();
+    const emailAlert = screen.queryByText(/Enter a valid e-mail address/);
+    expect(emailAlert).toBeNull();
   });
 });
 
