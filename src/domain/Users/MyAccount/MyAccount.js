@@ -36,7 +36,7 @@ const MyAccount = (props) => {
   };
 
   if (fetchIsLoading) {
-    return "Loading";
+    return "<div data-testid='loading'>Loading</div>";
   }
 
   return (

@@ -14,9 +14,6 @@ beforeEach(() => {
   jest.clearAllMocks();
   axiosMock.get.mockReset();
   axiosMock.patch.mockReset();
-  // delete window.location;
-  // window.location = new URL("http://localhost:3000");
-  // window.location.path = "/users/1/edit";
 });
 
 async function renderAndInitalise(component) {
@@ -124,20 +121,20 @@ const emailsWithCorrectPattern = [
   "microsoft@hotmail.com",
 ];
 
-// emailsWithCorrectPattern.forEach(async (email) => {
-//   test(`email: ${email} with correct pattern does not trigger validation`, async () => {
-//     await renderAndInitalise(<EditUser />);
+emailsWithCorrectPattern.forEach(async (email) => {
+  test(`email: ${email} with correct pattern does not trigger validation`, async () => {
+    await renderAndInitalise(<EditUser />);
 
-//     fireEvent.change(screen.getByLabelText(/email/i), {
-//       target: { value: email },
-//     });
+    fireEvent.change(screen.getByLabelText(/email/i), {
+      target: { value: email },
+    });
 
-//     fireEvent.click(screen.getByText(/save/i));
+    fireEvent.click(screen.getByText(/save/i));
 
-//     const emailAlert = screen.queryByText(/Enter a valid e-mail address/);
-//     expect(emailAlert).toBeNull();
-//   });
-// });
+    const emailAlert = screen.queryByText(/Enter a valid e-mail address/);
+    expect(emailAlert).toBeNull();
+  });
+});
 
 // test.only("on successful edit, user is redirected to /users page", async () => {
 //   axiosMock.get.mockImplementationOnce(() =>
@@ -165,8 +162,6 @@ const emailsWithCorrectPattern = [
 //   // submit form
 //   fireEvent.click(screen.getByText(/save/i));
 
-  
-
 //   await waitFor(() => {
 //     expect(window.location.pathname).toEqual("/users");
 //   });
@@ -182,7 +177,6 @@ const emailsWithCorrectPattern = [
 //   // expect(axiosMock.get).toHaveBeenCalledTimes(1);
 //   // expect(axiosMock.patch).toHaveBeenCalledTimes(1);
 // });
-
 
 // test.only("on successful edit, user is redirected to /users page", async () => {
 //   axiosMock.get.mockImplementationOnce(() =>
@@ -257,7 +251,6 @@ const emailsWithCorrectPattern = [
 
 //   expect(axiosMock.patch).toHaveBeenCalledTimes(1);
 // });
-
 
 // emailsWithCorrectPattern.forEach(async (email) => {
 //   test(`email: ${email} with correct pattern does not trigger validation`, async () => {
