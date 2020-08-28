@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
-import Button from "../Button/Button";
 import styled from "styled-components";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 import UserContext from "../../context/UserContext/UserContext";
 import NavLink from "../NavLink/NavLink";
 import SecondaryNavMenu from "../SecondaryNavMenu/SecondaryNavMenu";
 import closeIcon from "./icons/close.svg";
+import burgerIcon from "./icons/open-menu.svg";
+import { green } from "../../settings";
 
 const StyledPrimaryLink = styled(NavLink)`
   margin: 10px 0;
@@ -16,6 +17,11 @@ const StyledPrimaryLink = styled(NavLink)`
 
 const StyledMobileTitle = styled.div`
   display: flex;
+  background-color: ${green[400]};
+  padding: 10px 10px;
+  color: white;
+  font-size: 19px;
+  font-weight: 700;
   ${breakpoint("sm")`
     display: none;
   `};
@@ -43,13 +49,25 @@ const StyledCloseIcon = styled.span`
   display: ${(props) => (props.menuIsOpen ? "inline" : "none")};
   background-repeat: no-repeat;
   display: inline-block;
-  margin-right: 5px;
   text-indent: -999999px;
   background-size: contain;
-  width: 10px;
-  height: 10px;
-  margin-top: 4px;
+  margin-right: ${(props) => (props.menuIsOpen ? "5px" : "0")};
+  width: ${(props) => (props.menuIsOpen ? "15px" : "0")};
+  height: ${(props) => (props.menuIsOpen ? "15px" : "0")};
+  margin-top: 2px;
   background-image: url(${closeIcon});
+`;
+
+const StyledBurgerIcon = styled.span`
+  background-repeat: no-repeat;
+  display: inline-block;
+  text-indent: -999999px;
+  background-size: contain;
+  margin-right: ${(props) => (!props.menuIsOpen ? "5px" : "0")};
+  width: ${(props) => (!props.menuIsOpen ? "15px" : "0")};
+  height: ${(props) => (!props.menuIsOpen ? "15px" : "0")};
+  margin-top: 2px;
+  background-image: url(${burgerIcon});
 `;
 
 function NavBar() {
@@ -65,7 +83,8 @@ function NavBar() {
   return (
     <>
       <StyledMobileTitle onClick={toggleMenu}>
-        <StyledCloseIcon />
+        <StyledCloseIcon menuIsOpen={menuIsOpen} />
+        <StyledBurgerIcon menuIsOpen={menuIsOpen} />
         <div>Menu</div>
       </StyledMobileTitle>
       <StyledNav menuIsOpen={menuIsOpen}>

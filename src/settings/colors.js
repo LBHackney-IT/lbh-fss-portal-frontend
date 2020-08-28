@@ -3,6 +3,7 @@ export const blue = {
 };
 
 export const green = {
+  300: "#267D6A",
   400: "#00664F",
 };
 

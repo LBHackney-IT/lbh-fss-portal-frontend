@@ -29,7 +29,7 @@ const StyledAnchor = styled.a`
 const StyledNav = styled.nav`
   display: flex;
   flex-direction: column;
-  background-color: ${green[400]};
+  background-color: ${green[300]};
   padding: 0 0 10px 10px;
   ${breakpoint("sm")`
     flex-direction: row;
