@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import UserContext from "../../context/UserContext/UserContext";
 import styled from "styled-components";
 import { neutral } from "../../settings";
+import NavBar from "../NavBar/NavBar";
+import SecondaryNavMenu from "../SecondaryNavMenu/SecondaryNavMenu";
+import { breakpoint } from "../../utils/breakpoint/breakpoint";
 
 const StyledLayout = styled.div`
   padding: 30px 10px;
@@ -35,12 +38,15 @@ const StyledContactInfo = styled.div`
   padding: 21px 0 49px 0;
 `;
 
-const StyledPrimaryLink = styled(NavLink)`
-  margin-right: 27px;
-`;
-
 const StyledSecondaryLink = styled(NavLink)`
   margin-left: 27px;
+`;
+
+const StyledSecondaryNav = styled.nav`
+  display: none;
+  ${breakpoint("sm")`
+    display: block;
+  `};
 `;
 
 const ProtectedLayout = ({ children }) => {
@@ -55,44 +61,11 @@ const ProtectedLayout = ({ children }) => {
           <StyledOrgLabel>Your organisation</StyledOrgLabel>
           <StyledOrgName>{organisation.name}</StyledOrgName>
         </div>
-        <nav>
-          {isInternalTeam ? (
-            <a
-              href="https://hackney.gov.uk/find-support-services/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View site
-            </a>
-          ) : null}
-          <StyledSecondaryLink to="/account">My account</StyledSecondaryLink>
-          <StyledSecondaryLink to="/logout">Log out</StyledSecondaryLink>
-        </nav>
+        <StyledSecondaryNav>
+          <SecondaryNavMenu />
+        </StyledSecondaryNav>
       </StyledLayoutTop>
-      <nav>
-        {!isInternalTeam ? (
-          <StyledPrimaryLink to="/organisation">
-            Your organisation
-          </StyledPrimaryLink>
-        ) : null}
-        {isInternalTeam ? (
-          <StyledPrimaryLink to="/organisations">
-            Organisations
-          </StyledPrimaryLink>
-        ) : null}
-        <StyledPrimaryLink to="/services">
-          {isInternalTeam ? "Listings" : "Your listings"}
-        </StyledPrimaryLink>
-        {isInternalTeam ? (
-          <StyledPrimaryLink to="/users">Users</StyledPrimaryLink>
-        ) : null}
-        {isInternalTeam ? (
-          <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
-        ) : null}
-        {isInternalTeam ? (
-          <StyledPrimaryLink to="/search">Search</StyledPrimaryLink>
-        ) : null}
-      </nav>
+      <NavBar />
       {children}
       <StyledContactInfo>
         If you need support please email:{" "}
