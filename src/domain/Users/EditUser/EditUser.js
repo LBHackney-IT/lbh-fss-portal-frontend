@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import UserForm from "../UserForm/UserForm";
 import UserService from "../../../services/UserService/UserService";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
+import UserContext from "../../../context/UserContext/UserContext";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import useUserFetch from "../../../hooks/useUserFetch/useUserFetch";
+import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 
 const EditUser = (props) => {
   const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);
   const [editIsLoading, setEditIsLoading] = useState(false);
   const [deleteIsLoading, setDeleteIsLoading] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const { roles } = useContext(UserContext)[0];
 
   function toggleDeleteModal() {
     if (deleteIsLoading) return;
@@ -67,10 +70,12 @@ const EditUser = (props) => {
   };
 
   if (fetchIsLoading) {
-    return "Loading";
+    return "<div data-testid='loading'>Loading</div>";
   }
 
-  return (
+  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+
+  return accessPermission ? (
     <>
       <h1>Edit user</h1>
       <UserForm
@@ -91,6 +96,8 @@ const EditUser = (props) => {
         user={user}
       />
     </>
+  ) : (
+    <AccessDenied />
   );
 };
 

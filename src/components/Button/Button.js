@@ -13,7 +13,7 @@ const StyledButton = styled.button`
   padding: 13px 57px;
   font-size: 19px;
   cursor: pointer;
-
+  border-radius: 3px;
   &:hover {
     background-color: ${darken(0.1, green[400])};
   }

@@ -12,6 +12,10 @@ export const red = {
   400: "#BE3A35",
 };
 
+export const grey = {
+  400: "#F8F8F8",
+};
+
 export const neutral = {
   100: "#ffffff",
   200: "#f3f3f3",

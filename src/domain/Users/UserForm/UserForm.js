@@ -7,7 +7,8 @@ import FormCheckbox from "../../../components/FormCheckbox/FormCheckbox";
 import FormFieldset from "../../../components/FormFieldset/FormFieldset";
 import { roles } from "../../../settings/roles";
 import styled from "styled-components";
-import { green, red } from "../../../settings";
+import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import { red } from "../../../settings";
 import { darken } from "polished";
 
 const StyledDeleteButton = styled(Button)`
@@ -19,6 +20,10 @@ const StyledDeleteButton = styled(Button)`
 
 const StyledActionDiv = styled.div`
   display: flex;
+  flex-direction: column;
+  ${breakpoint("sm")`
+    flex-direction: row;
+  `}
   & > * {
     margin-right: 10px;
     flex: 1 1 0;
@@ -44,11 +49,19 @@ const UserForm = ({
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
         name="email"
-        type="email"
         label="Email"
         register={register}
         error={errors.email}
         required
+        maxLength={255}
+        validate={{
+          pattern: (value) => {
+            return (
+              value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
+              "Enter a valid e-mail address"
+            );
+          },
+        }}
       />
       <FormInput
         name="name"
@@ -57,6 +70,7 @@ const UserForm = ({
         register={register}
         error={errors.name}
         required
+        maxLength={255}
       />
       {showPassword ? (
         <>
