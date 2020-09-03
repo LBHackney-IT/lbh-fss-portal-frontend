@@ -1,5 +1,6 @@
 export const blue = {
   400: "#025EA6",
+  500: "#014174",
 };
 
 export const green = {
@@ -28,4 +29,8 @@ export const neutral = {
   400: "#6F777B",
   500: "#0B0C0C",
   600: "#000000",
+};
+
+export const grey = {
+  400: "#525A5B",
 };

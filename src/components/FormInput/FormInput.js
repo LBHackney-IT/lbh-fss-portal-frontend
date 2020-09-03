@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { neutral } from "../../settings";
 import FormError from "../FormError/FormError";
+import { grey } from "../../settings";
 
 const StyledLabel = styled.label`
   display: block;
   margin-bottom: 5px;
   font-size: 19px;
-  font-weight: bold;
+  color: ${grey[400]};
 `;
 
 const StyledInput = styled.input`
@@ -60,7 +61,7 @@ const FormInput = ({
         <FormError
           error={`${label} must be at least ${minLength} ${
             type === "number" ? "digits" : "characters"
-          }.`}
+            }.`}
         />
       )}
       {error && error.message && <FormError error={error.message} />}
