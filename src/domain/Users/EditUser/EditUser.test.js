@@ -2,6 +2,8 @@ import React from "react";
 import { fireEvent, waitFor, screen, cleanup } from "@testing-library/react";
 import EditUser from "./EditUser";
 import axiosMock from "axios";
+import { toast } from "react-toastify";
+import { navigate } from "@reach/router";
 import {
   mockUser,
   renderWithInternalPermissions,
@@ -18,7 +20,7 @@ beforeEach(() => {
 
 async function renderAndInitalise(component) {
   axiosMock.get.mockImplementationOnce(() =>
-    Promise.resolve({ data: { mockUser } })
+    Promise.resolve({ data: mockUser })
   );
 
   renderWithInternalPermissions(component);
@@ -129,140 +131,55 @@ emailsWithCorrectPattern.forEach(async (email) => {
       target: { value: email },
     });
 
-    fireEvent.click(screen.getByText(/save/i));
+    axiosMock.patch.mockImplementationOnce(() =>
+      Promise.resolve({ data: { mockUser } })
+    );
 
-    const emailAlert = screen.queryByText(/Enter a valid e-mail address/);
-    expect(emailAlert).toBeNull();
+    const saveButton = await screen.findByText(/save/i);
+    fireEvent.click(saveButton);
+
+    await waitFor(() => {
+      const emailAlert = screen.queryByText(/Enter a valid e-mail address/);
+      expect(emailAlert).toBeNull();
+    });
   });
 });
 
-// test.only("on successful edit, user is redirected to /users page", async () => {
-//   axiosMock.get.mockImplementationOnce(() =>
-//     Promise.resolve({ data: { mockUser } })
-//   );
-//   renderWithInternalPermissions(<EditUser />);
+test("on successful edit, user is shown success notifcation and redirected to /users page", async () => {
+  await renderAndInitalise(<EditUser />);
 
-//   await finishLoading();
+  axiosMock.patch.mockImplementationOnce(() =>
+    Promise.resolve({ data: mockUser })
+  );
 
-//   // update values in form
-//   fireEvent.change(screen.getByLabelText(/email/i), {
-//     target: { value: mockUser.email },
-//   });
-//   fireEvent.change(screen.getByLabelText(/name/i), {
-//     target: { value: mockUser.name },
-//   });
+  const saveButton = await screen.findByText(/save/i);
+  fireEvent.click(saveButton);
 
-//   // specify mocked data to be returned
-//   axiosMock.patch.mockImplementationOnce(() =>
-//     Promise.resolve({ data: { mockUser } })
-//   );
+  await waitFor(() => {
+    expect(toast.success).toHaveBeenCalledTimes(1);
+    expect(toast.success).toHaveBeenCalledWith(
+      `User ${mockUser.name} updated.`
+    );
 
-//   console.log(window.location.pathname);
+    expect(navigate).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith("/users");
+  });
+});
 
-//   // submit form
-//   fireEvent.click(screen.getByText(/save/i));
+test("on unsuccessful edit, user is shown fail notifcation and no page redirect", async () => {
+  await renderAndInitalise(<EditUser />);
 
-//   await waitFor(() => {
-//     expect(window.location.pathname).toEqual("/users");
-//   });
-//   console.log(window.location.pathname);
+  axiosMock.patch.mockImplementationOnce(() =>
+    Promise.resolve({ data: false })
+  );
 
-//   const member = await screen.findByText(/Member/i);
-//   expect(member).toBeInTheDocument();
+  const saveButton = await screen.findByText(/save/i);
+  fireEvent.click(saveButton);
 
-//   // await waitFor(() => {
-//   //   expect(window.location.pathname).toEqual("/users");
-//   // });
+  await waitFor(() => {
+    expect(toast.error).toHaveBeenCalledTimes(1);
+    expect(toast.error).toHaveBeenCalledWith("Unable to edit user.");
 
-//   // expect(axiosMock.get).toHaveBeenCalledTimes(1);
-//   // expect(axiosMock.patch).toHaveBeenCalledTimes(1);
-// });
-
-// test.only("on successful edit, user is redirected to /users page", async () => {
-//   axiosMock.get.mockImplementationOnce(() =>
-//     Promise.resolve({ data: { mockUser } })
-//   );
-//   renderWithInternalPermissions(<EditUser />);
-
-//   await finishLoading();
-
-//   // update values in form
-//   fireEvent.change(screen.getByLabelText(/email/i), {
-//     target: { value: mockUser.email },
-//   });
-//   fireEvent.change(screen.getByLabelText(/name/i), {
-//     target: { value: mockUser.name },
-//   });
-
-//   console.log("path happy - pre submit");
-//   console.log(window.location.pathname);
-
-//   // specify mocked data to be returned
-//   axiosMock.patch.mockImplementationOnce(() =>
-//     Promise.resolve({ data: { mockUser } })
-//   );
-
-//   // submit form
-//   fireEvent.click(screen.getByText(/save/i));
-
-//   await waitFor(() => {
-//     expect(window.location.pathname).toEqual("/users");
-//   });
-
-//   console.log("path happy - post submit");
-//   console.log(window.location.pathname);
-
-//   expect(axiosMock.patch).toHaveBeenCalledTimes(1);
-// });
-
-// test("on unsuccessful edit, user is not redirected to /users page", async () => {
-//   axiosMock.get.mockImplementationOnce(() =>
-//     Promise.resolve({ data: { mockUser } })
-//   );
-
-//   renderWithInternalPermissions(<EditUser />);
-
-//   await finishLoading();
-
-//   // update values in form
-//   fireEvent.change(screen.getByLabelText(/email/i), {
-//     target: { value: mockUser.email },
-//   });
-//   fireEvent.change(screen.getByLabelText(/name/i), {
-//     target: { value: mockUser.name },
-//   });
-
-//   console.log("path sad - pre submit");
-//   console.log(window.location.pathname);
-
-//   // specify mocked data to be returned
-//   axiosMock.patch.mockImplementationOnce(() =>
-//     Promise.resolve({ data: false })
-//   );
-
-//   // submit form
-//   fireEvent.click(screen.getByText(/save/i));
-
-//   await waitFor(() => {
-//     expect(window.location.pathname).toEqual("/users/1/edit");
-//   });
-//   console.log("path sad - post submit");
-//   console.log(window.location.pathname);
-
-//   expect(axiosMock.patch).toHaveBeenCalledTimes(1);
-// });
-
-// emailsWithCorrectPattern.forEach(async (email) => {
-//   test(`email: ${email} with correct pattern does not trigger validation`, async () => {
-//     await renderAndInitalise(<EditUser />);
-
-//     fireEvent.change(screen.getByLabelText(/email/i), {
-//       target: { value: email },
-//     });
-
-//     fireEvent.click(screen.getByText(/save/i));
-
-//     const emailAlert = screen.queryByText(/Enter a valid e-mail address/);
-//     expect(emailAlert).toBeNull();
-//   });
-// });
+    expect(navigate).toHaveBeenCalledTimes(0);
+  });
+});
