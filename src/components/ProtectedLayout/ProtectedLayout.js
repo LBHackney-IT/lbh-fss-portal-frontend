@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import NavLink from "../NavLink/NavLink";
+import NavLinkPrimary from "../NavLinkPrimary/NavLinkPrimary";
+import NavLinkSecondary from "../NavLinkSecondary/NavLinkSecondary";
 import PropTypes from "prop-types";
 import UserContext from "../../context/UserContext/UserContext";
 import styled from "styled-components";
-import { neutral } from "../../settings";
+import { neutral, green } from "../../settings";
 
 const StyledLayout = styled.div`
   padding: 30px 10px;
@@ -35,11 +36,22 @@ const StyledContactInfo = styled.div`
   padding: 21px 0 49px 0;
 `;
 
-const StyledPrimaryLink = styled(NavLink)`
-  margin-right: 27px;
+const StyledNav = styled.nav`
+  background-color: ${green[400]};
+  padding: 10px 20px 0 20px;
+  display: flex;
 `;
 
-const StyledSecondaryLink = styled(NavLink)`
+const StyledPrimaryLink = styled(NavLinkPrimary)`
+  margin: 0 5px;
+  text-decoration: none;
+  color: white;
+  &:hover {
+    color: white;
+  }
+`;
+
+const StyledSecondaryLink = styled(NavLinkSecondary)`
   margin-left: 27px;
 `;
 
@@ -69,7 +81,7 @@ const ProtectedLayout = ({ children }) => {
           <StyledSecondaryLink to="/logout">Log out</StyledSecondaryLink>
         </nav>
       </StyledLayoutTop>
-      <nav>
+      <StyledNav>
         {!isInternalTeam ? (
           <StyledPrimaryLink to="/organisation">
             Your organisation
@@ -92,7 +104,7 @@ const ProtectedLayout = ({ children }) => {
         {isInternalTeam ? (
           <StyledPrimaryLink to="/search">Search</StyledPrimaryLink>
         ) : null}
-      </nav>
+      </StyledNav>
       {children}
       <StyledContactInfo>
         If you need support please email:{" "}

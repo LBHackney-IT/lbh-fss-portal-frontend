@@ -12,7 +12,15 @@ const StyledCheckbox = styled.input`
   margin-right: 5px;
 `;
 
-const FormCheckbox = ({ name, label, register, required, error, value }) => {
+const FormCheckbox = ({
+  name,
+  label,
+  register,
+  required,
+  error,
+  value,
+  dataTestid,
+}) => {
   return (
     <>
       <StyledLabel>
@@ -22,6 +30,7 @@ const FormCheckbox = ({ name, label, register, required, error, value }) => {
           ref={register({ required })}
           aria-invalid={error ? "true" : "false"}
           value={value}
+          data-testid={dataTestid}
         />
         {label}
       </StyledLabel>
