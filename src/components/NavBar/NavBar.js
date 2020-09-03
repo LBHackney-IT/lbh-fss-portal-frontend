@@ -2,13 +2,14 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 import UserContext from "../../context/UserContext/UserContext";
-import NavLink from "../NavLink/NavLink";
+// import NavLink from "../NavLink/NavLink";
+import NavLinkPrimary from "../NavLinkPrimary/NavLinkPrimary";
 import SecondaryNavMenu from "../SecondaryNavMenu/SecondaryNavMenu";
 import closeIcon from "./icons/close.svg";
 import burgerIcon from "./icons/open-menu.svg";
 import { green } from "../../settings";
 
-const StyledPrimaryLink = styled(NavLink)`
+const StyledPrimaryLink = styled(NavLinkPrimary)`
   margin: 10px 0;
   ${breakpoint("sm")`
     margin-right: 27px;

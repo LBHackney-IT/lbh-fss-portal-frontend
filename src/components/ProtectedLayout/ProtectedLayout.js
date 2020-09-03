@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import NavLink from "../NavLink/NavLink";
 import PropTypes from "prop-types";
 import UserContext from "../../context/UserContext/UserContext";
 import styled from "styled-components";
@@ -36,10 +35,6 @@ const StyledOrgName = styled.div`
 const StyledContactInfo = styled.div`
   border-top: 1px solid ${neutral[300]};
   padding: 21px 0 49px 0;
-`;
-
-const StyledSecondaryLink = styled(NavLink)`
-  margin-left: 27px;
 `;
 
 const StyledSecondaryNav = styled.nav`

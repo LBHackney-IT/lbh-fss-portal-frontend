@@ -6,6 +6,15 @@ import {
   renderWithVcsoPermissions,
 } from "../../../utils/testing/testing";
 
+// prevent react-toastify and @reach/router from being mocked
+jest.mock("react-toastify", () => ({
+  ...jest.requireActual("react-toastify"),
+}));
+
+jest.mock("@reach/router", () => ({
+  ...jest.requireActual("@reach/router"),
+}));
+
 test("get list users page if user has permissions", async () => {
   renderWithInternalPermissions(<ListUsers />);
   const heading = await screen.findByRole("heading");

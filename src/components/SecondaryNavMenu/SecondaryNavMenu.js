@@ -3,10 +3,10 @@ import Button from "../Button/Button";
 import styled from "styled-components";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 import UserContext from "../../context/UserContext/UserContext";
-import NavLink from "../NavLink/NavLink";
+import NavLinkSecondary from "../NavLinkSecondary/NavLinkSecondary";
 import { green } from "../../settings";
 
-const StyledSecondaryLink = styled(NavLink)`
+const StyledSecondaryLink = styled(NavLinkSecondary)`
   margin: 10px 0 0 10px;
   text-decoration: none;
   color: white;

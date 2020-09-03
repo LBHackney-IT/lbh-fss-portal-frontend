@@ -7,9 +7,9 @@ import {
 } from "../../utils/testing/testing";
 
 // prevent react-toastify and @reach/router from being mocked
-// jest.mock("react-toastify", () => ({
-//   ...jest.requireActual("react-toastify"),
-// }));
+jest.mock("react-toastify", () => ({
+  ...jest.requireActual("react-toastify"),
+}));
 
 jest.mock("@reach/router", () => ({
   ...jest.requireActual("@reach/router"),

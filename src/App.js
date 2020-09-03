@@ -10,7 +10,7 @@ import { grey } from "./settings";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-  background-color: ${grey[400]};
+  background-color: ${grey[300]};
 `;
 
 function App() {

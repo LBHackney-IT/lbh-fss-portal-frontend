@@ -45,6 +45,8 @@ const UserForm = ({
     defaultValues,
   });
 
+  let loopIteration = 0;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
@@ -101,6 +103,7 @@ const UserForm = ({
       )}
       <FormFieldset label="Roles">
         {Object.keys(roles).map((item) => {
+          loopIteration++;
           return (
             <FormCheckbox
               key={item}
@@ -108,6 +111,7 @@ const UserForm = ({
               label={roles[item]}
               value={item}
               register={register}
+              dataTestid={`checkbox-${loopIteration}`}
             />
           );
         })}

@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import UserForm from "../UserForm/UserForm";
 import UserService from "../../../services/UserService/UserService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
+import RaisedCard from "../../../components/RaisedCard/RaisedCard";
+import AccessDenied from "../../Error/AccessDenied/AccessDenied";
+import UserContext from '../../../context/UserContext/UserContext'
 
 const AddUser = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,16 +28,24 @@ const AddUser = () => {
     }
   }
 
-  return (
+  const { roles } = useContext(UserContext)[0];
+
+  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+
+  return accessPermission ? (
     <>
       <h1>Add user</h1>
-      <UserForm
-        onSubmit={doAddUser}
-        submitLabel="Create account"
-        submitLoading={isLoading}
-        showPassword={false}
-      />
+      <RaisedCard>
+        <UserForm
+          onSubmit={doAddUser}
+          submitLabel="Create account"
+          submitLoading={isLoading}
+          showPassword={false}
+        />
+      </RaisedCard>
     </>
+  ) : (
+    <AccessDenied />
   );
 };
 
