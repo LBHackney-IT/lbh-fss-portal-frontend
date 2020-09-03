@@ -5,6 +5,15 @@ import App from "../../../App";
 var mockUsers = require("../../../../mock-api/mockUsers.json");
 var sample = require("lodash/sample");
 
+// prevent react-toastify and @reach/router from being mocked
+jest.mock("react-toastify", () => ({
+  ...jest.requireActual("react-toastify"),
+}));
+
+jest.mock("@reach/router", () => ({
+  ...jest.requireActual("@reach/router"),
+}));
+
 beforeEach(() => {
   axiosMock.get.mockClear();
 });
