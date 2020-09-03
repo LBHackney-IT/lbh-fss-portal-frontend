@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import FormInput from "../../../../components/FormInput/FormInput";
 import StyledButton from "../../../../components/Button/Button";
 import { navigate, Redirect } from "@reach/router";
-import UserContext from "../../../../context/UserContext/UserContext";
 import AuthenticationService from "../../../../services/AuthenticationService/AuthenticationService";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
@@ -11,7 +10,6 @@ import { toast } from "react-toastify";
 const RegisterStep2 = () => {
   const { register, handleSubmit, errors, getValues } = useForm();
   const [isLoading, setIsLoading] = useState(false);
-  const setUser = useContext(UserContext)[1];
 
   function removeCookieAndRedirect() {
     Cookies.remove("registerStep1Values");

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { blue, hoverBlue } from "../../settings";
+import { blue } from "../../settings";
 
 const StyledButton = styled.button`
   text-align: left;
@@ -13,7 +13,7 @@ const StyledButton = styled.button`
   padding: 0;
   &:hover {
     cursor: pointer;
-    color: ${hoverBlue[400]};
+    color: ${blue[500]};
   }
 `;
 

@@ -1,9 +1,6 @@
 export const blue = {
   400: "#025EA6",
-};
-
-export const hoverBlue = {
-  400: "#014174",
+  500: "#014174",
 };
 
 export const green = {

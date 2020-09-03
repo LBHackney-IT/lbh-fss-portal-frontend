@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import FormInput from "../../../../components/FormInput/FormInput";
 import StyledButton from "../../../../components/Button/Button";
-import { navigate, Redirect } from "@reach/router";
+import { navigate } from "@reach/router";
 import UserContext from "../../../../context/UserContext/UserContext";
 import AuthenticationService from "../../../../services/AuthenticationService/AuthenticationService";
 import Cookies from "js-cookie";
