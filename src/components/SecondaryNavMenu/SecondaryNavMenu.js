@@ -59,7 +59,9 @@ function SecondaryNavMenu() {
         </StyledAnchor>
       ) : null}
       <StyledSecondaryLink to="/account">My account</StyledSecondaryLink>
-      <StyledSecondaryLink to="/logout">Log out</StyledSecondaryLink>
+      <StyledSecondaryLink to="/logout" data-testid="logout">
+        Log out
+      </StyledSecondaryLink>
     </StyledNav>
   );
 }
