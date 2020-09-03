@@ -54,13 +54,14 @@ function SecondaryNavMenu() {
           href="https://hackney.gov.uk/find-support-services/"
           target="_blank"
           rel="noopener noreferrer"
+          data-testid="navigation"
         >
           View site
         </StyledAnchor>
       ) : null}
       <StyledSecondaryLink to="/account">My account</StyledSecondaryLink>
-      <StyledSecondaryLink to="/logout" data-testid="logout">
-        Log out
+      <StyledSecondaryLink to="/logout">
+        <div data-testid="logout">Log out</div>
       </StyledSecondaryLink>
     </StyledNav>
   );
