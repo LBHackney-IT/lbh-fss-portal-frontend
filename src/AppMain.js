@@ -18,10 +18,11 @@ import AppLoading from "./AppLoading";
 import Logout from "./domain/Authentication/Logout/Logout";
 import AddService from "./domain/Services/AddService/AddService";
 import EditService from "./domain/Services/EditService/EditService";
-import Organisations from "./domain/Organisations/ListOrganisations/ListOrganisations";
 import MyOrganisation from "./domain/Organisations/MyOrganisation/MyOrganisation";
 import SearchGroups from "./domain/Search/SearchGroups/SearchGroups";
 import ListOrganisations from "./domain/Organisations/ListOrganisations/ListOrganisations";
+import AddOrganisation from "./domain/Organisations/AddOrganisation/AddOrganisation";
+import EditOrganisation from "./domain/Organisations/EditOrganisation/EditOrganisation";
 
 const AppMain = ({ location }) => {
   const setUser = useContext(UserContext)[1];
@@ -58,6 +59,16 @@ const AppMain = ({ location }) => {
       <ProtectedRoute as={EditService} path="/services/:serviceId/edit/:step" />
       <ProtectedRoute as={MyOrganisation} path="/organisation" />
       <ProtectedRoute as={ListOrganisations} path="/organisations" />
+      <ProtectedRoute as={AddOrganisation} path="/organisations/add/" />
+      <ProtectedRoute as={AddOrganisation} path="/organisations/add/:step" />
+      <ProtectedRoute
+        as={EditOrganisation}
+        path="/organisations/:organisationId/edit/"
+      />
+      <ProtectedRoute
+        as={EditOrganisation}
+        path="/organisations/:organisationId/edit/:step"
+      />
       <ProtectedRoute as={SearchGroups} path="/search" />
       <PageNotFound default />
     </Router>

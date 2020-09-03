@@ -1,6 +1,6 @@
 [
   {
-    "id": 48641,
+    "id": 1,
     "name": "Hartmann, Miller and Welch",
     "created_at": "2020-01-30T13:39:39.666Z",
     "updated_at": "2020-02-03T04:48:52.382Z",
@@ -37,11 +37,7 @@
       "name": "Garry Leuschke",
       "email": "Katrine16@yahoo.com",
       "status": "active",
-      "roles": [
-        "viewer",
-        "vcso",
-        "admin"
-      ]
+      "roles": ["viewer", "vcso", "admin"]
     }
   },
   {
@@ -82,9 +78,7 @@
       "name": "Lilly Douglas",
       "email": "Virginia14@hotmail.com",
       "status": "deleted",
-      "roles": [
-        "admin"
-      ]
+      "roles": ["admin"]
     }
   },
   {
@@ -125,9 +119,7 @@
       "name": "Mr. Ricky Schoen",
       "email": "Justine_King73@hotmail.com",
       "status": "active",
-      "roles": [
-        "viewer"
-      ]
+      "roles": ["viewer"]
     }
   },
   {
@@ -209,10 +201,7 @@
       "name": "Ellen Lynch",
       "email": "Okey.Morar@yahoo.com",
       "status": "suspended",
-      "roles": [
-        "admin",
-        "viewer"
-      ]
+      "roles": ["admin", "viewer"]
     }
   },
   {
@@ -253,10 +242,7 @@
       "name": "Dianna Stiedemann",
       "email": "Torrey_Marvin88@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso",
-        "admin"
-      ]
+      "roles": ["vcso", "admin"]
     }
   },
   {
@@ -297,9 +283,7 @@
       "name": "Carli Spencer",
       "email": "Eusebio4@yahoo.com",
       "status": "deleted",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -340,9 +324,7 @@
       "name": "Chesley Schinner",
       "email": "Darrell18@gmail.com",
       "status": "active",
-      "roles": [
-        "admin"
-      ]
+      "roles": ["admin"]
     }
   },
   {
@@ -383,10 +365,7 @@
       "name": "Israel Boyle",
       "email": "Abelardo67@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["vcso", "viewer"]
     }
   },
   {
@@ -427,9 +406,7 @@
       "name": "Rosalyn Russel",
       "email": "Micaela.Kuphal@hotmail.com",
       "status": "active",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -470,10 +447,7 @@
       "name": "Anne Sporer",
       "email": "Christ_Howell88@gmail.com",
       "status": "active",
-      "roles": [
-        "viewer",
-        "admin"
-      ]
+      "roles": ["viewer", "admin"]
     }
   },
   {
@@ -514,10 +488,7 @@
       "name": "Marta Gleason IV",
       "email": "Chaya89@gmail.com",
       "status": "deleted",
-      "roles": [
-        "admin",
-        "viewer"
-      ]
+      "roles": ["admin", "viewer"]
     }
   },
   {
@@ -558,11 +529,7 @@
       "name": "Mr. Claud Treutel",
       "email": "Natasha5@hotmail.com",
       "status": "suspended",
-      "roles": [
-        "viewer",
-        "vcso",
-        "admin"
-      ]
+      "roles": ["viewer", "vcso", "admin"]
     }
   },
   {
@@ -644,10 +611,7 @@
       "name": "Skylar Baumbach",
       "email": "Jewell_Glover13@gmail.com",
       "status": "deleted",
-      "roles": [
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["viewer", "vcso"]
     }
   },
   {
@@ -688,9 +652,7 @@
       "name": "Hope Hegmann DVM",
       "email": "Berneice.Sipes@gmail.com",
       "status": "active",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -731,10 +693,7 @@
       "name": "Mrs. Cynthia Lebsack",
       "email": "Deven.Wilkinson@gmail.com",
       "status": "deleted",
-      "roles": [
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["viewer", "vcso"]
     }
   },
   {
@@ -816,10 +775,7 @@
       "name": "Therese Gulgowski MD",
       "email": "Verona_Cartwright14@yahoo.com",
       "status": "suspended",
-      "roles": [
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["vcso", "viewer"]
     }
   },
   {
@@ -860,9 +816,7 @@
       "name": "Ms. Lowell Bartoletti",
       "email": "Alycia_Olson@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -903,11 +857,7 @@
       "name": "Marcelino Daniel",
       "email": "Nannie80@gmail.com",
       "status": "suspended",
-      "roles": [
-        "admin",
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["admin", "vcso", "viewer"]
     }
   },
   {
@@ -989,11 +939,7 @@
       "name": "Kasey Barton",
       "email": "Lorenza.Corkery8@yahoo.com",
       "status": "deleted",
-      "roles": [
-        "viewer",
-        "admin",
-        "vcso"
-      ]
+      "roles": ["viewer", "admin", "vcso"]
     }
   },
   {
@@ -1034,9 +980,7 @@
       "name": "Katheryn Frami IV",
       "email": "Alvis_Dietrich@gmail.com",
       "status": "active",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -1077,9 +1021,7 @@
       "name": "Haven Metz",
       "email": "Theresa_Schowalter48@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -1120,9 +1062,7 @@
       "name": "Samantha Dooley DDS",
       "email": "Zula_Jones34@gmail.com",
       "status": "suspended",
-      "roles": [
-        "admin"
-      ]
+      "roles": ["admin"]
     }
   },
   {
@@ -1163,9 +1103,7 @@
       "name": "Luna Yost",
       "email": "Theresia_Parisian81@gmail.com",
       "status": "deleted",
-      "roles": [
-        "viewer"
-      ]
+      "roles": ["viewer"]
     }
   },
   {
@@ -1206,9 +1144,7 @@
       "name": "Delilah Rau",
       "email": "Rahul.Abshire@yahoo.com",
       "status": "suspended",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -1249,10 +1185,7 @@
       "name": "Asha Cummings",
       "email": "Delia_Windler0@yahoo.com",
       "status": "deleted",
-      "roles": [
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["viewer", "vcso"]
     }
   },
   {
@@ -1293,9 +1226,7 @@
       "name": "Mr. Tyrese Lueilwitz",
       "email": "Isai_Berge@gmail.com",
       "status": "suspended",
-      "roles": [
-        "admin"
-      ]
+      "roles": ["admin"]
     }
   },
   {
@@ -1336,10 +1267,7 @@
       "name": "Audreanne Hackett",
       "email": "Donna_Fisher53@gmail.com",
       "status": "active",
-      "roles": [
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["viewer", "vcso"]
     }
   },
   {
@@ -1380,10 +1308,7 @@
       "name": "Mike Hammes",
       "email": "Kennedy.Satterfield@hotmail.com",
       "status": "deleted",
-      "roles": [
-        "vcso",
-        "admin"
-      ]
+      "roles": ["vcso", "admin"]
     }
   },
   {
@@ -1424,9 +1349,7 @@
       "name": "Amya Kohler",
       "email": "Bryana.Boyle16@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -1508,10 +1431,7 @@
       "name": "Margret Rohan",
       "email": "Marisa_Gerhold@hotmail.com",
       "status": "deleted",
-      "roles": [
-        "admin",
-        "vcso"
-      ]
+      "roles": ["admin", "vcso"]
     }
   },
   {
@@ -1552,11 +1472,7 @@
       "name": "Laisha Schuster",
       "email": "Tatum.Denesik83@yahoo.com",
       "status": "active",
-      "roles": [
-        "vcso",
-        "viewer",
-        "admin"
-      ]
+      "roles": ["vcso", "viewer", "admin"]
     }
   },
   {
@@ -1638,11 +1554,7 @@
       "name": "Dr. Vladimir Anderson",
       "email": "Effie_Effertz81@hotmail.com",
       "status": "active",
-      "roles": [
-        "vcso",
-        "admin",
-        "viewer"
-      ]
+      "roles": ["vcso", "admin", "viewer"]
     }
   },
   {
@@ -1683,9 +1595,7 @@
       "name": "Frances Daniel",
       "email": "Tito96@yahoo.com",
       "status": "suspended",
-      "roles": [
-        "viewer"
-      ]
+      "roles": ["viewer"]
     }
   },
   {
@@ -1726,10 +1636,7 @@
       "name": "Curtis Rodriguez",
       "email": "Alek.Hackett@gmail.com",
       "status": "active",
-      "roles": [
-        "viewer",
-        "admin"
-      ]
+      "roles": ["viewer", "admin"]
     }
   },
   {
@@ -1770,9 +1677,7 @@
       "name": "Joaquin Hirthe",
       "email": "Meredith_Bogisich40@gmail.com",
       "status": "deleted",
-      "roles": [
-        "admin"
-      ]
+      "roles": ["admin"]
     }
   },
   {
@@ -1813,11 +1718,7 @@
       "name": "Amaya Rowe DDS",
       "email": "Alfonso_Lindgren63@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso",
-        "viewer",
-        "admin"
-      ]
+      "roles": ["vcso", "viewer", "admin"]
     }
   },
   {
@@ -1899,10 +1800,7 @@
       "name": "Celine Walker",
       "email": "Grayce_Stanton70@gmail.com",
       "status": "suspended",
-      "roles": [
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["viewer", "vcso"]
     }
   },
   {
@@ -1943,10 +1841,7 @@
       "name": "Miss Orland Ratke",
       "email": "Gilberto7@yahoo.com",
       "status": "active",
-      "roles": [
-        "vcso",
-        "admin"
-      ]
+      "roles": ["vcso", "admin"]
     }
   },
   {
@@ -1987,10 +1882,7 @@
       "name": "Colten D'Amore",
       "email": "Clementine_Crist83@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["vcso", "viewer"]
     }
   },
   {
@@ -2031,10 +1923,7 @@
       "name": "Nella Koch",
       "email": "Ellie4@hotmail.com",
       "status": "deleted",
-      "roles": [
-        "admin",
-        "vcso"
-      ]
+      "roles": ["admin", "vcso"]
     }
   },
   {
@@ -2116,11 +2005,7 @@
       "name": "Lina Jacobi",
       "email": "Elnora_Reichert@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso",
-        "viewer",
-        "admin"
-      ]
+      "roles": ["vcso", "viewer", "admin"]
     }
   },
   {
@@ -2161,11 +2046,7 @@
       "name": "Miss Rigoberto Pagac",
       "email": "Jalon_Carroll@hotmail.com",
       "status": "suspended",
-      "roles": [
-        "admin",
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["admin", "viewer", "vcso"]
     }
   },
   {
@@ -2206,10 +2087,7 @@
       "name": "Omari Hagenes",
       "email": "Andrew.Lind21@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["vcso", "viewer"]
     }
   },
   {
@@ -2250,10 +2128,7 @@
       "name": "Deborah Kerluke",
       "email": "Kristofer64@hotmail.com",
       "status": "active",
-      "roles": [
-        "vcso",
-        "admin"
-      ]
+      "roles": ["vcso", "admin"]
     }
   },
   {
@@ -2417,11 +2292,7 @@
       "name": "Aimee Runolfsson Sr.",
       "email": "Susanna.Lind75@yahoo.com",
       "status": "deleted",
-      "roles": [
-        "admin",
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["admin", "vcso", "viewer"]
     }
   },
   {
@@ -2462,11 +2333,7 @@
       "name": "Mr. Rod Muller",
       "email": "Brenden.OConner@gmail.com",
       "status": "deleted",
-      "roles": [
-        "admin",
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["admin", "viewer", "vcso"]
     }
   },
   {
@@ -2507,11 +2374,7 @@
       "name": "Mr. Cole Parisian",
       "email": "Cassie.Littel@gmail.com",
       "status": "active",
-      "roles": [
-        "vcso",
-        "viewer",
-        "admin"
-      ]
+      "roles": ["vcso", "viewer", "admin"]
     }
   },
   {
@@ -2634,9 +2497,7 @@
       "name": "Vincenza Weissnat Sr.",
       "email": "Leonard_Satterfield3@yahoo.com",
       "status": "deleted",
-      "roles": [
-        "viewer"
-      ]
+      "roles": ["viewer"]
     }
   },
   {
@@ -2677,11 +2538,7 @@
       "name": "Carlee Lueilwitz",
       "email": "Winfield_Schamberger@hotmail.com",
       "status": "active",
-      "roles": [
-        "viewer",
-        "admin",
-        "vcso"
-      ]
+      "roles": ["viewer", "admin", "vcso"]
     }
   },
   {
@@ -2722,10 +2579,7 @@
       "name": "Duncan Bailey",
       "email": "Joany26@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["vcso", "viewer"]
     }
   },
   {
@@ -2766,11 +2620,7 @@
       "name": "Korbin Ruecker",
       "email": "Ora_Von@gmail.com",
       "status": "suspended",
-      "roles": [
-        "admin",
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["admin", "vcso", "viewer"]
     }
   },
   {
@@ -2811,9 +2661,7 @@
       "name": "Myriam Stark",
       "email": "Jermaine.Willms20@hotmail.com",
       "status": "suspended",
-      "roles": [
-        "admin"
-      ]
+      "roles": ["admin"]
     }
   },
   {
@@ -2854,11 +2702,7 @@
       "name": "Giovanna Abbott PhD",
       "email": "Dan_Harber69@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso",
-        "viewer",
-        "admin"
-      ]
+      "roles": ["vcso", "viewer", "admin"]
     }
   },
   {
@@ -2899,10 +2743,7 @@
       "name": "Mollie Thompson",
       "email": "Jameson.Davis14@hotmail.com",
       "status": "deleted",
-      "roles": [
-        "admin",
-        "vcso"
-      ]
+      "roles": ["admin", "vcso"]
     }
   },
   {
@@ -2943,11 +2784,7 @@
       "name": "Kenton Muller",
       "email": "Alvah60@yahoo.com",
       "status": "suspended",
-      "roles": [
-        "admin",
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["admin", "viewer", "vcso"]
     }
   },
   {
@@ -3029,10 +2866,7 @@
       "name": "Charlotte Zboncak",
       "email": "Johnathon_Gerhold@gmail.com",
       "status": "deleted",
-      "roles": [
-        "vcso",
-        "admin"
-      ]
+      "roles": ["vcso", "admin"]
     }
   },
   {
@@ -3114,10 +2948,7 @@
       "name": "Melody Dickens",
       "email": "Garett.Hahn@yahoo.com",
       "status": "active",
-      "roles": [
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["viewer", "vcso"]
     }
   },
   {
@@ -3199,10 +3030,7 @@
       "name": "William Tremblay",
       "email": "Jaylin83@yahoo.com",
       "status": "deleted",
-      "roles": [
-        "vcso",
-        "admin"
-      ]
+      "roles": ["vcso", "admin"]
     }
   },
   {
@@ -3243,9 +3071,7 @@
       "name": "Santa Maggio Jr.",
       "email": "Philip62@yahoo.com",
       "status": "deleted",
-      "roles": [
-        "admin"
-      ]
+      "roles": ["admin"]
     }
   },
   {
@@ -3286,10 +3112,7 @@
       "name": "Vivien Carroll",
       "email": "Rafael94@gmail.com",
       "status": "active",
-      "roles": [
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["viewer", "vcso"]
     }
   },
   {
@@ -3371,11 +3194,7 @@
       "name": "Rasheed Halvorson",
       "email": "Gilberto.Wolff@hotmail.com",
       "status": "deleted",
-      "roles": [
-        "viewer",
-        "vcso",
-        "admin"
-      ]
+      "roles": ["viewer", "vcso", "admin"]
     }
   },
   {
@@ -3416,9 +3235,7 @@
       "name": "Bessie Walker Sr.",
       "email": "Griffin.Robel@gmail.com",
       "status": "active",
-      "roles": [
-        "admin"
-      ]
+      "roles": ["admin"]
     }
   },
   {
@@ -3459,9 +3276,7 @@
       "name": "Lizzie Schamberger",
       "email": "Consuelo38@gmail.com",
       "status": "suspended",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -3502,10 +3317,7 @@
       "name": "Miss Justyn Hauck",
       "email": "Edyth_Abshire@yahoo.com",
       "status": "active",
-      "roles": [
-        "viewer",
-        "admin"
-      ]
+      "roles": ["viewer", "admin"]
     }
   },
   {
@@ -3546,11 +3358,7 @@
       "name": "Talia Hayes",
       "email": "Jannie_Willms@gmail.com",
       "status": "suspended",
-      "roles": [
-        "viewer",
-        "vcso",
-        "admin"
-      ]
+      "roles": ["viewer", "vcso", "admin"]
     }
   },
   {
@@ -3591,10 +3399,7 @@
       "name": "Jamaal Carroll",
       "email": "Julian.Yundt@hotmail.com",
       "status": "suspended",
-      "roles": [
-        "admin",
-        "vcso"
-      ]
+      "roles": ["admin", "vcso"]
     }
   },
   {
@@ -3635,9 +3440,7 @@
       "name": "Wyatt Crona",
       "email": "Newton.Heidenreich@gmail.com",
       "status": "deleted",
-      "roles": [
-        "viewer"
-      ]
+      "roles": ["viewer"]
     }
   },
   {
@@ -3678,10 +3481,7 @@
       "name": "Pablo Hoppe",
       "email": "Keara.Schaefer@hotmail.com",
       "status": "active",
-      "roles": [
-        "admin",
-        "vcso"
-      ]
+      "roles": ["admin", "vcso"]
     }
   },
   {
@@ -3763,11 +3563,7 @@
       "name": "Zula Langworth",
       "email": "Kiera_Daniel36@hotmail.com",
       "status": "deleted",
-      "roles": [
-        "admin",
-        "viewer",
-        "vcso"
-      ]
+      "roles": ["admin", "viewer", "vcso"]
     }
   },
   {
@@ -3808,10 +3604,7 @@
       "name": "Ms. Lydia Kuvalis",
       "email": "Verla.Wuckert96@hotmail.com",
       "status": "suspended",
-      "roles": [
-        "admin",
-        "viewer"
-      ]
+      "roles": ["admin", "viewer"]
     }
   },
   {
@@ -3852,9 +3645,7 @@
       "name": "Mrs. Estella Bahringer",
       "email": "Jordi34@yahoo.com",
       "status": "active",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   },
   {
@@ -3895,11 +3686,7 @@
       "name": "Luz Bins PhD",
       "email": "Tyshawn_Swaniawski@gmail.com",
       "status": "deleted",
-      "roles": [
-        "viewer",
-        "vcso",
-        "admin"
-      ]
+      "roles": ["viewer", "vcso", "admin"]
     }
   },
   {
@@ -3940,11 +3727,7 @@
       "name": "Destiney Pacocha",
       "email": "Bella89@yahoo.com",
       "status": "active",
-      "roles": [
-        "viewer",
-        "vcso",
-        "admin"
-      ]
+      "roles": ["viewer", "vcso", "admin"]
     }
   },
   {
@@ -4108,11 +3891,7 @@
       "name": "Katherine Bartell",
       "email": "Emmy_Keeling@gmail.com",
       "status": "suspended",
-      "roles": [
-        "viewer",
-        "vcso",
-        "admin"
-      ]
+      "roles": ["viewer", "vcso", "admin"]
     }
   },
   {
@@ -4153,11 +3932,7 @@
       "name": "Kathryne Carroll",
       "email": "Kirk67@gmail.com",
       "status": "active",
-      "roles": [
-        "admin",
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["admin", "vcso", "viewer"]
     }
   },
   {
@@ -4239,9 +4014,7 @@
       "name": "Cyrus Crona",
       "email": "Zackary.Roob18@gmail.com",
       "status": "deleted",
-      "roles": [
-        "admin"
-      ]
+      "roles": ["admin"]
     }
   },
   {
@@ -4282,11 +4055,7 @@
       "name": "Melba Stamm",
       "email": "Jettie_Zulauf@yahoo.com",
       "status": "deleted",
-      "roles": [
-        "admin",
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["admin", "vcso", "viewer"]
     }
   },
   {
@@ -4327,10 +4096,7 @@
       "name": "Noel McLaughlin",
       "email": "Franz90@yahoo.com",
       "status": "active",
-      "roles": [
-        "vcso",
-        "viewer"
-      ]
+      "roles": ["vcso", "viewer"]
     }
   },
   {
@@ -4371,9 +4137,7 @@
       "name": "Telly Kerluke",
       "email": "Theresa_Beahan87@yahoo.com",
       "status": "deleted",
-      "roles": [
-        "vcso"
-      ]
+      "roles": ["vcso"]
     }
   }
 ]
