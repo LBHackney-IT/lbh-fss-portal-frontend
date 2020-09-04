@@ -33,4 +33,5 @@ export const neutral = {
 
 export const grey = {
   400: "#525A5B",
+  500: "#ECF1F0",
 };
