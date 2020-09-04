@@ -1,9 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import FormInput from "../../../components/FormInput/FormInput";
-import Button from "../../../components/Button/Button";
 import styled from "styled-components";
-import { grey } from "../../../settings";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 
 const StyledForm = styled.form`
@@ -14,10 +11,18 @@ const StyledForm = styled.form`
   `};
 `;
 
-const StyledButton = styled(Button)`
-  padding: 10px;
+const StyledSearchContainer = styled.div`
+  display: flex;
+  height: 50px;
   border-radius: 3px;
-  margin-top: 5px;
+  border: 5px solid white;
+  width: 100%;
+`;
+
+const StyledButton = styled.button`
+  background-color: white;
+  border: none;
+  width: 20%;
 `;
 
 function SearchUser({ setSearch }) {
@@ -29,45 +34,17 @@ function SearchUser({ setSearch }) {
 
   return (
     <>
-      {/* <StyledForm onSubmit={handleSubmit(doSubmit)} data-testid="form">
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <FormInput
-            label=""
-            name="search"
-            register={register}
-            placeholder="Search..."
-            required
-            maxLength={255}
-            error={errors.search}
-          />
-        </div>
-        <div>
-          <StyledButton type="submit" label="Go" disabled={false} />
-        </div>
-      </StyledForm> */}
-
       <StyledForm onSubmit={handleSubmit(doSubmit)} data-testid="form">
-        <div
-          style={{
-            display: "flex",
-            height: "50px",
-            borderRadius: "3px",
-            border: "5px solid white",
-            width: "100%",
-          }}
-        >
+        <StyledSearchContainer>
           <input
+            name="search"
             type="text"
             placeholder="Search..."
+            ref={register}
             style={{ border: "none", width: "80%" }}
           />
-          <button
-            type="submit"
-            style={{ backgroundColor: "white", border: "none", width: "20%" }}
-          >
-            Go
-          </button>
-        </div>
+          <StyledButton type="submit">Go</StyledButton>
+        </StyledSearchContainer>
       </StyledForm>
     </>
   );

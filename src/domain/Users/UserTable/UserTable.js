@@ -22,14 +22,13 @@ const StyledHeadingTh = styled.th`
   padding: 0;
 `;
 
-const StyledBodyTr = styled.tr`
-  background-color: ${grey[200]};
-`;
+const StyledBodyTr = styled.tr``;
 
 const StyledTd = styled.td`
   border-left: none;
   border-right: none;
   padding: 5px 0 0 30px;
+  height: 50px;
 `;
 
 const UserTable = ({ data, isLoading }) => {
@@ -87,6 +86,8 @@ const UserTable = ({ data, isLoading }) => {
     return <span>Loading</span>;
   }
 
+  let j = 0;
+
   // Render the UI for your table
   return (
     <StyledTable {...getTableProps()}>
@@ -103,9 +104,13 @@ const UserTable = ({ data, isLoading }) => {
       </thead>
       <tbody {...getTableBodyProps()}>
         {rows.map((row, i) => {
+          j++;
           prepareRow(row);
           return (
-            <StyledBodyTr {...row.getRowProps()}>
+            <StyledBodyTr
+              {...row.getRowProps()}
+              style={{ backgroundColor: j % 2 == 0 ? grey[200] : grey[201] }}
+            >
               {row.cells.map((cell) => {
                 return (
                   <StyledTd {...cell.getCellProps()}>
