@@ -8,13 +8,32 @@ import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import UserService from "../../../services/UserService/UserService";
 import { grey } from "../../../settings";
 import styled from "styled-components";
+import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 
 const StyledActionDev = styled.div`
   display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  ${breakpoint("sm")`
+    flex-direction: row;
+    height: 80px;
+    padding: 0 10px;
+  `};
   justify-content: space-between;
-  align-items: "center";
-  padding: "5px";
+  align-items: center;
+
   background-color: ${grey[500]};
+`;
+
+const StyledButton = styled(Button)`
+  margin: auto 0;
+`;
+
+const StyledAddUserLink = styled.div`
+  margin-top: 20px;
+  ${breakpoint("sm")`
+  margin-top: 0;
+  `};
 `;
 
 const ListUsers = ({ location }) => {
@@ -47,9 +66,11 @@ const ListUsers = ({ location }) => {
         <h1>Users</h1>
         <StyledActionDev>
           <SearchUser setSearch={setSearch} />
-          <Link to="/users/add">
-            <Button label={"Add user"} />
-          </Link>
+          <StyledAddUserLink>
+            <Link to="/users/add">
+              <StyledButton label={"Add user"} />
+            </Link>
+          </StyledAddUserLink>
         </StyledActionDev>
       </div>
       <UserTable data={data} isLoading={isLoading} /> :

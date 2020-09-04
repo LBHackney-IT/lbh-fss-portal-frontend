@@ -1,8 +1,36 @@
 import React, { useMemo } from "react";
 import { useTable } from "react-table";
-
 import { Link } from "@reach/router";
 import { roles } from "../../../settings";
+import styled from "styled-components";
+import { grey } from "../../../settings";
+
+const StyledTable = styled.table`
+  margin-top: 40px;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 3px 3px 0px 0px;
+`;
+
+const StyledHeadingTr = styled.tr`
+  height: 40px;
+  background-color: ${grey[700]};
+  color: white;
+`;
+
+const StyledHeadingTh = styled.th`
+  padding: 0;
+`;
+
+const StyledBodyTr = styled.tr`
+  background-color: ${grey[200]};
+`;
+
+const StyledTd = styled.td`
+  border-left: none;
+  border-right: none;
+  padding: 5px 0 0 30px;
+`;
 
 const UserTable = ({ data, isLoading }) => {
   const columns = useMemo(
@@ -61,29 +89,35 @@ const UserTable = ({ data, isLoading }) => {
 
   // Render the UI for your table
   return (
-    <table {...getTableProps()}>
+    <StyledTable {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <StyledHeadingTr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              <StyledHeadingTh {...column.getHeaderProps()}>
+                {column.render("Header")}
+              </StyledHeadingTh>
             ))}
-          </tr>
+          </StyledHeadingTr>
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
         {rows.map((row, i) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <StyledBodyTr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                return (
+                  <StyledTd {...cell.getCellProps()}>
+                    {cell.render("Cell")}
+                  </StyledTd>
+                );
               })}
-            </tr>
+            </StyledBodyTr>
           );
         })}
       </tbody>
-    </table>
+    </StyledTable>
   );
 };
 
