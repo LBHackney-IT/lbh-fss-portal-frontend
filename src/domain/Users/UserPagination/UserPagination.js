@@ -1,4 +1,7 @@
 import React from "react";
+import Icon from "../../../components/Icon/Icon";
+import arrowLeft from "./icons/arrow-left.svg";
+import arrowRight from "./icons/arrow-right.svg";
 
 function UserPagination({
   pageIndex,
@@ -12,7 +15,8 @@ function UserPagination({
   return (
     <div>
       <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-        {"<- Previous"}
+        <Icon imageLocation={arrowLeft} />
+        Previous
       </button>
       {pageIndex - 2 >= 0 ? (
         <button onClick={() => gotoPage(pageIndex - 2)}>{pageIndex - 1}</button>
@@ -33,7 +37,8 @@ function UserPagination({
         <button onClick={() => gotoPage(pageIndex + 2)}>{pageIndex + 3}</button>
       ) : null}
       <button onClick={() => nextPage()} disabled={!canNextPage}>
-        {"Next ->"}
+        Next
+        <Icon imageLocation={arrowRight} />
       </button>
     </div>
   );
