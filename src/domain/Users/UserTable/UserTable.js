@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useTable } from "react-table";
-import UserService from "../../../services/UserService/UserService";
+
 import { Link } from "@reach/router";
 import { roles } from "../../../settings";
 
-const UserTable = () => {
+const UserTable = ({ data, isLoading }) => {
   const columns = useMemo(
     () => [
       {
@@ -42,20 +42,6 @@ const UserTable = () => {
     ],
     []
   );
-
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      const users = await UserService.retrieveUsers({});
-
-      setData(users || []);
-      setIsLoading(false);
-    }
-
-    fetchData();
-  }, [setData, setIsLoading]);
 
   // Use the state and functions returned from useTable to build your UI
   const {

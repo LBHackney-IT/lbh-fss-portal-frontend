@@ -15,11 +15,11 @@ const StyledButton = styled(Button)`
   margin-top: 5px;
 `;
 
-function SearchUser() {
+function SearchUser({ setSearch }) {
   const { register, handleSubmit, errors } = useForm({});
 
-  function doSubmit({ search }) {
-    alert(search);
+  async function doSubmit({ search }) {
+    setSearch(search);
   }
 
   return (
