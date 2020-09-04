@@ -47,9 +47,15 @@ const ListUsers = ({ location }) => {
     async function fetchData() {
       let users = false;
       if (search) {
-        users = await UserService.retrieveUsers("name", "asc", 0, 10, search);
+        users = await UserService.retrieveUsers(
+          "name",
+          "asc",
+          0,
+          Infinity,
+          search
+        );
       } else {
-        users = await UserService.retrieveUsers();
+        users = await UserService.retrieveUsers("name", "asc", 0, Infinity, "");
       }
       setData(users || []);
       setIsLoading(false);
@@ -73,7 +79,7 @@ const ListUsers = ({ location }) => {
           </StyledAddUserLink>
         </StyledActionDev>
       </div>
-      <UserTable data={data} isLoading={isLoading} /> :
+      <UserTable data={data} isLoading={isLoading} />
     </>
   ) : (
     <AccessDenied />

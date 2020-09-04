@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useTable } from "react-table";
+import { useTable, usePagination } from "react-table";
 import { Link } from "@reach/router";
 import { roles } from "../../../settings";
 import styled from "styled-components";
