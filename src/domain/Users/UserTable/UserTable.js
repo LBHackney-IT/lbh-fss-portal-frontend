@@ -4,6 +4,7 @@ import { Link } from "@reach/router";
 import { roles } from "../../../settings";
 import styled from "styled-components";
 import { grey } from "../../../settings";
+import UserPagination from "../UserPagination/UserPagination";
 
 const StyledTable = styled.table`
   margin-top: 40px;
@@ -75,12 +76,22 @@ const UserTable = ({ data, isLoading }) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
     prepareRow,
-  } = useTable({
-    columns,
-    data,
-  });
+    page,
+    state: { pageIndex },
+    pageCount,
+    gotoPage,
+    previousPage,
+    nextPage,
+    canPreviousPage,
+    canNextPage,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    usePagination
+  );
 
   if (isLoading) {
     return <span>Loading</span>;
@@ -90,39 +101,50 @@ const UserTable = ({ data, isLoading }) => {
 
   // Render the UI for your table
   return (
-    <StyledTable {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <StyledHeadingTr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <StyledHeadingTh {...column.getHeaderProps()}>
-                {column.render("Header")}
-              </StyledHeadingTh>
-            ))}
-          </StyledHeadingTr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          j++;
-          prepareRow(row);
-          return (
-            <StyledBodyTr
-              {...row.getRowProps()}
-              style={{ backgroundColor: j % 2 == 0 ? grey[200] : grey[201] }}
-            >
-              {row.cells.map((cell) => {
-                return (
-                  <StyledTd {...cell.getCellProps()}>
-                    {cell.render("Cell")}
-                  </StyledTd>
-                );
-              })}
-            </StyledBodyTr>
-          );
-        })}
-      </tbody>
-    </StyledTable>
+    <>
+      <StyledTable {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <StyledHeadingTr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <StyledHeadingTh {...column.getHeaderProps()}>
+                  {column.render("Header")}
+                </StyledHeadingTh>
+              ))}
+            </StyledHeadingTr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row, i) => {
+            j++;
+            prepareRow(row);
+            return (
+              <StyledBodyTr
+                {...row.getRowProps()}
+                style={{ backgroundColor: j % 2 == 0 ? grey[200] : grey[201] }}
+              >
+                {row.cells.map((cell) => {
+                  return (
+                    <StyledTd {...cell.getCellProps()}>
+                      {cell.render("Cell")}
+                    </StyledTd>
+                  );
+                })}
+              </StyledBodyTr>
+            );
+          })}
+        </tbody>
+      </StyledTable>
+      <UserPagination
+        pageIndex={pageIndex}
+        pageCount={pageCount}
+        gotoPage={gotoPage}
+        previousPage={previousPage}
+        nextPage={nextPage}
+        canPreviousPage={canPreviousPage}
+        canNextPage={canNextPage}
+      />
+    </>
   );
 };
 
