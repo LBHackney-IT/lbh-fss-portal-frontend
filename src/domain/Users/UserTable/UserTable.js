@@ -5,12 +5,23 @@ import { roles } from "../../../settings";
 import styled from "styled-components";
 import { grey } from "../../../settings";
 import UserPagination from "../UserPagination/UserPagination";
+import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 
 const StyledTable = styled.table`
-  margin-top: 40px;
   width: 100%;
   border-collapse: collapse;
   border-radius: 3px 3px 0px 0px;
+  margin-top: 10px;
+  ${breakpoint("sm")`
+    margin-top: 40px;
+  `};
+`;
+
+const StyledThead = styled.thead`
+  display: none;
+  ${breakpoint("sm")`
+    display: table-header-group;
+  `};
 `;
 
 const StyledHeadingTr = styled.tr`
@@ -23,17 +34,40 @@ const StyledHeadingTh = styled.th`
   padding: 0;
 `;
 
-const StyledBodyTr = styled.tr``;
+const StyledBodyTr = styled.tr`
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  padding: 20px 0;
+  ${breakpoint("sm")`
+    display:table-row;
+    margin: 0;
+    padding: 0;
+  `};
+`;
 
 const StyledTd = styled.td`
   border-left: none;
   border-right: none;
   padding: 5px 0 0 30px;
-  height: 50px;
+  margin-top: 10px;
+  ${breakpoint("sm")`
+    height: 50px;
+    margin-top: 0;
+  `};
 `;
 
 const StyledEmailText = styled.p`
   margin-top: 10px;
+`;
+
+const StyledTableHeading = styled.span`
+  font-weight: 600;
+  margin-right: 10px;
+  ${breakpoint("sm")`
+    display: none;
+    margin-right: 0;
+  `};
 `;
 
 const UserTable = ({ data, isLoading, search }) => {
@@ -43,7 +77,6 @@ const UserTable = ({ data, isLoading, search }) => {
         Header: "Name",
         accessor: "name",
         Cell: (e) => {
-          console.log(e);
           return (
             <>
               <Link to={`/users/${e.row.original.id}/edit`}>{e.value}</Link>
@@ -132,7 +165,7 @@ const UserTable = ({ data, isLoading, search }) => {
       {page.length > 0 ? (
         <>
           <StyledTable {...getTableProps()}>
-            <thead>
+            <StyledThead>
               {headerGroups.map((headerGroup) => (
                 <StyledHeadingTr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
@@ -142,7 +175,7 @@ const UserTable = ({ data, isLoading, search }) => {
                   ))}
                 </StyledHeadingTr>
               ))}
-            </thead>
+            </StyledThead>
             <tbody {...getTableBodyProps()}>
               {page.map((row, i) => {
                 j++;
@@ -156,9 +189,17 @@ const UserTable = ({ data, isLoading, search }) => {
                   >
                     {row.cells.map((cell) => {
                       return (
-                        <StyledTd {...cell.getCellProps()}>
-                          {cell.render("Cell")}
-                        </StyledTd>
+                        <>
+                          <StyledTd {...cell.getCellProps()}>
+                            <div>
+                              <StyledTableHeading>
+                                {cell.column.Header}
+                              </StyledTableHeading>
+                              {cell.column.Header === "name" ? <br /> : null}
+                              {cell.render("Cell")}
+                            </div>
+                          </StyledTd>
+                        </>
                       );
                     })}
                   </StyledBodyTr>
