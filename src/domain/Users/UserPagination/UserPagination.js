@@ -4,12 +4,18 @@ import { ReactComponent as ArrowLeft } from "./icons/arrow-left.svg";
 import { ReactComponent as ArrowRight } from "./icons/arrow-right.svg";
 import styled from "styled-components";
 import { grey } from "../../../settings";
+import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 
 const StyledPaginationContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 0;
+  flex-direction: column;
+  margin: 10px 0 30px 0;
+  ${breakpoint("sm")`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+  `};
 `;
 
 const StyledButton = styled.button`
