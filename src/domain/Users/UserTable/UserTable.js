@@ -169,7 +169,10 @@ const UserTable = ({ data, isLoading, search }) => {
               {headerGroups.map((headerGroup) => (
                 <StyledHeadingTr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
-                    <StyledHeadingTh {...column.getHeaderProps()}>
+                    <StyledHeadingTh
+                      {...column.getHeaderProps()}
+                      data-testid="columnheader"
+                    >
                       {column.render("Header")}
                     </StyledHeadingTh>
                   ))}
@@ -184,8 +187,9 @@ const UserTable = ({ data, isLoading, search }) => {
                   <StyledBodyTr
                     {...row.getRowProps()}
                     style={{
-                      backgroundColor: j % 2 == 0 ? grey[200] : grey[201],
+                      backgroundColor: j % 2 === 0 ? grey[200] : grey[201],
                     }}
+                    data-testid="row"
                   >
                     {row.cells.map((cell) => {
                       return (
