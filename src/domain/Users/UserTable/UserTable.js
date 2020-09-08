@@ -32,6 +32,10 @@ const StyledTd = styled.td`
   height: 50px;
 `;
 
+const StyledEmailText = styled.p`
+  margin-top: 10px;
+`;
+
 const UserTable = ({ data, isLoading, search }) => {
   const columns = useMemo(
     () => [
@@ -39,7 +43,13 @@ const UserTable = ({ data, isLoading, search }) => {
         Header: "Name",
         accessor: "name",
         Cell: (e) => {
-          return <Link to={`/users/${e.row.original.id}/edit`}>{e.value}</Link>;
+          console.log(e);
+          return (
+            <>
+              <Link to={`/users/${e.row.original.id}/edit`}>{e.value}</Link>
+              <StyledEmailText>{e.row.original.email}</StyledEmailText>
+            </>
+          );
         },
       },
       {
