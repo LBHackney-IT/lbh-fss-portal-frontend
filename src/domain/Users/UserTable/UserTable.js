@@ -185,25 +185,24 @@ const UserTable = ({ data, isLoading, search }) => {
                 prepareRow(row);
                 return (
                   <StyledBodyTr
+                    key={row.id}
                     {...row.getRowProps()}
                     style={{
                       backgroundColor: j % 2 === 0 ? grey[200] : grey[201],
                     }}
                     data-testid="row"
                   >
-                    {row.cells.map((cell) => {
+                    {row.cells.map((cell, index) => {
                       return (
-                        <>
-                          <StyledTd {...cell.getCellProps()}>
-                            <div>
-                              <StyledTableHeading>
-                                {cell.column.Header}
-                              </StyledTableHeading>
-                              {cell.column.Header === "name" ? <br /> : null}
-                              {cell.render("Cell")}
-                            </div>
-                          </StyledTd>
-                        </>
+                        <StyledTd {...cell.getCellProps()} key={index}>
+                          <div>
+                            <StyledTableHeading>
+                              {cell.column.Header}
+                            </StyledTableHeading>
+                            {cell.column.Header === "name" ? <br /> : null}
+                            {cell.render("Cell")}
+                          </div>
+                        </StyledTd>
                       );
                     })}
                   </StyledBodyTr>
