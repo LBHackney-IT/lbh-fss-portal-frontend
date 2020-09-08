@@ -97,6 +97,18 @@ const UserTable = ({ data, isLoading }) => {
     return <span>Loading</span>;
   }
 
+  const pageMinIndex =
+    page.reduce(
+      (min, page) => (page.index < min ? page.index : min),
+      page[0].index
+    ) + 1;
+
+  const pageMaxIndex =
+    page.reduce(
+      (max, page) => (page.index > max ? page.index : max),
+      page[0].index
+    ) + 1;
+
   let j = 0;
 
   // Render the UI for your table
@@ -136,6 +148,9 @@ const UserTable = ({ data, isLoading }) => {
         </tbody>
       </StyledTable>
       <UserPagination
+        pageMinIndex={pageMinIndex}
+        pageMaxIndex={pageMaxIndex}
+        totalEntries={data.length}
         pageIndex={pageIndex}
         pageCount={pageCount}
         gotoPage={gotoPage}

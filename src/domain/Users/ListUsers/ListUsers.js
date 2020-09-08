@@ -69,7 +69,6 @@ const ListUsers = ({ location }) => {
   return accessPermission ? (
     <>
       <div>
-        <h1>Users</h1>
         <StyledActionDev>
           <SearchUser setSearch={setSearch} />
           <StyledAddUserLink>

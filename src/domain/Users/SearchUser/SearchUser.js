@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import SVGIcon from "../../../components/SVGIcon/SVGIcon";
+import { ReactComponent as SearchIcon } from "./icons/SearchBtn.svg";
 
 const StyledForm = styled.form`
   display: flex;
@@ -19,14 +21,24 @@ const StyledSearchContainer = styled.div`
   width: 100%;
 `;
 
+const StyledInput = styled.input`
+  border: none;
+  width: 90%;
+`;
+
 const StyledButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
   background-color: white;
   border: none;
-  width: 20%;
+  width: 10%;
+  padding: 0;
+  cursor: pointer;
 `;
 
 function SearchUser({ setSearch }) {
-  const { register, handleSubmit, errors } = useForm({});
+  const { register, handleSubmit } = useForm({});
 
   async function doSubmit({ search }) {
     setSearch(search);
@@ -36,14 +48,15 @@ function SearchUser({ setSearch }) {
     <>
       <StyledForm onSubmit={handleSubmit(doSubmit)} data-testid="form">
         <StyledSearchContainer>
-          <input
+          <StyledInput
             name="search"
             type="text"
             placeholder="Search..."
             ref={register}
-            style={{ border: "none", width: "80%" }}
           />
-          <StyledButton type="submit">Go</StyledButton>
+          <StyledButton type="submit">
+            <SVGIcon SVGComponent={SearchIcon} top={"0"} />
+          </StyledButton>
         </StyledSearchContainer>
       </StyledForm>
     </>
