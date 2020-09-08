@@ -64,7 +64,12 @@ const RegisterStep1 = () => {
         />
         <FormCheckbox
           type="checkbox"
-          label="I agree to the service terms and conditions"
+          label={
+            <>
+              I agree to the service{" "}
+              <a href="/terms-and-conditions">terms and conditions</a>
+            </>
+          }
           name="agreeToTerms"
           register={register}
           required
