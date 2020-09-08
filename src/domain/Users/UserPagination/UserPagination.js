@@ -89,42 +89,54 @@ function UserPagination({
         <strong>{pageMaxIndex}</strong> of <strong>{totalEntries}</strong>{" "}
         entries
       </StyledSummaryText>
-      <div>
-        <StyledPreviousButton
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-        >
-          <SVGIcon SVGComponent={ArrowLeft} width={"15px"} height={"15px"} />
-          <StyledPreviousText>Previous</StyledPreviousText>
-        </StyledPreviousButton>
-        {pageIndex - 2 >= 0 ? (
-          <StyledButton onClick={() => gotoPage(pageIndex - 2)}>
-            {pageIndex - 1}
-          </StyledButton>
-        ) : null}
-        {pageIndex - 1 >= 0 ? (
-          <StyledButton onClick={() => gotoPage(pageIndex - 1)}>
-            {pageIndex}
-          </StyledButton>
-        ) : null}
-        <StyledActiveButton onClick={() => gotoPage(pageIndex)}>
-          {pageIndex + 1}
-        </StyledActiveButton>
-        {pageIndex + 1 <= pageCount - 1 ? (
-          <StyledButton onClick={() => gotoPage(pageIndex + 1)}>
-            {pageIndex + 2}
-          </StyledButton>
-        ) : null}
-        {pageIndex + 2 <= pageCount - 1 ? (
-          <StyledButton onClick={() => gotoPage(pageIndex + 2)}>
-            {pageIndex + 3}
-          </StyledButton>
-        ) : null}
-        <StyledNextButton onClick={() => nextPage()} disabled={!canNextPage}>
-          <StyledNextText>Next</StyledNextText>
-          <SVGIcon SVGComponent={ArrowRight} width={"13px"} height={"13px"} />
-        </StyledNextButton>
-      </div>
+      {totalEntries > 10 ? (
+        <div>
+          <StyledPreviousButton
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
+            <SVGIcon SVGComponent={ArrowLeft} width={"15px"} height={"15px"} />
+            <StyledPreviousText>Previous</StyledPreviousText>
+          </StyledPreviousButton>
+          {pageIndex - 2 >= 0 ? (
+            <StyledButton onClick={() => gotoPage(pageIndex - 2)}>
+              {pageIndex - 1}
+            </StyledButton>
+          ) : null}
+          {pageIndex - 1 >= 0 ? (
+            <StyledButton onClick={() => gotoPage(pageIndex - 1)}>
+              {pageIndex}
+            </StyledButton>
+          ) : null}
+          <StyledActiveButton onClick={() => gotoPage(pageIndex)}>
+            {pageIndex + 1}
+          </StyledActiveButton>
+          {pageIndex + 1 <= pageCount - 1 ? (
+            <StyledButton onClick={() => gotoPage(pageIndex + 1)}>
+              {pageIndex + 2}
+            </StyledButton>
+          ) : null}
+          {pageIndex + 2 <= pageCount - 1 ? (
+            <StyledButton onClick={() => gotoPage(pageIndex + 2)}>
+              {pageIndex + 3}
+            </StyledButton>
+          ) : null}
+          {pageIndex + 3 <= 4 ? (
+            <StyledButton onClick={() => gotoPage(pageIndex + 3)}>
+              {pageIndex + 4}
+            </StyledButton>
+          ) : null}
+          {pageIndex + 4 <= 4 ? (
+            <StyledButton onClick={() => gotoPage(pageIndex + 4)}>
+              {pageIndex + 5}
+            </StyledButton>
+          ) : null}
+          <StyledNextButton onClick={() => nextPage()} disabled={!canNextPage}>
+            <StyledNextText>Next</StyledNextText>
+            <SVGIcon SVGComponent={ArrowRight} width={"13px"} height={"13px"} />
+          </StyledNextButton>
+        </div>
+      ) : null}
     </StyledPaginationContainer>
   );
 }

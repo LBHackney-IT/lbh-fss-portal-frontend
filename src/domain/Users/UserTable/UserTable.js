@@ -32,7 +32,7 @@ const StyledTd = styled.td`
   height: 50px;
 `;
 
-const UserTable = ({ data, isLoading }) => {
+const UserTable = ({ data, isLoading, search }) => {
   const columns = useMemo(
     () => [
       {
@@ -97,68 +97,81 @@ const UserTable = ({ data, isLoading }) => {
     return <span>Loading</span>;
   }
 
-  const pageMinIndex =
-    page.reduce(
-      (min, page) => (page.index < min ? page.index : min),
-      page[0].index
-    ) + 1;
+  let pageMinIndex = 0;
+  let pageMaxIndex = 0;
 
-  const pageMaxIndex =
-    page.reduce(
-      (max, page) => (page.index > max ? page.index : max),
-      page[0].index
-    ) + 1;
+  if (page.length > 0) {
+    pageMinIndex =
+      page.reduce(
+        (min, page) => (page.index < min ? page.index : min),
+        page[0].index
+      ) + 1;
+
+    pageMaxIndex =
+      page.reduce(
+        (max, page) => (page.index > max ? page.index : max),
+        page[0].index
+      ) + 1;
+  }
 
   let j = 0;
 
   // Render the UI for your table
   return (
     <>
-      <StyledTable {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <StyledHeadingTr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <StyledHeadingTh {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </StyledHeadingTh>
+      {page.length > 0 ? (
+        <>
+          <StyledTable {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <StyledHeadingTr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <StyledHeadingTh {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </StyledHeadingTh>
+                  ))}
+                </StyledHeadingTr>
               ))}
-            </StyledHeadingTr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            j++;
-            prepareRow(row);
-            return (
-              <StyledBodyTr
-                {...row.getRowProps()}
-                style={{ backgroundColor: j % 2 == 0 ? grey[200] : grey[201] }}
-              >
-                {row.cells.map((cell) => {
-                  return (
-                    <StyledTd {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </StyledTd>
-                  );
-                })}
-              </StyledBodyTr>
-            );
-          })}
-        </tbody>
-      </StyledTable>
-      <UserPagination
-        pageMinIndex={pageMinIndex}
-        pageMaxIndex={pageMaxIndex}
-        totalEntries={data.length}
-        pageIndex={pageIndex}
-        pageCount={pageCount}
-        gotoPage={gotoPage}
-        previousPage={previousPage}
-        nextPage={nextPage}
-        canPreviousPage={canPreviousPage}
-        canNextPage={canNextPage}
-      />
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row, i) => {
+                j++;
+                prepareRow(row);
+                return (
+                  <StyledBodyTr
+                    {...row.getRowProps()}
+                    style={{
+                      backgroundColor: j % 2 == 0 ? grey[200] : grey[201],
+                    }}
+                  >
+                    {row.cells.map((cell) => {
+                      return (
+                        <StyledTd {...cell.getCellProps()}>
+                          {cell.render("Cell")}
+                        </StyledTd>
+                      );
+                    })}
+                  </StyledBodyTr>
+                );
+              })}
+            </tbody>
+          </StyledTable>
+          <UserPagination
+            pageMinIndex={pageMinIndex}
+            pageMaxIndex={pageMaxIndex}
+            totalEntries={data.length}
+            pageIndex={pageIndex}
+            pageCount={pageCount}
+            gotoPage={gotoPage}
+            previousPage={previousPage}
+            nextPage={nextPage}
+            canPreviousPage={canPreviousPage}
+            canNextPage={canNextPage}
+          />
+        </>
+      ) : (
+        <h1>No users found matching '{search}'</h1>
+      )}
     </>
   );
 };

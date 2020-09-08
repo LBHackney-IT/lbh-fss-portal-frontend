@@ -78,7 +78,7 @@ const ListUsers = ({ location }) => {
           </StyledAddUserLink>
         </StyledActionDev>
       </div>
-      <UserTable data={data} isLoading={isLoading} />
+      <UserTable data={data} isLoading={isLoading} search={search} />
     </>
   ) : (
     <AccessDenied />
