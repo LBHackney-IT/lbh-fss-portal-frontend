@@ -12,14 +12,14 @@ const StyledTable = styled.table`
   border-collapse: collapse;
   border-radius: 3px 3px 0px 0px;
   margin-top: 10px;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     margin-top: 40px;
   `};
 `;
 
 const StyledThead = styled.thead`
   display: none;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     display: table-header-group;
   `};
 `;
@@ -32,6 +32,9 @@ const StyledHeadingTr = styled.tr`
 
 const StyledHeadingTh = styled.th`
   padding: 0;
+  text-align: left;
+  padding-left: 15px;
+  font-weight: normal;
 `;
 
 const StyledBodyTr = styled.tr`
@@ -40,6 +43,9 @@ const StyledBodyTr = styled.tr`
   margin: 10px 0;
   padding: 20px 0;
   ${breakpoint("sm")`
+    padding: 15px 20px;
+  `};
+  ${breakpoint("md")`
     display:table-row;
     margin: 0;
     padding: 0;
@@ -49,9 +55,9 @@ const StyledBodyTr = styled.tr`
 const StyledTd = styled.td`
   border-left: none;
   border-right: none;
-  padding: 5px 0 0 30px;
+  padding: 5px 0 0 15px;
   margin-top: 10px;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     height: 50px;
     margin-top: 0;
   `};
@@ -64,10 +70,14 @@ const StyledEmailText = styled.p`
 const StyledTableHeading = styled.span`
   font-weight: 600;
   margin-right: 10px;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     display: none;
     margin-right: 0;
   `};
+`;
+
+const StyledUl = styled.ul`
+  padding-left: 20px;
 `;
 
 const UserTable = ({ data, isLoading, search }) => {
@@ -94,11 +104,11 @@ const UserTable = ({ data, isLoading, search }) => {
         accessor: "roles",
         Cell: (e) => {
           return (
-            <ul>
+            <StyledUl>
               {e.value.map((item, i) => {
                 return <li key={i}>{roles[item]}</li>;
               })}
-            </ul>
+            </StyledUl>
           );
         },
       },

@@ -10,17 +10,18 @@ import { grey } from "../../../settings";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 
-const StyledActionDev = styled.div`
+const StyledActionDiv = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  justify-content: flex-start;
+  padding: 20px;
   ${breakpoint("sm")`
     flex-direction: row;
     height: 80px;
     padding: 0 10px;
+    justify-content: space-between;
+    align-items: center;
   `};
-  justify-content: space-between;
-  align-items: center;
 
   background-color: ${grey[500]};
 `;
@@ -69,14 +70,14 @@ const ListUsers = ({ location }) => {
   return accessPermission ? (
     <>
       <div>
-        <StyledActionDev>
+        <StyledActionDiv>
           <SearchUser setSearch={setSearch} />
           <StyledAddUserLink>
             <Link to="/users/add">
               <StyledButton label={"Add user"} />
             </Link>
           </StyledAddUserLink>
-        </StyledActionDev>
+        </StyledActionDiv>
       </div>
       <UserTable data={data} isLoading={isLoading} search={search} />
     </>

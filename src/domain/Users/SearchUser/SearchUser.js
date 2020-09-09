@@ -7,8 +7,9 @@ import { ReactComponent as SearchIcon } from "./icons/SearchBtn.svg";
 
 const StyledForm = styled.form`
   display: flex;
-  width: 80%;
+  width: 100%;
   ${breakpoint("sm")`
+    width: 80%;
     max-width: 40%;
   `};
 `;
@@ -24,6 +25,7 @@ const StyledSearchContainer = styled.div`
 const StyledInput = styled.input`
   border: none;
   width: 90%;
+  padding: 5px 10px;
 `;
 
 const StyledButton = styled.button`
