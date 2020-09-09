@@ -11,17 +11,16 @@ const StyledDiv = styled.div`
 
 const StyledLabel = styled.label`
   display: block;
-  margin: 0 0 5px 20px;
-  font-size: 16px;
-  font-weight: bold;
   padding-top: 5px;
-  width: 80%;
+  font-weight: normal;
+  font-size: 19px;
+  margin: 5px 0 5px 10px;
 `;
 
 const StyledCheckbox = styled.input`
   display: block;
-  width: 10%;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   margin-right: 5px;
 `;
 

@@ -8,6 +8,15 @@ import {
 } from "../../../utils/testing/testing";
 import axiosMock from "axios";
 
+// prevent react-toastify and @reach/router from being mocked
+jest.mock("react-toastify", () => ({
+  ...jest.requireActual("react-toastify"),
+}));
+
+jest.mock("@reach/router", () => ({
+  ...jest.requireActual("@reach/router"),
+}));
+
 test("get list users page if user has permissions", async () => {
   axiosMock.get.mockImplementationOnce(() =>
     Promise.resolve({ data: { entries: mockUsers } })

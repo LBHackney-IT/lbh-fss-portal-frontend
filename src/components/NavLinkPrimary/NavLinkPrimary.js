@@ -8,6 +8,7 @@ const StyledLink = styled(Link)``;
 const NavLink = (props) => {
   return (
     <StyledLink
+      data-testid="navigation"
       {...props}
       getProps={({ isPartiallyCurrent }) => {
         return {

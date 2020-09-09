@@ -10,7 +10,7 @@ const StyledPaginationContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px 0 30px 0;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

@@ -9,7 +9,7 @@ const StyledLabel = styled.label`
   display: block;
   margin-bottom: 5px;
   font-size: 19px;
-  color: ${grey[400]};
+  color: black;
 `;
 
 const StyledInput = styled.input`

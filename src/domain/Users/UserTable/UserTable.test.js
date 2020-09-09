@@ -4,12 +4,12 @@ import axiosMock from "axios";
 import UserTable from "./UserTable";
 import { mockUsers } from "../../../utils/testing/testing";
 
-beforeEach(() => {
-  axiosMock.get.mockClear();
-});
+jest.mock("@reach/router", () => ({
+  ...jest.requireActual("@reach/router"),
+}));
 
 test("table column headings are correct", async () => {
-  render(<UserTable data={mockUsers} />);
+  render(<UserTable data={mockUsers} isLoading={false} search={"ab"} />);
 
   const columnHeaders = await screen.findAllByTestId("columnheader");
 

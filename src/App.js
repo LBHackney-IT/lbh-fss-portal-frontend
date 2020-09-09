@@ -6,12 +6,18 @@ import { GlobalStyle } from "./helpers/GlobalStyle/GlobalStyle";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ModalProvider } from "styled-react-modal";
+import { grey } from "./settings";
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+  background-color: ${grey[300]};
+`;
 
 function App() {
   const userState = useState(false);
 
   return (
-    <div className="App">
+    <StyledDiv className="App">
       <UserContext.Provider value={userState}>
         <ModalProvider>
           <Header />
@@ -20,7 +26,7 @@ function App() {
           <GlobalStyle />
         </ModalProvider>
       </UserContext.Provider>
-    </div>
+    </StyledDiv>
   );
 }
 

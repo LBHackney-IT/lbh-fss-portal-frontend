@@ -2,6 +2,8 @@ import React from "react";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import AddUser from "./AddUser";
 import axiosMock from "axios";
+import { toast } from "react-toastify";
+import { navigate } from "@reach/router";
 import {
   mockUser,
   renderWithInternalPermissions,
@@ -75,7 +77,7 @@ test("emails with correct pattern do not trigger validation", async () => {
   });
 });
 
-test("add user functionality works as expected", async () => {
+test("on successful addition of user, success notifcation is displayed and redirected to /users page", async () => {
   renderWithInternalPermissions(<AddUser />);
 
   // update values in form
@@ -103,10 +105,13 @@ test("add user functionality works as expected", async () => {
   // submit form
   fireEvent.click(screen.getByText(/create account/i));
 
-  // await redirect from /login to /services
   await waitFor(() => {
-    expect(window.location.pathname).toEqual("/users");
-  });
+    expect(toast.success).toHaveBeenCalledTimes(1);
+    expect(toast.success).toHaveBeenCalledWith(
+      `New user ${mockUser.name} invited.`
+    );
 
-  expect(axiosMock.post).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith("/users");
+  });
 });
