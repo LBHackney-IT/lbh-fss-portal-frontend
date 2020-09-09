@@ -9,7 +9,7 @@ const StyledLabel = styled.label`
   display: block;
   margin-bottom: 5px;
   font-size: 19px;
-  color: ${grey[400]};
+  color: black;
 `;
 
 const StyledInput = styled.input`
@@ -61,7 +61,7 @@ const FormInput = ({
         <FormError
           error={`${label} must be at least ${minLength} ${
             type === "number" ? "digits" : "characters"
-            }.`}
+          }.`}
         />
       )}
       {error && error.message && <FormError error={error.message} />}

@@ -12,11 +12,13 @@ const StyledButton = styled.button`
   border: none;
   padding: 13px 57px;
   font-size: 19px;
+  border-bottom: 2px solid black;
   cursor: pointer;
   border-radius: 3px;
   &:hover {
     background-color: ${(props) =>
-      props.color ? darken(0.1, props.color) : darken(0.1, green[400])}
+      props.color ? darken(0.1, props.color) : darken(0.1, green[400])};
+  }
 `;
 
 const Button = ({
