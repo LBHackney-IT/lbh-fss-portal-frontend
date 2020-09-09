@@ -11,8 +11,8 @@ import { green } from "../../settings";
 
 const StyledPrimaryLink = styled(NavLinkPrimary)`
   margin: 10px 0;
-  ${breakpoint("sm")`
-    margin-right: 27px;
+  ${breakpoint("md")`
+    margin-right: 20px;
   `};
 `;
 
@@ -23,15 +23,16 @@ const StyledMobileTitle = styled.div`
   color: white;
   font-size: 19px;
   font-weight: 700;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     display: none;
   `};
+  cursor: pointer !important;
 `;
 
 const StyledNav = styled.nav`
   display: ${(props) => (props.menuIsOpen ? "flex" : "none")};
   flex-direction: column;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     display: flex;
     flex-direction: row;
   `};
@@ -41,7 +42,7 @@ const StyledNav = styled.nav`
 
 const StyledSecondaryNavMenuContainer = styled.span`
   display: block;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     display: none;
   `};
 `;
@@ -52,11 +53,10 @@ const StyledCloseIcon = styled.span`
   display: inline-block;
   text-indent: -999999px;
   background-size: contain;
-  margin-right: ${(props) => (props.menuIsOpen ? "5px" : "0")};
-  width: ${(props) => (props.menuIsOpen ? "15px" : "0")};
-  height: ${(props) => (props.menuIsOpen ? "15px" : "0")};
-  margin-top: 2px;
+  width: ${(props) => (props.menuIsOpen ? "20px" : "0")};
+  height: ${(props) => (props.menuIsOpen ? "20px" : "0")};
   background-image: url(${closeIcon});
+  cursor: pointer;
 `;
 
 const StyledBurgerIcon = styled.span`
@@ -69,6 +69,7 @@ const StyledBurgerIcon = styled.span`
   height: ${(props) => (!props.menuIsOpen ? "15px" : "0")};
   margin-top: 2px;
   background-image: url(${burgerIcon});
+  cursor: pointer;
 `;
 
 function NavBar() {

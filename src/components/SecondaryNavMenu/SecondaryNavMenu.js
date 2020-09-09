@@ -10,9 +10,9 @@ const StyledSecondaryLink = styled(NavLinkSecondary)`
   margin: 10px 0 0 10px;
   text-decoration: none;
   color: white;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     color: #025EA6;
-   margin-left: 27px;
+    margin-left: 27px;
   `};
 `;
 
@@ -20,7 +20,7 @@ const StyledAnchor = styled.a`
   margin: 10px 0 0 10px;
   color: white;
   text-decoration: none;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
    color: #025EA6;
    margin-left: 27px;
   `};
@@ -31,7 +31,7 @@ const StyledNav = styled.nav`
   flex-direction: column;
   background-color: ${green[300]};
   padding: 0 0 10px 10px;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     flex-direction: row;
     background-color: transparent;
   `};

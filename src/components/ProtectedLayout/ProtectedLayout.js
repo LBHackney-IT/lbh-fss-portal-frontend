@@ -39,7 +39,7 @@ const StyledContactInfo = styled.div`
 
 const StyledSecondaryNav = styled.nav`
   display: none;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     display: block;
   `};
 `;
