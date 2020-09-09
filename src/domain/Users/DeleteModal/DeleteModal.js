@@ -1,28 +1,48 @@
 import React from "react";
-import Modal from "styled-react-modal";
+import styled from "styled-components";
 import Button from "../../../components/Button/Button";
+import Modal from "../../../components/Modal/Modal";
+import { red, grey } from "../../../settings";
+import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 
-const StyledModal = Modal.styled`
-  width: 20rem;
-  height: 20rem;
+const StyledText = styled.p`
+  margin-bottom: 20px;
+`;
+
+const StyledActionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
+  ${breakpoint("sm")`
+  flex-direction: row;
+`};
+`;
+
+const StyledButton = styled(Button)`
+  margin: 10px 0;
+  ${breakpoint("sm")`
+    margin: 0 10px;
+`};
 `;
 
 const DeleteModal = ({ isOpen, toggleModal, user, onConfirm }) => {
   return (
-    <StyledModal
+    <Modal
       isOpen={isOpen}
       onBackgroundClick={toggleModal}
       onEscapeKeydown={toggleModal}
     >
-      <p>Are you sure you want to delete {user.name}?</p>
-      <Button onClick={toggleModal} label={"Cancel"} />
-      <Button onClick={onConfirm} label={"Delete"} />
-    </StyledModal>
+      <StyledText>
+        Are you sure you want to delete <strong> {user.name}</strong>?
+      </StyledText>
+      <StyledActionContainer>
+        <StyledButton
+          onClick={toggleModal}
+          label={"Cancel"}
+          color={grey[400]}
+        />
+        <StyledButton onClick={onConfirm} label={"Delete"} color={red[400]} />
+      </StyledActionContainer>
+    </Modal>
   );
 };
 
