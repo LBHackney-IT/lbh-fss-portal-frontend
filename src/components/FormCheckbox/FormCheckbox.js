@@ -4,9 +4,8 @@ import styled from "styled-components";
 import FormError from "../FormError/FormError";
 
 const StyledDiv = styled.div`
-  display: flex; 
-  flexDirection: row;
-  justifyContent: space-between;
+  display: flex;
+  flex-direction: row;
   margin: 20px 0;
 `;
 
