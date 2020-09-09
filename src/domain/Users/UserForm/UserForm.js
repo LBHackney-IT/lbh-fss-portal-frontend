@@ -81,21 +81,28 @@ const UserForm = ({
             label="Password"
             name="password"
             register={register}
-            required
             maxLength={255}
             minLength={6}
             validate={{
               oneCapital: (value) => {
-                return (
-                  value.match(/[[A-Z]/) ||
-                  "Password must contain at least one capital letter"
-                );
+                if (value.length === 0) {
+                  return true;
+                } else {
+                  return (
+                    value.match(/[[A-Z]/) ||
+                    "Password must contain at least one capital letter"
+                  );
+                }
               },
               oneNumber: (value) => {
-                return (
-                  value.match(/[[0-9]/) ||
-                  "Password must contain at least one number"
-                );
+                if (value.length === 0) {
+                  return true;
+                } else {
+                  return (
+                    value.match(/[[0-9]/) ||
+                    "Password must contain at least one number"
+                  );
+                }
               },
             }}
             error={errors.password}
