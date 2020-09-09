@@ -77,18 +77,34 @@ const UserForm = ({
       {showPassword ? (
         <>
           <FormInput
-            name="password"
             type="password"
-            register={register}
             label="Password"
+            name="password"
+            register={register}
+            required
+            maxLength={255}
+            minLength={6}
+            validate={{
+              oneCapital: (value) => {
+                return (
+                  value.match(/[[A-Z]/) ||
+                  "Password must contain at least one capital letter"
+                );
+              },
+              oneNumber: (value) => {
+                return (
+                  value.match(/[[0-9]/) ||
+                  "Password must contain at least one number"
+                );
+              },
+            }}
             error={errors.password}
           />
           <FormInput
-            name="confirmPassword"
             type="password"
-            register={register}
             label="Confirm password"
-            error={errors.confirmPassword}
+            name="confirmPassword"
+            register={register}
             validate={{
               passwordMatch: (value) => {
                 return (
@@ -96,6 +112,7 @@ const UserForm = ({
                 );
               },
             }}
+            error={errors.confirmPassword}
           />
         </>
       ) : (
@@ -117,12 +134,12 @@ const UserForm = ({
         })}
       </FormFieldset>
       <StyledActionDiv>
+        <Button type="submit" label={submitLabel} disabled={submitLoading} />
         {showDeleteButton ? (
           <StyledDeleteButton label={"Delete account"} onClick={onDelete} />
         ) : (
           ""
         )}
-        <Button type="submit" label={submitLabel} disabled={submitLoading} />
       </StyledActionDiv>
     </form>
   );
