@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 
 const StyledButton = styled(Button)`
   width: 100%;
+  margin: 0;
 `;
 
 const ResetPasswordConfirmation = () => {
