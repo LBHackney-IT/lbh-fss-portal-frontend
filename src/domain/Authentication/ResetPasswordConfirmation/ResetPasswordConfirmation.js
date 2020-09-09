@@ -50,7 +50,7 @@ const ResetPasswordConfirmation = () => {
     if (user) {
       toast.success("New password successfully set.");
 
-      navigate("/services");
+      navigate("/");
     } else {
       reset();
 
