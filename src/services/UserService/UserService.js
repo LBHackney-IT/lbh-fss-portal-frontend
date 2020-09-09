@@ -49,6 +49,9 @@ const UserService = {
     }
   },
   async updateUser(id, values) {
+    if (values.password === "") {
+      values.password = null;
+    }
     try {
       const response = await axios.patch(`/api/users/${id}`, values);
 
