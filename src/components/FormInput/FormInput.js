@@ -36,6 +36,7 @@ const FormInput = ({
   inputRef,
   validate,
   help,
+  placeholder,
 }) => {
   return (
     <>
@@ -45,6 +46,7 @@ const FormInput = ({
         aria-label={name}
         name={name}
         type={type}
+        placeholder={placeholder}
         ref={(e) => {
           register(e, { required, minLength, maxLength, validate });
           if (inputRef) inputRef.current = e;
@@ -61,7 +63,7 @@ const FormInput = ({
         <FormError
           error={`${label} must be at least ${minLength} ${
             type === "number" ? "digits" : "characters"
-            }.`}
+          }.`}
         />
       )}
       {error && error.message && <FormError error={error.message} />}

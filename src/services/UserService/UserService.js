@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const UserService = {
-  async retrieveUsers({
+  async retrieveUsers(
     sort = "name",
     direction = "asc",
     offset = 0,
     limit = 10,
-    search = "",
-  }) {
+    search = ""
+  ) {
     try {
       const response = await axios.get("/api/users", {
         params: {
