@@ -36,6 +36,7 @@ const FormInput = ({
   inputRef,
   validate,
   help,
+  placeholder,
 }) => {
   return (
     <>
@@ -45,6 +46,7 @@ const FormInput = ({
         aria-label={name}
         name={name}
         type={type}
+        placeholder={placeholder}
         ref={(e) => {
           register(e, { required, minLength, maxLength, validate });
           if (inputRef) inputRef.current = e;

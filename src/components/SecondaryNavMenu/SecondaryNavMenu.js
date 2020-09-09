@@ -4,25 +4,37 @@ import styled from "styled-components";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 import UserContext from "../../context/UserContext/UserContext";
 import NavLinkSecondary from "../NavLinkSecondary/NavLinkSecondary";
-import { green } from "../../settings";
+import { green, blue } from "../../settings";
 
 const StyledSecondaryLink = styled(NavLinkSecondary)`
-  margin: 10px 0 0 10px;
+  margin: 10px 0;
   text-decoration: none;
   color: white;
+  &:hover {
+    color: white;
+  }
   ${breakpoint("md")`
     color: #025EA6;
     margin-left: 27px;
+    &:hover {
+      color: ${blue[500]};
+    }
   `};
 `;
 
 const StyledAnchor = styled.a`
-  margin: 10px 0 0 10px;
+  margin: 10px 0;
   color: white;
   text-decoration: none;
+  &:hover {
+    color: white;
+  }
   ${breakpoint("md")`
    color: #025EA6;
    margin-left: 27px;
+   &:hover {
+     color: ${blue[500]};
+   }
   `};
 `;
 

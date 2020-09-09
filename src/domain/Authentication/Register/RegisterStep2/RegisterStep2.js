@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import FormInput from "../../../../components/FormInput/FormInput";
-import StyledButton from "../../../../components/Button/Button";
+import Button from "../../../../components/Button/Button";
+import styled from "styled-components";
 import { navigate, Redirect } from "@reach/router";
 import AuthenticationService from "../../../../services/AuthenticationService/AuthenticationService";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+
+const StyledButton = styled(Button)`
+  width: 100%;
+  margin: 0;
+`;
 
 const RegisterStep2 = () => {
   const { register, handleSubmit, errors, getValues } = useForm();

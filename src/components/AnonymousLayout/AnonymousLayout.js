@@ -19,11 +19,10 @@ const StyledLayoutInner = styled.div`
 `;
 
 const StyledHeading = styled.div`
-  padding-bottom: 20px;
+  padding-bottom: 35px;
   margin-bottom: 30px;
   color: ${neutral[400]};
-  font-size: 19px;
-  font-weight: bold;
+  font-size: 24px;
   border-bottom: 1px solid ${neutral[300]};
 `;
 

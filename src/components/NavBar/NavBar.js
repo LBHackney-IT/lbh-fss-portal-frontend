@@ -10,16 +10,21 @@ import burgerIcon from "./icons/open-menu.svg";
 import { green } from "../../settings";
 
 const StyledPrimaryLink = styled(NavLinkPrimary)`
-  margin: 10px 0;
+  text-decoration: none;
+  margin: 0;
+  text-align: left !important;
+  border-radius: 0 0 0 0 !important;
   ${breakpoint("md")`
-    margin-right: 20px;
+    margin-left: 10px;
+    text-align: center !important;
+    border-radius: 3px 3px 0px 0px !important;
   `};
 `;
 
 const StyledMobileTitle = styled.div`
   display: flex;
   background-color: ${green[400]};
-  padding: 10px 10px;
+  padding: 10px 20px;
   color: white;
   font-size: 19px;
   font-weight: 700;
@@ -29,10 +34,16 @@ const StyledMobileTitle = styled.div`
   cursor: pointer !important;
 `;
 
+const StyledTitleText = styled.div`
+  margin-left: 5px;
+`;
+
 const StyledNav = styled.nav`
   display: ${(props) => (props.menuIsOpen ? "flex" : "none")};
   flex-direction: column;
+  background-color: ${green[400]};
   ${breakpoint("md")`
+    padding-top: 10px;
     display: flex;
     flex-direction: row;
   `};
@@ -53,10 +64,11 @@ const StyledCloseIcon = styled.span`
   display: inline-block;
   text-indent: -999999px;
   background-size: contain;
-  width: ${(props) => (props.menuIsOpen ? "20px" : "0")};
-  height: ${(props) => (props.menuIsOpen ? "20px" : "0")};
+  width: ${(props) => (props.menuIsOpen ? "25px" : "0")};
+  height: ${(props) => (props.menuIsOpen ? "25px" : "0")};
   background-image: url(${closeIcon});
   cursor: pointer;
+  margin: -2px 0 0 -6px;
 `;
 
 const StyledBurgerIcon = styled.span`
@@ -87,7 +99,7 @@ function NavBar() {
       <StyledMobileTitle onClick={toggleMenu}>
         <StyledCloseIcon menuIsOpen={menuIsOpen} />
         <StyledBurgerIcon menuIsOpen={menuIsOpen} />
-        <div>Menu</div>
+        <StyledTitleText>Menu</StyledTitleText>
       </StyledMobileTitle>
       <StyledNav menuIsOpen={menuIsOpen}>
         {!isInternalTeam ? (

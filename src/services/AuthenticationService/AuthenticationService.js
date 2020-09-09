@@ -67,6 +67,28 @@ const AuthenticationService = {
       return false;
     }
   },
+  async passwordRecovery(email) {
+    try {
+      await axios.post("/api/password-recovery", { email });
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  },
+  async passwordRecoveryConfirmation(email, code, password) {
+    try {
+      await axios.post("/api/password-recovery/confirmation", {
+        email,
+        code,
+        password,
+      });
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  },
 };
 
 export default AuthenticationService;
