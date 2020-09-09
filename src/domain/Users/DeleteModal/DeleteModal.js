@@ -1,10 +1,12 @@
 import React from "react";
 import Modal from "styled-react-modal";
+import Button from "../../../components/Button/Button";
 
 const StyledModal = Modal.styled`
   width: 20rem;
   height: 20rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: white;
@@ -17,14 +19,9 @@ const DeleteModal = ({ isOpen, toggleModal, user, onConfirm }) => {
       onBackgroundClick={toggleModal}
       onEscapeKeydown={toggleModal}
     >
-      <div>
-        <span>Are you sure you want to delete {user.name}?</span>
-        <div>
-          <button onClick={toggleModal}>Cancel</button>
-          <button onClick={onConfirm}>Delete</button>
-        </div>
-      </div>
-      <button onClick={toggleModal}>Close</button>
+      <p>Are you sure you want to delete {user.name}?</p>
+      <Button onClick={toggleModal} label={"Cancel"} />
+      <Button onClick={onConfirm} label={"Delete"} />
     </StyledModal>
   );
 };
