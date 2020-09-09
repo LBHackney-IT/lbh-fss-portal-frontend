@@ -5,7 +5,7 @@ import { navigate } from "@reach/router";
 
 const StyledButton = styled(Button)`
   width: 100%;
-  margin: 0;
+  margin: 25px 0 0 0;
 `;
 
 const TermsAndConditions = () => {

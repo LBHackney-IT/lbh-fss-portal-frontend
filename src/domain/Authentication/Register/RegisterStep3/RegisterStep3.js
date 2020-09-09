@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import FormInput from "../../../../components/FormInput/FormInput";
-import StyledButton from "../../../../components/Button/Button";
+import Button from "../../../../components/Button/Button";
+import styled from "styled-components";
 import { navigate } from "@reach/router";
 import UserContext from "../../../../context/UserContext/UserContext";
 import AuthenticationService from "../../../../services/AuthenticationService/AuthenticationService";
@@ -9,6 +10,11 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import ButtonAction from "../../../../components/ButtonAction/ButtonAction";
 import FormError from "../../../../components/FormError/FormError";
+
+const StyledButton = styled(Button)`
+  width: 100%;
+  margin-bottom: 20px;
+`;
 
 const RegisterStep3 = () => {
   // initalise form default values

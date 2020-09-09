@@ -2,9 +2,15 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import FormInput from "../../../../components/FormInput/FormInput";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
-import StyledButton from "../../../../components/Button/Button";
+import Button from "../../../../components/Button/Button";
+import styled from "styled-components";
 import { navigate } from "@reach/router";
 import Cookies from "js-cookie";
+
+const StyledButton = styled(Button)`
+  width: 100%;
+  margin: 0;
+`;
 
 const RegisterStep1 = () => {
   let defaultValues = {
