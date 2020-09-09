@@ -35,19 +35,25 @@ const ResetPasswordConfirmation = () => {
   });
 
   async function doPasswordResetConfirmation({ email, code, password }) {
+    if (isLoading) return;
+
     setIsLoading(true);
+
     const user = await AuthenticationService.passwordRecoveryConfirmation(
       email,
       code,
       password
     );
+
     setIsLoading(false);
 
     if (user) {
       toast.success("New password successfully set.");
+
       navigate("/services");
     } else {
       reset();
+
       toast.error("Password reset failed.");
     }
   }

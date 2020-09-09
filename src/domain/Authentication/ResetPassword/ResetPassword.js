@@ -17,8 +17,12 @@ const ResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   async function doPasswordReset({ email }) {
+    if (isLoading) return;
+
     setIsLoading(true);
+
     const user = await AuthenticationService.passwordRecovery(email);
+
     setIsLoading(false);
 
     toast.success(

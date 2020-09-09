@@ -3,6 +3,7 @@ import UserForm from "../UserForm/UserForm";
 import useUserFetch from "../../../hooks/useUserFetch/useUserFetch";
 import UserContext from "../../../context/UserContext/UserContext";
 import UserService from "../../../services/UserService/UserService";
+import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
 
@@ -42,15 +43,17 @@ const MyAccount = (props) => {
   return (
     <>
       <h1>My account</h1>
-      <UserForm
-        onSubmit={onSubmit}
-        defaultValues={{
-          name: user.name || "",
-          email: user.email || "",
-          roles: user.roles || "",
-        }}
-        submitLoading={editIsLoading}
-      />
+      <RaisedCard>
+        <UserForm
+          onSubmit={onSubmit}
+          defaultValues={{
+            name: user.name || "",
+            email: user.email || "",
+            roles: user.roles || "",
+          }}
+          submitLoading={editIsLoading}
+        />
+      </RaisedCard>
     </>
   );
 };
