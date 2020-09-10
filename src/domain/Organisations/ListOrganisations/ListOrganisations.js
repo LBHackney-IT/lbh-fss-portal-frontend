@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-// import UserTable from "../UserTable/UserTable";
+import OrganisationTable from "../OrganisationTable/OrganisationTable";
 import Search from "../../../components/Search/Search";
 import Button from "../../../components/Button/Button";
 import UserContext from "../../../context/UserContext/UserContext";
@@ -73,7 +73,7 @@ const ListOrganisations = ({ location }) => {
           <Search setSearch={setSearch} />
         </StyledActionDiv>
       </div>
-      {/* <UserTable data={data} isLoading={isLoading} search={search} /> */}
+      <OrganisationTable data={data} isLoading={isLoading} search={search} />
     </>
   ) : (
     <AccessDenied />

@@ -1,10 +1,6 @@
 import React, { useMemo } from "react";
-// import { useTable, usePagination } from "react-table";
 import { Link } from "@reach/router";
-import { roles } from "../../../settings";
 import styled from "styled-components";
-// import UserPagination from "../UserPagination/UserPagination";
-import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import Table from "../../../components/Table/Table";
 
 const StyledEmailText = styled.p`
@@ -19,41 +15,36 @@ const OrganisationTable = ({ data, isLoading, search }) => {
   const columns = useMemo(
     () => [
       {
-        Header: "Name",
+        Header: "Organisation",
         accessor: "name",
         Cell: (e) => {
           return (
             <>
-              <Link to={`/users/${e.row.original.id}/edit`}>{e.value}</Link>
+              <Link to={`/organisations/${e.row.original.id}/edit`}>
+                {e.value}
+              </Link>
               <StyledEmailText>{e.row.original.email}</StyledEmailText>
             </>
           );
         },
       },
       {
-        Header: "Organisation",
-        accessor: "organisation.name",
+        Header: "Status",
+        accessor: "status",
       },
       {
-        Header: "Roles",
-        accessor: "roles",
+        Header: "Submitted",
+        accessor: "submitted_at",
+      },
+      {
+        Header: "Action",
         Cell: (e) => {
           return (
-            <StyledUl>
-              {e.value.map((item, i) => {
-                return <li key={i}>{roles[item]}</li>;
-              })}
-            </StyledUl>
+            <>
+              <form></form>
+            </>
           );
         },
-      },
-      {
-        Header: "Member for",
-        accessor: "member_for",
-      },
-      {
-        Header: "Last access",
-        accessor: "last_access",
       },
     ],
     []
