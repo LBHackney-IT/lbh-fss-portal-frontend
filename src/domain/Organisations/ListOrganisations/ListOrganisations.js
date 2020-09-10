@@ -64,8 +64,6 @@ const ListOrganisations = ({ location }) => {
     fetchData();
   }, [search, setData, setIsLoading]);
 
-  console.log(data);
-
   const accessPermission = roles.includes("viewer") || roles.includes("admin");
 
   return accessPermission ? (
