@@ -9,12 +9,15 @@ import { breakpoint } from "../../utils/breakpoint/breakpoint";
 const StyledPaginationContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 10px 0 30px 0;
+  width: 70%;
+  margin: 10px auto 30px auto;
+  text-align: center;
   ${breakpoint("md")`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin: 10px 0;
+    width: 100%;
   `};
 `;
 

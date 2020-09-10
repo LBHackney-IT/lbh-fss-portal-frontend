@@ -25,17 +25,6 @@ const StyledActionDiv = styled.div`
   background-color: ${grey[500]};
 `;
 
-const StyledButton = styled(Button)`
-  margin: auto 0;
-`;
-
-const StyledAddUserLink = styled.div`
-  margin-top: 20px;
-  ${breakpoint("sm")`
-  margin-top: 0;
-  `};
-`;
-
 const ListOrganisations = ({ location }) => {
   const { roles } = useContext(UserContext)[0];
 

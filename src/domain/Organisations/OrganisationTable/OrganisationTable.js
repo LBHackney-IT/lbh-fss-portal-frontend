@@ -4,15 +4,9 @@ import styled from "styled-components";
 import Table from "../../../components/Table/Table";
 import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 import { green, red, yellow } from "../../../settings";
-import { date } from "faker";
-
-const StyledEmailText = styled.p`
-  margin-top: 10px;
-`;
-
-const StyledUl = styled.ul`
-  padding-left: 20px;
-`;
+import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
+import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
+import { ReactComponent as Trash } from "./icons/trash.svg";
 
 const StyledStatus = styled.div`
   background-color: ${(props) => props.status.backgroundColor};
@@ -77,8 +71,37 @@ function organisationIsNew(createdAt) {
   const createdAtDate = new Date(createdAt);
   const today = new Date();
   const differenceInDays = (today - createdAtDate) / (1000 * 3600 * 24);
-  return differenceInDays <= 235;
+  return differenceInDays <= 235; // <- 235 for demo purposes
+  // return differenceInDays <= 1;
 }
+
+function doApprove() {
+  alert("approve organisation");
+}
+function doDecline() {
+  alert("decline organisation");
+}
+function doRemove() {
+  alert("remove organisation");
+}
+
+const actions = [
+  {
+    title: "Approve",
+    onClick: doApprove,
+    icon: ApproveCircle,
+  },
+  {
+    title: "Decline",
+    onClick: doDecline,
+    icon: DeclineCircle,
+  },
+  {
+    title: "Remove",
+    onClick: doRemove,
+    icon: Trash,
+  },
+];
 
 const OrganisationTable = ({ data, isLoading, search }) => {
   const columns = useMemo(
@@ -121,7 +144,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
           return (
             <>
               <div style={{ padding: "10px 20px 10px 0" }}>
-                <FormDropDown />
+                <FormDropDown actions={actions} />
               </div>
             </>
           );

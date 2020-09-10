@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as DownArrow } from "./icons/down-arrow.svg";
-import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
-import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
-import { ReactComponent as Trash } from "./icons/trash.svg";
 import SVGIcon from "../SVGIcon/SVGIcon";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 
@@ -63,7 +60,7 @@ const StyledAction = styled.div`
   cursor: pointer;
 `;
 
-function FormDropDown() {
+function FormDropDown({ actions }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleDropDown() {
@@ -89,30 +86,18 @@ function FormDropDown() {
                     height={"15px"}
                   />{" "}
                 </StyledHeaderInList>
-                <StyledAction>
-                  <SVGIcon
-                    SVGComponent={ApproveCircle}
-                    width={"15px"}
-                    height={"15px"}
-                  />{" "}
-                  Approve
-                </StyledAction>
-                <StyledAction onClick={() => alert("decline")}>
-                  <SVGIcon
-                    SVGComponent={DeclineCircle}
-                    width={"15px"}
-                    height={"15px"}
-                  />{" "}
-                  Decline
-                </StyledAction>
-                <StyledAction>
-                  <SVGIcon
-                    SVGComponent={Trash}
-                    width={"15px"}
-                    height={"15px"}
-                  />{" "}
-                  Remove
-                </StyledAction>
+                {actions.map((action, index) => {
+                  return (
+                    <StyledAction onClick={action.onClick} key={index}>
+                      <SVGIcon
+                        SVGComponent={action.icon}
+                        width={"15px"}
+                        height={"15px"}
+                      />{" "}
+                      {action.title}
+                    </StyledAction>
+                  );
+                })}
               </StyledDropDownList>
             </StyledContainer>
           </>
