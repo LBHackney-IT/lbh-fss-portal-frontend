@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import SVGIcon from "../../../components/SVGIcon/SVGIcon";
+import SVGIcon from "..//SVGIcon/SVGIcon";
 import { ReactComponent as ArrowLeft } from "./icons/arrow-left.svg";
 import { ReactComponent as ArrowRight } from "./icons/arrow-right.svg";
 import styled from "styled-components";
-import { grey } from "../../../settings";
-import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import { grey } from "../../settings";
+import { breakpoint } from "../../utils/breakpoint/breakpoint";
 
 const StyledPaginationContainer = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ const StyledSummaryText = styled.p`
   color: ${grey[700]};
 `;
 
-function UserPagination({
+function Pagination({
   pageMinIndex,
   pageMaxIndex,
   totalEntries,
@@ -147,4 +147,4 @@ function UserPagination({
   );
 }
 
-export default UserPagination;
+export default Pagination;
