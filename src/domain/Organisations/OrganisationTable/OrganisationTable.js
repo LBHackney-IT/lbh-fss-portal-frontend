@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Table from "../../../components/Table/Table";
+import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 
 const StyledEmailText = styled.p`
   margin-top: 10px;
@@ -41,7 +42,9 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         Cell: (e) => {
           return (
             <>
-              <form></form>
+              <div style={{ padding: "10px 20px 10px 0" }}>
+                <FormDropDown />
+              </div>
             </>
           );
         },
