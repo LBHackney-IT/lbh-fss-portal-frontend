@@ -4,6 +4,14 @@ import { ReactComponent as DownArrow } from "./icons/down-arrow.svg";
 import SVGIcon from "../SVGIcon/SVGIcon";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 
+const StyledMainContainer = styled.div`
+  position: relative;
+  display: inline;
+  ${breakpoint("md")`
+    display: block;
+  `};
+`;
+
 const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -19,7 +27,7 @@ const StyledHeader = styled.div`
 `;
 
 const StyledHeaderOutsideList = styled(StyledHeader)`
-  display: ${(props) => (props.isOpen ? "none" : "flex")};
+  display: ${(props) => (props.isOpen ? "none" : "inline")};
   ${breakpoint("md")`
     display: flex;
   `};
@@ -37,12 +45,15 @@ const StyledHeaderInList = styled(StyledHeader)`
 const StyledContainer = styled.div`
   z-index: 100;
   background: white;
+  position: absolute;
+  width: 10.5em;
+  top: -4px;
+  left: 0;
   ${breakpoint("md")`
-    position: absolute;
+    margin: -10px;
     top: 10px;
     right: 10px;
-    margin:-10px;
-    width: 10.5em;
+    left: -57px;
   `};
 `;
 
@@ -69,7 +80,7 @@ function FormDropDown({ actions }) {
 
   return (
     <>
-      <div style={{ position: "relative" }}>
+      <StyledMainContainer>
         <StyledHeaderOutsideList onClick={toggleDropDown} isOpen={isOpen}>
           Select{" "}
           <SVGIcon SVGComponent={DownArrow} width={"15px"} height={"15px"} />{" "}
@@ -102,7 +113,7 @@ function FormDropDown({ actions }) {
             </StyledContainer>
           </>
         )}
-      </div>
+      </StyledMainContainer>
     </>
   );
 }

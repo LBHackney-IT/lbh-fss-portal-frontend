@@ -54,7 +54,7 @@ const StyledTd = styled.td`
   border-left: none;
   border-right: none;
   padding: 5px 0 0 15px;
-  margin-top: 10px;
+  margin-top: ${(props) => props.tdHeightMobile};
   ${breakpoint("md")`
     height: 50px;
     margin-top: 0;
@@ -70,7 +70,13 @@ const StyledTableHeading = styled.span`
   `};
 `;
 
-const Table = ({ data, columns, isLoading, search }) => {
+const Table = ({
+  data,
+  columns,
+  isLoading,
+  search,
+  tdHeightMobile = "5px",
+}) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -150,7 +156,11 @@ const Table = ({ data, columns, isLoading, search }) => {
                   >
                     {row.cells.map((cell, index) => {
                       return (
-                        <StyledTd {...cell.getCellProps()} key={index}>
+                        <StyledTd
+                          {...cell.getCellProps()}
+                          key={index}
+                          tdHeightMobile={tdHeightMobile}
+                        >
                           <div>
                             <StyledTableHeading>
                               {cell.column.Header}

@@ -7,6 +7,7 @@ import { green, red, yellow } from "../../../settings";
 import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
 import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
 import { ReactComponent as Trash } from "./icons/trash.svg";
+import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 
 const StyledStatus = styled.div`
   background-color: ${(props) => props.status.backgroundColor};
@@ -14,7 +15,11 @@ const StyledStatus = styled.div`
   border-radius: 4px;
   padding: 5px;
   text-align: center;
-  width: 70%;
+  display: inline;
+  ${breakpoint("md")`
+    display: block;
+    width: 70%;
+  `};
 `;
 
 const StyledNewOrganisation = styled.span`
@@ -143,7 +148,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         Cell: (e) => {
           return (
             <>
-              <div style={{ padding: "10px 20px 10px 0" }}>
+              <div style={{ padding: "10px 20px 10px 0", display: "inline" }}>
                 <FormDropDown actions={actions} />
               </div>
             </>
@@ -160,6 +165,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       columns={columns}
       isLoading={isLoading}
       search={search}
+      tdHeightMobile={"20px"}
     />
   );
 };
