@@ -180,7 +180,7 @@ const Table = ({ data, columns, isLoading, search }) => {
           />
         </>
       ) : (
-        <h1>No users found matching '{search}'</h1>
+        <h1>No entries found matching '{search}'</h1>
       )}
     </>
   );

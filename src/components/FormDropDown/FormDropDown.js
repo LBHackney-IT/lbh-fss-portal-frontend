@@ -11,41 +11,33 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   background: white;
-  border: ${(props) =>
-    props.isOpen ? "1px solid transparent" : "1px solid #000000"};
-  box-shadow: ${(props) =>
-    props.isOpen ? "0 0 0 0" : "4px 4px 4px rgba(0, 30, 58, 0.05)"};
+  border: 1px solid #000000;
+  box-shadow: 4px 4px 4px rgba(0, 30, 58, 0.05);
   border-radius: 2px;
-  padding: ${(props) => (props.isOpen ? "0" : "5px")};
+  padding: 5px;
+  cursor: pointer;
   ${breakpoint("md")`
-    font-weight: ${(props) => (props.isOpen ? "600" : "normal")};
     padding: 5px;
   `};
 `;
 
-// const StyledHeaderMain
+const StyledHeaderOutsideList = styled(StyledHeader)`
+  display: ${(props) => (props.isOpen ? "none" : "flex")};
+  ${breakpoint("md")`
+    display: flex;
+  `};
+`;
 
 const StyledHeaderInList = styled(StyledHeader)`
   box-shadow: 0 0 0 0;
-`;
-
-const DropDownHeader = styled("div")`
-  display: flex;
-  justify-content: space-between;
-  background: white;
-  border: ${(props) =>
-    props.isOpen ? "1px solid transparent" : "1px solid #000000"};
-  box-shadow: ${(props) =>
-    props.isOpen ? "0 0 0 0" : "4px 4px 4px rgba(0, 30, 58, 0.05)"};
-  border-radius: 2px;
-  padding: ${(props) => (props.isOpen ? "0" : "5px")};
+  padding: 0;
+  border: 1px solid transparent;
   ${breakpoint("md")`
-    font-weight: ${(props) => (props.isOpen ? "600" : "normal")};
-    padding: 5px;
+    font-weight: 600;
   `};
 `;
 
-const DropDownListContainer = styled("div")`
+const StyledContainer = styled.div`
   z-index: 100;
   background: white;
   ${breakpoint("md")`
@@ -57,7 +49,7 @@ const DropDownListContainer = styled("div")`
   `};
 `;
 
-const DropDownList = styled("ul")`
+const StyledDropDownList = styled.ul`
   background: white;
   border: 1px solid #000000;
   box-shadow: 4px 4px 4px rgba(0, 30, 58, 0.05);
@@ -81,22 +73,22 @@ function FormDropDown() {
   return (
     <>
       <div style={{ position: "relative" }}>
-        <DropDownHeader onClick={toggleDropDown}>
+        <StyledHeaderOutsideList onClick={toggleDropDown} isOpen={isOpen}>
           Select{" "}
           <SVGIcon SVGComponent={DownArrow} width={"15px"} height={"15px"} />{" "}
-        </DropDownHeader>
+        </StyledHeaderOutsideList>
         {isOpen && (
           <>
-            <DropDownListContainer>
-              <DropDownList>
-                <DropDownHeader onClick={toggleDropDown} isOpen={isOpen}>
+            <StyledContainer>
+              <StyledDropDownList>
+                <StyledHeaderInList onClick={toggleDropDown} isOpen={isOpen}>
                   Select{" "}
                   <SVGIcon
                     SVGComponent={DownArrow}
                     width={"15px"}
                     height={"15px"}
                   />{" "}
-                </DropDownHeader>
+                </StyledHeaderInList>
                 <StyledAction>
                   <SVGIcon
                     SVGComponent={ApproveCircle}
@@ -121,8 +113,8 @@ function FormDropDown() {
                   />{" "}
                   Remove
                 </StyledAction>
-              </DropDownList>
-            </DropDownListContainer>
+              </StyledDropDownList>
+            </StyledContainer>
           </>
         )}
       </div>
@@ -131,37 +123,3 @@ function FormDropDown() {
 }
 
 export default FormDropDown;
-
-// {!isOpen ? (
-//     <DropDownHeader onClick={toggleDropDown} isOpen={isOpen}>
-//       Select{" "}
-//       <SVGIcon SVGComponent={DownArrow} width={"15px"} height={"15px"} />{" "}
-//     </DropDownHeader>
-//   ) : (
-//     <>
-//       <DropDownHeader style={{ visibility: "hidden" }}>
-//         Select{" "}
-//         <SVGIcon
-//           SVGComponent={DownArrow}
-//           width={"15px"}
-//           height={"15px"}
-//         />{" "}
-//       </DropDownHeader>
-
-//       <DropDownListContainer>
-//         <DropDownList>
-//           <DropDownHeader onClick={toggleDropDown} isOpen={isOpen}>
-//             Select{" "}
-//             <SVGIcon
-//               SVGComponent={DownArrow}
-//               width={"15px"}
-//               height={"15px"}
-//             />{" "}
-//           </DropDownHeader>
-//           <div style={{ padding: "5px" }}>Approve</div>
-//           <div style={{ padding: "5px" }}>Decline</div>
-//           <div style={{ padding: "5px" }}>Remove</div>
-//         </DropDownList>
-//       </DropDownListContainer>
-//     </>
-//   )}
