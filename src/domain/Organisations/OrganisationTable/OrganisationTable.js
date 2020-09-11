@@ -127,6 +127,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
   }
 
   function doRemove(reviewerMessage) {
+    // if (removeIsLoading) return;
     // setRemoveIsLoading(true)
     // api call DELETE / organisations/{organisationId}
     // setRemoveIsLoading(false)

@@ -4,10 +4,11 @@ import UserService from "../../../services/UserService/UserService";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
 import UserContext from "../../../context/UserContext/UserContext";
-import DeleteModal from "../DeleteModal/DeleteModal";
 import useUserFetch from "../../../hooks/useUserFetch/useUserFetch";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
+import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
+import { red } from "../../../settings";
 
 const EditUser = (props) => {
   const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);
@@ -67,7 +68,7 @@ const EditUser = (props) => {
   const onDelete = (e) => {
     e.preventDefault();
 
-    setDeleteModalIsOpen(e);
+    setDeleteModalIsOpen(true);
   };
 
   if (fetchIsLoading) {
@@ -92,12 +93,20 @@ const EditUser = (props) => {
           onDelete={onDelete}
         />
       </RaisedCard>
-      <DeleteModal
+      <ConfirmModal
         isOpen={deleteModalIsOpen}
         toggleModal={toggleDeleteModal}
+        confirmMessage={
+          <>
+            Are you sure you want to delete <strong> {user.name}</strong>?
+          </>
+        }
+        confirmButtonLabel={"Delete"}
+        confirmButtonColor={red[400]}
+        borderColor={red[400]}
         onConfirm={doDelete}
-        user={user}
       />
+      <ConfirmModal />
     </>
   ) : (
     <AccessDenied />
