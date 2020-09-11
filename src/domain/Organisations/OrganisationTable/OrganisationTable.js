@@ -18,7 +18,7 @@ const StyledStatus = styled.div`
   display: inline;
   ${breakpoint("md")`
     display: block;
-    width: 70%;
+    width: 75%;
   `};
 `;
 
@@ -117,6 +117,7 @@ const actions = [
 ];
 
 const OrganisationTable = ({ data, isLoading, search }) => {
+  console.log(data);
   const columns = useMemo(
     () => [
       {
@@ -134,6 +135,10 @@ const OrganisationTable = ({ data, isLoading, search }) => {
             </>
           );
         },
+      },
+      {
+        Header: "User",
+        accessor: "user.name",
       },
       {
         Header: "Status",
