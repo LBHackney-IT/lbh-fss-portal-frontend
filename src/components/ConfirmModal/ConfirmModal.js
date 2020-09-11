@@ -49,7 +49,7 @@ const ConfirmModal = ({
   confirmButtonColor,
   confirmMessage,
   borderColor,
-  includeTextInput,
+  includeReviewerMessage,
   confirmTitle,
 }) => {
   const { register, handleSubmit } = useForm();
@@ -59,17 +59,17 @@ const ConfirmModal = ({
       isOpen={isOpen}
       toggleModal={toggleModal}
       color={borderColor}
-      heightSmall={includeTextInput ? "22rem" : "10rem"}
-      heightMobile={includeTextInput ? "25rem" : "15rem"}
+      heightSmall={includeReviewerMessage ? "22rem" : "10rem"}
+      heightMobile={includeReviewerMessage ? "25rem" : "15rem"}
     >
-      {includeTextInput ? (
+      {includeReviewerMessage ? (
         <>
           <StyledTitleContainer>
             <h1>{confirmTitle}</h1>
           </StyledTitleContainer>
-          <StyledForm onSubmit={handleSubmit(({ input }) => onConfirm(input))}>
+          <StyledForm onSubmit={handleSubmit(({ reviewerMessage }) => onConfirm(reviewerMessage))}>
             <StyledTextarea
-              name="input"
+              name="reviewerMessage"
               placeholder="We can not add you right now for the following reasons..."
               rows={8}
               cols={32}
@@ -113,12 +113,12 @@ const ConfirmModal = ({
 ConfirmModal.propTypes = {
   isOpen: PropTypes.bool,
   toggleModal: PropTypes.func,
-  confirmMessage: PropTypes.string,
+  confirmMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   confirmButtonLabel: PropTypes.string,
   confirmButtonColor: PropTypes.string,
   onConfirm: PropTypes.func,
   borderColor: PropTypes.string,
-  includeTextInput: PropTypes.bool,
+  includeReviewerMessage: PropTypes.bool,
   confirmTitle: PropTypes.string,
 };
 

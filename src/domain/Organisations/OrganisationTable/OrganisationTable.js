@@ -86,10 +86,12 @@ function organisationIsNew(createdAt) {
   const today = new Date();
   const differenceInDays = (today - createdAtDate) / (1000 * 3600 * 24);
   return differenceInDays <= 235; // <- 235 for demo purposes
-  // return differenceInDays <= 1;
+  // return differenceInDays <= 1; // <- correct value to use after having demo'ed
 }
 
 const OrganisationTable = ({ data, isLoading, search }) => {
+  const [selectedOrganisation, setSelectedOrganisation] = useState({});
+
   const [approveIsLoading, setApproveIsLoading] = useState(false);
   const [approveModalIsOpen, setApproveModalIsOpen] = useState(false);
 
@@ -124,11 +126,11 @@ const OrganisationTable = ({ data, isLoading, search }) => {
     alert("decline organisation");
   }
 
-  function doRemove(input) {
+  function doRemove(reviewerMessage) {
     // setRemoveIsLoading(true)
-    // api call
+    // api call DELETE / organisations/{organisationId}
     // setRemoveIsLoading(false)
-    alert(`Removing with this message ${input}`);
+    alert(`Removing with this message ${reviewerMessage}`);
   }
 
   const actions = [
@@ -190,11 +192,14 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       {
         Header: "Action",
         Cell: (e) => {
-          console.log(e.row.original.id);
           return (
             <>
-              <StyledFormDropDownContainer>
-                <FormDropDown actions={actions} name={e.row.original.name} />
+              <StyledFormDropDownContainer
+                onClick={() => {
+                  setSelectedOrganisation(e.row.original);
+                }}
+              >
+                <FormDropDown actions={actions} />
               </StyledFormDropDownContainer>
             </>
           );
@@ -216,7 +221,12 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       <ConfirmModal
         isOpen={approveModalIsOpen}
         toggleModal={toggleApproveModal}
-        confirmMessage={"Are you sure you want to approve?"}
+        confirmMessage={
+          <>
+            Are you sure you want to approve{" "}
+            <strong>{selectedOrganisation.name}</strong>?
+          </>
+        }
         confirmButtonLabel={"Approve"}
         confirmButtonColor={green[400]}
         borderColor={green[300]}
@@ -229,7 +239,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         confirmButtonColor={red[400]}
         borderColor={red[400]}
         onConfirm={doDecline}
-        includeTextInput={true}
+        includeReviewerMessage={true}
         confirmTitle={"Decline organisation"}
       />
       <ConfirmModal
@@ -239,7 +249,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         confirmButtonColor={red[400]}
         borderColor={red[400]}
         onConfirm={doRemove}
-        includeTextInput={true}
+        includeReviewerMessage={true}
         confirmTitle={"Remove organisation"}
       />
     </>
