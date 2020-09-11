@@ -124,11 +124,11 @@ const OrganisationTable = ({ data, isLoading, search }) => {
     alert("decline organisation");
   }
 
-  function doRemove() {
+  function doRemove(input) {
     // setRemoveIsLoading(true)
     // api call
     // setRemoveIsLoading(false)
-    alert("Remove");
+    alert(`Removing with this message ${input}`);
   }
 
   const actions = [
@@ -215,8 +215,8 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       <ConfirmModal
         isOpen={approveModalIsOpen}
         toggleModal={toggleApproveModal}
-        confirmMessage={"sure you want to approve?"}
-        confirmLabel={"Approve"}
+        confirmMessage={"Sure you want to approve?"}
+        confirmButtonLabel={"Approve"}
         confirmButtonColor={green[400]}
         borderColor={green[300]}
         onConfirm={doApprove}
@@ -224,20 +224,22 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       <ConfirmModal
         isOpen={declineModalIsOpen}
         toggleModal={toggleDeclineModal}
-        confirmMessage={"sure you want to decline?"}
-        confirmLabel={"Decline"}
+        confirmMessage={"Sure you want to decline?"}
+        confirmButtonLabel={"Decline"}
         confirmButtonColor={red[400]}
         borderColor={red[400]}
         onConfirm={doDecline}
+        includeTextInput={true}
       />
       <ConfirmModal
         isOpen={removeModalIsOpen}
         toggleModal={toggleRemoveModal}
-        confirmMessage={"sure you want to remove?"}
-        confirmLabel={"Remove"}
+        confirmMessage={"Sure you want to remove?"}
+        confirmButtonLabel={"Remove"}
         confirmButtonColor={red[400]}
         borderColor={red[400]}
         onConfirm={doRemove}
+        includeTextInput={true}
       />
     </>
   );

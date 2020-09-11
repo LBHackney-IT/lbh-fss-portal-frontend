@@ -7,6 +7,7 @@ import UserContext from "../../../context/UserContext/UserContext";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import useUserFetch from "../../../hooks/useUserFetch/useUserFetch";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
+import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 
 const EditUser = (props) => {
   const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);
@@ -78,17 +79,19 @@ const EditUser = (props) => {
   return accessPermission ? (
     <>
       <h1>Edit user</h1>
-      <UserForm
-        onSubmit={onSubmit}
-        defaultValues={{
-          name: user.name || "",
-          email: user.email || "",
-          roles: user.roles || "",
-        }}
-        submitLoading={editIsLoading}
-        showDeleteButton={true}
-        onDelete={onDelete}
-      />
+      <RaisedCard>
+        <UserForm
+          onSubmit={onSubmit}
+          defaultValues={{
+            name: user.name || "",
+            email: user.email || "",
+            roles: user.roles || "",
+          }}
+          submitLoading={editIsLoading}
+          showDeleteButton={true}
+          onDelete={onDelete}
+        />
+      </RaisedCard>
       <DeleteModal
         isOpen={deleteModalIsOpen}
         toggleModal={toggleDeleteModal}
