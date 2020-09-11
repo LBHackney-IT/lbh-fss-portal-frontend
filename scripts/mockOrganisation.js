@@ -50,5 +50,9 @@ module.exports = (teaser = false) => {
     organisation.reviewer = mockUser(true);
   }
 
+  if (!teaser) {
+    organisation.user = mockUser(true);
+  }
+
   return organisation;
 };
