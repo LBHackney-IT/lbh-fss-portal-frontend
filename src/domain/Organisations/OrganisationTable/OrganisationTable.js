@@ -26,6 +26,14 @@ const StyledNewOrganisation = styled.span`
   color: red;
 `;
 
+const StyledFormDropDownContainer = styled.div`
+  padding: 10px 20px 10px 0;
+  display: inline;
+  ${breakpoint("md")`
+    display: block;
+  `};
+`;
+
 function formatStatus(status) {
   switch (status) {
     case "active":
@@ -148,9 +156,9 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         Cell: (e) => {
           return (
             <>
-              <div style={{ padding: "10px 20px 10px 0", display: "inline" }}>
+              <StyledFormDropDownContainer>
                 <FormDropDown actions={actions} />
-              </div>
+              </StyledFormDropDownContainer>
             </>
           );
         },

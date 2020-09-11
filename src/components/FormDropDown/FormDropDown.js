@@ -53,7 +53,7 @@ const StyledContainer = styled.div`
     margin: -10px;
     top: 10px;
     right: 10px;
-    left: -57px;
+    left: -55px;
   `};
 `;
 
