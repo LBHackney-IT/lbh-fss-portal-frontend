@@ -46,14 +46,13 @@ const StyledContainer = styled.div`
   z-index: 100;
   background: white;
   position: absolute;
-  width: 10.5em;
-  top: -4px;
+  top: -5px;
   left: 0;
+  width: 160px;
   ${breakpoint("md")`
-    margin: -10px;
-    top: 10px;
-    right: 10px;
-    left: -55px;
+    top: 0;
+    left: auto;
+    right: 0;
   `};
 `;
 
