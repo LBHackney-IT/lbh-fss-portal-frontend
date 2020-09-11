@@ -11,6 +11,9 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
+const StyledTitleContainer = styled.div`
+  width: 90%;
+`;
 
 const StyledTextarea = styled.textarea`
   resize: none;
@@ -41,12 +44,13 @@ const StyledButton = styled(Button)`
 const ConfirmModal = ({
   isOpen,
   toggleModal,
-  confirmMessage,
+  onConfirm,
   confirmButtonLabel,
   confirmButtonColor,
-  onConfirm,
+  confirmMessage,
   borderColor,
   includeTextInput,
+  confirmTitle,
 }) => {
   const { register, handleSubmit } = useForm();
 
@@ -55,31 +59,36 @@ const ConfirmModal = ({
       isOpen={isOpen}
       toggleModal={toggleModal}
       color={borderColor}
-      heightSmall={includeTextInput ? "20rem" : "10rem"}
+      heightSmall={includeTextInput ? "22rem" : "10rem"}
       heightMobile={includeTextInput ? "25rem" : "15rem"}
     >
       {includeTextInput ? (
-        <StyledForm onSubmit={handleSubmit(({ input }) => onConfirm(input))}>
-          <StyledTextarea
-            name="input"
-            placeholder="We can not add you right now for the following reasons..."
-            rows={8}
-            cols={32}
-            ref={register}
-          />
-          <StyledActionContainer>
-            <StyledButton
-              onClick={toggleModal}
-              label={"Cancel"}
-              color={grey[400]}
+        <>
+          <StyledTitleContainer>
+            <h1>{confirmTitle}</h1>
+          </StyledTitleContainer>
+          <StyledForm onSubmit={handleSubmit(({ input }) => onConfirm(input))}>
+            <StyledTextarea
+              name="input"
+              placeholder="We can not add you right now for the following reasons..."
+              rows={8}
+              cols={32}
+              ref={register}
             />
-            <StyledButton
-              type="submit"
-              label={confirmButtonLabel}
-              color={confirmButtonColor}
-            />
-          </StyledActionContainer>
-        </StyledForm>
+            <StyledActionContainer>
+              <StyledButton
+                onClick={toggleModal}
+                label={"Cancel"}
+                color={grey[400]}
+              />
+              <StyledButton
+                type="submit"
+                label={confirmButtonLabel}
+                color={confirmButtonColor}
+              />
+            </StyledActionContainer>
+          </StyledForm>
+        </>
       ) : (
         <>
           <StyledText>{confirmMessage}</StyledText>
@@ -110,6 +119,7 @@ ConfirmModal.propTypes = {
   onConfirm: PropTypes.func,
   borderColor: PropTypes.string,
   includeTextInput: PropTypes.bool,
+  confirmTitle: PropTypes.string,
 };
 
 export default ConfirmModal;

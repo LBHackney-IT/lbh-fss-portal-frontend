@@ -175,7 +175,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         Header: "Status",
         accessor: "status",
         Cell: (e) => {
-          const status = formatStatus(e.row.original.status);
+          const status = formatStatus(e.value);
           return <StyledStatus status={status}>{status.title}</StyledStatus>;
         },
       },
@@ -183,17 +183,18 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         Header: "Submitted",
         accessor: "submitted_at",
         Cell: (e) => {
-          const submittedAtDate = new Date(e.row.original.submitted_at);
+          const submittedAtDate = new Date(e.value);
           return submittedAtDate.toLocaleString();
         },
       },
       {
         Header: "Action",
         Cell: (e) => {
+          console.log(e.row.original.id);
           return (
             <>
               <StyledFormDropDownContainer>
-                <FormDropDown actions={actions} />
+                <FormDropDown actions={actions} name={e.row.original.name} />
               </StyledFormDropDownContainer>
             </>
           );
@@ -215,7 +216,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       <ConfirmModal
         isOpen={approveModalIsOpen}
         toggleModal={toggleApproveModal}
-        confirmMessage={"Sure you want to approve?"}
+        confirmMessage={"Are you sure you want to approve?"}
         confirmButtonLabel={"Approve"}
         confirmButtonColor={green[400]}
         borderColor={green[300]}
@@ -224,22 +225,22 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       <ConfirmModal
         isOpen={declineModalIsOpen}
         toggleModal={toggleDeclineModal}
-        confirmMessage={"Sure you want to decline?"}
         confirmButtonLabel={"Decline"}
         confirmButtonColor={red[400]}
         borderColor={red[400]}
         onConfirm={doDecline}
         includeTextInput={true}
+        confirmTitle={"Decline organisation"}
       />
       <ConfirmModal
         isOpen={removeModalIsOpen}
         toggleModal={toggleRemoveModal}
-        confirmMessage={"Sure you want to remove?"}
         confirmButtonLabel={"Remove"}
         confirmButtonColor={red[400]}
         borderColor={red[400]}
         onConfirm={doRemove}
         includeTextInput={true}
+        confirmTitle={"Remove organisation"}
       />
     </>
   );
