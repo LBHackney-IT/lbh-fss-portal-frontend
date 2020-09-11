@@ -23,7 +23,7 @@ height: ${(props) => (props.heightSmall ? props.heightSmall : "15rem")};
 `};
 `;
 
-const MyModal = ({
+const CustomModal = ({
   children,
   isOpen,
   toggleModal,
@@ -45,4 +45,4 @@ const MyModal = ({
   );
 };
 
-export default MyModal;
+export default CustomModal;

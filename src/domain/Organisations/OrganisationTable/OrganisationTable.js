@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Table from "../../../components/Table/Table";
@@ -8,6 +8,7 @@ import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
 import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
 import { ReactComponent as Trash } from "./icons/trash.svg";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 
 const StyledStatus = styled.div`
   background-color: ${(props) => props.status.backgroundColor};
@@ -88,36 +89,66 @@ function organisationIsNew(createdAt) {
   // return differenceInDays <= 1;
 }
 
-function doApprove() {
-  alert("approve organisation");
-}
-function doDecline() {
-  alert("decline organisation");
-}
-function doRemove() {
-  alert("remove organisation");
-}
-
-const actions = [
-  {
-    title: "Approve",
-    onClick: doApprove,
-    icon: ApproveCircle,
-  },
-  {
-    title: "Decline",
-    onClick: doDecline,
-    icon: DeclineCircle,
-  },
-  {
-    title: "Remove",
-    onClick: doRemove,
-    icon: Trash,
-  },
-];
-
 const OrganisationTable = ({ data, isLoading, search }) => {
-  console.log(data);
+  const [approveIsLoading, setApproveIsLoading] = useState(false);
+  const [approveModalIsOpen, setApproveModalIsOpen] = useState(false);
+
+  const [declineIsLoading, setDeclineIsLoading] = useState(false);
+  const [declineModalIsOpen, setDeclineModalIsOpen] = useState(false);
+
+  const [removeIsLoading, setRemoveIsLoading] = useState(false);
+  const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
+
+  function toggleApproveModal() {
+    if (approveIsLoading) return;
+
+    setApproveModalIsOpen(!approveModalIsOpen);
+  }
+
+  function toggleDeclineModal() {
+    if (declineIsLoading) return;
+
+    setDeclineModalIsOpen(!declineModalIsOpen);
+  }
+
+  function toggleRemoveModal() {
+    if (removeIsLoading) return;
+
+    setRemoveModalIsOpen(!removeModalIsOpen);
+  }
+
+  function doApprove() {
+    alert("approve organisation");
+  }
+  function doDecline() {
+    alert("decline organisation");
+  }
+
+  function doRemove() {
+    // setRemoveIsLoading(true)
+    // api call
+    // setRemoveIsLoading(false)
+    alert("Remove");
+  }
+
+  const actions = [
+    {
+      title: "Approve",
+      onClick: toggleApproveModal,
+      icon: ApproveCircle,
+    },
+    {
+      title: "Decline",
+      onClick: toggleDeclineModal,
+      icon: DeclineCircle,
+    },
+    {
+      title: "Remove",
+      onClick: toggleRemoveModal,
+      icon: Trash,
+    },
+  ];
+
   const columns = useMemo(
     () => [
       {
@@ -173,13 +204,42 @@ const OrganisationTable = ({ data, isLoading, search }) => {
   );
 
   return (
-    <Table
-      data={data}
-      columns={columns}
-      isLoading={isLoading}
-      search={search}
-      tdHeightMobile={"20px"}
-    />
+    <>
+      <Table
+        data={data}
+        columns={columns}
+        isLoading={isLoading}
+        search={search}
+        tdHeightMobile={"20px"}
+      />
+      <ConfirmModal
+        isOpen={approveModalIsOpen}
+        toggleModal={toggleApproveModal}
+        confirmMessage={"sure you want to approve?"}
+        confirmLabel={"Approve"}
+        confirmButtonColor={green[400]}
+        borderColor={green[300]}
+        onConfirm={doApprove}
+      />
+      <ConfirmModal
+        isOpen={declineModalIsOpen}
+        toggleModal={toggleDeclineModal}
+        confirmMessage={"sure you want to decline?"}
+        confirmLabel={"Decline"}
+        confirmButtonColor={red[400]}
+        borderColor={red[400]}
+        onConfirm={doDecline}
+      />
+      <ConfirmModal
+        isOpen={removeModalIsOpen}
+        toggleModal={toggleRemoveModal}
+        confirmMessage={"sure you want to remove?"}
+        confirmLabel={"Remove"}
+        confirmButtonColor={red[400]}
+        borderColor={red[400]}
+        onConfirm={doRemove}
+      />
+    </>
   );
 };
 
