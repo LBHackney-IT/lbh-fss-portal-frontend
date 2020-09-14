@@ -6,14 +6,18 @@ import { useForm } from "react-hook-form";
 const ServiceCategoriesForm = ({
   onSubmit,
   defaultValues = {},
+  formRef,
+  setValidationPass,
   submitLoading = false,
 }) => {
   const { handleSubmit } = useForm({
     defaultValues,
   });
 
+  setValidationPass(false);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
       <FormFieldset label="Service picture">
         <p>
           Upload a picture to show residents what you do. This will be displayed

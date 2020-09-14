@@ -96,7 +96,11 @@ const OrganisationForm = ({
   return (
     <StyledOrganisationForm>
       <StyledOrganisationFormAside>
-        <OrganisationFormNav stepArray={stepArray} stepNum={stepNum} />
+        <OrganisationFormNav
+          stepArray={stepArray}
+          stepNum={stepNum}
+          formRef={mainRef}
+        />
       </StyledOrganisationFormAside>
       <StyledOrganisationFormMain ref={mainRef}>
         {renderStepSwitch()}

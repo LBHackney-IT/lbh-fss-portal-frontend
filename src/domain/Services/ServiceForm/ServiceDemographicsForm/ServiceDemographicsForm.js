@@ -3,13 +3,20 @@ import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
 import { useForm } from "react-hook-form";
 
-const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
+const ServiceDemographicsForm = ({
+  onSubmit,
+  defaultValues = {},
+  formRef,
+  setValidationPass,
+}) => {
   const { handleSubmit } = useForm({
     defaultValues,
   });
 
+  setValidationPass(false);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
       <FormFieldset label="Who you work with">
         <p>
           Select the following filters if your service is for a specific

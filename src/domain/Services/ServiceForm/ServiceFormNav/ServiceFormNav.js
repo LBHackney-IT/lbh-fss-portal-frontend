@@ -22,6 +22,9 @@ const ServiceFormNav = ({
   stepArray,
   stepNum,
   setStepNum,
+  formRef,
+  validationPass,
+  setValidationPass,
   enableAllLinks = false,
 }) => {
   return (
@@ -32,7 +35,16 @@ const ServiceFormNav = ({
           stepNum={i}
           label={s.label}
           isLink={enableAllLinks || stepNum > i}
-          onClick={() => setStepNum(i)}
+          onClick={() => {
+            if (formRef.current) {
+              formRef.current.dispatchEvent(
+                new Event("submit", { cancelable: true })
+              );
+            }
+            if (validationPass) {
+              setStepNum(i);
+            }
+          }}
         />
       ))}
     </nav>

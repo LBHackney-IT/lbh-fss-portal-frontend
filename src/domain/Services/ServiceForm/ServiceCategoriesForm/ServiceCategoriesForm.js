@@ -3,13 +3,20 @@ import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
 import { useForm } from "react-hook-form";
 
-const ServiceCategoriesForm = ({ onSubmit, defaultValues = {} }) => {
+const ServiceCategoriesForm = ({
+  onSubmit,
+  defaultValues = {},
+  formRef,
+  setValidationPass,
+}) => {
   const { handleSubmit } = useForm({
     defaultValues,
   });
 
+  setValidationPass(false);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
       <FormFieldset label="Services you provide">
         <p>
           Please select what categories you would like your service listed

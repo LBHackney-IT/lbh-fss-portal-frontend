@@ -8,6 +8,7 @@ import ServiceCategoriesForm from "./ServiceCategoriesForm/ServiceCategoriesForm
 import ServiceDemographicsForm from "./ServiceDemographicsForm/ServiceDemographicsForm";
 import ServiceImageForm from "./ServiceImageForm/ServiceImageForm";
 import scrollToRef from "../../../utils/scrollToRef/scrollToRef";
+const isEmpty = require("lodash/isEmpty");
 
 const StyledServiceForm = styled.div`
   display: flex;
@@ -19,7 +20,6 @@ const StyledServiceFormMain = styled.div``;
 
 const ServiceForm = ({
   onFormCompletion,
-  service = {},
   initialStepId = "details",
   submitLoading = false,
 }) => {
@@ -35,11 +35,15 @@ const ServiceForm = ({
     stepArray.findIndex((s) => s.id === initialStepId)
   );
 
-  const [draftService, setDraftService] = useState(service);
+  const [draftService, setDraftService] = useState({});
+  const [validationPass, setValidationPass] = useState(false);
 
   const mainRef = useRef(null);
+  const formRef = useRef(null);
 
   const moveToNextStep = (formValues) => {
+    console.log("BAM");
+    setValidationPass(true);
     setDraftService({ ...draftService, ...formValues });
 
     if (stepNum === stepArray.length - 1) {
@@ -51,6 +55,9 @@ const ServiceForm = ({
     }
   };
 
+  console.log("validationPass");
+  console.log(validationPass);
+
   const renderStepSwitch = () => {
     switch (stepArray[stepNum].id) {
       case "details":
@@ -58,6 +65,8 @@ const ServiceForm = ({
           <ServiceDetailsForm
             defaultValues={draftService}
             onSubmit={moveToNextStep}
+            formRef={formRef}
+            setValidationPass={setValidationPass}
           />
         );
       case "locations":
@@ -65,6 +74,8 @@ const ServiceForm = ({
           <ServiceLocationsForm
             defaultValues={draftService}
             onSubmit={moveToNextStep}
+            formRef={formRef}
+            setValidationPass={setValidationPass}
           />
         );
       case "categories":
@@ -72,6 +83,8 @@ const ServiceForm = ({
           <ServiceCategoriesForm
             defaultValues={draftService}
             onSubmit={moveToNextStep}
+            formRef={formRef}
+            setValidationPass={setValidationPass}
           />
         );
       case "demographics":
@@ -79,6 +92,8 @@ const ServiceForm = ({
           <ServiceDemographicsForm
             defaultValues={draftService}
             onSubmit={moveToNextStep}
+            formRef={formRef}
+            setValidationPass={setValidationPass}
           />
         );
       case "image":
@@ -87,6 +102,7 @@ const ServiceForm = ({
             defaultValues={draftService}
             onSubmit={() => moveToNextStep()}
             submitLoading={submitLoading}
+            setValidationPass={setValidationPass}
           />
         );
       default:
@@ -101,6 +117,10 @@ const ServiceForm = ({
           stepArray={stepArray}
           stepNum={stepNum}
           setStepNum={setStepNum}
+          formRef={formRef}
+          setValidationPass={setValidationPass}
+          validationPass={validationPass}
+          enableAllLinks={true}
         />
         <DigitalGuideInfo />
       </StyledServiceFormAside>

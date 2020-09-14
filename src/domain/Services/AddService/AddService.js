@@ -16,11 +16,15 @@ const AddService = () => {
 
     setSubmitIsLoading(false);
 
+    console.log(service);
+
     if (service) {
+      console.log('success');
       toast.success(`New service ${service.name} created.`);
 
       navigate("/services");
     } else {
+      console.log('fail');
       toast.error("Unable to add service.");
     }
   }
