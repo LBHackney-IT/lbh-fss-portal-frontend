@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { neutral } from "../../settings/";
 
 const StyledLayout = styled.div`
-  background-color: ${neutral[200]};
+  background-color: ${(props) => props.backgroundColor};
   padding: 30px 10px;
   min-height: 100vh;
 `;
@@ -27,9 +27,9 @@ const StyledHeading = styled.div`
   border-bottom: 1px solid ${neutral[300]};
 `;
 
-const AnonymousLayout = ({ children }) => {
+const AnonymousLayout = ({ children, backgroundColor = neutral[200] }) => {
   return (
-    <StyledLayout>
+    <StyledLayout backgroundColor={backgroundColor}>
       <StyledLayoutInner>
         <StyledHeading>Find support services</StyledHeading>
         {children}
