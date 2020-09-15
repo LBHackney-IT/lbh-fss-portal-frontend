@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "@reach/router";
 
 const OrganisationFormStep = ({ stepNum, label }) => {
   return (
@@ -9,11 +8,11 @@ const OrganisationFormStep = ({ stepNum, label }) => {
   );
 };
 
-const OrganisationFormNavItem = ({ stepNum, label, isLink, link }) => {
+const OrganisationFormNavItem = ({ stepNum, label, isLink, onClick }) => {
   return isLink ? (
-    <Link to={link}>
+    <button onClick={onClick}>
       <OrganisationFormStep stepNum={stepNum} label={label} />
-    </Link>
+    </button>
   ) : (
     <OrganisationFormStep stepNum={stepNum} label={label} />
   );
@@ -22,6 +21,7 @@ const OrganisationFormNavItem = ({ stepNum, label, isLink, link }) => {
 const OrganisationFormNav = ({
   stepArray,
   stepNum,
+  setStepNum,
   enableAllLinks = false,
 }) => {
   return (
@@ -31,8 +31,8 @@ const OrganisationFormNav = ({
           key={s.id}
           stepNum={i}
           label={s.label}
-          link={s.link}
           isLink={enableAllLinks || stepNum > i}
+          onClick={() => setStepNum(i)}
         />
       ))}
     </nav>
