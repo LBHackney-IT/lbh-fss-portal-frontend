@@ -50,6 +50,7 @@ const ConfirmModal = ({
   confirmMessage,
   borderColor,
   includeReviewerMessage,
+  reviewerMessagePlaceholder,
   confirmTitle,
 }) => {
   const { register, handleSubmit } = useForm();
@@ -74,7 +75,7 @@ const ConfirmModal = ({
           >
             <StyledTextarea
               name="reviewerMessage"
-              placeholder="We can not add you right now for the following reasons..."
+              placeholder={reviewerMessagePlaceholder}
               rows={8}
               cols={32}
               ref={register}

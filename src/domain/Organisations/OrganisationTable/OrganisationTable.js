@@ -283,6 +283,9 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         borderColor={green[300]}
         onConfirm={doApprove}
         includeReviewerMessage={true}
+        reviewerMessagePlaceholder={
+          "Thank you for listing your organisation..."
+        }
         confirmTitle={"Approve organisation"}
       />
       <ConfirmModal
@@ -293,6 +296,9 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         borderColor={red[400]}
         onConfirm={doDecline}
         includeReviewerMessage={true}
+        reviewerMessagePlaceholder={
+          "We can not add you right now for the following reasons..."
+        }
         confirmTitle={"Decline organisation"}
       />
       <ConfirmModal
