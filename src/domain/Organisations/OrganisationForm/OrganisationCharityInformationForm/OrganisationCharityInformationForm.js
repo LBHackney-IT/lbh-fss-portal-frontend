@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
@@ -20,31 +20,55 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
     shouldFocusError: false,
   });
 
+  const [showCharityNumber, setShowCharityNumber] = useState(false);
+  const [showWhichRSL, setShowWhichRSL] = useState(false);
+  const [showLotteryDetail, setShowLotteryDetail] = useState(false);
+  const [showAddWebLink, setShowAddWebLink] = useState(false);
+
+  function handleHiddenField(id) {
+    switch (id) {
+      case "registeredCharity":
+        setShowCharityNumber(!showCharityNumber);
+        break;
+      case "registeredWithTenant":
+        setShowWhichRSL(!showWhichRSL);
+        break;
+      case "registeredWithLottery":
+        setShowLotteryDetail(!showLotteryDetail);
+        break;
+      case "localOffer":
+        setShowAddWebLink(!showAddWebLink);
+        break;
+      default:
+        return false;
+    }
+  }
+
   const checkboxOptions = [
     {
-      id: "registered-charity",
+      id: "registeredCharity",
       label: "Registered Charity",
     },
     {
-      id: "recieved-with-option-1",
+      id: "recievedWithOption1",
       label: "Received a grant from Hackney Council or City of London",
     },
     {
-      id: "recieved-with-option-2",
+      id: "recievedWithOption2",
       label:
         "Received a grant from Hackney CVS, Hackney Giving or AgeUK East London grants database",
     },
     {
-      id: "registered-with-tenant",
+      id: "registeredWithTenant",
       label: "Registered with the Tenant and Resident Association",
     },
     {
-      id: "registered-with-lottery",
+      id: "registeredWithLottery",
       label:
         "Received a grant from a Lottery Funded project? E.g. National Lottery or Sports England",
     },
     {
-      id: "local-offer",
+      id: "localOffer",
       label: "Are you on the Local Offer?",
     },
   ];
@@ -57,35 +81,74 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
       >
         {checkboxOptions.map((item) => {
           return (
-            <FormCheckbox
-              key={item.id}
-              name={item.id}
-              label={item.label}
-              value={item.label}
-              register={register}
-            />
+            <div key={item.id}>
+              <FormCheckbox
+                name={item.id}
+                label={item.label}
+                value={item.label}
+                register={register}
+                onClick={() => handleHiddenField(item.id)}
+              />
+              {item.id === "localOffer" ? (
+                <StyledSubTextContainer>
+                  <StyledSubText>
+                    If you provide a SEND (special educational needs and
+                    disabilites) service we recomend you sign up for the:
+                  </StyledSubText>
+                  <StyledSubText>
+                    <a href="mailto:localoffer@hackney.gov.uk">
+                      localoffer@hackney.gov.uk
+                    </a>
+                  </StyledSubText>
+                  <StyledSubText>
+                    <a href="mailto:EEYService@cityoflondon.gov.uk">
+                      EEYService@cityoflondon.gov.uk
+                    </a>
+                  </StyledSubText>
+                </StyledSubTextContainer>
+              ) : null}
+
+              {showCharityNumber && item.id === "registeredCharity" ? (
+                <FormInput
+                  label={"What is your charity number"}
+                  name={"charityNumber"}
+                  register={register}
+                />
+              ) : null}
+
+              {showWhichRSL && item.id === "registeredWithTenant" ? (
+                <FormInput
+                  label={
+                    "Which Registered Social Landlord (RSL) or Housing Association are you registered with:"
+                  }
+                  name={"registeredWithTenant"}
+                  register={register}
+                />
+              ) : null}
+
+              {showLotteryDetail && item.id === "registeredWithLottery" ? (
+                <FormInput
+                  label={"Please detail which Lottery Funded project"}
+                  name={"showLotteryDetail"}
+                  register={register}
+                />
+              ) : null}
+
+              {showAddWebLink && item.id === "localOffer" ? (
+                <FormInput
+                  label={"Please add weblink"}
+                  name={"addWebLink"}
+                  register={register}
+                />
+              ) : null}
+            </div>
           );
         })}
       </FormFieldset>
-      <StyledSubTextContainer>
-        <StyledSubText>
-          If you provide a SEND (special educational needs and disabilites)
-          service we recomend you sign up for the:
-        </StyledSubText>
-        <StyledSubText>
-          <a href="mailto:localoffer@hackney.gov.uk">
-            localoffer@hackney.gov.uk
-          </a>
-        </StyledSubText>
-        <StyledSubText>
-          <a href="mailto:EEYService@cityoflondon.gov.uk">
-            EEYService@cityoflondon.gov.uk
-          </a>
-        </StyledSubText>
-      </StyledSubTextContainer>
+
       <FormInput
-        label={"Other - how is your activity funded? "}
-        name="other"
+        label={"Other - how is your activity funded?"}
+        name={"other"}
         register={register}
         validate={{
           notEmpty: () => {
