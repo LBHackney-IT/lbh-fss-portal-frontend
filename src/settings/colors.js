@@ -1,14 +1,28 @@
 export const blue = {
   400: "#025EA6",
+  500: "#014174",
 };
 
 export const green = {
+  300: "#267D69",
   400: "#00664F",
 };
 
-export const yellow = {};
+export const limeGreen = {
+  400: "#85b70a",
+};
 
-export const red = {};
+export const yellow = {
+  400: "#ffc844",
+};
+
+export const orange = {
+  400: "#ff9d14",
+};
+
+export const red = {
+  400: "#BE3A35",
+};
 
 export const neutral = {
   100: "#ffffff",
@@ -20,5 +34,10 @@ export const neutral = {
 };
 
 export const grey = {
-  500: "#525A5B",
+  200: "#F5F6F6",
+  201: "#F2F2F3",
+  300: "#F8F8F8",
+  400: "#525A5B",
+  500: "#ECF1F0",
+  700: "#6F777B",
 };

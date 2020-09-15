@@ -15,7 +15,7 @@ const MyOrganisation = () => {
     return <AccessDenied />;
   }
 
-  return !user.organisation ? (
+  return !user.organisation ? ( // <- will need to remove '!'
     //redirect to /services/:organisationId/edit/
     <h1>Redirect</h1>
   ) : (
