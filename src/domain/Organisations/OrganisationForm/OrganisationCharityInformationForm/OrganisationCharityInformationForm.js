@@ -92,18 +92,29 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
             const emptyFormMessage =
               "Please confirm at least one of the above or provide further information";
 
-            let values = getValues();
-            const otherValue = values.other;
-            delete values.other;
+            const allValues = getValues();
+            const checkboxIds = [];
+            const checkboxValues = [];
 
-            const allCheckboxValuesFalse = Object.keys(values).every(
-              (k) => !values[k]
+            checkboxOptions.forEach((option) => {
+              checkboxIds.push(option.id);
+            });
+
+            Object.keys(allValues).forEach((key) => {
+              if (checkboxIds.includes(key)) {
+                checkboxValues.push(allValues[key]);
+              }
+            });
+
+            const allCheckboxValuesFalse = checkboxValues.every(
+              (value) => !value
             );
 
-            if (otherValue === "" && allCheckboxValuesFalse) {
+            if (allCheckboxValuesFalse && getValues("other") === "") {
               return emptyFormMessage;
+            } else {
+              return false;
             }
-            return true;
           },
         }}
         error={errors.other}
