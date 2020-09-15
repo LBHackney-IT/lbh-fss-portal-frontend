@@ -67,7 +67,11 @@ const ConfirmModal = ({
           <StyledTitleContainer>
             <h1>{confirmTitle}</h1>
           </StyledTitleContainer>
-          <StyledForm onSubmit={handleSubmit(({ reviewerMessage }) => onConfirm(reviewerMessage))}>
+          <StyledForm
+            onSubmit={handleSubmit(({ reviewerMessage }) =>
+              onConfirm(reviewerMessage)
+            )}
+          >
             <StyledTextarea
               name="reviewerMessage"
               placeholder="We can not add you right now for the following reasons..."

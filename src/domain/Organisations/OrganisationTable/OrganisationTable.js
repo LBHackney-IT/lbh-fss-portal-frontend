@@ -9,6 +9,8 @@ import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
 import { ReactComponent as Trash } from "./icons/trash.svg";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
+import OrganisationService from "../../../services/OrganisationService/OrganisationService";
+import { toast } from "react-toastify";
 
 const StyledStatus = styled.div`
   background-color: ${(props) => props.status.backgroundColor};
@@ -119,19 +121,73 @@ const OrganisationTable = ({ data, isLoading, search }) => {
     setRemoveModalIsOpen(!removeModalIsOpen);
   }
 
-  function doApprove() {
-    alert("approve organisation");
-  }
-  function doDecline() {
-    alert("decline organisation");
+  async function doApprove(reviewerMessage) {
+    if (approveIsLoading) return;
+
+    setApproveIsLoading(true);
+
+    selectedOrganisation.status = "published";
+    selectedOrganisation.reviewedAt = new Date();
+    selectedOrganisation.reviewerMessage = reviewerMessage;
+
+    const organisation = await OrganisationService.updateOrganisation(
+      selectedOrganisation.id,
+      selectedOrganisation
+    );
+
+    setApproveIsLoading(false);
+
+    if (organisation) {
+      toast.success(`${selectedOrganisation.name} was approved.`);
+    } else {
+      toast.error(`Unable to approve organisation.`);
+    }
+
+    setApproveModalIsOpen(false);
   }
 
-  function doRemove(reviewerMessage) {
-    // if (removeIsLoading) return;
-    // setRemoveIsLoading(true)
-    // api call DELETE / organisations/{organisationId}
-    // setRemoveIsLoading(false)
-    alert(`Removing with this message ${reviewerMessage}`);
+  async function doDecline(reviewerMessage) {
+    if (declineIsLoading) return;
+    setDeclineIsLoading(true);
+
+    selectedOrganisation.status = "rejected";
+    selectedOrganisation.reviewedAt = new Date();
+    selectedOrganisation.reviewerMessage = reviewerMessage;
+
+    const organisation = await OrganisationService.updateOrganisation(
+      selectedOrganisation.id,
+      selectedOrganisation
+    );
+
+    setDeclineIsLoading(false);
+
+    if (organisation) {
+      toast.success(`${selectedOrganisation.name} was declined.`);
+    } else {
+      toast.error(`Unable to decline organisation.`);
+    }
+
+    setDeclineModalIsOpen(false);
+  }
+
+  async function doRemove() {
+    if (removeIsLoading) return;
+
+    setRemoveIsLoading(true);
+
+    const organisationDeleted = await OrganisationService.deleteOrganisation(
+      selectedOrganisation.id
+    );
+
+    setRemoveIsLoading(false);
+
+    if (organisationDeleted) {
+      toast.success(`${selectedOrganisation.name} removed.`);
+    } else {
+      toast.error(`Unable to remove organisation.`);
+    }
+
+    setRemoveModalIsOpen(false);
   }
 
   const actions = [
@@ -222,16 +278,12 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       <ConfirmModal
         isOpen={approveModalIsOpen}
         toggleModal={toggleApproveModal}
-        confirmMessage={
-          <>
-            Are you sure you want to approve{" "}
-            <strong>{selectedOrganisation.name}</strong>?
-          </>
-        }
         confirmButtonLabel={"Approve"}
         confirmButtonColor={green[400]}
         borderColor={green[300]}
         onConfirm={doApprove}
+        includeReviewerMessage={true}
+        confirmTitle={"Approve organisation"}
       />
       <ConfirmModal
         isOpen={declineModalIsOpen}
@@ -246,12 +298,17 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       <ConfirmModal
         isOpen={removeModalIsOpen}
         toggleModal={toggleRemoveModal}
+        confirmMessage={
+          <>
+            Are you sure you want to remove{" "}
+            <strong>{selectedOrganisation.name}</strong>?
+          </>
+        }
         confirmButtonLabel={"Remove"}
         confirmButtonColor={red[400]}
         borderColor={red[400]}
         onConfirm={doRemove}
-        includeReviewerMessage={true}
-        confirmTitle={"Remove organisation"}
+        includeReviewerMessage={false}
       />
     </>
   );

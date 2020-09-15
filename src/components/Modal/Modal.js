@@ -15,7 +15,7 @@ const StyledModal = Modal.styled`
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
   border-radius: 3px;
   padding: 20px;
-  width: 20rem;
+  width: 23rem;
   height: ${(props) => (props.heightMobile ? props.heightMobile : "15rem")};
   ${breakpoint("sm")`
   width: 30rem;
