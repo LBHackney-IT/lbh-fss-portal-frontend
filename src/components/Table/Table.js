@@ -55,6 +55,13 @@ const StyledTd = styled.td`
   border-right: none;
   padding: 5px 0 0 15px;
   margin-top: ${(props) => props.tdHeightMobile};
+  &:first-child {
+    margin: 0;
+  }
+  &:last-child {
+    margin-bottom: 10px;
+  }
+
   ${breakpoint("md")`
     height: 50px;
     margin-top: 0;
