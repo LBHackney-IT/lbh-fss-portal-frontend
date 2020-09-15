@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "@reach/router";
 import UserTable from "../UserTable/UserTable";
-import SearchUser from "../SearchUser/SearchUser";
+import Search from "../../../components/Search/Search";
 import Button from "../../../components/Button/Button";
 import UserContext from "../../../context/UserContext/UserContext";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
@@ -71,7 +71,7 @@ const ListUsers = ({ location }) => {
     <>
       <div>
         <StyledActionDiv>
-          <SearchUser setSearch={setSearch} />
+          <Search setSearch={setSearch} />
           <StyledAddUserLink>
             <Link to="/users/add">
               <StyledButton label={"Add user"} />

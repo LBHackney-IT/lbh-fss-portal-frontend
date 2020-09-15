@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { breakpoint } from "../../../utils/breakpoint/breakpoint";
-import SVGIcon from "../../../components/SVGIcon/SVGIcon";
+import { breakpoint } from "../../utils/breakpoint/breakpoint";
+import SVGIcon from "../SVGIcon/SVGIcon";
 import { ReactComponent as SearchIcon } from "./icons/SearchBtn.svg";
 
 const StyledForm = styled.form`
@@ -39,7 +39,7 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-function SearchUser({ setSearch }) {
+function Search({ setSearch }) {
   const { register, handleSubmit } = useForm({});
 
   async function doSubmit({ search }) {
@@ -65,4 +65,4 @@ function SearchUser({ setSearch }) {
   );
 }
 
-export default SearchUser;
+export default Search;

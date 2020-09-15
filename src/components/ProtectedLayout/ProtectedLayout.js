@@ -64,7 +64,7 @@ const ProtectedLayout = ({ children }) => {
       {children}
       <StyledContactInfo>
         If you need support please email:{" "}
-        <a href="mailto:team@hackneymap.gov.uk">team@hackneymap.gov.uk</a>
+        <a href="mailto:fss@hackney.gov.uk">fss@hackney.gov.uk</a>
       </StyledContactInfo>
     </StyledLayout>
   );
