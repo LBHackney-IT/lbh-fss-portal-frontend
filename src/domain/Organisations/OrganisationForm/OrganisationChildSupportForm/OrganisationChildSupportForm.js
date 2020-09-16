@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Button from "../../../../components/Button/Button";
 import FormRadio from "../../../../components/FormRadio/FormRadio";
-import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import { grey } from "../../../../settings";
+import FormInput from "../../../../components/FormInput/FormInput";
 
 const StyledLeadText = styled.p`
   color: ${grey[400]};
@@ -19,8 +19,13 @@ const StyledRadioOption = styled.div`
   margin: 10px;
 `;
 
+const StyledQuestion = styled.p`
+  font-size: 19px;
+  font-weight: bold;
+`;
+
 const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     defaultValues,
   });
 
@@ -86,6 +91,50 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
             );
           })}
         </FormFieldset>
+      ) : null}
+
+      {showSafeguardLead && showSafeguardLeadDetails ? (
+        <>
+          <p>
+            What are your organisations Children's safeguarding lead details?
+          </p>
+
+          <FormInput
+            label={"First name"}
+            name={"childSafeguardingLeadFirstName"}
+            register={register}
+            required
+            error={errors.childSafeguardingLeadFirstName}
+          />
+          <FormInput
+            label={"Last name"}
+            name={"childSafeguardingLeadLastName"}
+            register={register}
+            required
+            error={errors.childSafeguardingLeadLastName}
+          />
+          <StyledQuestion>
+            Date of the designated safeguarding lead training{" "}
+          </StyledQuestion>
+          <div style={{ display: "flex" }}>
+            <div style={{ marginRight: "5px", width: "30%" }}>
+              <FormInput
+                label={"Month"}
+                type={"number"}
+                name={"childSafeguardingLeadTrainingMonth"}
+                register={register}
+              />
+            </div>
+            <div style={{ marginLeft: "5px", width: "30%" }}>
+              <FormInput
+                label={"Year"}
+                type={"number"}
+                name={"childSafeguardingLeadTrainingYear"}
+                register={register}
+              />
+            </div>
+          </div>
+        </>
       ) : null}
 
       <Button type="submit" label="Continue ›" />
