@@ -21,9 +21,11 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
   });
 
   const [showCharityNumber, setShowCharityNumber] = useState(false);
-  const [showWhichRSL, setShowWhichRSL] = useState(false);
-  const [showLotteryDetail, setShowLotteryDetail] = useState(false);
-  const [showAddWebLink, setShowAddWebLink] = useState(false);
+  const [showRSLOrHaAssociation, setShowRSLOrHaAssociation] = useState(false);
+  const [showLotteryFundedProject, setShowLotteryFundedProject] = useState(
+    false
+  );
+  const [showLocalOfferLink, setShowLocalOfferLink] = useState(false);
 
   function handleHiddenField(id) {
     switch (id) {
@@ -31,13 +33,13 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
         setShowCharityNumber(!showCharityNumber);
         break;
       case "isTraRegistered":
-        setShowWhichRSL(!showWhichRSL);
+        setShowRSLOrHaAssociation(!showRSLOrHaAssociation);
         break;
       case "isLotteryFunded":
-        setShowLotteryDetail(!showLotteryDetail);
+        setShowLotteryFundedProject(!showLotteryFundedProject);
         break;
       case "isLocalOfferListed":
-        setShowAddWebLink(!showAddWebLink);
+        setShowLocalOfferLink(!showLocalOfferLink);
         break;
       default:
         return false;
@@ -116,7 +118,7 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 />
               ) : null}
 
-              {showWhichRSL && item.id === "isTraRegistered" ? (
+              {showRSLOrHaAssociation && item.id === "isTraRegistered" ? (
                 <FormInput
                   label={
                     "Which Registered Social Landlord (RSL) or Housing Association are you registered with:"
@@ -126,7 +128,7 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 />
               ) : null}
 
-              {showLotteryDetail && item.id === "isLotteryFunded" ? (
+              {showLotteryFundedProject && item.id === "isLotteryFunded" ? (
                 <FormInput
                   label={"Please detail which Lottery Funded project"}
                   name={"lotteryFundedProject"}
@@ -134,7 +136,7 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 />
               ) : null}
 
-              {showAddWebLink && item.id === "isLocalOfferListed" ? (
+              {showLocalOfferLink && item.id === "isLocalOfferListed" ? (
                 <FormInput
                   label={"Please add weblink"}
                   name={"localOfferLink"}
