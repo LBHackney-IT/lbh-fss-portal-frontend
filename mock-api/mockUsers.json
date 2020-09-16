@@ -1,43 +1,13 @@
 [
   {
-    "id": 87104,
+    "id": 1,
     "name": "Tommie Dietrich",
     "email": "Alana.Haag@gmail.com",
     "status": "deleted",
-    "roles": [],
+    "roles": ["vcso"],
     "organisation": {
-      "id": 16645,
-      "name": "Lubowitz, Mohr and Kilback",
-      "created_at": "2020-01-08T13:09:10.085Z",
-      "updated_at": "2020-02-19T23:08:31.028Z",
-      "submitted_at": "2020-02-25T13:57:42.293Z",
-      "reviewed_at": "2020-03-05T17:21:13.514Z",
-      "reviewer_message": "Soluta veritatis minima non.",
-      "status": "needs_review",
-      "is_hackney_based": true,
-      "is_registered_charity": false,
-      "charity_number": "I",
-      "has_hc_or_col_grant": true,
-      "has_hcvs_or_hg_or_ael_grant": false,
-      "is_tra_registered": true,
-      "rsl_or_ha_association": "Bins and Sons",
-      "is_lottery_funded": true,
-      "lottery_funded_project": "repudiandae qui autem",
-      "funding_other": "Ut soluta ipsum qui officiis nostrum dolorem minima ullam rem. Qui sit quam minima necessitatibus ipsam aut.",
-      "has_child_support": true,
-      "has_child_safeguarding_lead": false,
-      "child_safeguarding_lead_first_name": "Stephan",
-      "child_safeguarding_lead_last_name": "Bradtke",
-      "child_safeguarding_lead_training_month": "December",
-      "child_safeguarding_lead_training_year": "2016-08-11T04:18:18.268Z",
-      "has_adult_support": false,
-      "has_adult_safeguarding_lead": true,
-      "adult_safeguarding_lead_first_name": "Jevon",
-      "adult_safeguarding_lead_last_name": "West",
-      "adult_safeguarding_lead_training_month": "May",
-      "adult_safeguarding_lead_training_year": "2016-01-17T21:03:22.970Z",
-      "has_enhanced_support": false,
-      "is_local_offer_listed": true
+      "id": 9999,
+      "name": "Nudge Digital"
     }
   },
   {
@@ -45,10 +15,7 @@
     "name": "Reyna Simonis",
     "email": "Kory50@gmail.com",
     "status": "active",
-    "roles": [
-      "vcso",
-      "admin"
-    ],
+    "roles": ["vcso", "admin"],
     "organisation": {
       "id": 54131,
       "name": "O'Conner - Breitenberg",
@@ -89,9 +56,7 @@
     "name": "Ms. Johnnie Quitzon",
     "email": "Cordia31@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "organisation": {
       "id": 60247,
       "name": "Weissnat Inc",
@@ -132,10 +97,7 @@
     "name": "Melody Zieme",
     "email": "Ella47@yahoo.com",
     "status": "suspended",
-    "roles": [
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["vcso", "viewer"],
     "organisation": {
       "id": 87745,
       "name": "Schumm - Spinka",
@@ -176,9 +138,7 @@
     "name": "Mrs. Vita Green",
     "email": "Everette_Luettgen40@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "organisation": {
       "id": 76127,
       "name": "McGlynn - Cremin",
@@ -260,11 +220,7 @@
     "name": "Alfredo Kling",
     "email": "Raquel48@gmail.com",
     "status": "active",
-    "roles": [
-      "vcso",
-      "viewer",
-      "admin"
-    ],
+    "roles": ["vcso", "viewer", "admin"],
     "organisation": {
       "id": 6806,
       "name": "Wintheiser, D'Amore and Larkin",
@@ -305,10 +261,7 @@
     "name": "Charles Welch",
     "email": "Foster_Cronin76@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "viewer",
-      "vcso"
-    ],
+    "roles": ["viewer", "vcso"],
     "organisation": {
       "id": 22791,
       "name": "Larkin, Nienow and Bayer",
@@ -349,10 +302,7 @@
     "name": "Maximo Schneider",
     "email": "Max.Turner@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "viewer",
-      "admin"
-    ],
+    "roles": ["viewer", "admin"],
     "organisation": {
       "id": 48019,
       "name": "Erdman - Rath",
@@ -516,9 +466,7 @@
     "name": "Macy Hahn",
     "email": "Ayana52@gmail.com",
     "status": "suspended",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "organisation": {
       "id": 72130,
       "name": "Goodwin, Davis and Leuschke",
@@ -559,9 +507,7 @@
     "name": "Lilian Baumbach",
     "email": "Trenton.Welch@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 99837,
       "name": "Rolfson - Cronin",
@@ -602,10 +548,7 @@
     "name": "Ms. Magdalena Hoppe",
     "email": "Nicholas_Huel52@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "vcso",
-      "admin"
-    ],
+    "roles": ["vcso", "admin"],
     "organisation": {
       "id": 59989,
       "name": "Macejkovic, Sauer and Feil",
@@ -769,10 +712,7 @@
     "name": "Aurelia Harvey",
     "email": "Kelton_Hackett4@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["vcso", "viewer"],
     "organisation": {
       "id": 68858,
       "name": "White - Trantow",
@@ -813,9 +753,7 @@
     "name": "Hiram Cartwright",
     "email": "Dudley_Emard@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 26597,
       "name": "Ritchie, Jakubowski and Legros",
@@ -856,9 +794,7 @@
     "name": "Orville Bernier",
     "email": "Henry.Shanahan37@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "organisation": {
       "id": 286,
       "name": "Cassin - Homenick",
@@ -899,11 +835,7 @@
     "name": "Sheila Padberg",
     "email": "Bart_Rath55@yahoo.com",
     "status": "suspended",
-    "roles": [
-      "admin",
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["admin", "vcso", "viewer"],
     "organisation": {
       "id": 31995,
       "name": "Lemke, Keeling and Medhurst",
@@ -944,10 +876,7 @@
     "name": "Icie Daugherty",
     "email": "Cedrick.Rippin@gmail.com",
     "status": "deleted",
-    "roles": [
-      "admin",
-      "vcso"
-    ],
+    "roles": ["admin", "vcso"],
     "organisation": {
       "id": 16269,
       "name": "Bogisich Inc",
@@ -988,11 +917,7 @@
     "name": "Nettie Baumbach",
     "email": "Ima_Steuber92@hotmail.com",
     "status": "active",
-    "roles": [
-      "admin",
-      "viewer",
-      "vcso"
-    ],
+    "roles": ["admin", "viewer", "vcso"],
     "organisation": {
       "id": 9859,
       "name": "Jacobson, Weissnat and Stehr",
@@ -1115,10 +1040,7 @@
     "name": "Gaetano Terry",
     "email": "Cristobal_Romaguera@gmail.com",
     "status": "active",
-    "roles": [
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["vcso", "viewer"],
     "organisation": {
       "id": 94891,
       "name": "Mante Group",
@@ -1159,9 +1081,7 @@
     "name": "Jeramie Torp DDS",
     "email": "Jacques.Crooks@yahoo.com",
     "status": "active",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 43961,
       "name": "Strosin - Schaden",
@@ -1366,11 +1286,7 @@
     "name": "Mr. Layla Nolan",
     "email": "Luciano.Green66@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "vcso",
-      "viewer",
-      "admin"
-    ],
+    "roles": ["vcso", "viewer", "admin"],
     "organisation": {
       "id": 2256,
       "name": "Schoen - Weber",
@@ -1411,9 +1327,7 @@
     "name": "Lora Emard",
     "email": "Kale.Romaguera@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 60267,
       "name": "O'Conner - Wolf",
@@ -1454,11 +1368,7 @@
     "name": "Jameson Sanford",
     "email": "Dorcas32@gmail.com",
     "status": "suspended",
-    "roles": [
-      "viewer",
-      "vcso",
-      "admin"
-    ],
+    "roles": ["viewer", "vcso", "admin"],
     "organisation": {
       "id": 68010,
       "name": "Kertzmann - Dare",
@@ -1499,11 +1409,7 @@
     "name": "Mrs. Kurt Pfeffer",
     "email": "Abbie.Stracke1@yahoo.com",
     "status": "active",
-    "roles": [
-      "vcso",
-      "admin",
-      "viewer"
-    ],
+    "roles": ["vcso", "admin", "viewer"],
     "organisation": {
       "id": 77360,
       "name": "Ruecker Group",
@@ -1544,10 +1450,7 @@
     "name": "Mr. Freddie Hane",
     "email": "Mona34@hotmail.com",
     "status": "active",
-    "roles": [
-      "viewer",
-      "admin"
-    ],
+    "roles": ["viewer", "admin"],
     "organisation": {
       "id": 50866,
       "name": "Farrell - Hayes",
@@ -1588,9 +1491,7 @@
     "name": "Khalil Schaden DVM",
     "email": "Evert.Stokes61@yahoo.com",
     "status": "suspended",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 42473,
       "name": "Dicki - Effertz",
@@ -1631,9 +1532,7 @@
     "name": "Geovanny Zboncak",
     "email": "Clinton.Douglas9@yahoo.com",
     "status": "suspended",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 54586,
       "name": "Swift LLC",
@@ -1674,10 +1573,7 @@
     "name": "Mrs. Aaliyah Cummerata",
     "email": "Eli_Volkman40@hotmail.com",
     "status": "active",
-    "roles": [
-      "admin",
-      "vcso"
-    ],
+    "roles": ["admin", "vcso"],
     "organisation": {
       "id": 57456,
       "name": "Sawayn, Gibson and Bartoletti",
@@ -1759,9 +1655,7 @@
     "name": "Adam Goyette",
     "email": "Lorna.Lesch64@yahoo.com",
     "status": "suspended",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 94791,
       "name": "Collins - Grady",
@@ -1802,10 +1696,7 @@
     "name": "Ole Mills II",
     "email": "Anna.McLaughlin@gmail.com",
     "status": "suspended",
-    "roles": [
-      "viewer",
-      "vcso"
-    ],
+    "roles": ["viewer", "vcso"],
     "organisation": {
       "id": 74471,
       "name": "Smitham and Sons",
@@ -1928,10 +1819,7 @@
     "name": "Ima Fay",
     "email": "Kaleigh_Ondricka@hotmail.com",
     "status": "active",
-    "roles": [
-      "vcso",
-      "admin"
-    ],
+    "roles": ["vcso", "admin"],
     "organisation": {
       "id": 66289,
       "name": "Mann, Muller and Beer",
@@ -2013,10 +1901,7 @@
     "name": "Tremayne Dibbert",
     "email": "Robbie_Braun@gmail.com",
     "status": "deleted",
-    "roles": [
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["vcso", "viewer"],
     "organisation": {
       "id": 56200,
       "name": "Hamill, Labadie and Krajcik",
@@ -2057,9 +1942,7 @@
     "name": "Carmela Grimes",
     "email": "Juliet.Sporer8@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 69839,
       "name": "Friesen - Hand",
@@ -2100,10 +1983,7 @@
     "name": "Glenda Swaniawski",
     "email": "Joel99@yahoo.com",
     "status": "active",
-    "roles": [
-      "admin",
-      "viewer"
-    ],
+    "roles": ["admin", "viewer"],
     "organisation": {
       "id": 78111,
       "name": "Hessel and Sons",
@@ -2185,9 +2065,7 @@
     "name": "Mr. Bernadine Daniel",
     "email": "Evan.Eichmann@gmail.com",
     "status": "suspended",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 46318,
       "name": "Kirlin - O'Hara",
@@ -2228,9 +2106,7 @@
     "name": "Jackson Larkin MD",
     "email": "Jerrold.Schumm@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 8923,
       "name": "Rau - Hoeger",
@@ -2312,9 +2188,7 @@
     "name": "Koby Nienow",
     "email": "Beulah_Schuster28@gmail.com",
     "status": "active",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 51050,
       "name": "Paucek Group",
@@ -2355,9 +2229,7 @@
     "name": "Claire Senger III",
     "email": "Mitchell_Hane@gmail.com",
     "status": "deleted",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 46990,
       "name": "Keeling, Deckow and Windler",
@@ -2398,9 +2270,7 @@
     "name": "April White MD",
     "email": "Hal.Bogisich@gmail.com",
     "status": "active",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 4206,
       "name": "Prosacco LLC",
@@ -2441,11 +2311,7 @@
     "name": "Hilda Lebsack",
     "email": "Sadye18@gmail.com",
     "status": "active",
-    "roles": [
-      "viewer",
-      "admin",
-      "vcso"
-    ],
+    "roles": ["viewer", "admin", "vcso"],
     "organisation": {
       "id": 89171,
       "name": "Jacobi, Rogahn and Considine",
@@ -2486,10 +2352,7 @@
     "name": "Mrs. Emelia Williamson",
     "email": "Wilfrid58@yahoo.com",
     "status": "active",
-    "roles": [
-      "viewer",
-      "vcso"
-    ],
+    "roles": ["viewer", "vcso"],
     "organisation": {
       "id": 68695,
       "name": "Schoen Inc",
@@ -2530,11 +2393,7 @@
     "name": "Alexander Corwin",
     "email": "Christy_Homenick@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "viewer",
-      "admin",
-      "vcso"
-    ],
+    "roles": ["viewer", "admin", "vcso"],
     "organisation": {
       "id": 4675,
       "name": "Larkin, Ratke and O'Connell",
@@ -2575,11 +2434,7 @@
     "name": "Ethelyn Koss",
     "email": "Caterina6@gmail.com",
     "status": "suspended",
-    "roles": [
-      "admin",
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["admin", "vcso", "viewer"],
     "organisation": {
       "id": 45511,
       "name": "Ankunding - Schowalter",
@@ -2702,11 +2557,7 @@
     "name": "Chasity Klocko II",
     "email": "Dolores.Wilkinson@gmail.com",
     "status": "active",
-    "roles": [
-      "vcso",
-      "admin",
-      "viewer"
-    ],
+    "roles": ["vcso", "admin", "viewer"],
     "organisation": {
       "id": 21684,
       "name": "Swaniawski, Fisher and Morissette",
@@ -2870,9 +2721,7 @@
     "name": "Kenna Roob",
     "email": "Mortimer.Mueller97@gmail.com",
     "status": "suspended",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 27160,
       "name": "Schoen - Ratke",
@@ -2913,9 +2762,7 @@
     "name": "Cayla Barrows DDS",
     "email": "Viola45@gmail.com",
     "status": "deleted",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "organisation": {
       "id": 94673,
       "name": "Batz - Goldner",
@@ -2956,11 +2803,7 @@
     "name": "Anissa Stokes DDS",
     "email": "Sasha95@gmail.com",
     "status": "suspended",
-    "roles": [
-      "admin",
-      "viewer",
-      "vcso"
-    ],
+    "roles": ["admin", "viewer", "vcso"],
     "organisation": {
       "id": 76095,
       "name": "Schuppe, Boyer and Reilly",
@@ -3001,10 +2844,7 @@
     "name": "Howard Stark",
     "email": "Nathanael42@yahoo.com",
     "status": "active",
-    "roles": [
-      "admin",
-      "vcso"
-    ],
+    "roles": ["admin", "vcso"],
     "organisation": {
       "id": 25547,
       "name": "Kunze - Welch",
@@ -3045,9 +2885,7 @@
     "name": "Mr. Michele Metz",
     "email": "Clarissa_Hand@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 2751,
       "name": "Powlowski and Sons",
@@ -3088,10 +2926,7 @@
     "name": "Cydney Heidenreich",
     "email": "Fidel_Goyette@yahoo.com",
     "status": "suspended",
-    "roles": [
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["vcso", "viewer"],
     "organisation": {
       "id": 61993,
       "name": "Hilpert, Mayer and Strosin",
@@ -3132,9 +2967,7 @@
     "name": "Darrick Berge",
     "email": "Daron9@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "organisation": {
       "id": 99385,
       "name": "Hahn - Kihn",
@@ -3216,9 +3049,7 @@
     "name": "Mrs. Martine Dickinson",
     "email": "Russ.Boyle@gmail.com",
     "status": "deleted",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 33034,
       "name": "Balistreri LLC",
@@ -3259,9 +3090,7 @@
     "name": "Mayra Stracke",
     "email": "Braxton87@gmail.com",
     "status": "deleted",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "organisation": {
       "id": 16438,
       "name": "Zboncak - Stark",
@@ -3302,10 +3131,7 @@
     "name": "Deondre Kautzer",
     "email": "Nolan_Jerde@yahoo.com",
     "status": "active",
-    "roles": [
-      "admin",
-      "viewer"
-    ],
+    "roles": ["admin", "viewer"],
     "organisation": {
       "id": 84049,
       "name": "Bergnaum Group",
@@ -3346,11 +3172,7 @@
     "name": "Logan Lueilwitz",
     "email": "Rupert.Windler76@gmail.com",
     "status": "active",
-    "roles": [
-      "viewer",
-      "admin",
-      "vcso"
-    ],
+    "roles": ["viewer", "admin", "vcso"],
     "organisation": {
       "id": 74887,
       "name": "Kilback - Auer",
@@ -3432,10 +3254,7 @@
     "name": "Gus Auer",
     "email": "Nina7@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "admin",
-      "vcso"
-    ],
+    "roles": ["admin", "vcso"],
     "organisation": {
       "id": 58184,
       "name": "Kuvalis Inc",
@@ -3476,9 +3295,7 @@
     "name": "Thurman Blick",
     "email": "Sandra.Wyman45@hotmail.com",
     "status": "active",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 76822,
       "name": "Schowalter - Runte",
@@ -3601,11 +3418,7 @@
     "name": "Coy Botsford",
     "email": "Selina15@hotmail.com",
     "status": "active",
-    "roles": [
-      "viewer",
-      "vcso",
-      "admin"
-    ],
+    "roles": ["viewer", "vcso", "admin"],
     "organisation": {
       "id": 22420,
       "name": "Kunze, Weissnat and Denesik",
@@ -3646,11 +3459,7 @@
     "name": "Faustino Eichmann",
     "email": "Delpha57@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "viewer",
-      "vcso",
-      "admin"
-    ],
+    "roles": ["viewer", "vcso", "admin"],
     "organisation": {
       "id": 35713,
       "name": "Veum, Hamill and Larkin",
@@ -3691,10 +3500,7 @@
     "name": "Rowan Metz V",
     "email": "Abelardo.Predovic@hotmail.com",
     "status": "active",
-    "roles": [
-      "vcso",
-      "admin"
-    ],
+    "roles": ["vcso", "admin"],
     "organisation": {
       "id": 77670,
       "name": "Donnelly Group",
@@ -3735,9 +3541,7 @@
     "name": "Macy Runte Sr.",
     "email": "Norene.Adams@gmail.com",
     "status": "active",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 9368,
       "name": "Beahan Group",
@@ -3778,11 +3582,7 @@
     "name": "Halle Okuneva",
     "email": "Amani76@gmail.com",
     "status": "suspended",
-    "roles": [
-      "vcso",
-      "admin",
-      "viewer"
-    ],
+    "roles": ["vcso", "admin", "viewer"],
     "organisation": {
       "id": 89661,
       "name": "Kiehn - Swaniawski",
@@ -3823,9 +3623,7 @@
     "name": "Joannie Hilll",
     "email": "Adelle84@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 34244,
       "name": "O'Connell, Stracke and Friesen",
@@ -3866,11 +3664,7 @@
     "name": "Stacey Moore III",
     "email": "Rosendo_Quigley@yahoo.com",
     "status": "active",
-    "roles": [
-      "viewer",
-      "admin",
-      "vcso"
-    ],
+    "roles": ["viewer", "admin", "vcso"],
     "organisation": {
       "id": 49190,
       "name": "Grant, Green and Bashirian",
@@ -3911,9 +3705,7 @@
     "name": "Domenic Spinka",
     "email": "Tianna.Hudson@hotmail.com",
     "status": "active",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 65292,
       "name": "Watsica, McClure and Gleason",
@@ -3954,9 +3746,7 @@
     "name": "Mrs. Edgardo Medhurst",
     "email": "Aleen_Hilpert@yahoo.com",
     "status": "suspended",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "organisation": {
       "id": 79708,
       "name": "Collier, Homenick and Borer",
@@ -3997,9 +3787,7 @@
     "name": "Garfield Dach",
     "email": "Unique.Kautzer55@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "organisation": {
       "id": 25752,
       "name": "Schuppe, Senger and Lemke",
@@ -4040,10 +3828,7 @@
     "name": "Ervin Schmidt",
     "email": "Otho.Conroy@yahoo.com",
     "status": "suspended",
-    "roles": [
-      "vcso",
-      "admin"
-    ],
+    "roles": ["vcso", "admin"],
     "organisation": {
       "id": 29677,
       "name": "O'Keefe Inc",
@@ -4084,10 +3869,7 @@
     "name": "Mariane Dicki",
     "email": "Diego12@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "viewer",
-      "admin"
-    ],
+    "roles": ["viewer", "admin"],
     "organisation": {
       "id": 61668,
       "name": "Ziemann - Heathcote",
@@ -4210,9 +3992,7 @@
     "name": "Reese Deckow",
     "email": "Zachary63@hotmail.com",
     "status": "active",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "organisation": {
       "id": 33553,
       "name": "Wolf, Bartell and Boehm",
@@ -4253,10 +4033,7 @@
     "name": "Gerda Terry IV",
     "email": "Victor.Vandervort64@gmail.com",
     "status": "suspended",
-    "roles": [
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["vcso", "viewer"],
     "organisation": {
       "id": 97558,
       "name": "Jerde - Steuber",
