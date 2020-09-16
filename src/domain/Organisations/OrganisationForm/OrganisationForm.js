@@ -109,7 +109,7 @@ const OrganisationForm = ({
           stepArray={stepArray}
           stepNum={stepNum}
           setStepNum={setStepNum}
-          enableAllLinks={false}
+          enableAllLinks={true}
         />
       </StyledOrganisationFormAside>
       <StyledOrganisationFormMain ref={mainRef}>

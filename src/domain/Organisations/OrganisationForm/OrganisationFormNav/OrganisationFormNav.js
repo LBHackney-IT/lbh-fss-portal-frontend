@@ -18,6 +18,7 @@ const StyledNavIndex = styled.div`
   border: 1px solid black;
   border-radius: 50px;
   padding: 2px;
+  color: black;
 `;
 
 const StyledNavText = styled.div`
@@ -35,7 +36,8 @@ const StyledButton = styled.button`
 `;
 
 const StyledActiveButton = styled(StyledButton)`
-  background-color: grey;
+  color: blue;
+  cursor: pointer;
 `;
 
 const OrganisationFormStep = ({ stepNum, label }) => {

@@ -27,16 +27,16 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
 
   function handleHiddenField(id) {
     switch (id) {
-      case "registeredCharity":
+      case "isRegisteredCharity":
         setShowCharityNumber(!showCharityNumber);
         break;
-      case "registeredWithTenant":
+      case "isTraRegistered":
         setShowWhichRSL(!showWhichRSL);
         break;
-      case "registeredWithLottery":
+      case "isLotteryFunded":
         setShowLotteryDetail(!showLotteryDetail);
         break;
-      case "localOffer":
+      case "isLocalOfferListed":
         setShowAddWebLink(!showAddWebLink);
         break;
       default:
@@ -46,29 +46,29 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
 
   const checkboxOptions = [
     {
-      id: "registeredCharity",
+      id: "isRegisteredCharity",
       label: "Registered Charity",
     },
     {
-      id: "recievedWithOption1",
+      id: "hasHcOrColGrant",
       label: "Received a grant from Hackney Council or City of London",
     },
     {
-      id: "recievedWithOption2",
+      id: "hasHcvsOrHgOrAelGrant",
       label:
         "Received a grant from Hackney CVS, Hackney Giving or AgeUK East London grants database",
     },
     {
-      id: "registeredWithTenant",
+      id: "isTraRegistered",
       label: "Registered with the Tenant and Resident Association",
     },
     {
-      id: "registeredWithLottery",
+      id: "isLotteryFunded",
       label:
         "Received a grant from a Lottery Funded project? E.g. National Lottery or Sports England",
     },
     {
-      id: "localOffer",
+      id: "isLocalOfferListed",
       label: "Are you on the Local Offer?",
     },
   ];
@@ -89,7 +89,7 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 register={register}
                 onClick={() => handleHiddenField(item.id)}
               />
-              {item.id === "localOffer" ? (
+              {item.id === "isLocalOfferListed" ? (
                 <StyledSubTextContainer>
                   <StyledSubText>
                     If you provide a SEND (special educational needs and
@@ -108,7 +108,7 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 </StyledSubTextContainer>
               ) : null}
 
-              {showCharityNumber && item.id === "registeredCharity" ? (
+              {showCharityNumber && item.id === "isRegisteredCharity" ? (
                 <FormInput
                   label={"What is your charity number"}
                   name={"charityNumber"}
@@ -116,28 +116,28 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 />
               ) : null}
 
-              {showWhichRSL && item.id === "registeredWithTenant" ? (
+              {showWhichRSL && item.id === "isTraRegistered" ? (
                 <FormInput
                   label={
                     "Which Registered Social Landlord (RSL) or Housing Association are you registered with:"
                   }
-                  name={"registeredWithTenant"}
+                  name={"rslOrHaAssociation"}
                   register={register}
                 />
               ) : null}
 
-              {showLotteryDetail && item.id === "registeredWithLottery" ? (
+              {showLotteryDetail && item.id === "isLotteryFunded" ? (
                 <FormInput
                   label={"Please detail which Lottery Funded project"}
-                  name={"showLotteryDetail"}
+                  name={"lotteryFundedProject"}
                   register={register}
                 />
               ) : null}
 
-              {showAddWebLink && item.id === "localOffer" ? (
+              {showAddWebLink && item.id === "isLocalOfferListed" ? (
                 <FormInput
                   label={"Please add weblink"}
-                  name={"addWebLink"}
+                  name={"localOfferLink"}
                   register={register}
                 />
               ) : null}
@@ -148,7 +148,7 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
 
       <FormInput
         label={"Other - how is your activity funded?"}
-        name={"other"}
+        name={"fundingOther"}
         register={register}
         validate={{
           notEmpty: () => {
@@ -173,14 +173,14 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
               (value) => !value
             );
 
-            if (allCheckboxValuesFalse && getValues("other") === "") {
+            if (allCheckboxValuesFalse && getValues("fundingOther") === "") {
               return emptyFormMessage;
             } else {
               return false;
             }
           },
         }}
-        error={errors.other}
+        error={errors.fundingOther}
       />
       <Button type="submit" label="Continue ›" />
     </form>
