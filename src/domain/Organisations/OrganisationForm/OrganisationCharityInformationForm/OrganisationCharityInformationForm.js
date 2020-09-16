@@ -178,7 +178,7 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
             if (allCheckboxValuesFalse && getValues("fundingOther") === "") {
               return emptyFormMessage;
             } else {
-              return false;
+              return true;
             }
           },
         }}
