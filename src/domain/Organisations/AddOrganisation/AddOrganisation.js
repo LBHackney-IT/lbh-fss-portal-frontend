@@ -8,7 +8,6 @@ import UserContext from "../../../context/UserContext/UserContext";
 
 const AddOrganisation = () => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
-
   const localUser = useContext(UserContext)[0];
   const { organisation, isLoading: fetchIsLoading } = useOrganisationFetch(
     localUser.organisation.id
@@ -20,9 +19,6 @@ const AddOrganisation = () => {
     }
     return values;
   }
-
-  console.log("original organisation");
-  console.log(organisation);
 
   async function doAddOrganisation(formValues) {
     if (submitIsLoading) return;

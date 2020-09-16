@@ -1,24 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import { grey } from "../../../../settings";
+import { grey, blue } from "../../../../settings";
 
 const StyledNav = styled.div`
   width: 100%;
-  /* margin: 10px 10px 40px 10px; */
 `;
 
 const StyledNavContent = styled.div`
   display: flex;
   padding: 5px;
+  margin: 10px 0;
 `;
-
+const StyledNavIndexContainer = styled.div`
+  width: 15%;
+`;
 const StyledNavIndex = styled.div`
-  width: 25px;
-  height: 25px;
+  width: 2em;
+  height: 2em;
+  box-sizing: initial;
   border: 1px solid black;
-  border-radius: 50px;
-  padding: 2px;
   color: black;
+  text-align: center;
+  border-radius: 50%;
+  line-height: 2em;
+  margin: 0 auto;
 `;
 
 const StyledNavText = styled.div`
@@ -26,25 +31,33 @@ const StyledNavText = styled.div`
   align-items: center;
   margin-left: 10px;
   text-align: left;
+  width: 85%;
 `;
 
 const StyledButton = styled.button`
+  width: 90%;
+  margin: 0 auto;
   border: 0;
   border-bottom: 1px solid ${grey[700]};
   width: 100%;
   background-color: white;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const StyledActiveButton = styled(StyledButton)`
-  color: blue;
+  color: ${blue[400]};
   cursor: pointer;
 `;
 
 const OrganisationFormStep = ({ stepNum, label }) => {
   return (
     <StyledNavContent>
-      <StyledNavIndex>{stepNum + 1}</StyledNavIndex>{" "}
-      <StyledNavText>
+      <StyledNavIndexContainer>
+        <StyledNavIndex>{stepNum + 1}</StyledNavIndex>{" "}
+      </StyledNavIndexContainer>
+      <StyledNavText style={{ width: "85%" }}>
         <p style={{ margin: 0 }}>{label}</p>
       </StyledNavText>
     </StyledNavContent>
@@ -53,7 +66,7 @@ const OrganisationFormStep = ({ stepNum, label }) => {
 
 const OrganisationFormNavItem = ({ stepNum, label, isLink, onClick }) => {
   return isLink ? (
-    <StyledActiveButton style={{ width: "100%" }} onClick={onClick}>
+    <StyledActiveButton onClick={onClick}>
       <OrganisationFormStep stepNum={stepNum} label={label} />
     </StyledActiveButton>
   ) : (

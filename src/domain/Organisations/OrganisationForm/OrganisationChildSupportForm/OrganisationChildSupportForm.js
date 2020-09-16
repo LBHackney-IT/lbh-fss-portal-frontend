@@ -6,6 +6,7 @@ import FormRadio from "../../../../components/FormRadio/FormRadio";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import { grey } from "../../../../settings";
 import FormInput from "../../../../components/FormInput/FormInput";
+import FormError from "../../../../components/FormError/FormError";
 
 const StyledLeadText = styled.p`
   color: ${grey[400]};
@@ -62,12 +63,19 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
                 label={item}
                 value={item.toLowerCase()}
                 register={register}
+                required
               />
             </StyledRadioOption>
           );
         })}
       </FormFieldset>
-
+      {errors.hasChildSupport && errors.hasChildSupport.type === "required" && (
+        <FormError
+          error={"Please complete this question"}
+          marginTop="10px"
+          marginBottom="20px"
+        />
+      )}
       {showSafeguardLead ? (
         <FormFieldset label="Does your organisation have a Children’s Safeguarding Lead?">
           {["Yes", "No"].map((item) => {
@@ -86,13 +94,21 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
                   label={item}
                   value={item.toLowerCase()}
                   register={register}
+                  required
                 />
               </StyledRadioOption>
             );
           })}
         </FormFieldset>
       ) : null}
-
+      {errors.hasChildSafeguardingLead &&
+        errors.hasChildSafeguardingLead.type === "required" && (
+          <FormError
+            error={"Please complete this question"}
+            marginTop="10px"
+            marginBottom="20px"
+          />
+        )}
       {showSafeguardLead && showSafeguardLeadDetails ? (
         <>
           <p>
@@ -136,7 +152,6 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
           </div>
         </>
       ) : null}
-
       <Button type="submit" label="Continue ›" />
     </form>
   );

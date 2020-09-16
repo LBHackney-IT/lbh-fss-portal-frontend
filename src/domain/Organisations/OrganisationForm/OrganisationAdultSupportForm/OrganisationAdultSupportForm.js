@@ -135,7 +135,7 @@ const OrganisationAdultSupportForm = ({ defaultValues, onSubmit }) => {
         </>
       ) : null}
 
-      <Button type="submit" label="Continue ›" />
+      <Button type="submit" label="Submit" />
     </form>
   );
 };
