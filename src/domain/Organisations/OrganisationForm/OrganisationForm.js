@@ -11,9 +11,15 @@ const StyledOrganisationForm = styled.div`
   display: flex;
 `;
 
-const StyledOrganisationFormAside = styled.div``;
+const StyledOrganisationFormAside = styled.div`
+  width: 40%;
+  margin: 20px;
+`;
 
-const StyledOrganisationFormMain = styled.div``;
+const StyledOrganisationFormMain = styled.div`
+  width: 60%;
+  margin: 20px;
+`;
 
 const OrganisationForm = ({
   onFormCompletion,
@@ -103,7 +109,7 @@ const OrganisationForm = ({
           stepArray={stepArray}
           stepNum={stepNum}
           setStepNum={setStepNum}
-          enableAllLinks={true}
+          enableAllLinks={false}
         />
       </StyledOrganisationFormAside>
       <StyledOrganisationFormMain ref={mainRef}>
