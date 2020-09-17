@@ -5,13 +5,23 @@ import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
 import FormInput from "../../../../components/FormInput/FormInput";
+import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 
 const StyledSubTextContainer = styled.div`
-  margin-left: 15px;
+  margin: -15px 0 15px 50px;
+  font-size: 15px;
+  ${breakpoint("sm")`
+    margin: -30px 0 15px 50px;
+  `};
 `;
 
 const StyledSubText = styled.p`
-  margin: 0;
+  margin: 5px 0;
+`;
+
+const StyledExternalLink = styled.a`
+  display: block;
+  margin: 5px 0;
 `;
 
 const StyledHiddenFieldContainer = styled.div`
@@ -116,6 +126,9 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
 
               {showCharityNumber && item.id === "isRegisteredCharity" ? (
                 <StyledHiddenFieldContainer>
+                  <StyledExternalLink href="">
+                    Look up your charity number
+                  </StyledExternalLink>
                   <FormInput
                     label={"What is your charity number"}
                     name={"charityNumber"}

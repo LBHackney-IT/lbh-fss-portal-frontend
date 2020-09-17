@@ -117,7 +117,6 @@ const actions = [
 ];
 
 const OrganisationTable = ({ data, isLoading, search }) => {
-  console.log(data);
   const columns = useMemo(
     () => [
       {

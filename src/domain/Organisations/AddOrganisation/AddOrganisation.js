@@ -25,17 +25,11 @@ const AddOrganisation = () => {
 
     const cleanFormValues = doCleanFormValues(formValues);
 
-    console.log("formValues");
-    console.log(formValues);
-
     Object.keys(organisation).forEach(function (key) {
       if (cleanFormValues[key]) {
         organisation[key] = cleanFormValues[key];
       }
     });
-
-    console.log("updated organisation");
-    console.log(organisation);
 
     setSubmitIsLoading(true);
 
@@ -60,7 +54,6 @@ const AddOrganisation = () => {
 
   return (
     <>
-      <div>Step One</div>
       <h1>Tell us about your organisation</h1>
       <OrganisationForm
         onFormCompletion={doAddOrganisation}

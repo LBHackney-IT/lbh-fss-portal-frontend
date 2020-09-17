@@ -23,13 +23,16 @@ const StyledOrganisationFormAside = styled.div`
   `};
   ${breakpoint("md")`
       width: 40%;
-      margin: 20px;
+      margin: 20px 20px 20px 0;
   `};
 `;
 
 const StyledOrganisationFormMain = styled.div`
-  width: 60%;
+  width: 90%;
   margin: 20px;
+  ${breakpoint("sm")`
+    width: 60%;
+  `};
 `;
 
 const OrganisationForm = ({
@@ -120,7 +123,7 @@ const OrganisationForm = ({
           stepArray={stepArray}
           stepNum={stepNum}
           setStepNum={setStepNum}
-          enableAllLinks={true}
+          enableAllLinks={false}
         />
       </StyledOrganisationFormAside>
       <StyledOrganisationFormMain ref={mainRef}>
