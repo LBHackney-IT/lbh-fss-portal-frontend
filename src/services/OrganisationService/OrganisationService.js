@@ -1,12 +1,18 @@
 import axios from "axios";
 
 const OrganisationService = {
-  async retrieveOrganisation({
+  async retrieveOrganisations({
     sort = "name",
     direction = "asc",
     offset = 0,
     limit = 10,
     search = "",
+    created_before = "",
+    created_after = "",
+    submitted_before = "",
+    submitted_after = "",
+    reviewed_before = "",
+    reviewed_after = "",
   }) {
     try {
       const response = await axios.get("/api/organisations", {
@@ -16,10 +22,16 @@ const OrganisationService = {
           offset,
           limit,
           search,
+          created_before,
+          created_after,
+          submitted_before,
+          submitted_after,
+          reviewed_before,
+          reviewed_after,
         },
       });
 
-      return response.data.entries;
+      return response.data.organisations;
     } catch (error) {
       console.error(error);
 
@@ -50,7 +62,7 @@ const OrganisationService = {
   },
   async updateOrganisation(id, values) {
     try {
-      const response = await axios.patch(`/api/organisations/${id}`, values);
+      const response = await axios.patch(`/api/organisation/${id}`, values);
 
       return response.data;
     } catch (error) {
@@ -61,7 +73,7 @@ const OrganisationService = {
   },
   async deleteOrganisation(id) {
     try {
-      await axios.delete(`/api/organisations/${id}`);
+      await axios.delete(`/api/organisation/${id}`);
 
       return true;
     } catch (error) {
