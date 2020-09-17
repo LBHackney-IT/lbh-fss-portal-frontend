@@ -38,10 +38,16 @@ const StyledTitleText = styled.div`
   margin-left: 5px;
 `;
 
-const StyledNav = styled.nav`
+const StyledNavOuter = styled.nav`
+  background-color: ${green[400]};
+`;
+
+const StyledNavInner = styled.div`
+  max-width: 980px;
+  margin: 0 auto;
+  width: 100%;
   display: ${(props) => (props.menuIsOpen ? "flex" : "none")};
   flex-direction: column;
-  background-color: ${green[400]};
   ${breakpoint("md")`
     padding-top: 10px;
     display: flex;
@@ -101,33 +107,35 @@ function NavBar() {
         <StyledBurgerIcon menuIsOpen={menuIsOpen} />
         <StyledTitleText>Menu</StyledTitleText>
       </StyledMobileTitle>
-      <StyledNav menuIsOpen={menuIsOpen}>
-        {!isInternalTeam ? (
-          <StyledPrimaryLink to="/organisation">
-            Your organisation
+      <StyledNavOuter>
+        <StyledNavInner menuIsOpen={menuIsOpen}>
+          {!isInternalTeam ? (
+            <StyledPrimaryLink to="/organisation">
+              Your organisation
+            </StyledPrimaryLink>
+          ) : null}
+          {isInternalTeam ? (
+            <StyledPrimaryLink to="/organisations">
+              Organisations
+            </StyledPrimaryLink>
+          ) : null}
+          <StyledPrimaryLink to="/services">
+            {isInternalTeam ? "Listings" : "Your listings"}
           </StyledPrimaryLink>
-        ) : null}
-        {isInternalTeam ? (
-          <StyledPrimaryLink to="/organisations">
-            Organisations
-          </StyledPrimaryLink>
-        ) : null}
-        <StyledPrimaryLink to="/services">
-          {isInternalTeam ? "Listings" : "Your listings"}
-        </StyledPrimaryLink>
-        {isInternalTeam ? (
-          <StyledPrimaryLink to="/users">Users</StyledPrimaryLink>
-        ) : null}
-        {isInternalTeam ? (
-          <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
-        ) : null}
-        {isInternalTeam ? (
-          <StyledPrimaryLink to="/search">Search</StyledPrimaryLink>
-        ) : null}
-        <StyledSecondaryNavMenuContainer>
-          <SecondaryNavMenu />
-        </StyledSecondaryNavMenuContainer>
-      </StyledNav>
+          {isInternalTeam ? (
+            <StyledPrimaryLink to="/users">Users</StyledPrimaryLink>
+          ) : null}
+          {isInternalTeam ? (
+            <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
+          ) : null}
+          {isInternalTeam ? (
+            <StyledPrimaryLink to="/search">Search</StyledPrimaryLink>
+          ) : null}
+          <StyledSecondaryNavMenuContainer>
+            <SecondaryNavMenu />
+          </StyledSecondaryNavMenuContainer>
+        </StyledNavInner>
+      </StyledNavOuter>
     </>
   );
 }
