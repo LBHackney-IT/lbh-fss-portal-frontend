@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { grey, blue } from "../../../../settings";
+import RaisedCard from "../../../../components/RaisedCard/RaisedCard";
+import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 
 const StyledNav = styled.div`
   width: 100%;
@@ -9,10 +11,16 @@ const StyledNav = styled.div`
 const StyledNavContent = styled.div`
   display: flex;
   padding: 5px;
-  margin: 10px 0;
+  margin: 5px 0;
+  ${breakpoint("md")`
+    margin: 10px 0;
+  `};
 `;
 const StyledNavIndexContainer = styled.div`
-  width: 15%;
+  width: 10%;
+  ${breakpoint("md")`
+    width: 15%;
+  `};
 `;
 const StyledNavIndex = styled.div`
   width: 2em;
@@ -31,14 +39,17 @@ const StyledNavText = styled.div`
   align-items: center;
   margin-left: 10px;
   text-align: left;
-  width: 85%;
+  width: 90%;
+  ${breakpoint("md")`
+    width: 85%;
+  `};
 `;
 
 const StyledButton = styled.button`
   width: 90%;
   margin: 0 auto;
   border: 0;
-  border-bottom: 1px solid ${grey[700]};
+  border-bottom: 1px solid ${grey[202]};
   width: 100%;
   background-color: white;
   &:focus {
@@ -57,7 +68,7 @@ const OrganisationFormStep = ({ stepNum, label }) => {
       <StyledNavIndexContainer>
         <StyledNavIndex>{stepNum + 1}</StyledNavIndex>{" "}
       </StyledNavIndexContainer>
-      <StyledNavText style={{ width: "85%" }}>
+      <StyledNavText>
         <p style={{ margin: 0 }}>{label}</p>
       </StyledNavText>
     </StyledNavContent>
@@ -83,17 +94,19 @@ const OrganisationFormNav = ({
   enableAllLinks = false,
 }) => {
   return (
-    <StyledNav>
-      {stepArray.map((s, i) => (
-        <OrganisationFormNavItem
-          key={s.id}
-          stepNum={i}
-          label={s.label}
-          isLink={enableAllLinks || stepNum > i}
-          onClick={() => setStepNum(i)}
-        />
-      ))}
-    </StyledNav>
+    <RaisedCard backgroundColor={"white"} padding={"10px 5px 30px 5px"}>
+      <StyledNav>
+        {stepArray.map((s, i) => (
+          <OrganisationFormNavItem
+            key={s.id}
+            stepNum={i}
+            label={s.label}
+            isLink={enableAllLinks || stepNum > i}
+            onClick={() => setStepNum(i)}
+          />
+        ))}
+      </StyledNav>
+    </RaisedCard>
   );
 };
 

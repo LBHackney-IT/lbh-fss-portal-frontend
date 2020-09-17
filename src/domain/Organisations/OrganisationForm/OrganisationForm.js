@@ -6,14 +6,25 @@ import OrganisationCharityInformationForm from "./OrganisationCharityInformation
 import OrganisationChildSupportForm from "./OrganisationChildSupportForm/OrganisationChildSupportForm";
 import OrganisationAdultSupportForm from "./OrganisationAdultSupportForm/OrganisationAdultSupportForm";
 import scrollToRef from "../../../utils/scrollToRef/scrollToRef";
+import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 
 const StyledOrganisationForm = styled.div`
   display: flex;
+  flex-direction: column;
+  ${breakpoint("md")`
+    flex-direction: row;
+  `};
 `;
 
 const StyledOrganisationFormAside = styled.div`
-  width: 40%;
-  margin: 20px;
+  width: 100%;
+  ${breakpoint("sm")`
+    width: 85%;
+  `};
+  ${breakpoint("md")`
+      width: 40%;
+      margin: 20px;
+  `};
 `;
 
 const StyledOrganisationFormMain = styled.div`

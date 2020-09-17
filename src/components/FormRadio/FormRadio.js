@@ -3,25 +3,48 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import FormError from "../FormError/FormError";
 
-const StyledLabel = styled.label``;
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
-const StyledRadio = styled.input``;
+const StyledLabel = styled.label`
+  width: 80%;
+  display: block;
+  font-weight: normal;
+  font-size: 19px;
+  margin-left: 5px;
+`;
 
-const FormCheckbox = ({ name, label, register, required, error, value }) => {
+const StyledRadio = styled.input`
+  width: 20%;
+  display: block;
+  width: 50px;
+  height: 50px;
+`;
+
+const FormCheckbox = ({
+  name,
+  label,
+  register,
+  required,
+  error,
+  value,
+  onClick = () => {},
+}) => {
   return (
-    <>
-      <StyledLabel>
-        <StyledRadio
-          name={name}
-          type="radio"
-          ref={register({ required })}
-          aria-invalid={error ? "true" : "false"}
-          value={value}
-        />
-        {label}
-      </StyledLabel>
+    <StyledDiv>
+      <StyledRadio
+        name={name}
+        type="radio"
+        ref={register({ required })}
+        aria-invalid={error ? "true" : "false"}
+        value={value}
+        onClick={onClick}
+      />
+      <StyledLabel htmlFor={name}>{label}</StyledLabel>
       {error && error.message && <FormError error={error.message} />}
-    </>
+    </StyledDiv>
   );
 };
 

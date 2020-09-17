@@ -14,6 +14,10 @@ const StyledSubText = styled.p`
   margin: 0;
 `;
 
+const StyledHiddenFieldContainer = styled.div`
+  margin-bottom: 50px;
+`;
+
 const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
@@ -111,29 +115,35 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
               ) : null}
 
               {showCharityNumber && item.id === "isRegisteredCharity" ? (
-                <FormInput
-                  label={"What is your charity number"}
-                  name={"charityNumber"}
-                  register={register}
-                />
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"What is your charity number"}
+                    name={"charityNumber"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
               ) : null}
 
               {showRSLOrHaAssociation && item.id === "isTraRegistered" ? (
-                <FormInput
-                  label={
-                    "Which Registered Social Landlord (RSL) or Housing Association are you registered with:"
-                  }
-                  name={"rslOrHaAssociation"}
-                  register={register}
-                />
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={
+                      "Which Registered Social Landlord (RSL) or Housing Association are you registered with:"
+                    }
+                    name={"rslOrHaAssociation"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
               ) : null}
 
               {showLotteryFundedProject && item.id === "isLotteryFunded" ? (
-                <FormInput
-                  label={"Please detail which Lottery Funded project"}
-                  name={"lotteryFundedProject"}
-                  register={register}
-                />
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"Please detail which Lottery Funded project"}
+                    name={"lotteryFundedProject"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
               ) : null}
 
               {showLocalOfferLink && item.id === "isLocalOfferListed" ? (

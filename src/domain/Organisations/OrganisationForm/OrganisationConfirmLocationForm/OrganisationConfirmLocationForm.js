@@ -20,11 +20,11 @@ const StyledRadioOptionsContainer = styled.div`
 
 const StyledRadioOptionDiv = styled.div`
   margin-top: 10px;
+  display: flex;
 `;
 
 const StyledRadioOption = styled.div`
   display: inline;
-  margin: 10px;
 `;
 
 const OrganisationConfirmLocationForm = ({ onSubmit, defaultValues = {} }) => {
@@ -41,12 +41,7 @@ const OrganisationConfirmLocationForm = ({ onSubmit, defaultValues = {} }) => {
           <StyledRadioOptionDiv>
             {["Yes", "No"].map((item) => {
               return (
-                <StyledRadioOption
-                  key={item}
-                  onClick={() =>
-                    item === "No" ? setSelectedNo(true) : setSelectedNo(false)
-                  }
-                >
+                <StyledRadioOption key={item}>
                   <FormRadio
                     key={item}
                     name="isHackneyBased"
@@ -54,6 +49,9 @@ const OrganisationConfirmLocationForm = ({ onSubmit, defaultValues = {} }) => {
                     value={item.toLowerCase()}
                     register={register}
                     required
+                    onClick={() =>
+                      item === "No" ? setSelectedNo(true) : setSelectedNo(false)
+                    }
                   />
                 </StyledRadioOption>
               );

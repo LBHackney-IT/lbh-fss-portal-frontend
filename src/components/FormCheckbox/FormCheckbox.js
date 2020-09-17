@@ -10,14 +10,15 @@ const StyledDiv = styled.div`
 `;
 
 const StyledLabel = styled.label`
+  width: 80%;
   display: block;
-  padding-top: 5px;
   font-weight: normal;
   font-size: 19px;
-  margin: 5px 0 5px 10px;
+  margin-left: 10px;
 `;
 
 const StyledCheckbox = styled.input`
+  width: 20%;
   display: block;
   width: 35px;
   height: 35px;
