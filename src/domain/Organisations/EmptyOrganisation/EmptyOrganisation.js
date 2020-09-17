@@ -5,15 +5,6 @@ import styled from "styled-components";
 import { grey, neutral } from "../../../settings";
 import AnonymousLayout from "../../../components/AnonymousLayout/AnonymousLayout";
 
-const StyledLayoutInner = styled.div`
-  max-width: 429px;
-  margin: 0 auto;
-  background-color: ${neutral[100]};
-  padding: 30px 20px;
-  border-radius: 3px;
-  box-shadow: 4px 4px 4px rgba(0, 30, 58, 0.15);
-`;
-
 const StyledHeader = styled.div`
   padding-bottom: 20px;
   margin-bottom: 30px;
@@ -27,7 +18,7 @@ const StyledMainHeading = styled.p`
   font-size: 24px;
 `;
 const StyledStepHeading = styled.p`
-  color: ${grey[500]};
+  color: ${grey[700]};
   margin-top: 30px;
 `;
 
@@ -36,8 +27,8 @@ const EmptyOrganisation = () => {
     navigate("/organisations/add");
   }
   return (
-    <>
-      <AnonymousLayout backgroundColor={neutral[200]}>
+    <div style={{ marginTop: "20px" }}>
+      <AnonymousLayout backgroundColor={"transparent"} maxWidth={"600px"}>
         <StyledMainHeading>
           Complete the following steps to submit your organisation for
           inclusion.
@@ -72,7 +63,7 @@ const EmptyOrganisation = () => {
         </div>
         <Button label="Get started ›" onClick={redirectToAddOrganisation} />
       </AnonymousLayout>
-    </>
+    </div>
   );
 };
 
