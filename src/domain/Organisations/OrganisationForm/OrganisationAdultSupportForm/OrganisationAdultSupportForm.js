@@ -14,9 +14,14 @@ const StyledLeadText = styled.p`
 const StyledRadioOptionsContainer = styled.div`
   display: flex;
 `;
+
 const StyledRadioOption = styled.div`
   display: inline;
-  margin: 10px;
+`;
+
+const StyledRadioOptionDiv = styled.div`
+  margin-top: 10px;
+  display: flex;
 `;
 
 const StyledQuestion = styled.p`
@@ -46,43 +51,20 @@ const OrganisationAdultSupportForm = ({ defaultValues, onSubmit }) => {
             Click here to see the statutory guidance and best practice
           </a>
         </StyledLeadText>
-        {["Yes", "No"].map((item) => {
-          return (
-            <StyledRadioOption
-              key={item}
-              onClick={() =>
-                item === "Yes"
-                  ? setShowSafeguardLead(true)
-                  : setShowSafeguardLead(false)
-              }
-            >
-              <FormRadio
-                key={item}
-                name="hasAdultSupport"
-                label={item}
-                value={item.toLowerCase()}
-                register={register}
-              />
-            </StyledRadioOption>
-          );
-        })}
-      </FormFieldset>
-
-      {showSafeguardLead ? (
-        <FormFieldset label="Does your organisation have an Adult’s Safeguarding Lead? ">
+        <StyledRadioOptionDiv>
           {["Yes", "No"].map((item) => {
             return (
               <StyledRadioOption
                 key={item}
                 onClick={() =>
                   item === "Yes"
-                    ? setShowSafeguardLeadDetails(true)
-                    : setShowSafeguardLeadDetails(false)
+                    ? setShowSafeguardLead(true)
+                    : setShowSafeguardLead(false)
                 }
               >
                 <FormRadio
                   key={item}
-                  name="hasAdultSafeguardingLead"
+                  name="hasAdultSupport"
                   label={item}
                   value={item.toLowerCase()}
                   register={register}
@@ -90,6 +72,33 @@ const OrganisationAdultSupportForm = ({ defaultValues, onSubmit }) => {
               </StyledRadioOption>
             );
           })}
+        </StyledRadioOptionDiv>
+      </FormFieldset>
+
+      {showSafeguardLead ? (
+        <FormFieldset label="Does your organisation have an Adult’s Safeguarding Lead? ">
+          <StyledRadioOptionDiv>
+            {["Yes", "No"].map((item) => {
+              return (
+                <StyledRadioOption
+                  key={item}
+                  onClick={() =>
+                    item === "Yes"
+                      ? setShowSafeguardLeadDetails(true)
+                      : setShowSafeguardLeadDetails(false)
+                  }
+                >
+                  <FormRadio
+                    key={item}
+                    name="hasAdultSafeguardingLead"
+                    label={item}
+                    value={item.toLowerCase()}
+                    register={register}
+                  />
+                </StyledRadioOption>
+              );
+            })}
+          </StyledRadioOptionDiv>
         </FormFieldset>
       ) : null}
 

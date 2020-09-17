@@ -17,7 +17,11 @@ const StyledRadioOptionsContainer = styled.div`
 `;
 const StyledRadioOption = styled.div`
   display: inline;
-  margin: 10px;
+`;
+
+const StyledRadioOptionDiv = styled.div`
+  margin-top: 10px;
+  display: flex;
 `;
 
 const StyledQuestion = styled.p`
@@ -47,27 +51,29 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
             Click here to see the statutory guidance and best practice
           </a>
         </StyledLeadText>
-        {["Yes", "No"].map((item) => {
-          return (
-            <StyledRadioOption
-              key={item}
-              onClick={() =>
-                item === "Yes"
-                  ? setShowSafeguardLead(true)
-                  : setShowSafeguardLead(false)
-              }
-            >
-              <FormRadio
+        <StyledRadioOptionDiv>
+          {["Yes", "No"].map((item) => {
+            return (
+              <StyledRadioOption
                 key={item}
-                name="hasChildSupport"
-                label={item}
-                value={item.toLowerCase()}
-                register={register}
-                required
-              />
-            </StyledRadioOption>
-          );
-        })}
+                onClick={() =>
+                  item === "Yes"
+                    ? setShowSafeguardLead(true)
+                    : setShowSafeguardLead(false)
+                }
+              >
+                <FormRadio
+                  key={item}
+                  name="hasChildSupport"
+                  label={item}
+                  value={item.toLowerCase()}
+                  register={register}
+                  required
+                />
+              </StyledRadioOption>
+            );
+          })}
+        </StyledRadioOptionDiv>
       </FormFieldset>
       {errors.hasChildSupport && errors.hasChildSupport.type === "required" && (
         <FormError
@@ -78,27 +84,29 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
       )}
       {showSafeguardLead ? (
         <FormFieldset label="Does your organisation have a Children’s Safeguarding Lead?">
-          {["Yes", "No"].map((item) => {
-            return (
-              <StyledRadioOption
-                key={item}
-                onClick={() =>
-                  item === "Yes"
-                    ? setShowSafeguardLeadDetails(true)
-                    : setShowSafeguardLeadDetails(false)
-                }
-              >
-                <FormRadio
+          <StyledRadioOptionDiv>
+            {["Yes", "No"].map((item) => {
+              return (
+                <StyledRadioOption
                   key={item}
-                  name="hasChildSafeguardingLead"
-                  label={item}
-                  value={item.toLowerCase()}
-                  register={register}
-                  required
-                />
-              </StyledRadioOption>
-            );
-          })}
+                  onClick={() =>
+                    item === "Yes"
+                      ? setShowSafeguardLeadDetails(true)
+                      : setShowSafeguardLeadDetails(false)
+                  }
+                >
+                  <FormRadio
+                    key={item}
+                    name="hasChildSafeguardingLead"
+                    label={item}
+                    value={item.toLowerCase()}
+                    register={register}
+                    required
+                  />
+                </StyledRadioOption>
+              );
+            })}
+          </StyledRadioOptionDiv>
         </FormFieldset>
       ) : null}
       {errors.hasChildSafeguardingLead &&
