@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { neutral } from "../../settings/";
 
 const StyledLayout = styled.div`
-  background-color: ${neutral[200]};
+  background-color: ${(props) => props.backgroundColor};
   padding: 30px 10px;
   min-height: 100vh;
 `;
 
 const StyledLayoutInner = styled.div`
-  max-width: 429px;
+  max-width: ${(props) => props.maxWidth || "429px"};
   margin: 0 auto;
   background-color: ${neutral[100]};
   padding: 30px 20px;
@@ -26,10 +26,14 @@ const StyledHeading = styled.div`
   border-bottom: 1px solid ${neutral[300]};
 `;
 
-const AnonymousLayout = ({ children }) => {
+const AnonymousLayout = ({
+  children,
+  backgroundColor = neutral[200],
+  maxWidth,
+}) => {
   return (
-    <StyledLayout>
-      <StyledLayoutInner>
+    <StyledLayout backgroundColor={backgroundColor}>
+      <StyledLayoutInner maxWidth={maxWidth}>
         <StyledHeading>Find support services</StyledHeading>
         {children}
       </StyledLayoutInner>

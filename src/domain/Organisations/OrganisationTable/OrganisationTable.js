@@ -36,23 +36,30 @@ const StyledFormDropDownContainer = styled.div`
 
 function formatStatus(status) {
   switch (status) {
-    case "active":
+    case "published":
       return {
         title: "Published",
         backgroundColor: green[400],
         color: "white",
       };
       break;
-    case "needs_reverification":
+    case "awaiting reverification":
       return {
         title: "Awaiting reverification",
         backgroundColor: yellow[400],
         color: "black",
       };
       break;
-    case "needs_review":
+    case "awaiting review":
       return {
         title: "Awaiting review",
+        backgroundColor: yellow[400],
+        color: "black",
+      };
+      break;
+    case "draft":
+      return {
+        title: "Draft",
         backgroundColor: yellow[400],
         color: "black",
       };
@@ -60,13 +67,6 @@ function formatStatus(status) {
     case "rejected":
       return {
         title: "Rejected",
-        backgroundColor: red[400],
-        color: "white",
-      };
-      break;
-    case "deleted":
-      return {
-        title: "Deleted",
         backgroundColor: red[400],
         color: "white",
       };
@@ -116,8 +116,7 @@ const actions = [
   },
 ];
 
-const OrganisationTable = ({ data, isLoading, search }) => {
-  console.log(data);
+const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
   const columns = useMemo(
     () => [
       {
@@ -129,7 +128,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
               <Link to={`/organisations/${e.row.original.id}/edit`}>
                 {e.value}
               </Link>{" "}
-              {organisationIsNew(e.row.original.created_at) ? (
+              {organisationIsNew(e.row.original.createdAt) ? (
                 <StyledNewOrganisation>new</StyledNewOrganisation>
               ) : null}
             </>
@@ -138,7 +137,10 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       },
       {
         Header: "User",
-        accessor: "user.name",
+        accessor: "id",
+        Cell: (e) => {
+          return <> {organisationUser[e.value] || "User not found"} </>;
+        },
       },
       {
         Header: "Status",
@@ -150,9 +152,9 @@ const OrganisationTable = ({ data, isLoading, search }) => {
       },
       {
         Header: "Submitted",
-        accessor: "submitted_at",
+        accessor: "submittedAt",
         Cell: (e) => {
-          const submittedAtDate = new Date(e.row.original.submitted_at);
+          const submittedAtDate = new Date(e.row.original.submittedAt);
           return submittedAtDate.toLocaleString();
         },
       },
@@ -169,7 +171,7 @@ const OrganisationTable = ({ data, isLoading, search }) => {
         },
       },
     ],
-    []
+    [organisationUser]
   );
 
   return (
