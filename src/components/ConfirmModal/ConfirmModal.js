@@ -8,12 +8,11 @@ import { grey } from "../../settings";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 
 const StyledForm = styled.form`
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
-const StyledTitleContainer = styled.div`
-  width: 90%;
-`;
+const StyledTitleContainer = styled.div``;
 
 const StyledTextarea = styled.textarea`
   resize: none;
@@ -26,9 +25,17 @@ const StyledText = styled.p`
   margin-bottom: 20px;
 `;
 
+const StyledH1 = styled.h1`
+  margin: 10px 0 20px 0;
+  ${breakpoint("sm")`
+   margin: -20px 0 20px 0;
+`};
+`;
+
 const StyledActionContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   ${breakpoint("sm")`
   flex-direction: row;
 `};
@@ -66,7 +73,7 @@ const ConfirmModal = ({
       {includeReviewerMessage ? (
         <>
           <StyledTitleContainer>
-            <h1>{confirmTitle}</h1>
+            <StyledH1>{confirmTitle}</StyledH1>
           </StyledTitleContainer>
           <StyledForm
             onSubmit={handleSubmit(({ reviewerMessage }) =>

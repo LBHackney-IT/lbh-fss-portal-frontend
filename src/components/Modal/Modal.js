@@ -10,7 +10,7 @@ const StyledModal = Modal.styled`
   align-items: center;
   justify-content: center;
   background-color: white;
-  border-top: 4px solid ${(props) =>
+  border-top: 7px solid ${(props) =>
     props.color ? props.color : red[400]} !important;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
   border-radius: 3px;
