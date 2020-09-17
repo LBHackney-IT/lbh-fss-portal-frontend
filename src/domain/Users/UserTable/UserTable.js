@@ -1,17 +1,30 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { useTable } from "react-table";
-import UserService from "../../../services/UserService/UserService";
+import React, { useMemo } from "react";
 import { Link } from "@reach/router";
 import { roles } from "../../../settings";
+import styled from "styled-components";
+import Table from "../../../components/Table/Table";
 
-const UserTable = () => {
+const StyledEmailText = styled.p`
+  margin-top: 10px;
+`;
+
+const StyledUl = styled.ul`
+  padding-left: 20px;
+`;
+
+const UserTable = ({ data, isLoading, search }) => {
   const columns = useMemo(
     () => [
       {
         Header: "Name",
         accessor: "name",
         Cell: (e) => {
-          return <Link to={`/users/${e.row.original.id}/edit`}>{e.value}</Link>;
+          return (
+            <>
+              <Link to={`/users/${e.row.original.id}/edit`}>{e.value}</Link>
+              <StyledEmailText>{e.row.original.email}</StyledEmailText>
+            </>
+          );
         },
       },
       {
@@ -23,11 +36,11 @@ const UserTable = () => {
         accessor: "roles",
         Cell: (e) => {
           return (
-            <ul>
+            <StyledUl>
               {e.value.map((item, i) => {
                 return <li key={i}>{roles[item]}</li>;
               })}
-            </ul>
+            </StyledUl>
           );
         },
       },
@@ -43,61 +56,13 @@ const UserTable = () => {
     []
   );
 
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      const users = await UserService.retrieveUsers({});
-
-      setData(users || []);
-      setIsLoading(false);
-    }
-
-    fetchData();
-  }, [setData, setIsLoading]);
-
-  // Use the state and functions returned from useTable to build your UI
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({
-    columns,
-    data,
-  });
-
-  if (isLoading) {
-    return <span>Loading</span>;
-  }
-
-  // Render the UI for your table
   return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <Table
+      data={data}
+      columns={columns}
+      isLoading={isLoading}
+      search={search}
+    />
   );
 };
 

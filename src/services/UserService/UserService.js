@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const UserService = {
-  async retrieveUsers({
+  async retrieveUsers(
     sort = "name",
     direction = "asc",
     offset = 0,
     limit = 10,
-    search = "",
-  }) {
+    search = ""
+  ) {
     try {
       const response = await axios.get("/api/users", {
         params: {
@@ -49,6 +49,9 @@ const UserService = {
     }
   },
   async updateUser(id, values) {
+    if (values.password === "") {
+      values.password = null;
+    }
     try {
       const response = await axios.patch(`/api/users/${id}`, values);
 

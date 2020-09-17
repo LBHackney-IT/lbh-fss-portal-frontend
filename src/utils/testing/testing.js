@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, waitFor, screen } from "@testing-library/react";
 import UserContext from "../../context/UserContext/UserContext";
 var mockUsers = require("../../../mock-api/mockUsers.json");
 var sample = require("lodash/sample");
@@ -32,9 +32,13 @@ function renderWithVcsoPermissions(component) {
   renderComponentWithRoles(component, ["vcso"]);
 }
 
+const finishLoading = () =>
+  waitFor(() => expect(screen.queryByTestId("loading")).toBeNull());
+
 export {
   renderWithInternalPermissions,
   renderWithVcsoPermissions,
+  finishLoading,
   mockUser,
   mockUsers,
 };

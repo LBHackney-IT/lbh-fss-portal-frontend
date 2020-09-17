@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { neutral } from "../../settings";
 import FormError from "../FormError/FormError";
+import { grey } from "../../settings";
 
 const StyledLabel = styled.label`
   display: block;
   margin-bottom: 5px;
   font-size: 19px;
-  font-weight: bold;
+  color: black;
 `;
 
 const StyledInput = styled.input`
@@ -35,6 +36,7 @@ const FormInput = ({
   inputRef,
   validate,
   help,
+  placeholder,
 }) => {
   return (
     <>
@@ -44,6 +46,7 @@ const FormInput = ({
         aria-label={name}
         name={name}
         type={type}
+        placeholder={placeholder}
         ref={(e) => {
           register(e, { required, minLength, maxLength, validate });
           if (inputRef) inputRef.current = e;

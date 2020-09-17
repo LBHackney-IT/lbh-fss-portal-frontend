@@ -3,12 +3,24 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import FormError from "../FormError/FormError";
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+`;
+
 const StyledLabel = styled.label`
   display: block;
-  margin-bottom: 5px;
+  padding-top: 5px;
+  font-weight: normal;
+  font-size: 19px;
+  margin: 5px 0 5px 10px;
 `;
 
 const StyledCheckbox = styled.input`
+  display: block;
+  width: 35px;
+  height: 35px;
   margin-right: 5px;
 `;
 
@@ -20,10 +32,11 @@ const FormCheckbox = ({
   error,
   value,
   onClick = () => {},
+  dataTestid,
 }) => {
   return (
     <>
-      <StyledLabel>
+      <StyledDiv>
         <StyledCheckbox
           name={name}
           type="checkbox"
@@ -31,9 +44,10 @@ const FormCheckbox = ({
           aria-invalid={error ? "true" : "false"}
           value={value}
           onClick={onClick}
+          data-testid={dataTestid}
         />
-        {label}
-      </StyledLabel>
+        <StyledLabel htmlFor={name}>{label}</StyledLabel>
+      </StyledDiv>
       {error && error.type === "required" && (
         <FormError error="This is required" />
       )}

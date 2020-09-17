@@ -8,18 +8,27 @@ const StyledButton = styled.button`
   display: block;
   margin-bottom: 30px;
   color: ${neutral[100]};
-  background-color: ${green[400]};
+  background-color: ${(props) => (props.color ? props.color : green[400])};
   border: none;
   padding: 13px 57px;
   font-size: 19px;
+  border-bottom: 2px solid black;
   cursor: pointer;
-
+  border-radius: 3px;
   &:hover {
-    background-color: ${darken(0.1, green[400])};
+    background-color: ${(props) =>
+      props.color ? darken(0.1, props.color) : darken(0.1, green[400])};
   }
 `;
 
-const Button = ({ type, label, disabled, onClick = () => {}, className }) => {
+const Button = ({
+  type,
+  label,
+  disabled,
+  onClick = () => {},
+  className,
+  color,
+}) => {
   return (
     <>
       <StyledButton
@@ -27,6 +36,7 @@ const Button = ({ type, label, disabled, onClick = () => {}, className }) => {
         disabled={disabled}
         onClick={onClick}
         className={className}
+        color={color}
       >
         {label}
       </StyledButton>
