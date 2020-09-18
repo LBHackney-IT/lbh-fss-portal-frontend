@@ -48,8 +48,8 @@ const AddOrganisation = () => {
     }
   }
 
-  if (fetchIsLoading) {
-    return <h1>Loading</h1>;
+  if (fetchIsLoading || submitIsLoading) {
+    return <span>Loading</span>;
   }
 
   return (
