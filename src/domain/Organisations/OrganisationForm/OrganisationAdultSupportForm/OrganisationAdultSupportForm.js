@@ -40,9 +40,6 @@ const OrganisationAdultSupportForm = ({
     defaultValues,
   });
 
-
-
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormFieldset label="Do you provide support or activities for vulnerable adults?">
@@ -67,11 +64,11 @@ const OrganisationAdultSupportForm = ({
                     item === "Yes"
                       ? setShowHiddenField({
                           ...showHiddenField,
-                          adultSafeGuardLead: true,
+                          adultSafeguardLead: true,
                         })
                       : setShowHiddenField({
                           ...showHiddenField,
-                          adultSafeGuardLead: false,
+                          adultSafeguardLead: false,
                         })
                   }
                 />
@@ -81,7 +78,7 @@ const OrganisationAdultSupportForm = ({
         </StyledRadioOptionDiv>
       </FormFieldset>
 
-      {showHiddenField.adultSafeGuardLead ? (
+      {showHiddenField.adultSafeguardLead ? (
         <FormFieldset label="Does your organisation have an Adult’s Safeguarding Lead? ">
           <StyledRadioOptionDiv>
             {["Yes", "No"].map((item) => {
@@ -112,7 +109,7 @@ const OrganisationAdultSupportForm = ({
         </FormFieldset>
       ) : null}
 
-      {showHiddenField.adultSafeGuardLead &&
+      {showHiddenField.adultSafeguardLead &&
       showHiddenField.adultSafeguardLeadDetails ? (
         <>
           <p>What are your organisations Adult's safeguarding lead details?</p>

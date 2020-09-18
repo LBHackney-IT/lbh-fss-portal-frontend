@@ -32,19 +32,13 @@ const OrganisationCharityInformationForm = ({
   defaultValues,
   onSubmit,
   showHiddenField,
+  setShowHiddenField,
   setShowHiddenFieldSnapshot,
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
     shouldFocusError: false,
   });
-
-  const [showCharityNumber, setShowCharityNumber] = useState(false);
-  const [showRSLOrHaAssociation, setShowRSLOrHaAssociation] = useState(false);
-  const [showLotteryFundedProject, setShowLotteryFundedProject] = useState(
-    false
-  );
-  const [showLocalOfferLink, setShowLocalOfferLink] = useState(false);
 
   useEffect(() => {
     setShowHiddenFieldSnapshot(showHiddenField);
@@ -53,16 +47,28 @@ const OrganisationCharityInformationForm = ({
   function handleHiddenField(id) {
     switch (id) {
       case "isRegisteredCharity":
-        setShowCharityNumber(!showCharityNumber);
+        setShowHiddenField({
+          ...showHiddenField,
+          charityNumber: !showHiddenField.charityNumber,
+        });
         break;
       case "isTraRegistered":
-        setShowRSLOrHaAssociation(!showRSLOrHaAssociation);
+        setShowHiddenField({
+          ...showHiddenField,
+          RslOrHaAssociation: !showHiddenField.RslOrHaAssociation,
+        });
         break;
       case "isLotteryFunded":
-        setShowLotteryFundedProject(!showLotteryFundedProject);
+        setShowHiddenField({
+          ...showHiddenField,
+          lotteryFundedProject: !showHiddenField.lotteryFundedProject,
+        });
         break;
       case "isLocalOfferListed":
-        setShowLocalOfferLink(!showLocalOfferLink);
+        setShowHiddenField({
+          ...showHiddenField,
+          localOfferLink: !showHiddenField.localOfferLink,
+        });
         break;
       default:
         return false;
@@ -133,7 +139,8 @@ const OrganisationCharityInformationForm = ({
                 </StyledSubTextContainer>
               ) : null}
 
-              {showCharityNumber && item.id === "isRegisteredCharity" ? (
+              {showHiddenField.charityNumber &&
+              item.id === "isRegisteredCharity" ? (
                 <StyledHiddenFieldContainer>
                   <StyledExternalLink href="">
                     Look up your charity number
@@ -146,7 +153,8 @@ const OrganisationCharityInformationForm = ({
                 </StyledHiddenFieldContainer>
               ) : null}
 
-              {showRSLOrHaAssociation && item.id === "isTraRegistered" ? (
+              {showHiddenField.RslOrHaAssociation &&
+              item.id === "isTraRegistered" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
                     label={
@@ -158,7 +166,8 @@ const OrganisationCharityInformationForm = ({
                 </StyledHiddenFieldContainer>
               ) : null}
 
-              {showLotteryFundedProject && item.id === "isLotteryFunded" ? (
+              {showHiddenField.lotteryFundedProject &&
+              item.id === "isLotteryFunded" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
                     label={"Please detail which Lottery Funded project"}
@@ -168,7 +177,8 @@ const OrganisationCharityInformationForm = ({
                 </StyledHiddenFieldContainer>
               ) : null}
 
-              {showLocalOfferLink && item.id === "isLocalOfferListed" ? (
+              {showHiddenField.localOfferLink &&
+              item.id === "isLocalOfferListed" ? (
                 <FormInput
                   label={"Please add weblink"}
                   name={"localOfferLink"}

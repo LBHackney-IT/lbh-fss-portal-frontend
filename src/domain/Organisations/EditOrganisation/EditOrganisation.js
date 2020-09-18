@@ -80,6 +80,23 @@ function doHandleHiddenFields(
   showHiddenField,
   setShowHiddenField
 ) {
+  if (!organisation.isHackneyBased) {
+    showHiddenField.notBasedInWarning = true;
+  }
+
+  if (organisation.isRegisteredCharity) {
+    showHiddenField.charityNumber = true;
+  }
+  if (organisation.isTraRegistered) {
+    showHiddenField.RslOrHaAssociation = true;
+  }
+  if (organisation.isLotteryFunded) {
+    showHiddenField.lotteryFundedProject = true;
+  }
+  if (organisation.isLocalOfferListed) {
+    showHiddenField.localOfferLink = true;
+  }
+
   if (organisation.hasChildSupport) {
     showHiddenField.childSafeGuardLead = true;
   }
@@ -89,7 +106,7 @@ function doHandleHiddenFields(
   }
 
   if (organisation.hasAdultSupport) {
-    showHiddenField.adultSafeGuardLead = true;
+    showHiddenField.adultSafeguardLead = true;
   }
 
   if (organisation.hasAdultSafeguardingLead) {
@@ -113,9 +130,14 @@ const EditOrganisation = (props) => {
   const [defaultValues, setDefaultValues] = useState({});
 
   const [showHiddenField, setShowHiddenField] = useState({
+    notBasedInWarning: false,
+    charityNumber: false,
+    RslOrHaAssociation: false,
+    lotteryFundedProject: false,
+    localOfferLink: false,
     childSafeGuardLead: false,
     childSafeguardLeadDetails: false,
-    adultSafeGuardLead: false,
+    adultSafeguardLead: false,
     adultSafeguardLeadDetails: false,
   });
   const [showHiddenFieldSnapshot, setShowHiddenFieldSnapshot] = useState({});
@@ -152,8 +174,7 @@ const EditOrganisation = (props) => {
 
     const updatedOrganisation = await OrganisationService.updateOrganisation(
       props.organisationId,
-      organisation
-      // organisationWithUpdatedFields
+      organisationWithUpdatedFields
     );
 
     setSubmitIsLoading(false);

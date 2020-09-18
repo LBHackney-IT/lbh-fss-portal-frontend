@@ -100,6 +100,7 @@ const OrganisationForm = ({
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
             showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
@@ -109,6 +110,7 @@ const OrganisationForm = ({
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
             showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );

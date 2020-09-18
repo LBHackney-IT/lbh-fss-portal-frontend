@@ -31,13 +31,12 @@ const OrganisationConfirmLocationForm = ({
   onSubmit,
   defaultValues = {},
   showHiddenField,
+  setShowHiddenField,
   setShowHiddenFieldSnapshot,
 }) => {
   const { register, handleSubmit, errors } = useForm({
     defaultValues,
   });
-
-  const [selectedNo, setSelectedNo] = useState(false);
 
   useEffect(() => {
     setShowHiddenFieldSnapshot(showHiddenField);
@@ -59,7 +58,15 @@ const OrganisationConfirmLocationForm = ({
                     register={register}
                     required
                     onClick={() =>
-                      item === "No" ? setSelectedNo(true) : setSelectedNo(false)
+                      item === "No"
+                        ? setShowHiddenField({
+                            ...showHiddenField,
+                            notBasedInWarning: true,
+                          })
+                        : setShowHiddenField({
+                            ...showHiddenField,
+                            notBasedInWarning: false,
+                          })
                     }
                   />
                 </StyledRadioOption>
@@ -76,7 +83,7 @@ const OrganisationConfirmLocationForm = ({
             )}
         </FormFieldset>
       </StyledRadioOptionsContainer>
-      {selectedNo ? (
+      {showHiddenField.notBasedInWarning ? (
         <StyledErrorContainer
           style={{ backgroundColor: "rgba(190, 58, 52, 0.05)" }}
         >
