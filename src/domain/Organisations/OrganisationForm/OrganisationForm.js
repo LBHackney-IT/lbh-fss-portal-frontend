@@ -37,9 +37,10 @@ const StyledOrganisationFormMain = styled.div`
 
 const OrganisationForm = ({
   onFormCompletion,
-  organisation = {},
+  defaultValues = {},
   initialStepId = "confirm-location",
   submitLoading = false,
+  enableAllLinks = false,
 }) => {
   const stepArray = [
     {
@@ -64,7 +65,7 @@ const OrganisationForm = ({
     stepArray.findIndex((s) => s.id === initialStepId)
   );
 
-  const [draftOrganisation, setDraftOrganisation] = useState(organisation);
+  const [draftOrganisation, setDraftOrganisation] = useState(defaultValues);
 
   const mainRef = useRef(null);
 
@@ -72,7 +73,7 @@ const OrganisationForm = ({
     setDraftOrganisation({ ...draftOrganisation, ...formValues });
 
     if (stepNum === stepArray.length - 1) {
-      onFormCompletion(draftOrganisation);
+      onFormCompletion({ ...draftOrganisation, ...formValues });
     } else {
       setStepNum(stepNum + 1);
 
@@ -123,7 +124,7 @@ const OrganisationForm = ({
           stepArray={stepArray}
           stepNum={stepNum}
           setStepNum={setStepNum}
-          enableAllLinks={false}
+          enableAllLinks={enableAllLinks}
         />
       </StyledOrganisationFormAside>
       <StyledOrganisationFormMain ref={mainRef}>

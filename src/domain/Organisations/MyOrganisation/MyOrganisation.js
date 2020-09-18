@@ -15,7 +15,7 @@ const MyOrganisation = () => {
     return <Redirect to="/organisations" noThrow />;
   }
 
-  return !user.organisation ? ( // <- will need to remove '!'
+  return user.organisation ? ( // <- will need to remove '!'
     <Redirect to={`/organisations/${user.organisation.id}/edit`} noThrow />
   ) : (
     <EmptyOrganisation />

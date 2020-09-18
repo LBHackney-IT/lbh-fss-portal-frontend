@@ -13,21 +13,70 @@ const AddOrganisation = () => {
     localUser.organisation.id
   );
 
+  function convertYesNoToBoolean(value) {
+    return value.toLowerCase() === "yes" ? true : false;
+  }
+
   function doCleanFormValues(values) {
-    if (values.isHackneyBased === "yes") {
-      values.isHackneyBased = true;
-    }
+    const allFields = [
+      "isHackneyBased",
+      "isRegisteredCharity",
+      "charityNumber",
+      "hasHcOrColGrant",
+      "hasHcvsOrHgOrAelGrant",
+      "isTraRegistered",
+      "rslOrHaAssociation",
+      "isLotteryFunded",
+      "lotteryFundedProject",
+      "fundingOther",
+      "hasChildSupport",
+      "hasChildSafeguardingLead",
+      "childSafeguardingLeadFirstName",
+      "childSafeguardingLeadLastName",
+      "childSafeguardingLeadTrainingMonth",
+      "childSafeguardingLeadTrainingYear",
+      "hasAdultSupport",
+      "hasAdultSafeguardingLead",
+      "adultSafeguardingLeadFirstName",
+      "adultSafeguardingLeadLastName",
+      "adultSafeguardingLeadTrainingMonth",
+      "adultSafeguardingLeadTrainingYear",
+      "hasEnhancedSupport",
+      "isLocalOfferListed",
+      "localOfferLink",
+    ];
+
+    const yesNoRadioFields = [
+      "isHackneyBased",
+      "hasChildSupport",
+      "hasChildSafeguardingLead",
+      "hasAdultSupport",
+      "hasAdultSafeguardingLead",
+    ];
+
+    allFields.forEach((field) => {
+      if (!(field in values)) {
+        values[field] = null;
+      }
+    });
+
+    yesNoRadioFields.forEach((field) => {
+      if (field in values) {
+        values[field] = convertYesNoToBoolean(values[field]);
+      }
+    });
+
     return values;
   }
 
   async function doAddOrganisation(formValues) {
     if (submitIsLoading) return;
 
-    const cleanFormValues = doCleanFormValues(formValues);
+    const cleanedFormValues = doCleanFormValues(formValues);
 
     Object.keys(organisation).forEach(function (key) {
-      if (cleanFormValues[key]) {
-        organisation[key] = cleanFormValues[key];
+      if (typeof cleanedFormValues[key] !== "undefined") {
+        organisation[key] = cleanedFormValues[key];
       }
     });
 

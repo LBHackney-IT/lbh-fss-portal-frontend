@@ -62,7 +62,7 @@ const OrganisationService = {
   },
   async updateOrganisation(id, values) {
     try {
-      const response = await axios.patch(`/api/organisation/${id}`, values);
+      const response = await axios.patch(`/api/organisations/${id}`, values);
 
       return response.data;
     } catch (error) {
@@ -73,7 +73,7 @@ const OrganisationService = {
   },
   async deleteOrganisation(id) {
     try {
-      await axios.delete(`/api/organisation/${id}`);
+      await axios.delete(`/api/organisations/${id}`);
 
       return true;
     } catch (error) {
