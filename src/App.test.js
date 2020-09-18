@@ -1,9 +1,20 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render, waitFor } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+// prevent react-toastify and @reach/router from being mocked
+jest.mock("react-toastify", () => ({
+  ...jest.requireActual("react-toastify"),
+}));
+
+jest.mock("@reach/router", () => ({
+  ...jest.requireActual("@reach/router"),
+}));
+
+test("renders learn react link", async () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(getByText(/hackney/i)).toBeInTheDocument();
+  });
 });
