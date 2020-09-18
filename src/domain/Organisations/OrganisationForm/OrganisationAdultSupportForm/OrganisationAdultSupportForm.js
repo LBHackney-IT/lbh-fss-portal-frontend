@@ -29,17 +29,15 @@ const StyledQuestion = styled.p`
   font-weight: bold;
 `;
 
-const OrganisationAdultSupportForm = ({ defaultValues, onSubmit }) => {
+const OrganisationAdultSupportForm = ({
+  defaultValues,
+  onSubmit,
+  showHiddenField,
+  setShowHiddenField,
+}) => {
   const { register, handleSubmit, errors } = useForm({
     defaultValues,
   });
-
-  const [showSafeguardLead, setShowSafeguardLead] = useState(false);
-  const [showSafeguardLeadDetails, setShowSafeguardLeadDetails] = useState(
-    false
-  );
-
-  function handleHiddenField(id) {}
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,20 +52,24 @@ const OrganisationAdultSupportForm = ({ defaultValues, onSubmit }) => {
         <StyledRadioOptionDiv>
           {["Yes", "No"].map((item) => {
             return (
-              <StyledRadioOption
-                key={item}
-                onClick={() =>
-                  item === "Yes"
-                    ? setShowSafeguardLead(true)
-                    : setShowSafeguardLead(false)
-                }
-              >
+              <StyledRadioOption key={item}>
                 <FormRadio
                   key={item}
                   name="hasAdultSupport"
                   label={item}
                   value={item.toLowerCase()}
                   register={register}
+                  onClick={() =>
+                    item === "Yes"
+                      ? setShowHiddenField({
+                          ...showHiddenField,
+                          adultSafeGuardLead: true,
+                        })
+                      : setShowHiddenField({
+                          ...showHiddenField,
+                          adultSafeGuardLead: false,
+                        })
+                  }
                 />
               </StyledRadioOption>
             );
@@ -75,25 +77,29 @@ const OrganisationAdultSupportForm = ({ defaultValues, onSubmit }) => {
         </StyledRadioOptionDiv>
       </FormFieldset>
 
-      {showSafeguardLead ? (
+      {showHiddenField.adultSafeGuardLead ? (
         <FormFieldset label="Does your organisation have an Adult’s Safeguarding Lead? ">
           <StyledRadioOptionDiv>
             {["Yes", "No"].map((item) => {
               return (
-                <StyledRadioOption
-                  key={item}
-                  onClick={() =>
-                    item === "Yes"
-                      ? setShowSafeguardLeadDetails(true)
-                      : setShowSafeguardLeadDetails(false)
-                  }
-                >
+                <StyledRadioOption key={item}>
                   <FormRadio
                     key={item}
                     name="hasAdultSafeguardingLead"
                     label={item}
                     value={item.toLowerCase()}
                     register={register}
+                    onClick={() =>
+                      item === "Yes"
+                        ? setShowHiddenField({
+                            ...showHiddenField,
+                            adultSafeguardLeadDetails: true,
+                          })
+                        : setShowHiddenField({
+                            ...showHiddenField,
+                            adultSafeguardLeadDetails: false,
+                          })
+                    }
                   />
                 </StyledRadioOption>
               );
@@ -102,7 +108,8 @@ const OrganisationAdultSupportForm = ({ defaultValues, onSubmit }) => {
         </FormFieldset>
       ) : null}
 
-      {showSafeguardLead && showSafeguardLeadDetails ? (
+      {showHiddenField.adultSafeGuardLead &&
+      showHiddenField.adultSafeguardLeadDetails ? (
         <>
           <p>What are your organisations Adult's safeguarding lead details?</p>
 

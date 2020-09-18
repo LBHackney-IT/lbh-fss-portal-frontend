@@ -38,6 +38,13 @@ const StyledOrganisationFormMain = styled.div`
 const OrganisationForm = ({
   onFormCompletion,
   defaultValues = {},
+  showHiddenField = {
+    childSafeguardLead: false,
+    childSafeguardLeadDetails: false,
+    adultSafeguardLead: false,
+    adultSafeguardLeadDetails: false,
+  },
+  setShowHiddenField,
   initialStepId = "confirm-location",
   submitLoading = false,
   enableAllLinks = false,
@@ -70,6 +77,7 @@ const OrganisationForm = ({
   const mainRef = useRef(null);
 
   const moveToNextStep = (formValues) => {
+    console.log(formValues);
     setDraftOrganisation({ ...draftOrganisation, ...formValues });
 
     if (stepNum === stepArray.length - 1) {
@@ -102,6 +110,8 @@ const OrganisationForm = ({
           <OrganisationChildSupportForm
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
+            showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
           />
         );
       case "adult-support":
@@ -110,6 +120,8 @@ const OrganisationForm = ({
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
             submitLoading={submitLoading}
+            showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
           />
         );
       default:

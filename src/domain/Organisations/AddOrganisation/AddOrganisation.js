@@ -5,6 +5,11 @@ import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
 import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
 import UserContext from "../../../context/UserContext/UserContext";
+import { convertYesNoToBoolean } from "../../../utils/functions/functions";
+import {
+  organisationFormFields as allFields,
+  organisationFormYesNoRadioFields as yesNoRadioFields,
+} from "../../../utils/data/data";
 
 const AddOrganisation = () => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
@@ -13,47 +18,7 @@ const AddOrganisation = () => {
     localUser.organisation.id
   );
 
-  function convertYesNoToBoolean(value) {
-    return value.toLowerCase() === "yes" ? true : false;
-  }
-
   function doCleanFormValues(values) {
-    const allFields = [
-      "isHackneyBased",
-      "isRegisteredCharity",
-      "charityNumber",
-      "hasHcOrColGrant",
-      "hasHcvsOrHgOrAelGrant",
-      "isTraRegistered",
-      "rslOrHaAssociation",
-      "isLotteryFunded",
-      "lotteryFundedProject",
-      "fundingOther",
-      "hasChildSupport",
-      "hasChildSafeguardingLead",
-      "childSafeguardingLeadFirstName",
-      "childSafeguardingLeadLastName",
-      "childSafeguardingLeadTrainingMonth",
-      "childSafeguardingLeadTrainingYear",
-      "hasAdultSupport",
-      "hasAdultSafeguardingLead",
-      "adultSafeguardingLeadFirstName",
-      "adultSafeguardingLeadLastName",
-      "adultSafeguardingLeadTrainingMonth",
-      "adultSafeguardingLeadTrainingYear",
-      "hasEnhancedSupport",
-      "isLocalOfferListed",
-      "localOfferLink",
-    ];
-
-    const yesNoRadioFields = [
-      "isHackneyBased",
-      "hasChildSupport",
-      "hasChildSafeguardingLead",
-      "hasAdultSupport",
-      "hasAdultSafeguardingLead",
-    ];
-
     allFields.forEach((field) => {
       if (!(field in values)) {
         values[field] = null;

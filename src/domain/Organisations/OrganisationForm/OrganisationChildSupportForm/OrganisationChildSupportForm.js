@@ -29,17 +29,17 @@ const StyledQuestion = styled.p`
   font-weight: bold;
 `;
 
-const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
+const OrganisationChildSupportForm = ({
+  defaultValues,
+  onSubmit,
+  showHiddenField,
+  setShowHiddenField,
+}) => {
   const { register, handleSubmit, errors } = useForm({
     defaultValues,
   });
 
-  const [showSafeguardLead, setShowSafeguardLead] = useState(false);
-  const [showSafeguardLeadDetails, setShowSafeguardLeadDetails] = useState(
-    false
-  );
 
-  function handleHiddenField(id) {}
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,14 +54,7 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
         <StyledRadioOptionDiv>
           {["Yes", "No"].map((item) => {
             return (
-              <StyledRadioOption
-                key={item}
-                onClick={() =>
-                  item === "Yes"
-                    ? setShowSafeguardLead(true)
-                    : setShowSafeguardLead(false)
-                }
-              >
+              <StyledRadioOption key={item}>
                 <FormRadio
                   key={item}
                   name="hasChildSupport"
@@ -69,6 +62,17 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
                   value={item.toLowerCase()}
                   register={register}
                   required
+                  onClick={() =>
+                    item === "Yes"
+                      ? setShowHiddenField({
+                          ...showHiddenField,
+                          childSafeGuardLead: true,
+                        })
+                      : setShowHiddenField({
+                          ...showHiddenField,
+                          childSafeGuardLead: false,
+                        })
+                  }
                 />
               </StyledRadioOption>
             );
@@ -82,19 +86,12 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
           marginBottom="20px"
         />
       )}
-      {showSafeguardLead ? (
+      {showHiddenField.childSafeGuardLead ? (
         <FormFieldset label="Does your organisation have a Children’s Safeguarding Lead?">
           <StyledRadioOptionDiv>
             {["Yes", "No"].map((item) => {
               return (
-                <StyledRadioOption
-                  key={item}
-                  onClick={() =>
-                    item === "Yes"
-                      ? setShowSafeguardLeadDetails(true)
-                      : setShowSafeguardLeadDetails(false)
-                  }
-                >
+                <StyledRadioOption key={item}>
                   <FormRadio
                     key={item}
                     name="hasChildSafeguardingLead"
@@ -102,6 +99,17 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
                     value={item.toLowerCase()}
                     register={register}
                     required
+                    onClick={() =>
+                      item === "Yes"
+                        ? setShowHiddenField({
+                            ...showHiddenField,
+                            childSafeguardLeadDetails: true,
+                          })
+                        : setShowHiddenField({
+                            ...showHiddenField,
+                            childSafeguardLeadDetails: false,
+                          })
+                    }
                   />
                 </StyledRadioOption>
               );
@@ -117,7 +125,8 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
             marginBottom="20px"
           />
         )}
-      {showSafeguardLead && showSafeguardLeadDetails ? (
+      {showHiddenField.childSafeGuardLead &&
+      showHiddenField.childSafeguardLeadDetails ? (
         <>
           <p>
             What are your organisations Children's safeguarding lead details?

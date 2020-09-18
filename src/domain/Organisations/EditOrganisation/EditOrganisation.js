@@ -1,124 +1,158 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import OrganisationForm from "../OrganisationForm/OrganisationForm";
 import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
 import OrganisationService from "../../../services/OrganisationService/OrganisationService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
+import {
+  convertBooleanToYesNo,
+  convertYesNoToBoolean,
+} from "../../../utils/functions/functions";
+import {
+  organisationFormFields as allFields,
+  organisationFormYesNoRadioFields as yesNoRadioFields,
+} from "../../../utils/data/data";
+
+// TODO: will need to do rest of hidden field pass downs
+// TODO: convert training month to drop down, rather than digit
+
+function doCleanDefaultValues(values) {
+  yesNoRadioFields.forEach((field) => {
+    if (field in values) {
+      values[field] = convertBooleanToYesNo(values[field]);
+    }
+  });
+
+  return values;
+}
+
+function doCleanFormValues(values) {
+  allFields.forEach((field) => {
+    if (!(field in values)) {
+      values[field] = null;
+    }
+  });
+
+  yesNoRadioFields.forEach((field) => {
+    if (field in values) {
+      values[field] = convertYesNoToBoolean(values[field]);
+    }
+  });
+
+  if (!values.isRegisteredCharity) {
+    values.charityNumber = false;
+  }
+
+  if (!values.isTraRegistered) {
+    values.rslOrHaAssociation = false;
+  }
+
+  if (!values.isLotteryFunded) {
+    values.lotteryFundedProject = false;
+  }
+  if (!values.isLocalOfferListed) {
+    values.localOfferLink = false;
+  }
+
+  if (!values.hasChildSafeguardingLead) {
+    values.childSafeguardingLeadFirstName = false;
+    values.childSafeguardingLeadLastName = false;
+    values.childSafeguardingLeadTrainingMonth = false;
+    values.childSafeguardingLeadTrainingYear = false;
+  }
+
+  if (!values.hasAdultSupport) {
+    values.hasAdultSafeguardingLead = false;
+  }
+
+  if (!values.hasAdultSafeguardingLead) {
+    values.adultSafeguardingLeadFirstName = false;
+    values.adultSafeguardingLeadLastName = false;
+    values.adultSafeguardingLeadTrainingMonth = false;
+    values.adultSafeguardingLeadTrainingYear = false;
+  }
+
+  return values;
+}
+
+function doHandleHiddenFields(
+  organisation,
+  showHiddenField,
+  setShowHiddenField
+) {
+  if (organisation.hasChildSupport) {
+    showHiddenField.childSafeGuardLead = true;
+  }
+
+  if (organisation.hasChildSafeguardingLead) {
+    showHiddenField.childSafeguardLeadDetails = true;
+  }
+
+  if (organisation.hasAdultSupport) {
+    showHiddenField.adultSafeGuardLead = true;
+  }
+
+  if (organisation.hasAdultSafeguardingLead) {
+    showHiddenField.adultSafeguardLeadDetails = true;
+  }
+
+  setShowHiddenField(showHiddenField);
+}
+
+function doAppendUpdatedFields(organisation, formFields) {
+  Object.keys(organisation).forEach(function (key) {
+    if (typeof formFields[key] !== "undefined") {
+      organisation[key] = formFields[key];
+    }
+  });
+  return organisation;
+}
 
 const EditOrganisation = (props) => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [defaultValues, setDefaultValues] = useState({});
+
+  const [showHiddenField, setShowHiddenField] = useState({
+    childSafeGuardLead: false,
+    childSafeguardLeadDetails: false,
+    adultSafeGuardLead: false,
+    adultSafeguardLeadDetails: false,
+  });
 
   const {
     organisation,
     isLoading: organisationFetchIsLoading,
   } = useOrganisationFetch(props.organisationId);
 
-  function convertBooleanToYesNo(value) {
-    return value ? "yes" : "no";
-  }
-
-  function convertYesNoToBoolean(value) {
-    return value.toLowerCase() === "yes" ? true : false;
-  }
-
-  const allFields = [
-    "isHackneyBased",
-    "isRegisteredCharity",
-    "charityNumber",
-    "hasHcOrColGrant",
-    "hasHcvsOrHgOrAelGrant",
-    "isTraRegistered",
-    "rslOrHaAssociation",
-    "isLotteryFunded",
-    "lotteryFundedProject",
-    "fundingOther",
-    "hasChildSupport",
-    "hasChildSafeguardingLead",
-    "childSafeguardingLeadFirstName",
-    "childSafeguardingLeadLastName",
-    "childSafeguardingLeadTrainingMonth",
-    "childSafeguardingLeadTrainingYear",
-    "hasAdultSupport",
-    "hasAdultSafeguardingLead",
-    "adultSafeguardingLeadFirstName",
-    "adultSafeguardingLeadLastName",
-    "adultSafeguardingLeadTrainingMonth",
-    "adultSafeguardingLeadTrainingYear",
-    "hasEnhancedSupport",
-    "isLocalOfferListed",
-    "localOfferLink",
-  ];
-
-  const yesNoRadioFields = [
-    "isHackneyBased",
-    "hasChildSupport",
-    "hasChildSafeguardingLead",
-    "hasAdultSupport",
-    "hasAdultSafeguardingLead",
-  ];
-
-  const hiddenFields = [
-    "hasChildSafeguardingLead",
-    "childSafeguardingLeadFirstName",
-    "childSafeguardingLeadLastName",
-    "childSafeguardingLeadTrainingMonth",
-    "childSafeguardingLeadTrainingYear",
-  ];
-
-  function doCleanDefaultValues(values) {
-    yesNoRadioFields.forEach((field) => {
-      if (field in values) {
-        values[field] = convertBooleanToYesNo(values[field]);
-      }
-    });
-
-    return values;
-  }
-
-  function doCleanFormValues(values) {
-    allFields.forEach((field) => {
-      if (!(field in values)) {
-        values[field] = null;
-      }
-    });
-
-    yesNoRadioFields.forEach((field) => {
-      if (field in values) {
-        values[field] = convertYesNoToBoolean(values[field]);
-      }
-    });
-
-    return values;
-  }
-
   useEffect(() => {
     if (organisationFetchIsLoading) return;
+
+    doHandleHiddenFields(organisation, showHiddenField, setShowHiddenField);
 
     const cleanedDefaultValues = doCleanDefaultValues(organisation);
 
     setDefaultValues(cleanedDefaultValues);
   }, [organisation, organisationFetchIsLoading, setDefaultValues]);
 
-  // TODO: will need to create a hiddenfield context and pass down, so that i can set whether hidden fields are to show or not!
-  // TODO: convert training month to drop down, rather than digit
-
   async function doEditOrganisation(formValues) {
     if (submitIsLoading) return;
 
     setSubmitIsLoading(true);
 
-    const cleanedFormValues = doCleanFormValues(formValues);
+    const cleanFormValues = doCleanFormValues(formValues);
 
-    Object.keys(organisation).forEach(function (key) {
-      if (typeof cleanedFormValues[key] !== "undefined") {
-        organisation[key] = cleanedFormValues[key];
-      }
-    });
+    const organisationWithUpdatedFields = doAppendUpdatedFields(
+      organisation,
+      cleanFormValues
+    );
+
+    console.log("organisationWithUpdatedFields");
+    console.log(organisationWithUpdatedFields);
 
     const updatedOrganisation = await OrganisationService.updateOrganisation(
       props.organisationId,
       organisation
+      // organisationWithUpdatedFields
     );
 
     setSubmitIsLoading(false);
@@ -141,6 +175,8 @@ const EditOrganisation = (props) => {
       <OrganisationForm
         onFormCompletion={doEditOrganisation}
         defaultValues={defaultValues}
+        showHiddenField={showHiddenField}
+        setShowHiddenField={setShowHiddenField}
         submitLoading={submitIsLoading}
         enableAllLinks={true}
       />
