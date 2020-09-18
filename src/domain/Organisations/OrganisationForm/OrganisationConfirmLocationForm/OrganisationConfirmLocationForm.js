@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import FormRadio from "../../../../components/FormRadio/FormRadio";
@@ -27,12 +27,21 @@ const StyledRadioOption = styled.div`
   display: inline;
 `;
 
-const OrganisationConfirmLocationForm = ({ onSubmit, defaultValues = {} }) => {
+const OrganisationConfirmLocationForm = ({
+  onSubmit,
+  defaultValues = {},
+  showHiddenField,
+  setShowHiddenFieldSnapshot,
+}) => {
   const { register, handleSubmit, errors } = useForm({
     defaultValues,
   });
 
   const [selectedNo, setSelectedNo] = useState(false);
+
+  useEffect(() => {
+    setShowHiddenFieldSnapshot(showHiddenField);
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -45,6 +45,8 @@ const OrganisationForm = ({
     adultSafeguardLeadDetails: false,
   },
   setShowHiddenField,
+  showHiddenFieldSnapshot,
+  setShowHiddenFieldSnapshot,
   initialStepId = "confirm-location",
   submitLoading = false,
   enableAllLinks = false,
@@ -77,8 +79,9 @@ const OrganisationForm = ({
   const mainRef = useRef(null);
 
   const moveToNextStep = (formValues) => {
-    console.log(formValues);
     setDraftOrganisation({ ...draftOrganisation, ...formValues });
+
+    setShowHiddenFieldSnapshot(showHiddenField);
 
     if (stepNum === stepArray.length - 1) {
       onFormCompletion({ ...draftOrganisation, ...formValues });
@@ -96,6 +99,8 @@ const OrganisationForm = ({
           <OrganisationConfirmLocationForm
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
+            showHiddenField={showHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       case "charity-information":
@@ -103,6 +108,8 @@ const OrganisationForm = ({
           <OrganisationCharityInformationForm
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
+            showHiddenField={showHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       case "child-support":
@@ -112,6 +119,7 @@ const OrganisationForm = ({
             onSubmit={moveToNextStep}
             showHiddenField={showHiddenField}
             setShowHiddenField={setShowHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       case "adult-support":
@@ -122,6 +130,7 @@ const OrganisationForm = ({
             submitLoading={submitLoading}
             showHiddenField={showHiddenField}
             setShowHiddenField={setShowHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       default:
@@ -137,6 +146,8 @@ const OrganisationForm = ({
           stepNum={stepNum}
           setStepNum={setStepNum}
           enableAllLinks={enableAllLinks}
+          setShowHiddenField={setShowHiddenField}
+          showHiddenFieldSnapshot={showHiddenFieldSnapshot}
         />
       </StyledOrganisationFormAside>
       <StyledOrganisationFormMain ref={mainRef}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Button from "../../../../components/Button/Button";
@@ -34,12 +34,15 @@ const OrganisationChildSupportForm = ({
   onSubmit,
   showHiddenField,
   setShowHiddenField,
+  setShowHiddenFieldSnapshot,
 }) => {
   const { register, handleSubmit, errors } = useForm({
     defaultValues,
   });
 
-
+  useEffect(() => {
+    setShowHiddenFieldSnapshot(showHiddenField);
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

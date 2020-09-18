@@ -110,6 +110,8 @@ const OrganisationFormNav = ({
   stepNum,
   setStepNum,
   enableAllLinks = false,
+  setShowHiddenField,
+  showHiddenFieldSnapshot,
 }) => {
   return (
     <RaisedCard backgroundColor={"white"} padding={"10px 5px 30px 5px"}>
@@ -121,7 +123,10 @@ const OrganisationFormNav = ({
             label={s.label}
             isLink={enableAllLinks || stepNum > i}
             isActive={stepNum === i}
-            onClick={() => setStepNum(i)}
+            onClick={() => {
+              setShowHiddenField(showHiddenFieldSnapshot);
+              setStepNum(i);
+            }}
           />
         ))}
       </StyledNav>

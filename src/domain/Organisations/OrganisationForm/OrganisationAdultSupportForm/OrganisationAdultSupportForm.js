@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Button from "../../../../components/Button/Button";
@@ -34,10 +34,14 @@ const OrganisationAdultSupportForm = ({
   onSubmit,
   showHiddenField,
   setShowHiddenField,
+  setShowHiddenFieldSnapshot,
 }) => {
   const { register, handleSubmit, errors } = useForm({
     defaultValues,
   });
+
+
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

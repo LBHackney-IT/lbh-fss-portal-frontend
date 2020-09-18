@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
@@ -28,7 +28,12 @@ const StyledHiddenFieldContainer = styled.div`
   margin-bottom: 50px;
 `;
 
-const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
+const OrganisationCharityInformationForm = ({
+  defaultValues,
+  onSubmit,
+  showHiddenField,
+  setShowHiddenFieldSnapshot,
+}) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
     shouldFocusError: false,
@@ -40,6 +45,10 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
     false
   );
   const [showLocalOfferLink, setShowLocalOfferLink] = useState(false);
+
+  useEffect(() => {
+    setShowHiddenFieldSnapshot(showHiddenField);
+  }, []);
 
   function handleHiddenField(id) {
     switch (id) {
