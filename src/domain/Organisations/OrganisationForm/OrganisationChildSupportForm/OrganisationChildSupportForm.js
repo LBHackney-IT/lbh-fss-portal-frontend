@@ -36,7 +36,7 @@ const OrganisationChildSupportForm = ({
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
 }) => {
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, getValues, errors } = useForm({
     defaultValues,
   });
 
@@ -44,8 +44,19 @@ const OrganisationChildSupportForm = ({
     setShowHiddenFieldSnapshot(showHiddenField);
   }, []);
 
+  const pageQuestionNames = [
+    "hasChildSupport",
+    "hasChildSafeguardingLead",
+    "childSafeguardingLeadFirstName",
+    "childSafeguardingLeadLastName",
+    "childSafeguardingLeadTrainingMonth",
+    "childSafeguardingLeadTrainingYear",
+  ];
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}
+    >
       <FormFieldset label="Do you provide support or activities for people under 16?">
         <StyledLeadText>
           Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam

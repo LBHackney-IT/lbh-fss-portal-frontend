@@ -36,12 +36,21 @@ const OrganisationAdultSupportForm = ({
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
 }) => {
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
   });
 
+  const pageQuestionNames = [
+    "hasAdultSupport",
+    "hasAdultSafeguardingLead",
+    "adultSafeguardingLeadFirstName",
+    "adultSafeguardingLeadLastName",
+    "adultSafeguardingLeadTrainingMonth",
+    "adultSafeguardingLeadTrainingYear",
+  ];
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}>
       <FormFieldset label="Do you provide support or activities for vulnerable adults?">
         <StyledLeadText>
           Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam
@@ -128,6 +137,7 @@ const OrganisationAdultSupportForm = ({
             required
             error={errors.adultSafeguardingLeadLastName}
           />
+
           <StyledQuestion>
             Date of the designated safeguarding lead training{" "}
           </StyledQuestion>
@@ -151,7 +161,6 @@ const OrganisationAdultSupportForm = ({
           </div>
         </>
       ) : null}
-
       <Button type="submit" label="Submit" />
     </form>
   );

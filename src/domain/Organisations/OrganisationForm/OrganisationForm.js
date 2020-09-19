@@ -35,6 +35,16 @@ const StyledOrganisationFormMain = styled.div`
   `};
 `;
 
+function doHandleHiddenFieldValues(formValues, pageQuestionNames) {
+  pageQuestionNames.forEach((questionName) => {
+    if (typeof formValues[questionName] === "undefined") {
+      formValues[questionName] = null;
+    }
+  });
+
+  return formValues;
+}
+
 const OrganisationForm = ({
   onFormCompletion,
   defaultValues = {},
@@ -78,13 +88,24 @@ const OrganisationForm = ({
 
   const mainRef = useRef(null);
 
-  const moveToNextStep = (formValues) => {
-    setDraftOrganisation({ ...draftOrganisation, ...formValues });
+  const moveToNextStep = (formValues, pageQuestionNames) => {
+    const formValuesWithHiddenFields = doHandleHiddenFieldValues(
+      formValues,
+      pageQuestionNames
+    );
+
+    setDraftOrganisation({
+      ...draftOrganisation,
+      ...formValuesWithHiddenFields,
+    });
 
     setShowHiddenFieldSnapshot(showHiddenField);
 
     if (stepNum === stepArray.length - 1) {
-      onFormCompletion({ ...draftOrganisation, ...formValues });
+      onFormCompletion({
+        ...draftOrganisation,
+        ...formValuesWithHiddenFields,
+      });
     } else {
       setStepNum(stepNum + 1);
 

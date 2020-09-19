@@ -34,7 +34,7 @@ const OrganisationConfirmLocationForm = ({
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
 }) => {
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
   });
 
@@ -42,8 +42,12 @@ const OrganisationConfirmLocationForm = ({
     setShowHiddenFieldSnapshot(showHiddenField);
   }, []);
 
+  const pageQuestionNames = ["isHackneyBased"];
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}
+    >
       <StyledRadioOptionsContainer>
         <FormFieldset label="Does your organisation provide support or activities for Hackney or City residents?">
           <StyledRadioOptionDiv>

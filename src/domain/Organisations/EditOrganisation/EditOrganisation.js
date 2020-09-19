@@ -39,43 +39,10 @@ function doCleanFormValues(values) {
     }
   });
 
-  if (!values.isRegisteredCharity) {
-    values.charityNumber = false;
-  }
-
-  if (!values.isTraRegistered) {
-    values.rslOrHaAssociation = false;
-  }
-
-  if (!values.isLotteryFunded) {
-    values.lotteryFundedProject = false;
-  }
-  if (!values.isLocalOfferListed) {
-    values.localOfferLink = false;
-  }
-
-  if (!values.hasChildSafeguardingLead) {
-    values.childSafeguardingLeadFirstName = false;
-    values.childSafeguardingLeadLastName = false;
-    values.childSafeguardingLeadTrainingMonth = false;
-    values.childSafeguardingLeadTrainingYear = false;
-  }
-
-  if (!values.hasAdultSupport) {
-    values.hasAdultSafeguardingLead = false;
-  }
-
-  if (!values.hasAdultSafeguardingLead) {
-    values.adultSafeguardingLeadFirstName = false;
-    values.adultSafeguardingLeadLastName = false;
-    values.adultSafeguardingLeadTrainingMonth = false;
-    values.adultSafeguardingLeadTrainingYear = false;
-  }
-
   return values;
 }
 
-function doHandleHiddenFields(
+function doHandleHiddenFieldVisibility(
   organisation,
   showHiddenField,
   setShowHiddenField
@@ -150,7 +117,11 @@ const EditOrganisation = (props) => {
   useEffect(() => {
     if (organisationFetchIsLoading) return;
 
-    doHandleHiddenFields(organisation, showHiddenField, setShowHiddenField);
+    doHandleHiddenFieldVisibility(
+      organisation,
+      showHiddenField,
+      setShowHiddenField
+    );
 
     const cleanedDefaultValues = doCleanDefaultValues(organisation);
 

@@ -44,6 +44,20 @@ const OrganisationCharityInformationForm = ({
     setShowHiddenFieldSnapshot(showHiddenField);
   }, []);
 
+  const pageQuestionNames = [
+    "isRegisteredCharity",
+    "charityNumber",
+    "hasHcOrColGrant",
+    "hasHcvsOrHgOrAelGrant",
+    "isTraRegistered",
+    "rslOrHaAssociation",
+    "isLotteryFunded",
+    "lotteryFundedProject",
+    "isLocalOfferListed",
+    "localOfferLink",
+    "fundingOther",
+  ];
+
   function handleHiddenField(id) {
     switch (id) {
       case "isRegisteredCharity":
@@ -105,7 +119,9 @@ const OrganisationCharityInformationForm = ({
   ];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}
+    >
       <FormFieldset
         label="Please confirm you are at least one of the following:"
         marginBottom={"0"}
