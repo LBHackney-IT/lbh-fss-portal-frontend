@@ -13,7 +13,6 @@ import {
   organisationFormYesNoRadioFields as yesNoRadioFields,
 } from "../../../utils/data/data";
 
-
 function doCleanDefaultValues(values) {
   yesNoRadioFields.forEach((field) => {
     if (field in values) {
@@ -138,9 +137,6 @@ const EditOrganisation = (props) => {
       cleanFormValues
     );
 
-    console.log("organisationWithUpdatedFields");
-    console.log(organisationWithUpdatedFields);
-
     const updatedOrganisation = await OrganisationService.updateOrganisation(
       props.organisationId,
       organisationWithUpdatedFields
@@ -149,7 +145,15 @@ const EditOrganisation = (props) => {
     setSubmitIsLoading(false);
 
     if (updatedOrganisation) {
-      toast.success(`Organisation ${updatedOrganisation.name} updated.`);
+      if (updatedOrganisation.status === "rejected") {
+        toast.success(
+          `Organisation ${updatedOrganisation.name} has been submitted for review.`
+        );
+      } else {
+        toast.success(
+          `Organisation ${updatedOrganisation.name} has been updated.`
+        );
+      }
 
       navigate("/services");
     } else {
