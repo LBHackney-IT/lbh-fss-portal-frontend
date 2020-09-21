@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Table from "../../../components/Table/Table";
-import FormDropDown from "../../../components/FormDropDown/FormDropDown";
+import TableActionDropDown from "../../../components/TableActionDropDown/TableActionDropDown";
 import { green, red, yellow } from "../../../settings";
 import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
 import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
@@ -26,7 +26,7 @@ const StyledNewOrganisation = styled.span`
   color: red;
 `;
 
-const StyledFormDropDownContainer = styled.div`
+const StyledTableActionDropDownContainer = styled.div`
   padding: 10px 20px 10px 0;
   display: inline;
   ${breakpoint("md")`
@@ -163,9 +163,9 @@ const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
         Cell: (e) => {
           return (
             <>
-              <StyledFormDropDownContainer>
-                <FormDropDown actions={actions} />
-              </StyledFormDropDownContainer>
+              <StyledTableActionDropDownContainer>
+                <TableActionDropDown actions={actions} />
+              </StyledTableActionDropDownContainer>
             </>
           );
         },

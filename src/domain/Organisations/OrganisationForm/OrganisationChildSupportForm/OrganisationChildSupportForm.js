@@ -7,6 +7,8 @@ import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import { grey } from "../../../../settings";
 import FormInput from "../../../../components/FormInput/FormInput";
 import FormError from "../../../../components/FormError/FormError";
+import FormDropDown from "../../../../components/FormDropDown/FormDropDown";
+import { getPreviousYears } from "../../../../utils/functions/functions";
 
 const StyledLeadText = styled.p`
   color: ${grey[400]};
@@ -164,25 +166,39 @@ const OrganisationChildSupportForm = ({
             Date of the designated safeguarding lead training{" "}
           </StyledQuestion>
           <div style={{ display: "flex" }}>
-            <div style={{ marginRight: "5px", width: "30%" }}>
-              <FormInput
+            <div style={{ marginRight: "5px", width: "40%" }}>
+              <FormDropDown
                 label={"Month"}
-                type={"number"}
                 name={"childSafeguardingLeadTrainingMonth"}
                 register={register}
+                options={[
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
+                ]}
               />
             </div>
-            <div style={{ marginLeft: "5px", width: "30%" }}>
-              <FormInput
+            <div style={{ marginLeft: "5px", width: "40%" }}>
+              <FormDropDown
                 label={"Year"}
-                type={"number"}
                 name={"childSafeguardingLeadTrainingYear"}
                 register={register}
+                options={getPreviousYears(30)}
               />
             </div>
           </div>
         </>
       ) : null}
+
       <Button type="submit" label="Continue ›" />
     </form>
   );

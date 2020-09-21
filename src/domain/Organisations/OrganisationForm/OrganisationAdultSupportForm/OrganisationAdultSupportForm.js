@@ -6,6 +6,8 @@ import FormRadio from "../../../../components/FormRadio/FormRadio";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import { grey } from "../../../../settings";
 import FormInput from "../../../../components/FormInput/FormInput";
+import FormDropDown from "../../../../components/FormDropDown/FormDropDown";
+import { getPreviousYears } from "../../../../utils/functions/functions";
 
 const StyledLeadText = styled.p`
   color: ${grey[400]};
@@ -50,7 +52,9 @@ const OrganisationAdultSupportForm = ({
   ];
 
   return (
-    <form onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}>
+    <form
+      onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}
+    >
       <FormFieldset label="Do you provide support or activities for vulnerable adults?">
         <StyledLeadText>
           Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam
@@ -142,20 +146,33 @@ const OrganisationAdultSupportForm = ({
             Date of the designated safeguarding lead training{" "}
           </StyledQuestion>
           <div style={{ display: "flex" }}>
-            <div style={{ marginRight: "5px", width: "30%" }}>
-              <FormInput
+            <div style={{ marginRight: "5px", width: "40%" }}>
+              <FormDropDown
                 label={"Month"}
-                type={"number"}
                 name={"adultSafeguardingLeadTrainingMonth"}
                 register={register}
+                options={[
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
+                ]}
               />
             </div>
-            <div style={{ marginLeft: "5px", width: "30%" }}>
-              <FormInput
+            <div style={{ marginLeft: "5px", width: "40%" }}>
+              <FormDropDown
                 label={"Year"}
-                type={"number"}
                 name={"adultSafeguardingLeadTrainingYear"}
                 register={register}
+                options={getPreviousYears(30)}
               />
             </div>
           </div>

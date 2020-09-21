@@ -13,8 +13,6 @@ import {
   organisationFormYesNoRadioFields as yesNoRadioFields,
 } from "../../../utils/data/data";
 
-// TODO: will need to do rest of hidden field pass downs
-// TODO: convert training month to drop down, rather than digit
 
 function doCleanDefaultValues(values) {
   yesNoRadioFields.forEach((field) => {

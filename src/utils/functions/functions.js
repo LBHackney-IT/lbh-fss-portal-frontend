@@ -8,4 +8,15 @@ function convertYesNoToBoolean(value) {
   return value.toLowerCase() === "yes" ? true : false;
 }
 
-export { convertBooleanToYesNo, convertYesNoToBoolean };
+function getPreviousYears(numberOfYears) {
+  const currentYear = new Date().getFullYear();
+
+  const yearRange = Array.from(
+    { length: numberOfYears },
+    (v, k) => k + currentYear - (numberOfYears - 1)
+  );
+
+  return yearRange.reverse();
+}
+
+export { convertBooleanToYesNo, convertYesNoToBoolean, getPreviousYears };
