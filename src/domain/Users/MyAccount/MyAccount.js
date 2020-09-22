@@ -52,6 +52,7 @@ const MyAccount = (props) => {
             roles: user.roles || "",
           }}
           submitLoading={editIsLoading}
+          showRoles={false}
         />
       </RaisedCard>
     </>

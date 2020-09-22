@@ -40,6 +40,7 @@ const UserForm = ({
   submitLabel = "Save",
   submitLoading = false,
   showPassword = true,
+  showRoles = true,
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
@@ -125,21 +126,25 @@ const UserForm = ({
       ) : (
         ""
       )}
-      <FormFieldset label="Roles">
-        {Object.keys(roles).map((item) => {
-          loopIteration++;
-          return (
-            <FormCheckbox
-              key={item}
-              name="roles"
-              label={roles[item]}
-              value={item}
-              register={register}
-              dataTestid={`checkbox-${loopIteration}`}
-            />
-          );
-        })}
-      </FormFieldset>
+      {showRoles ? (
+        <FormFieldset label="Roles">
+          {Object.keys(roles).map((item) => {
+            loopIteration++;
+            return (
+              <FormCheckbox
+                key={item}
+                name="roles"
+                label={roles[item]}
+                value={item}
+                register={register}
+                dataTestid={`checkbox-${loopIteration}`}
+              />
+            );
+          })}
+        </FormFieldset>
+      ) : (
+        ""
+      )}
       <StyledActionDiv>
         <Button type="submit" label={submitLabel} disabled={submitLoading} />
         {showDeleteButton ? (

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import OrganisationTable from "../OrganisationTable/OrganisationTable";
 import Search from "../../../components/Search/Search";
-import Button from "../../../components/Button/Button";
 import UserContext from "../../../context/UserContext/UserContext";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import OrganisationService from "../../../services/OrganisationService/OrganisationService";
