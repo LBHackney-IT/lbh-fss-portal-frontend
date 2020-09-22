@@ -27,6 +27,14 @@ const EditUser = (props) => {
     async function doEditUser() {
       if (editIsLoading) return;
 
+      Object.keys(user).forEach(function (key) {
+        if (formValues[key]) {
+          user[key] = formValues[key];
+        }
+      });
+
+      user.password = formValues.password || null;
+
       setEditIsLoading(true);
 
       const newUser = await UserService.updateUser(props.userId, formValues);

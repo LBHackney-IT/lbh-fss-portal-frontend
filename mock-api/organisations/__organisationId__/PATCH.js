@@ -1,9 +1,9 @@
-const mockOrganisations = require("../../mockOrganisations.json");
-var sample = require("lodash/sample");
+let mockOrganisations = require("../../mockOrganisations.json");
 
 module.exports = (req, res) => {
-  const mockOrganisation = sample(mockOrganisations);
+  const organisations = [...mockOrganisations].filter((item) => {
+    return item.status !== "rejected";
+  });
 
-  res.status(200).json(mockOrganisation);
-  // res.status(400).json({});
+  res.status(200).json(organisations[0]);
 };
