@@ -8,19 +8,62 @@ import ServiceCategoriesForm from "./ServiceCategoriesForm/ServiceCategoriesForm
 import ServiceDemographicsForm from "./ServiceDemographicsForm/ServiceDemographicsForm";
 import ServiceImageForm from "./ServiceImageForm/ServiceImageForm";
 import scrollToRef from "../../../utils/scrollToRef/scrollToRef";
+import { grey } from "../../../settings";
+import FormNav from "../../../components/FormNav/FormNav";
+import { convertStepNumToWord } from "../../../utils/functions/functions";
+import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import RaisedCard from "../../../components/RaisedCard/RaisedCard";
+
+const StyledStepText = styled.p`
+  color: ${grey[400]};
+`;
+
+const StyledServiceFormMain = styled.div`
+  width: 90%;
+  margin: 20px;
+  ${breakpoint("sm")`
+    width: 60%;
+  `};
+`;
 
 const StyledServiceForm = styled.div`
   display: flex;
+  flex-direction: column;
+  ${breakpoint("md")`
+    flex-direction: row;
+    margin-top: 30px;
+
+  `};
 `;
 
-const StyledServiceFormAside = styled.div``;
+const StyledServiceFormAside = styled.div`
+  width: 100%;
+  ${breakpoint("sm")`
+    width: 85%;
+  `};
+  ${breakpoint("md")`
+      width: 40%;
+      margin: 0 20px 20px 0;
+  `};
+`;
 
-const StyledServiceFormMain = styled.div``;
+function doHandleHiddenFieldValues(formValues, pageQuestionNames) {
+  pageQuestionNames.forEach((questionName) => {
+    if (typeof formValues[questionName] === "undefined") {
+      formValues[questionName] = null;
+    }
+  });
+
+  return formValues;
+}
 
 const ServiceForm = ({
   onFormCompletion,
-  service = {},
-  initialStepId = "details",
+  defaultValues = {},
+  showHiddenField,
+  setShowHiddenField,
+  // initialStepId = "details",
+  initialStepId = "categories",
   submitLoading = false,
 }) => {
   const stepArray = [
@@ -31,24 +74,53 @@ const ServiceForm = ({
     { id: "image", label: "Service picture" },
   ];
 
+  const [showHiddenFieldSnapshot, setShowHiddenFieldSnapshot] = useState(
+    defaultValues
+  );
+
   const [stepNum, setStepNum] = useState(
     stepArray.findIndex((s) => s.id === initialStepId)
   );
 
-  const [draftService, setDraftService] = useState(service);
+  const [draftService, setDraftService] = useState(defaultValues);
 
   const mainRef = useRef(null);
 
-  const moveToNextStep = (formValues) => {
-    setDraftService({ ...draftService, ...formValues });
-
+  const handleStepChange = (values) => {
     if (stepNum === stepArray.length - 1) {
-      onFormCompletion(draftService);
+      onFormCompletion({
+        ...draftService,
+        ...values,
+      });
     } else {
       setStepNum(stepNum + 1);
 
       scrollToRef(mainRef);
     }
+  };
+
+  const moveToNextStep = (formValues) => {
+    setDraftService({
+      ...draftService,
+      ...formValues,
+    });
+    handleStepChange(formValues);
+  };
+
+  const moveToNextStepWithHiddenFields = (formValues, pageQuestionNames) => {
+    const formValuesWithHiddenFields = doHandleHiddenFieldValues(
+      formValues,
+      pageQuestionNames
+    );
+
+    setDraftService({
+      ...draftService,
+      ...formValuesWithHiddenFields,
+    });
+
+    setShowHiddenFieldSnapshot(showHiddenField);
+
+    handleStepChange(formValuesWithHiddenFields);
   };
 
   const renderStepSwitch = () => {
@@ -65,13 +137,19 @@ const ServiceForm = ({
           <ServiceLocationsForm
             defaultValues={draftService}
             onSubmit={moveToNextStep}
+            showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       case "categories":
         return (
           <ServiceCategoriesForm
             defaultValues={draftService}
-            onSubmit={moveToNextStep}
+            onSubmit={moveToNextStepWithHiddenFields}
+            showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       case "demographics":
@@ -95,20 +173,28 @@ const ServiceForm = ({
   };
 
   return (
-    <StyledServiceForm>
-      <StyledServiceFormAside>
-        <ServiceFormNav
-          stepArray={stepArray}
-          stepNum={stepNum}
-          setStepNum={setStepNum}
-          enableAllLinks={true}
-        />
-        <DigitalGuideInfo />
-      </StyledServiceFormAside>
-      <StyledServiceFormMain ref={mainRef}>
-        {renderStepSwitch()}
-      </StyledServiceFormMain>
-    </StyledServiceForm>
+    <>
+      <StyledStepText>Step {convertStepNumToWord(stepNum)}</StyledStepText>
+      <h1>Create your service listing</h1>
+      <StyledServiceForm>
+        <StyledServiceFormAside>
+          <FormNav
+            stepArray={stepArray}
+            stepNum={stepNum}
+            setStepNum={setStepNum}
+            enableAllLinks={true}
+            setShowHiddenField={setShowHiddenField}
+            showHiddenFieldSnapshot={showHiddenFieldSnapshot}
+          />
+          <DigitalGuideInfo />
+        </StyledServiceFormAside>
+        <RaisedCard backgroundColor="white">
+          <StyledServiceFormMain ref={mainRef}>
+            {renderStepSwitch()}
+          </StyledServiceFormMain>
+        </RaisedCard>
+      </StyledServiceForm>
+    </>
   );
 };
 

@@ -22,7 +22,10 @@ const StyledInput = styled.input`
   padding: 15px;
 `;
 
-const StyledHelp = styled.p``;
+const StyledHelp = styled.p`
+  color: ${grey[400]};
+  margin: 5px 0 20px 0;
+`;
 
 const FormInput = ({
   type,
