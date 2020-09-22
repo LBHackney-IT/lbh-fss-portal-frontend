@@ -5,15 +5,13 @@ import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
-import UserContext from "../../../context/UserContext/UserContext";
+import UserContext from '../../../context/UserContext/UserContext'
 
 const AddUser = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   async function doAddUser(formValues) {
     if (isLoading) return;
-
-    formValues.createdAt = new Date();
 
     setIsLoading(true);
 

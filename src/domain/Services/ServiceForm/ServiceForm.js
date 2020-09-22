@@ -101,7 +101,6 @@ const ServiceForm = ({
           stepArray={stepArray}
           stepNum={stepNum}
           setStepNum={setStepNum}
-          enableAllLinks={true}
         />
         <DigitalGuideInfo />
       </StyledServiceFormAside>

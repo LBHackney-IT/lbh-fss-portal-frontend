@@ -36,7 +36,6 @@ export const neutral = {
 export const grey = {
   200: "#F5F6F6",
   201: "#F2F2F3",
-  202: "#DEE0E2",
   300: "#F8F8F8",
   400: "#525A5B",
   500: "#ECF1F0",

@@ -24,7 +24,7 @@ const EditService = (props) => {
     setSubmitIsLoading(false);
 
     if (service) {
-      toast.success(`Service ${service.name} updated.`);
+      toast.success(`New service ${service.name} updated.`);
 
       navigate("/services");
     } else {

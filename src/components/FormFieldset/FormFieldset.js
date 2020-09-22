@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledFieldset = styled.fieldset`
   border: none;
   padding: 0;
-  margin-bottom: ${(props) => props.marginBottom};
+  margin-bottom: 20px;
 `;
 
 const StyledLegend = styled.legend`
@@ -15,9 +15,9 @@ const StyledLegend = styled.legend`
 
 const StyledHelp = styled.p``;
 
-const FormFieldset = ({ label, children, help, marginBottom = "20px" }) => {
+const FormFieldset = ({ label, children, help }) => {
   return (
-    <StyledFieldset marginBottom={marginBottom}>
+    <StyledFieldset>
       <StyledLegend>{label}</StyledLegend>
       {help ? <StyledHelp>{help}</StyledHelp> : ""}
       {children}

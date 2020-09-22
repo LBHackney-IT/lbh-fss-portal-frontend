@@ -14,9 +14,6 @@ const StyledLayout = styled.div`
 `;
 
 const StyledLayoutTop = styled.div`
-  padding: 30px 10px;
-  max-width: 980px;
-  margin: 0 auto;
   padding-bottom: 30px;
   margin-bottom: 25px;
   display: flex;
@@ -53,7 +50,7 @@ const ProtectedLayout = ({ children }) => {
   const isInternalTeam = roles.includes("viewer") || roles.includes("admin");
 
   return (
-    <>
+    <StyledLayout>
       <StyledLayoutTop>
         <div>
           <StyledOrgLabel>Your organisation</StyledOrgLabel>
@@ -64,14 +61,12 @@ const ProtectedLayout = ({ children }) => {
         </StyledSecondaryNav>
       </StyledLayoutTop>
       <NavBar />
-      <StyledLayout>
-        {children}
-        <StyledContactInfo>
-          If you need support please email:{" "}
-          <a href="mailto:fss@hackney.gov.uk">fss@hackney.gov.uk</a>
-        </StyledContactInfo>
-      </StyledLayout>
-    </>
+      {children}
+      <StyledContactInfo>
+        If you need support please email:{" "}
+        <a href="mailto:fss@hackney.gov.uk">fss@hackney.gov.uk</a>
+      </StyledContactInfo>
+    </StyledLayout>
   );
 };
 

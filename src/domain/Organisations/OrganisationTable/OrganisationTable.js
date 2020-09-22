@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Table from "../../../components/Table/Table";
-import TableActionDropDown from "../../../components/TableActionDropDown/TableActionDropDown";
+import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 import { green, red, yellow } from "../../../settings";
 import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
 import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
@@ -26,7 +26,7 @@ const StyledNewOrganisation = styled.span`
   color: red;
 `;
 
-const StyledTableActionDropDownContainer = styled.div`
+const StyledFormDropDownContainer = styled.div`
   padding: 10px 20px 10px 0;
   display: inline;
   ${breakpoint("md")`
@@ -36,30 +36,23 @@ const StyledTableActionDropDownContainer = styled.div`
 
 function formatStatus(status) {
   switch (status) {
-    case "published":
+    case "active":
       return {
         title: "Published",
         backgroundColor: green[400],
         color: "white",
       };
       break;
-    case "awaiting reverification":
+    case "needs_reverification":
       return {
         title: "Awaiting reverification",
         backgroundColor: yellow[400],
         color: "black",
       };
       break;
-    case "awaiting review":
+    case "needs_review":
       return {
         title: "Awaiting review",
-        backgroundColor: yellow[400],
-        color: "black",
-      };
-      break;
-    case "draft":
-      return {
-        title: "Draft",
         backgroundColor: yellow[400],
         color: "black",
       };
@@ -67,6 +60,13 @@ function formatStatus(status) {
     case "rejected":
       return {
         title: "Rejected",
+        backgroundColor: red[400],
+        color: "white",
+      };
+      break;
+    case "deleted":
+      return {
+        title: "Deleted",
         backgroundColor: red[400],
         color: "white",
       };
@@ -116,7 +116,8 @@ const actions = [
   },
 ];
 
-const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
+const OrganisationTable = ({ data, isLoading, search }) => {
+  console.log(data);
   const columns = useMemo(
     () => [
       {
@@ -128,7 +129,7 @@ const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
               <Link to={`/organisations/${e.row.original.id}/edit`}>
                 {e.value}
               </Link>{" "}
-              {organisationIsNew(e.row.original.createdAt) ? (
+              {organisationIsNew(e.row.original.created_at) ? (
                 <StyledNewOrganisation>new</StyledNewOrganisation>
               ) : null}
             </>
@@ -137,10 +138,7 @@ const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
       },
       {
         Header: "User",
-        accessor: "id",
-        Cell: (e) => {
-          return <> {organisationUser[e.value] || "User not found"} </>;
-        },
+        accessor: "user.name",
       },
       {
         Header: "Status",
@@ -152,9 +150,9 @@ const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
       },
       {
         Header: "Submitted",
-        accessor: "submittedAt",
+        accessor: "submitted_at",
         Cell: (e) => {
-          const submittedAtDate = new Date(e.row.original.submittedAt);
+          const submittedAtDate = new Date(e.row.original.submitted_at);
           return submittedAtDate.toLocaleString();
         },
       },
@@ -163,15 +161,15 @@ const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
         Cell: (e) => {
           return (
             <>
-              <StyledTableActionDropDownContainer>
-                <TableActionDropDown actions={actions} />
-              </StyledTableActionDropDownContainer>
+              <StyledFormDropDownContainer>
+                <FormDropDown actions={actions} />
+              </StyledFormDropDownContainer>
             </>
           );
         },
       },
     ],
-    [organisationUser]
+    []
   );
 
   return (
