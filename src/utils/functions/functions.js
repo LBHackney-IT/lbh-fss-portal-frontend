@@ -19,4 +19,14 @@ function getPreviousYears(numberOfYears) {
   return yearRange.reverse();
 }
 
-export { convertBooleanToYesNo, convertYesNoToBoolean, getPreviousYears };
+function convertStepNumToWord(stepNum) {
+  const words = ["One", "Two", "Three", "Four"];
+  return words[stepNum];
+}
+
+export {
+  convertBooleanToYesNo,
+  convertYesNoToBoolean,
+  getPreviousYears,
+  convertStepNumToWord,
+};

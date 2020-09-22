@@ -7,6 +7,8 @@ import OrganisationChildSupportForm from "./OrganisationChildSupportForm/Organis
 import OrganisationAdultSupportForm from "./OrganisationAdultSupportForm/OrganisationAdultSupportForm";
 import scrollToRef from "../../../utils/scrollToRef/scrollToRef";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import { convertStepNumToWord } from "../../../utils/functions/functions";
+import { grey } from "../../../settings";
 
 const StyledOrganisationForm = styled.div`
   display: flex;
@@ -33,6 +35,10 @@ const StyledOrganisationFormMain = styled.div`
   ${breakpoint("sm")`
     width: 60%;
   `};
+`;
+
+const StyledStepText = styled.p`
+  color: ${grey[400]};
 `;
 
 function doHandleHiddenFieldValues(formValues, pageQuestionNames) {
@@ -157,21 +163,25 @@ const OrganisationForm = ({
   };
 
   return (
-    <StyledOrganisationForm>
-      <StyledOrganisationFormAside>
-        <OrganisationFormNav
-          stepArray={stepArray}
-          stepNum={stepNum}
-          setStepNum={setStepNum}
-          enableAllLinks={enableAllLinks}
-          setShowHiddenField={setShowHiddenField}
-          showHiddenFieldSnapshot={showHiddenFieldSnapshot}
-        />
-      </StyledOrganisationFormAside>
-      <StyledOrganisationFormMain ref={mainRef}>
-        {renderStepSwitch()}
-      </StyledOrganisationFormMain>
-    </StyledOrganisationForm>
+    <>
+      <StyledStepText>Step {convertStepNumToWord(stepNum)}</StyledStepText>
+      <h1>Tell us about your organisation</h1>
+      <StyledOrganisationForm>
+        <StyledOrganisationFormAside>
+          <OrganisationFormNav
+            stepArray={stepArray}
+            stepNum={stepNum}
+            setStepNum={setStepNum}
+            enableAllLinks={enableAllLinks}
+            setShowHiddenField={setShowHiddenField}
+            showHiddenFieldSnapshot={showHiddenFieldSnapshot}
+          />
+        </StyledOrganisationFormAside>
+        <StyledOrganisationFormMain ref={mainRef}>
+          {renderStepSwitch()}
+        </StyledOrganisationFormMain>
+      </StyledOrganisationForm>
+    </>
   );
 };
 

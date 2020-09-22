@@ -80,7 +80,6 @@ const AddOrganisation = () => {
 
   return (
     <>
-      <h1>Tell us about your organisation</h1>
       <OrganisationForm
         onFormCompletion={doAddOrganisation}
         submitLoading={submitIsLoading}

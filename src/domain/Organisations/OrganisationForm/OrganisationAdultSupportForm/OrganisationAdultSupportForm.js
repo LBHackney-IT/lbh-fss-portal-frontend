@@ -60,7 +60,7 @@ const OrganisationAdultSupportForm = ({
         <StyledLeadText>
           Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam
           aliquam bibendum dapibus.
-          <a href="">
+          <a href="" target="_blank">
             Click here to see the statutory guidance and best practice
           </a>
         </StyledLeadText>
