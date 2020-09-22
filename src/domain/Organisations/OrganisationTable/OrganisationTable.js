@@ -1,14 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Table from "../../../components/Table/Table";
 import TableActionDropDown from "../../../components/TableActionDropDown/TableActionDropDown";
 import { green, red, yellow } from "../../../settings";
-
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
-import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
-import OrganisationService from "../../../services/OrganisationService/OrganisationService";
-import { toast } from "react-toastify";
 
 const StyledStatus = styled.div`
   background-color: ${(props) => props.status.backgroundColor};
@@ -95,125 +91,10 @@ const OrganisationTable = ({
   isLoading,
   search,
   actions,
+  setSelectedOrganisation,
   showPagination,
   actionWidth,
 }) => {
-  const [selectedOrganisation, setSelectedOrganisation] = useState({});
-
-  const [approveIsLoading, setApproveIsLoading] = useState(false);
-  const [approveModalIsOpen, setApproveModalIsOpen] = useState(false);
-
-  const [declineIsLoading, setDeclineIsLoading] = useState(false);
-  const [declineModalIsOpen, setDeclineModalIsOpen] = useState(false);
-
-  const [removeIsLoading, setRemoveIsLoading] = useState(false);
-  const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
-
-  function toggleApproveModal() {
-    if (approveIsLoading) return;
-
-    setApproveModalIsOpen(!approveModalIsOpen);
-  }
-
-  function toggleDeclineModal() {
-    if (declineIsLoading) return;
-
-    setDeclineModalIsOpen(!declineModalIsOpen);
-  }
-
-  function toggleRemoveModal() {
-    if (removeIsLoading) return;
-
-    setRemoveModalIsOpen(!removeModalIsOpen);
-  }
-
-  async function doApprove(reviewerMessage) {
-    if (approveIsLoading) return;
-
-    setApproveIsLoading(true);
-
-    selectedOrganisation.status = "published";
-    selectedOrganisation.reviewedAt = new Date();
-    selectedOrganisation.reviewerMessage = reviewerMessage;
-
-    const organisation = await OrganisationService.updateOrganisation(
-      selectedOrganisation.id,
-      selectedOrganisation
-    );
-
-    setApproveIsLoading(false);
-
-    if (organisation) {
-      toast.success(`${selectedOrganisation.name} was approved.`);
-    } else {
-      toast.error(`Unable to approve organisation.`);
-    }
-
-    setApproveModalIsOpen(false);
-  }
-
-  async function doDecline(reviewerMessage) {
-    if (declineIsLoading) return;
-    setDeclineIsLoading(true);
-
-    selectedOrganisation.status = "rejected";
-    selectedOrganisation.reviewedAt = new Date();
-    selectedOrganisation.reviewerMessage = reviewerMessage;
-
-    const organisation = await OrganisationService.updateOrganisation(
-      selectedOrganisation.id,
-      selectedOrganisation
-    );
-
-    setDeclineIsLoading(false);
-
-    if (organisation) {
-      toast.success(`${selectedOrganisation.name} was declined.`);
-    } else {
-      toast.error(`Unable to decline organisation.`);
-    }
-
-    setDeclineModalIsOpen(false);
-  }
-
-  async function doRemove() {
-    if (removeIsLoading) return;
-
-    setRemoveIsLoading(true);
-
-    const organisationDeleted = await OrganisationService.deleteOrganisation(
-      selectedOrganisation.id
-    );
-
-    setRemoveIsLoading(false);
-
-    if (organisationDeleted) {
-      toast.success(`${selectedOrganisation.name} removed.`);
-    } else {
-      toast.error(`Unable to remove organisation.`);
-    }
-
-    setRemoveModalIsOpen(false);
-  }
-
-  const actions = [
-    {
-      title: "Approve",
-      onClick: toggleApproveModal,
-      icon: ApproveCircle,
-    },
-    {
-      title: "Decline",
-      onClick: toggleDeclineModal,
-      icon: DeclineCircle,
-    },
-    {
-      title: "Remove",
-      onClick: toggleRemoveModal,
-      icon: Trash,
-    },
-  ];
-
   const columns = useMemo(
     () => [
       {
@@ -263,7 +144,10 @@ const OrganisationTable = ({
               <StyledTableActionDropDownContainer
                 onClick={() => setSelectedOrganisation(e.row.original)}
               >
-                <TableActionDropDown actions={actions} />
+                <TableActionDropDown
+                  actions={actions}
+                  actionWidth={actionWidth}
+                />
               </StyledTableActionDropDownContainer>
             </>
           );
@@ -282,48 +166,6 @@ const OrganisationTable = ({
         search={search}
         tdHeightMobile={"20px"}
         showPagination={showPagination}
-        actionWidth={actionWidth}
-      />
-      <ConfirmModal
-        isOpen={approveModalIsOpen}
-        toggleModal={toggleApproveModal}
-        confirmButtonLabel={"Approve"}
-        confirmButtonColor={green[400]}
-        borderColor={green[300]}
-        onConfirm={doApprove}
-        includeReviewerMessage={true}
-        reviewerMessagePlaceholder={
-          "Thank you for listing your organisation..."
-        }
-        confirmTitle={"Approve organisation"}
-      />
-      <ConfirmModal
-        isOpen={declineModalIsOpen}
-        toggleModal={toggleDeclineModal}
-        confirmButtonLabel={"Decline"}
-        confirmButtonColor={red[400]}
-        borderColor={red[400]}
-        onConfirm={doDecline}
-        includeReviewerMessage={true}
-        reviewerMessagePlaceholder={
-          "We can not add you right now for the following reasons..."
-        }
-        confirmTitle={"Decline organisation"}
-      />
-      <ConfirmModal
-        isOpen={removeModalIsOpen}
-        toggleModal={toggleRemoveModal}
-        confirmMessage={
-          <>
-            Are you sure you want to remove{" "}
-            <strong>{selectedOrganisation.name}</strong>?
-          </>
-        }
-        confirmButtonLabel={"Remove"}
-        confirmButtonColor={red[400]}
-        borderColor={red[400]}
-        onConfirm={doRemove}
-        includeReviewerMessage={false}
       />
     </>
   );

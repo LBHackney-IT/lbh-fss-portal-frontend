@@ -7,6 +7,10 @@ import OrganisationTable from "../OrganisationTable/OrganisationTable";
 import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
 import { ReactComponent as RightArrow } from "./icons/right-arrow.svg";
 import { ReactComponent as Trash } from "./icons/trash.svg";
+import OrganisationService from "../../../services/OrganisationService/OrganisationService";
+import { toast } from "react-toastify";
+import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
+import { red } from "../../../settings";
 
 const StyledFeedback = styled.div`
   background: rgba(190, 58, 52, 0.1);
@@ -20,6 +24,10 @@ const StyledFeedback = styled.div`
 
 const MyOrganisation = () => {
   const user = useContext(UserContext)[0];
+  const [selectedOrganisation, setSelectedOrganisation] = useState({});
+
+  const [removeIsLoading, setRemoveIsLoading] = useState(false);
+  const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
 
   const {
     organisation,
@@ -37,14 +45,38 @@ const MyOrganisation = () => {
     setOrganisationUser(localOrganisationUser);
   }, [user, setOrganisationUser]);
 
+  function toggleRemoveModal() {
+    if (removeIsLoading) return;
+
+    setRemoveModalIsOpen(!removeModalIsOpen);
+  }
+
   function doViewOrganisation() {
     navigate(`/organisations/${user.organisation.id}/edit`);
   }
+
   function doUpdateOrganisation() {
     navigate(`/organisations/${user.organisation.id}/edit`);
   }
-  function doRemove() {
-    alert("remove organisation");
+
+  async function doRemove() {
+    if (removeIsLoading) return;
+
+    setRemoveIsLoading(true);
+
+    const organisationDeleted = await OrganisationService.deleteOrganisation(
+      selectedOrganisation.id
+    );
+
+    setRemoveIsLoading(false);
+
+    if (organisationDeleted) {
+      toast.success(`${selectedOrganisation.name} removed.`);
+    } else {
+      toast.error(`Unable to remove organisation.`);
+    }
+
+    setRemoveModalIsOpen(false);
   }
 
   let actions = [];
@@ -61,7 +93,7 @@ const MyOrganisation = () => {
       },
       {
         title: "Remove",
-        onClick: doRemove,
+        onClick: toggleRemoveModal,
         icon: Trash,
       },
     ];
@@ -83,12 +115,28 @@ const MyOrganisation = () => {
           data={[organisation]}
           organisationUser={organisationUser}
           showPagination={false}
+          setSelectedOrganisation={setSelectedOrganisation}
           actions={actions}
           actionWidth={"210px"}
         />
         {organisation.status === "rejected" && organisation.reviewerMessage ? (
           <StyledFeedback>{organisation.reviewerMessage}</StyledFeedback>
         ) : null}
+        <ConfirmModal
+          isOpen={removeModalIsOpen}
+          toggleModal={toggleRemoveModal}
+          confirmMessage={
+            <>
+              Are you sure you want to remove{" "}
+              <strong>{selectedOrganisation.name}</strong>?
+            </>
+          }
+          confirmButtonLabel={"Remove"}
+          confirmButtonColor={red[400]}
+          borderColor={red[400]}
+          onConfirm={doRemove}
+          includeReviewerMessage={false}
+        />
       </>
     );
   } else {
