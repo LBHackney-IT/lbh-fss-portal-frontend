@@ -254,7 +254,9 @@ const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
         Cell: (e) => {
           return (
             <>
-              <StyledTableActionDropDownContainer>
+              <StyledTableActionDropDownContainer
+                onClick={() => setSelectedOrganisation(e.row.original)}
+              >
                 <TableActionDropDown actions={actions} />
               </StyledTableActionDropDownContainer>
             </>

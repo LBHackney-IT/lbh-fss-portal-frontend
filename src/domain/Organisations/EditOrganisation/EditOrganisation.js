@@ -104,7 +104,6 @@ const EditOrganisation = (props) => {
     adultSafeguardLead: false,
     adultSafeguardLeadDetails: false,
   });
-  const [showHiddenFieldSnapshot, setShowHiddenFieldSnapshot] = useState({});
 
   const {
     organisation,
@@ -172,8 +171,6 @@ const EditOrganisation = (props) => {
         defaultValues={defaultValues}
         showHiddenField={showHiddenField}
         setShowHiddenField={setShowHiddenField}
-        showHiddenFieldSnapshot={showHiddenFieldSnapshot}
-        setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
         submitLoading={submitIsLoading}
         enableAllLinks={true}
       />

@@ -8,6 +8,7 @@ import { grey } from "../../../../settings";
 import FormInput from "../../../../components/FormInput/FormInput";
 import FormDropDown from "../../../../components/FormDropDown/FormDropDown";
 import { getPreviousYears } from "../../../../utils/functions/functions";
+import FormError from "../../../../components/FormError/FormError";
 
 const StyledLeadText = styled.p`
   color: ${grey[400]};
@@ -59,7 +60,7 @@ const OrganisationAdultSupportForm = ({
         <StyledLeadText>
           Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam
           aliquam bibendum dapibus.
-          <a href="">
+          <a href="" target="_blank">
             Click here to see the statutory guidance and best practice
           </a>
         </StyledLeadText>
@@ -73,6 +74,7 @@ const OrganisationAdultSupportForm = ({
                   label={item}
                   value={item.toLowerCase()}
                   register={register}
+                  required
                   onClick={() =>
                     item === "Yes"
                       ? setShowHiddenField({
@@ -90,6 +92,13 @@ const OrganisationAdultSupportForm = ({
           })}
         </StyledRadioOptionDiv>
       </FormFieldset>
+      {errors.hasAdultSupport && errors.hasAdultSupport.type === "required" && (
+        <FormError
+          error={"Please complete this question"}
+          marginTop="10px"
+          marginBottom="20px"
+        />
+      )}
 
       {showHiddenField.adultSafeguardLead ? (
         <FormFieldset label="Does your organisation have an Adult’s Safeguarding Lead? ">
@@ -103,6 +112,7 @@ const OrganisationAdultSupportForm = ({
                     label={item}
                     value={item.toLowerCase()}
                     register={register}
+                    required
                     onClick={() =>
                       item === "Yes"
                         ? setShowHiddenField({
@@ -121,6 +131,14 @@ const OrganisationAdultSupportForm = ({
           </StyledRadioOptionDiv>
         </FormFieldset>
       ) : null}
+      {errors.hasAdultSafeguardingLead &&
+        errors.hasAdultSafeguardingLead.type === "required" && (
+          <FormError
+            error={"Please complete this question"}
+            marginTop="10px"
+            marginBottom="20px"
+          />
+        )}
 
       {showHiddenField.adultSafeguardLead &&
       showHiddenField.adultSafeguardLeadDetails ? (
@@ -141,7 +159,6 @@ const OrganisationAdultSupportForm = ({
             required
             error={errors.adultSafeguardingLeadLastName}
           />
-
           <StyledQuestion>
             Date of the designated safeguarding lead training{" "}
           </StyledQuestion>
@@ -151,6 +168,7 @@ const OrganisationAdultSupportForm = ({
                 label={"Month"}
                 name={"adultSafeguardingLeadTrainingMonth"}
                 register={register}
+                required
                 options={[
                   "January",
                   "February",
@@ -165,6 +183,7 @@ const OrganisationAdultSupportForm = ({
                   "November",
                   "December",
                 ]}
+                error={errors.adultSafeguardingLeadTrainingMonth}
               />
             </div>
             <div style={{ marginLeft: "5px", width: "40%" }}>
@@ -173,6 +192,8 @@ const OrganisationAdultSupportForm = ({
                 name={"adultSafeguardingLeadTrainingYear"}
                 register={register}
                 options={getPreviousYears(30)}
+                required
+                error={errors.adultSafeguardingLeadTrainingYear}
               />
             </div>
           </div>

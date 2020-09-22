@@ -61,7 +61,11 @@ const EmptyOrganisation = () => {
             <li>Your location</li>
           </ul>
         </div>
-        <Button label="Get started ›" onClick={redirectToAddOrganisation} />
+        <Button
+          label="Get started ›"
+          onClick={redirectToAddOrganisation}
+          margin={"30px 0 20px 0"}
+        />
       </AnonymousLayout>
     </div>
   );
