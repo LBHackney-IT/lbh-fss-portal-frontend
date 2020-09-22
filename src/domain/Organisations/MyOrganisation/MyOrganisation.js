@@ -12,12 +12,11 @@ const MyOrganisation = () => {
     user.roles.includes("viewer") || user.roles.includes("admin");
 
   if (isInternalTeam) {
-    return <AccessDenied />;
+    return <Redirect to="/organisations" noThrow />;
   }
 
-  return !user.organisation ? ( // <- will need to remove '!'
-    //redirect to /services/:organisationId/edit/
-    <h1>Redirect</h1>
+  return false ? ( // <- will need to remove '!'
+    <Redirect to={`/organisations/${user.organisation.id}/edit`} noThrow />
   ) : (
     <EmptyOrganisation />
   );

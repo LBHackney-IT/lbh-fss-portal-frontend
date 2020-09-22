@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
@@ -28,32 +28,61 @@ const StyledHiddenFieldContainer = styled.div`
   margin-bottom: 50px;
 `;
 
-const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
+const OrganisationCharityInformationForm = ({
+  defaultValues,
+  onSubmit,
+  showHiddenField,
+  setShowHiddenField,
+  setShowHiddenFieldSnapshot,
+}) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
     shouldFocusError: false,
   });
 
-  const [showCharityNumber, setShowCharityNumber] = useState(false);
-  const [showRSLOrHaAssociation, setShowRSLOrHaAssociation] = useState(false);
-  const [showLotteryFundedProject, setShowLotteryFundedProject] = useState(
-    false
-  );
-  const [showLocalOfferLink, setShowLocalOfferLink] = useState(false);
+  useEffect(() => {
+    setShowHiddenFieldSnapshot(showHiddenField);
+  }, []);
+
+  const pageQuestionNames = [
+    "isRegisteredCharity",
+    "charityNumber",
+    "hasHcOrColGrant",
+    "hasHcvsOrHgOrAelGrant",
+    "isTraRegistered",
+    "rslOrHaAssociation",
+    "isLotteryFunded",
+    "lotteryFundedProject",
+    "isLocalOfferListed",
+    "localOfferLink",
+    "fundingOther",
+  ];
 
   function handleHiddenField(id) {
     switch (id) {
       case "isRegisteredCharity":
-        setShowCharityNumber(!showCharityNumber);
+        setShowHiddenField({
+          ...showHiddenField,
+          charityNumber: !showHiddenField.charityNumber,
+        });
         break;
       case "isTraRegistered":
-        setShowRSLOrHaAssociation(!showRSLOrHaAssociation);
+        setShowHiddenField({
+          ...showHiddenField,
+          RslOrHaAssociation: !showHiddenField.RslOrHaAssociation,
+        });
         break;
       case "isLotteryFunded":
-        setShowLotteryFundedProject(!showLotteryFundedProject);
+        setShowHiddenField({
+          ...showHiddenField,
+          lotteryFundedProject: !showHiddenField.lotteryFundedProject,
+        });
         break;
       case "isLocalOfferListed":
-        setShowLocalOfferLink(!showLocalOfferLink);
+        setShowHiddenField({
+          ...showHiddenField,
+          localOfferLink: !showHiddenField.localOfferLink,
+        });
         break;
       default:
         return false;
@@ -90,7 +119,9 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
   ];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}
+    >
       <FormFieldset
         label="Please confirm you are at least one of the following:"
         marginBottom={"0"}
@@ -124,7 +155,8 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 </StyledSubTextContainer>
               ) : null}
 
-              {showCharityNumber && item.id === "isRegisteredCharity" ? (
+              {showHiddenField.charityNumber &&
+              item.id === "isRegisteredCharity" ? (
                 <StyledHiddenFieldContainer>
                   <StyledExternalLink href="">
                     Look up your charity number
@@ -137,7 +169,8 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 </StyledHiddenFieldContainer>
               ) : null}
 
-              {showRSLOrHaAssociation && item.id === "isTraRegistered" ? (
+              {showHiddenField.RslOrHaAssociation &&
+              item.id === "isTraRegistered" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
                     label={
@@ -149,7 +182,8 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 </StyledHiddenFieldContainer>
               ) : null}
 
-              {showLotteryFundedProject && item.id === "isLotteryFunded" ? (
+              {showHiddenField.lotteryFundedProject &&
+              item.id === "isLotteryFunded" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
                     label={"Please detail which Lottery Funded project"}
@@ -159,7 +193,8 @@ const OrganisationCharityInformationForm = ({ defaultValues, onSubmit }) => {
                 </StyledHiddenFieldContainer>
               ) : null}
 
-              {showLocalOfferLink && item.id === "isLocalOfferListed" ? (
+              {showHiddenField.localOfferLink &&
+              item.id === "isLocalOfferListed" ? (
                 <FormInput
                   label={"Please add weblink"}
                   name={"localOfferLink"}

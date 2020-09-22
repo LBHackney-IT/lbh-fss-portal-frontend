@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import FormRadio from "../../../../components/FormRadio/FormRadio";
@@ -27,15 +27,27 @@ const StyledRadioOption = styled.div`
   display: inline;
 `;
 
-const OrganisationConfirmLocationForm = ({ onSubmit, defaultValues = {} }) => {
-  const { register, handleSubmit, errors } = useForm({
+const OrganisationConfirmLocationForm = ({
+  onSubmit,
+  defaultValues = {},
+  showHiddenField,
+  setShowHiddenField,
+  setShowHiddenFieldSnapshot,
+}) => {
+  const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
   });
 
-  const [selectedNo, setSelectedNo] = useState(false);
+  useEffect(() => {
+    setShowHiddenFieldSnapshot(showHiddenField);
+  }, []);
+
+  const pageQuestionNames = ["isHackneyBased"];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}
+    >
       <StyledRadioOptionsContainer>
         <FormFieldset label="Does your organisation provide support or activities for Hackney or City residents?">
           <StyledRadioOptionDiv>
@@ -50,7 +62,15 @@ const OrganisationConfirmLocationForm = ({ onSubmit, defaultValues = {} }) => {
                     register={register}
                     required
                     onClick={() =>
-                      item === "No" ? setSelectedNo(true) : setSelectedNo(false)
+                      item === "No"
+                        ? setShowHiddenField({
+                            ...showHiddenField,
+                            notBasedInWarning: true,
+                          })
+                        : setShowHiddenField({
+                            ...showHiddenField,
+                            notBasedInWarning: false,
+                          })
                     }
                   />
                 </StyledRadioOption>
@@ -67,7 +87,7 @@ const OrganisationConfirmLocationForm = ({ onSubmit, defaultValues = {} }) => {
             )}
         </FormFieldset>
       </StyledRadioOptionsContainer>
-      {selectedNo ? (
+      {showHiddenField.notBasedInWarning ? (
         <StyledErrorContainer
           style={{ backgroundColor: "rgba(190, 58, 52, 0.05)" }}
         >

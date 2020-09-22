@@ -57,9 +57,14 @@ const StyledButton = styled.button`
   }
 `;
 
-const StyledActiveButton = styled(StyledButton)`
+const StyledLinkButton = styled(StyledButton)`
   color: ${blue[400]};
   cursor: pointer;
+`;
+
+const StyledActiveButton = styled(StyledButton)`
+  color: ${blue[400]};
+  font-weight: bold;
 `;
 
 const OrganisationFormStep = ({ stepNum, label }) => {
@@ -75,11 +80,24 @@ const OrganisationFormStep = ({ stepNum, label }) => {
   );
 };
 
-const OrganisationFormNavItem = ({ stepNum, label, isLink, onClick }) => {
+const OrganisationFormNavItem = ({
+  stepNum,
+  label,
+  isLink,
+  isActive,
+  onClick,
+}) => {
+  if (isActive) {
+    return (
+      <StyledActiveButton>
+        <OrganisationFormStep stepNum={stepNum} label={label} />
+      </StyledActiveButton>
+    );
+  }
   return isLink ? (
-    <StyledActiveButton onClick={onClick}>
+    <StyledLinkButton onClick={onClick}>
       <OrganisationFormStep stepNum={stepNum} label={label} />
-    </StyledActiveButton>
+    </StyledLinkButton>
   ) : (
     <StyledButton>
       <OrganisationFormStep stepNum={stepNum} label={label} />
@@ -92,6 +110,8 @@ const OrganisationFormNav = ({
   stepNum,
   setStepNum,
   enableAllLinks = false,
+  setShowHiddenField,
+  showHiddenFieldSnapshot,
 }) => {
   return (
     <RaisedCard backgroundColor={"white"} padding={"10px 5px 30px 5px"}>
@@ -102,7 +122,11 @@ const OrganisationFormNav = ({
             stepNum={i}
             label={s.label}
             isLink={enableAllLinks || stepNum > i}
-            onClick={() => setStepNum(i)}
+            isActive={stepNum === i}
+            onClick={() => {
+              setShowHiddenField(showHiddenFieldSnapshot);
+              setStepNum(i);
+            }}
           />
         ))}
       </StyledNav>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Button from "../../../../components/Button/Button";
@@ -7,6 +7,8 @@ import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import { grey } from "../../../../settings";
 import FormInput from "../../../../components/FormInput/FormInput";
 import FormError from "../../../../components/FormError/FormError";
+import FormDropDown from "../../../../components/FormDropDown/FormDropDown";
+import { getPreviousYears } from "../../../../utils/functions/functions";
 
 const StyledLeadText = styled.p`
   color: ${grey[400]};
@@ -29,20 +31,34 @@ const StyledQuestion = styled.p`
   font-weight: bold;
 `;
 
-const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
-  const { register, handleSubmit, errors } = useForm({
+const OrganisationChildSupportForm = ({
+  defaultValues,
+  onSubmit,
+  showHiddenField,
+  setShowHiddenField,
+  setShowHiddenFieldSnapshot,
+}) => {
+  const { register, handleSubmit, getValues, errors } = useForm({
     defaultValues,
   });
 
-  const [showSafeguardLead, setShowSafeguardLead] = useState(false);
-  const [showSafeguardLeadDetails, setShowSafeguardLeadDetails] = useState(
-    false
-  );
+  useEffect(() => {
+    setShowHiddenFieldSnapshot(showHiddenField);
+  }, []);
 
-  function handleHiddenField(id) {}
+  const pageQuestionNames = [
+    "hasChildSupport",
+    "hasChildSafeguardingLead",
+    "childSafeguardingLeadFirstName",
+    "childSafeguardingLeadLastName",
+    "childSafeguardingLeadTrainingMonth",
+    "childSafeguardingLeadTrainingYear",
+  ];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}
+    >
       <FormFieldset label="Do you provide support or activities for people under 16?">
         <StyledLeadText>
           Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam
@@ -54,14 +70,7 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
         <StyledRadioOptionDiv>
           {["Yes", "No"].map((item) => {
             return (
-              <StyledRadioOption
-                key={item}
-                onClick={() =>
-                  item === "Yes"
-                    ? setShowSafeguardLead(true)
-                    : setShowSafeguardLead(false)
-                }
-              >
+              <StyledRadioOption key={item}>
                 <FormRadio
                   key={item}
                   name="hasChildSupport"
@@ -69,6 +78,17 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
                   value={item.toLowerCase()}
                   register={register}
                   required
+                  onClick={() =>
+                    item === "Yes"
+                      ? setShowHiddenField({
+                          ...showHiddenField,
+                          childSafeGuardLead: true,
+                        })
+                      : setShowHiddenField({
+                          ...showHiddenField,
+                          childSafeGuardLead: false,
+                        })
+                  }
                 />
               </StyledRadioOption>
             );
@@ -82,19 +102,12 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
           marginBottom="20px"
         />
       )}
-      {showSafeguardLead ? (
+      {showHiddenField.childSafeGuardLead ? (
         <FormFieldset label="Does your organisation have a Children’s Safeguarding Lead?">
           <StyledRadioOptionDiv>
             {["Yes", "No"].map((item) => {
               return (
-                <StyledRadioOption
-                  key={item}
-                  onClick={() =>
-                    item === "Yes"
-                      ? setShowSafeguardLeadDetails(true)
-                      : setShowSafeguardLeadDetails(false)
-                  }
-                >
+                <StyledRadioOption key={item}>
                   <FormRadio
                     key={item}
                     name="hasChildSafeguardingLead"
@@ -102,6 +115,17 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
                     value={item.toLowerCase()}
                     register={register}
                     required
+                    onClick={() =>
+                      item === "Yes"
+                        ? setShowHiddenField({
+                            ...showHiddenField,
+                            childSafeguardLeadDetails: true,
+                          })
+                        : setShowHiddenField({
+                            ...showHiddenField,
+                            childSafeguardLeadDetails: false,
+                          })
+                    }
                   />
                 </StyledRadioOption>
               );
@@ -117,7 +141,8 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
             marginBottom="20px"
           />
         )}
-      {showSafeguardLead && showSafeguardLeadDetails ? (
+      {showHiddenField.childSafeGuardLead &&
+      showHiddenField.childSafeguardLeadDetails ? (
         <>
           <p>
             What are your organisations Children's safeguarding lead details?
@@ -141,20 +166,37 @@ const OrganisationChildSupportForm = ({ defaultValues, onSubmit }) => {
             Date of the designated safeguarding lead training{" "}
           </StyledQuestion>
           <div style={{ display: "flex" }}>
-            <div style={{ marginRight: "5px", width: "30%" }}>
-              <FormInput
+            <div style={{ marginRight: "5px", width: "40%" }}>
+              <FormDropDown
                 label={"Month"}
-                type={"number"}
                 name={"childSafeguardingLeadTrainingMonth"}
                 register={register}
+                options={[
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
+                ]}
+                required
+                error={errors.childSafeguardingLeadTrainingMonth}
               />
             </div>
-            <div style={{ marginLeft: "5px", width: "30%" }}>
-              <FormInput
+            <div style={{ marginLeft: "5px", width: "40%" }}>
+              <FormDropDown
                 label={"Year"}
-                type={"number"}
                 name={"childSafeguardingLeadTrainingYear"}
                 register={register}
+                options={getPreviousYears(30)}
+                required
+                error={errors.childSafeguardingLeadTrainingYear}
               />
             </div>
           </div>

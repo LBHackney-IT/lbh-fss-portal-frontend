@@ -5,6 +5,11 @@ import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
 import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
 import UserContext from "../../../context/UserContext/UserContext";
+import { convertYesNoToBoolean } from "../../../utils/functions/functions";
+import {
+  organisationFormFields as allFields,
+  organisationFormYesNoRadioFields as yesNoRadioFields,
+} from "../../../utils/data/data";
 
 const AddOrganisation = () => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
@@ -13,21 +18,42 @@ const AddOrganisation = () => {
     localUser.organisation.id
   );
 
+  const [showHiddenField, setShowHiddenField] = useState({
+    notBasedInWarning: false,
+    charityNumber: false,
+    RslOrHaAssociation: false,
+    lotteryFundedProject: false,
+    localOfferLink: false,
+    childSafeGuardLead: false,
+    childSafeguardLeadDetails: false,
+    adultSafeguardLead: false,
+    adultSafeguardLeadDetails: false,
+  });
+
   function doCleanFormValues(values) {
-    if (values.isHackneyBased === "yes") {
-      values.isHackneyBased = true;
-    }
+    allFields.forEach((field) => {
+      if (!(field in values)) {
+        values[field] = null;
+      }
+    });
+
+    yesNoRadioFields.forEach((field) => {
+      if (field in values) {
+        values[field] = convertYesNoToBoolean(values[field]);
+      }
+    });
+
     return values;
   }
 
   async function doAddOrganisation(formValues) {
     if (submitIsLoading) return;
 
-    const cleanFormValues = doCleanFormValues(formValues);
+    const cleanedFormValues = doCleanFormValues(formValues);
 
     Object.keys(organisation).forEach(function (key) {
-      if (cleanFormValues[key]) {
-        organisation[key] = cleanFormValues[key];
+      if (typeof cleanedFormValues[key] !== "undefined") {
+        organisation[key] = cleanedFormValues[key];
       }
     });
 
@@ -48,8 +74,8 @@ const AddOrganisation = () => {
     }
   }
 
-  if (fetchIsLoading) {
-    return <h1>Loading</h1>;
+  if (fetchIsLoading || submitIsLoading) {
+    return <span>Loading</span>;
   }
 
   return (
@@ -58,6 +84,8 @@ const AddOrganisation = () => {
       <OrganisationForm
         onFormCompletion={doAddOrganisation}
         submitLoading={submitIsLoading}
+        showHiddenField={showHiddenField}
+        setShowHiddenField={setShowHiddenField}
       />
     </>
   );

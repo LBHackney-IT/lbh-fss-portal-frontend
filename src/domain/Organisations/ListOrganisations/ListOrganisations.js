@@ -29,17 +29,19 @@ const StyledActionDiv = styled.div`
 const ListOrganisations = ({ location }) => {
   const { roles } = useContext(UserContext)[0];
 
-  const [data, setData] = useState([]);
   const [search, setSearch] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [organisationUser, setOrganisationUser] = useState({});
+  const [organisationUserIsLoading, setOrganisationUserIsLoading] = useState(
+    true
+  );
 
   useEffect(() => {
-    async function fetchUsers() {
-      setIsLoading(true);
-
-      const retrievedUsers = await UserService.retrieveUsers(
+    async function fetchOrganisationUser() {
+      const users = await UserService.retrieveUsers(
         "name",
         "asc",
         0,
@@ -47,31 +49,27 @@ const ListOrganisations = ({ location }) => {
         ""
       );
 
-      setIsLoading(false);
+      setOrganisationUserIsLoading(false);
 
-      return retrievedUsers;
+      let organisationUserObject = {};
+
+      if (users) {
+        Object.keys(users).forEach((key) => {
+          const organisationId = users[key].organisation.id;
+          const userName = users[key].name;
+          organisationUserObject[organisationId] = userName;
+        });
+
+        setOrganisationUser(organisationUserObject);
+      }
     }
 
-    const users = fetchUsers();
-
-    let organisationUserObject = {};
-
-    if (users) {
-      Object.keys(users).forEach((key) => {
-        const organisationId = users[key].organisation.id;
-        const userName = users[key].name;
-        organisationUserObject[organisationId] = userName;
-      });
-
-      setOrganisationUser(organisationUserObject);
-    }
-  }, [setOrganisationUser, setIsLoading]);
+    fetchOrganisationUser();
+  }, [setOrganisationUser, setOrganisationUserIsLoading]);
 
   useEffect(() => {
     async function fetchData() {
       let organisations = false;
-
-      setIsLoading(true);
 
       if (search) {
         organisations = await OrganisationService.retrieveOrganisations({
@@ -94,6 +92,10 @@ const ListOrganisations = ({ location }) => {
   }, [search, setData, setIsLoading]);
 
   const accessPermission = roles.includes("viewer") || roles.includes("admin");
+
+  if (isLoading || organisationUserIsLoading) {
+    return <span>Loading</span>;
+  }
 
   return accessPermission ? (
     <>

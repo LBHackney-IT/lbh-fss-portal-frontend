@@ -35,11 +35,24 @@ const StyledOrganisationFormMain = styled.div`
   `};
 `;
 
+function doHandleHiddenFieldValues(formValues, pageQuestionNames) {
+  pageQuestionNames.forEach((questionName) => {
+    if (typeof formValues[questionName] === "undefined") {
+      formValues[questionName] = null;
+    }
+  });
+
+  return formValues;
+}
+
 const OrganisationForm = ({
   onFormCompletion,
-  organisation = {},
+  defaultValues = {},
+  showHiddenField,
+  setShowHiddenField,
   initialStepId = "confirm-location",
   submitLoading = false,
+  enableAllLinks = false,
 }) => {
   const stepArray = [
     {
@@ -60,19 +73,34 @@ const OrganisationForm = ({
     },
   ];
 
+  const [showHiddenFieldSnapshot, setShowHiddenFieldSnapshot] = useState({});
+
   const [stepNum, setStepNum] = useState(
     stepArray.findIndex((s) => s.id === initialStepId)
   );
 
-  const [draftOrganisation, setDraftOrganisation] = useState(organisation);
+  const [draftOrganisation, setDraftOrganisation] = useState(defaultValues);
 
   const mainRef = useRef(null);
 
-  const moveToNextStep = (formValues) => {
-    setDraftOrganisation({ ...draftOrganisation, ...formValues });
+  const moveToNextStep = (formValues, pageQuestionNames) => {
+    const formValuesWithHiddenFields = doHandleHiddenFieldValues(
+      formValues,
+      pageQuestionNames
+    );
+
+    setDraftOrganisation({
+      ...draftOrganisation,
+      ...formValuesWithHiddenFields,
+    });
+
+    setShowHiddenFieldSnapshot(showHiddenField);
 
     if (stepNum === stepArray.length - 1) {
-      onFormCompletion(draftOrganisation);
+      onFormCompletion({
+        ...draftOrganisation,
+        ...formValuesWithHiddenFields,
+      });
     } else {
       setStepNum(stepNum + 1);
 
@@ -87,6 +115,9 @@ const OrganisationForm = ({
           <OrganisationConfirmLocationForm
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
+            showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       case "charity-information":
@@ -94,6 +125,9 @@ const OrganisationForm = ({
           <OrganisationCharityInformationForm
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
+            showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       case "child-support":
@@ -101,6 +135,9 @@ const OrganisationForm = ({
           <OrganisationChildSupportForm
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
+            showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       case "adult-support":
@@ -109,6 +146,9 @@ const OrganisationForm = ({
             defaultValues={draftOrganisation}
             onSubmit={moveToNextStep}
             submitLoading={submitLoading}
+            showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
           />
         );
       default:
@@ -123,7 +163,9 @@ const OrganisationForm = ({
           stepArray={stepArray}
           stepNum={stepNum}
           setStepNum={setStepNum}
-          enableAllLinks={false}
+          enableAllLinks={enableAllLinks}
+          setShowHiddenField={setShowHiddenField}
+          showHiddenFieldSnapshot={showHiddenFieldSnapshot}
         />
       </StyledOrganisationFormAside>
       <StyledOrganisationFormMain ref={mainRef}>

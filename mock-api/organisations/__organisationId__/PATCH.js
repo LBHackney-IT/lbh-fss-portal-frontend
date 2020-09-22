@@ -1,8 +1,9 @@
-module.exports = (req, res) => {
-  const { name } = req.body;
+let mockOrganisations = require("../../mockOrganisations.json");
 
-  res.status(200).json({
-    id: 1,
-    name,
+module.exports = (req, res) => {
+  const organisations = [...mockOrganisations].filter((item) => {
+    return item.status !== "rejected";
   });
+
+  res.status(200).json(organisations[0]);
 };
