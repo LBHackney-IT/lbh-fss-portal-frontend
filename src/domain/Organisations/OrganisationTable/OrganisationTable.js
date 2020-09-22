@@ -4,9 +4,7 @@ import styled from "styled-components";
 import Table from "../../../components/Table/Table";
 import TableActionDropDown from "../../../components/TableActionDropDown/TableActionDropDown";
 import { green, red, yellow } from "../../../settings";
-import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
-import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
-import { ReactComponent as Trash } from "./icons/trash.svg";
+
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 
 const StyledStatus = styled.div`
@@ -88,35 +86,15 @@ function organisationIsNew(createdAt) {
   // return differenceInDays <= 1;
 }
 
-function doApprove() {
-  alert("approve organisation");
-}
-function doDecline() {
-  alert("decline organisation");
-}
-function doRemove() {
-  alert("remove organisation");
-}
-
-const actions = [
-  {
-    title: "Approve",
-    onClick: doApprove,
-    icon: ApproveCircle,
-  },
-  {
-    title: "Decline",
-    onClick: doDecline,
-    icon: DeclineCircle,
-  },
-  {
-    title: "Remove",
-    onClick: doRemove,
-    icon: Trash,
-  },
-];
-
-const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
+const OrganisationTable = ({
+  data,
+  organisationUser,
+  isLoading,
+  search,
+  actions,
+  showPagination,
+  actionWidth,
+}) => {
   const columns = useMemo(
     () => [
       {
@@ -164,7 +142,10 @@ const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
           return (
             <>
               <StyledTableActionDropDownContainer>
-                <TableActionDropDown actions={actions} />
+                <TableActionDropDown
+                  actions={actions}
+                  actionWidth={actionWidth}
+                />
               </StyledTableActionDropDownContainer>
             </>
           );
@@ -181,6 +162,8 @@ const OrganisationTable = ({ data, organisationUser, isLoading, search }) => {
       isLoading={isLoading}
       search={search}
       tdHeightMobile={"20px"}
+      showPagination={showPagination}
+      actionWidth={actionWidth}
     />
   );
 };

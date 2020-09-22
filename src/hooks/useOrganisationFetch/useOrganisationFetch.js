@@ -9,6 +9,7 @@ function useOrganisationFetch(organisationId) {
 
   useEffect(() => {
     async function fetchService() {
+      if (typeof organisationId === "undefined") return;
       const newOrganisation = await OrganisationService.getOrganisation(
         organisationId
       );

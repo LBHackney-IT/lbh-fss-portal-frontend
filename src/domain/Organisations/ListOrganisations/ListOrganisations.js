@@ -9,6 +9,9 @@ import { grey } from "../../../settings";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import UserService from "../../../services/UserService/UserService";
+import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
+import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
+import { ReactComponent as Trash } from "./icons/trash.svg";
 
 const StyledActionDiv = styled.div`
   display: flex;
@@ -91,6 +94,36 @@ const ListOrganisations = ({ location }) => {
     fetchData();
   }, [search, setData, setIsLoading]);
 
+  function doApprove() {
+    alert("approve organisation");
+  }
+  function doDecline() {
+    alert("decline organisation");
+  }
+  function doRemove() {
+    alert("remove organisation");
+  }
+
+  const actions = [
+    {
+      title: "Approve",
+      onClick: doApprove,
+      icon: ApproveCircle,
+    },
+    {
+      title: "Decline",
+      onClick: doDecline,
+      icon: DeclineCircle,
+    },
+    {
+      title: "Remove",
+      onClick: doRemove,
+      icon: Trash,
+    },
+  ];
+
+  console.log(actions);
+
   const accessPermission = roles.includes("viewer") || roles.includes("admin");
 
   if (isLoading || organisationUserIsLoading) {
@@ -109,6 +142,7 @@ const ListOrganisations = ({ location }) => {
         organisationUser={organisationUser}
         isLoading={isLoading}
         search={search}
+        actions={actions}
       />
     </>
   ) : (
