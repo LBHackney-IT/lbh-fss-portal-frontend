@@ -6,7 +6,7 @@ import { darken } from "polished";
 
 const StyledButton = styled.button`
   display: block;
-  margin-bottom: 30px;
+  margin: ${(props) => props.margin || "0 0 30px 0"};
   color: ${neutral[100]};
   background-color: ${(props) => (props.color ? props.color : green[400])};
   border: none;
@@ -28,6 +28,7 @@ const Button = ({
   onClick = () => {},
   className,
   color,
+  margin,
 }) => {
   return (
     <>
@@ -37,6 +38,7 @@ const Button = ({
         onClick={onClick}
         className={className}
         color={color}
+        margin={margin}
       >
         {label}
       </StyledButton>

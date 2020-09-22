@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Table from "../../../components/Table/Table";
@@ -6,6 +6,9 @@ import TableActionDropDown from "../../../components/TableActionDropDown/TableAc
 import { green, red, yellow } from "../../../settings";
 
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
+import OrganisationService from "../../../services/OrganisationService/OrganisationService";
+import { toast } from "react-toastify";
 
 const StyledStatus = styled.div`
   background-color: ${(props) => props.status.backgroundColor};
@@ -83,7 +86,7 @@ function organisationIsNew(createdAt) {
   const today = new Date();
   const differenceInDays = (today - createdAtDate) / (1000 * 3600 * 24);
   return differenceInDays <= 235; // <- 235 for demo purposes
-  // return differenceInDays <= 1;
+  // return differenceInDays <= 1; // <- correct value to use after having demo'ed
 }
 
 const OrganisationTable = ({
@@ -95,6 +98,122 @@ const OrganisationTable = ({
   showPagination,
   actionWidth,
 }) => {
+  const [selectedOrganisation, setSelectedOrganisation] = useState({});
+
+  const [approveIsLoading, setApproveIsLoading] = useState(false);
+  const [approveModalIsOpen, setApproveModalIsOpen] = useState(false);
+
+  const [declineIsLoading, setDeclineIsLoading] = useState(false);
+  const [declineModalIsOpen, setDeclineModalIsOpen] = useState(false);
+
+  const [removeIsLoading, setRemoveIsLoading] = useState(false);
+  const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
+
+  function toggleApproveModal() {
+    if (approveIsLoading) return;
+
+    setApproveModalIsOpen(!approveModalIsOpen);
+  }
+
+  function toggleDeclineModal() {
+    if (declineIsLoading) return;
+
+    setDeclineModalIsOpen(!declineModalIsOpen);
+  }
+
+  function toggleRemoveModal() {
+    if (removeIsLoading) return;
+
+    setRemoveModalIsOpen(!removeModalIsOpen);
+  }
+
+  async function doApprove(reviewerMessage) {
+    if (approveIsLoading) return;
+
+    setApproveIsLoading(true);
+
+    selectedOrganisation.status = "published";
+    selectedOrganisation.reviewedAt = new Date();
+    selectedOrganisation.reviewerMessage = reviewerMessage;
+
+    const organisation = await OrganisationService.updateOrganisation(
+      selectedOrganisation.id,
+      selectedOrganisation
+    );
+
+    setApproveIsLoading(false);
+
+    if (organisation) {
+      toast.success(`${selectedOrganisation.name} was approved.`);
+    } else {
+      toast.error(`Unable to approve organisation.`);
+    }
+
+    setApproveModalIsOpen(false);
+  }
+
+  async function doDecline(reviewerMessage) {
+    if (declineIsLoading) return;
+    setDeclineIsLoading(true);
+
+    selectedOrganisation.status = "rejected";
+    selectedOrganisation.reviewedAt = new Date();
+    selectedOrganisation.reviewerMessage = reviewerMessage;
+
+    const organisation = await OrganisationService.updateOrganisation(
+      selectedOrganisation.id,
+      selectedOrganisation
+    );
+
+    setDeclineIsLoading(false);
+
+    if (organisation) {
+      toast.success(`${selectedOrganisation.name} was declined.`);
+    } else {
+      toast.error(`Unable to decline organisation.`);
+    }
+
+    setDeclineModalIsOpen(false);
+  }
+
+  async function doRemove() {
+    if (removeIsLoading) return;
+
+    setRemoveIsLoading(true);
+
+    const organisationDeleted = await OrganisationService.deleteOrganisation(
+      selectedOrganisation.id
+    );
+
+    setRemoveIsLoading(false);
+
+    if (organisationDeleted) {
+      toast.success(`${selectedOrganisation.name} removed.`);
+    } else {
+      toast.error(`Unable to remove organisation.`);
+    }
+
+    setRemoveModalIsOpen(false);
+  }
+
+  const actions = [
+    {
+      title: "Approve",
+      onClick: toggleApproveModal,
+      icon: ApproveCircle,
+    },
+    {
+      title: "Decline",
+      onClick: toggleDeclineModal,
+      icon: DeclineCircle,
+    },
+    {
+      title: "Remove",
+      onClick: toggleRemoveModal,
+      icon: Trash,
+    },
+  ];
+
   const columns = useMemo(
     () => [
       {
@@ -124,7 +243,7 @@ const OrganisationTable = ({
         Header: "Status",
         accessor: "status",
         Cell: (e) => {
-          const status = formatStatus(e.row.original.status);
+          const status = formatStatus(e.value);
           return <StyledStatus status={status}>{status.title}</StyledStatus>;
         },
       },
@@ -132,7 +251,7 @@ const OrganisationTable = ({
         Header: "Submitted",
         accessor: "submittedAt",
         Cell: (e) => {
-          const submittedAtDate = new Date(e.row.original.submittedAt);
+          const submittedAtDate = new Date(e.value);
           return submittedAtDate.toLocaleString();
         },
       },
@@ -141,11 +260,10 @@ const OrganisationTable = ({
         Cell: (e) => {
           return (
             <>
-              <StyledTableActionDropDownContainer>
-                <TableActionDropDown
-                  actions={actions}
-                  actionWidth={actionWidth}
-                />
+              <StyledTableActionDropDownContainer
+                onClick={() => setSelectedOrganisation(e.row.original)}
+              >
+                <TableActionDropDown actions={actions} />
               </StyledTableActionDropDownContainer>
             </>
           );
@@ -156,15 +274,58 @@ const OrganisationTable = ({
   );
 
   return (
-    <Table
-      data={data}
-      columns={columns}
-      isLoading={isLoading}
-      search={search}
-      tdHeightMobile={"20px"}
-      showPagination={showPagination}
-      actionWidth={actionWidth}
-    />
+    <>
+      <Table
+        data={data}
+        columns={columns}
+        isLoading={isLoading}
+        search={search}
+        tdHeightMobile={"20px"}
+        showPagination={showPagination}
+        actionWidth={actionWidth}
+      />
+      <ConfirmModal
+        isOpen={approveModalIsOpen}
+        toggleModal={toggleApproveModal}
+        confirmButtonLabel={"Approve"}
+        confirmButtonColor={green[400]}
+        borderColor={green[300]}
+        onConfirm={doApprove}
+        includeReviewerMessage={true}
+        reviewerMessagePlaceholder={
+          "Thank you for listing your organisation..."
+        }
+        confirmTitle={"Approve organisation"}
+      />
+      <ConfirmModal
+        isOpen={declineModalIsOpen}
+        toggleModal={toggleDeclineModal}
+        confirmButtonLabel={"Decline"}
+        confirmButtonColor={red[400]}
+        borderColor={red[400]}
+        onConfirm={doDecline}
+        includeReviewerMessage={true}
+        reviewerMessagePlaceholder={
+          "We can not add you right now for the following reasons..."
+        }
+        confirmTitle={"Decline organisation"}
+      />
+      <ConfirmModal
+        isOpen={removeModalIsOpen}
+        toggleModal={toggleRemoveModal}
+        confirmMessage={
+          <>
+            Are you sure you want to remove{" "}
+            <strong>{selectedOrganisation.name}</strong>?
+          </>
+        }
+        confirmButtonLabel={"Remove"}
+        confirmButtonColor={red[400]}
+        borderColor={red[400]}
+        onConfirm={doRemove}
+        includeReviewerMessage={false}
+      />
+    </>
   );
 };
 

@@ -98,7 +98,13 @@ function TableActionDropDown({ actions, actionWidth }) {
                 </StyledHeaderInList>
                 {actions.map((action, index) => {
                   return (
-                    <StyledAction onClick={action.onClick} key={index}>
+                    <StyledAction
+                      onClick={() => {
+                        action.onClick();
+                        toggleDropDown();
+                      }}
+                      key={index}
+                    >
                       <SVGIcon
                         SVGComponent={action.icon}
                         width={"15px"}

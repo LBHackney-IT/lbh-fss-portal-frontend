@@ -18,6 +18,18 @@ const AddOrganisation = () => {
     localUser.organisation.id
   );
 
+  const [showHiddenField, setShowHiddenField] = useState({
+    notBasedInWarning: false,
+    charityNumber: false,
+    RslOrHaAssociation: false,
+    lotteryFundedProject: false,
+    localOfferLink: false,
+    childSafeGuardLead: false,
+    childSafeguardLeadDetails: false,
+    adultSafeguardLead: false,
+    adultSafeguardLeadDetails: false,
+  });
+
   function doCleanFormValues(values) {
     allFields.forEach((field) => {
       if (!(field in values)) {
@@ -68,10 +80,11 @@ const AddOrganisation = () => {
 
   return (
     <>
-      <h1>Tell us about your organisation</h1>
       <OrganisationForm
         onFormCompletion={doAddOrganisation}
         submitLoading={submitIsLoading}
+        showHiddenField={showHiddenField}
+        setShowHiddenField={setShowHiddenField}
       />
     </>
   );

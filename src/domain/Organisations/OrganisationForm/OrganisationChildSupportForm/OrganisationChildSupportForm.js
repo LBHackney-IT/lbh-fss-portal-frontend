@@ -63,7 +63,7 @@ const OrganisationChildSupportForm = ({
         <StyledLeadText>
           Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam
           aliquam bibendum dapibus.
-          <a href="">
+          <a href="" target="_blank">
             Click here to see the statutory guidance and best practice
           </a>
         </StyledLeadText>
@@ -185,6 +185,8 @@ const OrganisationChildSupportForm = ({
                   "November",
                   "December",
                 ]}
+                required
+                error={errors.childSafeguardingLeadTrainingMonth}
               />
             </div>
             <div style={{ marginLeft: "5px", width: "40%" }}>
@@ -193,12 +195,13 @@ const OrganisationChildSupportForm = ({
                 name={"childSafeguardingLeadTrainingYear"}
                 register={register}
                 options={getPreviousYears(30)}
+                required
+                error={errors.childSafeguardingLeadTrainingYear}
               />
             </div>
           </div>
         </>
       ) : null}
-
       <Button type="submit" label="Continue ›" />
     </form>
   );

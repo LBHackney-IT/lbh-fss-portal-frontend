@@ -37,6 +37,13 @@ const FormDropDown = ({ label, name, options, required, error, register }) => {
           );
         })}
       </StyledSelect>
+      {error && error.type === "required" && (
+        <FormError
+          error={`${label} is required`}
+          marginTop="10px"
+          marginBottom="20px"
+        />
+      )}
       {error && error.message && <FormError error={error.message} />}
     </>
   );
