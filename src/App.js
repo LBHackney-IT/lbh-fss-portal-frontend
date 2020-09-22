@@ -5,12 +5,16 @@ import AppMain from "./AppMain";
 import { GlobalStyle } from "./helpers/GlobalStyle/GlobalStyle";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ModalProvider } from "styled-react-modal";
+import { ModalProvider, BaseModalBackground } from "styled-react-modal";
 import { grey } from "./settings";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
   background-color: ${grey[300]};
+`;
+
+const StyledModalBackground = styled(BaseModalBackground)`
+  background-color: #000000cf;
 `;
 
 function App() {
@@ -19,7 +23,7 @@ function App() {
   return (
     <StyledDiv className="App">
       <UserContext.Provider value={userState}>
-        <ModalProvider>
+        <ModalProvider backgroundComponent={StyledModalBackground}>
           <Header />
           <AppMain />
           <ToastContainer />
