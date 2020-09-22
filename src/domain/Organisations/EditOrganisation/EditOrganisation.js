@@ -146,7 +146,7 @@ const EditOrganisation = (props) => {
 
     if (updatedOrganisation) {
       if (updatedOrganisation.status === "rejected") {
-        toast.success(
+        toast.warning(
           `Organisation ${updatedOrganisation.name} has been submitted for review.`
         );
       } else {
@@ -175,7 +175,6 @@ const EditOrganisation = (props) => {
         showHiddenFieldSnapshot={showHiddenFieldSnapshot}
         setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
         submitLoading={submitIsLoading}
-        enableAllLinks={true}
       />
     </>
   );

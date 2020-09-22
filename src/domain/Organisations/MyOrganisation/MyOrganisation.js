@@ -1,14 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../../context/UserContext/UserContext";
+import styled from "styled-components";
 import EmptyOrganisation from "../EmptyOrganisation/EmptyOrganisation";
-import AccessDenied from "../../Error/AccessDenied/AccessDenied";
-import EditOrganisation from "../EditOrganisation/EditOrganisation";
 import { navigate, Redirect } from "@reach/router";
 import OrganisationTable from "../OrganisationTable/OrganisationTable";
 import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
-import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
 import { ReactComponent as RightArrow } from "./icons/right-arrow.svg";
 import { ReactComponent as Trash } from "./icons/trash.svg";
+
+const StyledFeedback = styled.div`
+  background: rgba(190, 58, 52, 0.1);
+  border: 1px solid #be3a34;
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding: 15px;
+  width: 60%;
+  margin: 10px 0 30px 0;
+`;
 
 const MyOrganisation = () => {
   const user = useContext(UserContext)[0];
@@ -32,30 +40,32 @@ const MyOrganisation = () => {
   function doViewOrganisation() {
     navigate(`/organisations/${user.organisation.id}/edit`);
   }
-  function doSubmitForApproval() {
-    alert("submit for approval");
+  function doUpdateOrganisation() {
+    navigate(`/organisations/${user.organisation.id}/edit`);
   }
   function doRemove() {
     alert("remove organisation");
   }
 
-  const actions = [
-    {
-      title: "View organisation",
-      onClick: doViewOrganisation,
-      icon: RightArrow,
-    },
-    {
-      title: "Submit for approval",
-      onClick: doSubmitForApproval,
-      icon: ApproveCircle,
-    },
-    {
-      title: "Remove",
-      onClick: doRemove,
-      icon: Trash,
-    },
-  ];
+  let actions = [];
+
+  if (!organisationFetchIsLoading) {
+    actions = [
+      {
+        title:
+          organisation.status === "rejected"
+            ? "Update organisation"
+            : "View organisation",
+        onClick: doViewOrganisation,
+        icon: RightArrow,
+      },
+      {
+        title: "Remove",
+        onClick: doRemove,
+        icon: Trash,
+      },
+    ];
+  }
 
   const isInternalTeam =
     user.roles.includes("viewer") || user.roles.includes("admin");
@@ -68,13 +78,18 @@ const MyOrganisation = () => {
     return organisationFetchIsLoading ? (
       <div>Loading...</div>
     ) : (
-      <OrganisationTable
-        data={[organisation]}
-        organisationUser={organisationUser}
-        showPagination={false}
-        actions={actions}
-        actionWidth={"200px"}
-      />
+      <>
+        <OrganisationTable
+          data={[organisation]}
+          organisationUser={organisationUser}
+          showPagination={false}
+          actions={actions}
+          actionWidth={"210px"}
+        />
+        {organisation.status === "rejected" && organisation.reviewerMessage ? (
+          <StyledFeedback>{organisation.reviewerMessage}</StyledFeedback>
+        ) : null}
+      </>
     );
   } else {
     return <EmptyOrganisation />;
