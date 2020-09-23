@@ -18,13 +18,13 @@ const StyledSearchContainer = styled.div`
   display: flex;
   height: 50px;
   border-radius: 3px;
-  border: 5px solid white;
+  /* border: 5px solid white; */
   width: 100%;
 `;
 
 const StyledInput = styled.input`
   border: none;
-  width: 90%;
+  width: 80%;
   padding: 5px 10px;
 `;
 
@@ -34,7 +34,7 @@ const StyledButton = styled.button`
   justify-content: flex-end;
   background-color: white;
   border: none;
-  width: 10%;
+  width: 20%;
   padding: 0;
   cursor: pointer;
 `;
@@ -57,7 +57,7 @@ function Search({ setSearch }) {
             ref={register}
           />
           <StyledButton type="submit">
-            <SVGIcon SVGComponent={SearchIcon} top={"0"} />
+            <SVGIcon SVGComponent={SearchIcon} top={"5px"} right={"5px"} />
           </StyledButton>
         </StyledSearchContainer>
       </StyledForm>
