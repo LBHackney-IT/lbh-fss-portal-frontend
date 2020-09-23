@@ -11,6 +11,7 @@ import styled from "styled-components";
 
 const StyledDiv = styled.div`
   background-color: ${grey[300]};
+  min-height: calc(100vh + 1px);
 `;
 
 const StyledModalBackground = styled(BaseModalBackground)`
