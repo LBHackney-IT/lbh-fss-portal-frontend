@@ -18,23 +18,22 @@ const StyledSearchContainer = styled.div`
   display: flex;
   height: 50px;
   border-radius: 3px;
-  /* border: 5px solid white; */
   width: 100%;
 `;
 
 const StyledInput = styled.input`
   border: none;
-  width: 80%;
+  width: 100%;
   padding: 5px 10px;
 `;
 
 const StyledButton = styled.button`
+  width: 60px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   background-color: white;
   border: none;
-  width: 20%;
   padding: 0;
   cursor: pointer;
 `;
