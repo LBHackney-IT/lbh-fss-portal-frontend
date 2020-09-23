@@ -8,9 +8,9 @@ const StyledButton = styled.button`
   display: block;
   margin: ${(props) => props.margin || "0 0 30px 0"};
   color: ${neutral[100]};
-  background-color: ${(props) => (props.color ? props.color : green[400])};
+  background-color: ${(props) => props.color || green[400]};
   border: none;
-  padding: 13px 57px;
+  padding: ${(props) => props.padding || "13px 57px"};
   font-size: 19px;
   border-bottom: 2px solid black;
   cursor: pointer;
@@ -29,6 +29,7 @@ const Button = ({
   className,
   color,
   margin,
+  padding,
 }) => {
   return (
     <>
@@ -39,6 +40,7 @@ const Button = ({
         className={className}
         color={color}
         margin={margin}
+        padding={padding}
       >
         {label}
       </StyledButton>
