@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import ServiceFormNav from "./ServiceFormNav/ServiceFormNav";
 import DigitalGuideInfo from "../DigitalGuideInfo/DigitalGuideInfo";
 import ServiceDetailsForm from "./ServiceDetailsForm/ServiceDetailsForm";
 import ServiceLocationsForm from "./ServiceLocationsForm/ServiceLocationsForm";
@@ -35,9 +34,6 @@ const StyledServiceForm = styled.div`
 
 const StyledServiceFormAside = styled.div`
   width: 100%;
-  ${breakpoint("sm")`
-    width: 85%;
-  `};
   ${breakpoint("md")`
       width: 40%;
       margin: 0 20px 20px 0;
@@ -160,7 +156,7 @@ const ServiceForm = ({
         return (
           <ServiceImageForm
             defaultValues={draftService}
-            onSubmit={() => moveToNextStep()}
+            onSubmit={moveToNextStep}
             submitLoading={submitLoading}
           />
         );

@@ -138,8 +138,6 @@ const ServiceCategoriesForm = ({
 
   const pageQuestionNames = serviceCategoryFields;
 
-
-
   return (
     <form
       onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}

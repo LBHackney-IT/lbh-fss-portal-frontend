@@ -40,24 +40,24 @@ const ServiceCategoriesForm = ({
   }
 
   function doAddImage(picture) {
-    console.log(picture);
-    setImage({ file: URL.createObjectURL(picture[0]) });
-    console.log("Add image");
+    const data = new FormData();
+    data.append("file", picture[0]);
+
+    // TODO: check with martin how image should be sent to backend
+
+    setImage({ file: data, preview: URL.createObjectURL(picture[0]) });
   }
-
-  console.log(image);
-
   return (
-    <form onSubmit={handleSubmit(() => onSubmit(image))}>
+    <form onSubmit={handleSubmit(() => onSubmit({ image: image.file }))}>
       <FormFieldset label="Add an image">
         <p>
           Upload a picture to show residents what you do. This will be displayed
           on your listing.
         </p>
-        {image.file ? (
+        {image.preview ? (
           <>
             <div>
-              <StyledImage src={image.file} />{" "}
+              <StyledImage src={image.preview} />{" "}
             </div>
             <Button
               onClick={(e) => doRemoveImage(e)}
@@ -93,7 +93,7 @@ const ServiceCategoriesForm = ({
             }}
           />
         )}
-        {!image.file ? (
+        {!image.preview ? (
           <StyledHelp>
             Files supported: JPG, JPEG or PNG <br />
             Max file size: tbc mb
