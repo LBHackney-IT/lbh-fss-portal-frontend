@@ -70,9 +70,11 @@ const ListOrganisations = ({ location }) => {
 
       if (users) {
         Object.keys(users).forEach((key) => {
-          const organisationId = users[key].organisation.id;
-          const userName = users[key].name;
-          organisationUserObject[organisationId] = userName;
+          if (users[key].organisation) {
+            const organisationId = users[key].organisation.id;
+            const userName = users[key].name;
+            organisationUserObject[organisationId] = userName;
+          }
         });
 
         setOrganisationUser(organisationUserObject);

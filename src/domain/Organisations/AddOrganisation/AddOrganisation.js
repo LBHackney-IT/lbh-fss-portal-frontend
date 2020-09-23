@@ -3,8 +3,8 @@ import OrganisationForm from "../OrganisationForm/OrganisationForm";
 import OrganisationService from "../../../services/OrganisationService/OrganisationService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
-import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
-import UserContext from "../../../context/UserContext/UserContext";
+// import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
+// import UserContext from "../../../context/UserContext/UserContext";
 import { convertYesNoToBoolean } from "../../../utils/functions/functions";
 import {
   organisationFormFields as allFields,
@@ -13,10 +13,10 @@ import {
 
 const AddOrganisation = () => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
-  const localUser = useContext(UserContext)[0];
-  const { organisation, isLoading: fetchIsLoading } = useOrganisationFetch(
-    localUser.organisation.id
-  );
+  // const localUser = useContext(UserContext)[0];
+  // const { organisation, isLoading: fetchIsLoading } = useOrganisationFetch(
+  //   localUser.organisation.id
+  // );
 
   const [showHiddenField, setShowHiddenField] = useState({
     notBasedInWarning: false,
@@ -43,6 +43,15 @@ const AddOrganisation = () => {
       }
     });
 
+    // TODO: agree these with martin
+    values.id = "";
+    values.createdAt = new Date();
+    values.updatedAt = "";
+    values.submittedAt = new Date();
+    values.reviewedAt = "";
+    values.reviewerMessage = "";
+    values.status = "awaiting review";
+
     return values;
   }
 
@@ -51,16 +60,10 @@ const AddOrganisation = () => {
 
     const cleanedFormValues = doCleanFormValues(formValues);
 
-    Object.keys(organisation).forEach(function (key) {
-      if (typeof cleanedFormValues[key] !== "undefined") {
-        organisation[key] = cleanedFormValues[key];
-      }
-    });
-
     setSubmitIsLoading(true);
 
     const addedOrganisation = await OrganisationService.createOrganisation(
-      organisation
+      cleanedFormValues
     );
 
     setSubmitIsLoading(false);
@@ -74,7 +77,7 @@ const AddOrganisation = () => {
     }
   }
 
-  if (fetchIsLoading || submitIsLoading) {
+  if (submitIsLoading) {
     return <span>Loading</span>;
   }
 
