@@ -5,6 +5,39 @@ import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
 import useServiceFetch from "../../../hooks/useServiceFetch/useServiceFetch";
 import UserContext from "../../../context/UserContext/UserContext";
+import { serviceCategoryFields } from "../../../utils/data/data";
+
+function doFormatCategories(values) {
+  let formattedValues = values;
+  let categoryArray = [];
+
+  serviceCategoryFields.forEach((categoryField) => {
+    if (values[categoryField] && categoryField.search("Details") === -1) {
+      categoryArray.push(categoryField);
+    }
+    delete formattedValues[categoryField];
+  });
+
+  let formattedCategories = [];
+
+  categoryArray.forEach((category) => {
+    formattedCategories.push({
+      id: category,
+      description: values[category.concat("Details")] || "",
+    });
+  });
+
+  formattedValues.categories = formattedCategories;
+
+  return formattedValues;
+}
+
+function doCleanFormValues(values) {
+  let cleanFormValues = {};
+  cleanFormValues = doFormatCategories(values);
+
+  return cleanFormValues;
+}
 
 const AddService = () => {
   const localUser = useContext(UserContext)[0];
@@ -20,9 +53,11 @@ const AddService = () => {
   async function doAddService(formValues) {
     if (submitIsLoading) return;
 
+    const cleanFormValues = doCleanFormValues(formValues);
+
     setSubmitIsLoading(true);
 
-    const service = await ServiceService.createService(formValues);
+    const service = await ServiceService.createService(cleanFormValues);
 
     setSubmitIsLoading(false);
 

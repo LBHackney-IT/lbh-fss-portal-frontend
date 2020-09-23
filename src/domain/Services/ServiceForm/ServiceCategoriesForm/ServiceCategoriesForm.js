@@ -6,6 +6,7 @@ import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import FormInput from "../../../../components/FormInput/FormInput";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
+import { serviceCategoryFields } from "../../../../utils/data/data";
 
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
@@ -135,22 +136,9 @@ const ServiceCategoriesForm = ({
     },
   ];
 
-  const pageQuestionNames = [
-    "lonOrIs",
-    "lonOrIsDetails",
-    "anxOrMH",
-    "safeAndHB",
-    "exAndWell",
-    "exAndWellDetails",
-    "artAndCrtv",
-    "foodOrShop",
-    "faithAct",
-    "monAdv",
-    "emplAdv",
-    "houseAdv",
-    "houseAdvDetails",
-    "immAdv",
-  ];
+  const pageQuestionNames = serviceCategoryFields;
+
+
 
   return (
     <form

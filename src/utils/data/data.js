@@ -34,4 +34,25 @@ const organisationFormYesNoRadioFields = [
   "hasAdultSafeguardingLead",
 ];
 
-export { organisationFormFields, organisationFormYesNoRadioFields };
+const serviceCategoryFields = [
+  "lonOrIs",
+  "lonOrIsDetails",
+  "anxOrMH",
+  "safeAndHB",
+  "exAndWell",
+  "exAndWellDetails",
+  "artAndCrtv",
+  "foodOrShop",
+  "faithAct",
+  "monAdv",
+  "emplAdv",
+  "houseAdv",
+  "houseAdvDetails",
+  "immAdv",
+];
+
+export {
+  organisationFormFields,
+  organisationFormYesNoRadioFields,
+  serviceCategoryFields,
+};
