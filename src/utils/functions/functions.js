@@ -20,7 +20,7 @@ function getPreviousYears(numberOfYears) {
 }
 
 function convertStepNumToWord(stepNum) {
-  const words = ["One", "Two", "Three", "Four"];
+  const words = ["One", "Two", "Three", "Four", "Five"];
   return words[stepNum];
 }
 

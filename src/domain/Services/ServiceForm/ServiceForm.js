@@ -60,7 +60,7 @@ const ServiceForm = ({
   showHiddenField,
   setShowHiddenField,
   // initialStepId = "details",
-  initialStepId = "demographics",
+  initialStepId = "image",
   submitLoading = false,
 }) => {
   const stepArray = [
@@ -68,7 +68,7 @@ const ServiceForm = ({
     { id: "locations", label: "Service location(s)" },
     { id: "categories", label: "Services you provide" },
     { id: "demographics", label: "Who you work with" },
-    { id: "image", label: "Service picture" },
+    { id: "image", label: "Service image" },
   ];
 
   const [showHiddenFieldSnapshot, setShowHiddenFieldSnapshot] = useState(
@@ -185,7 +185,12 @@ const ServiceForm = ({
           />
           <DigitalGuideInfo />
         </StyledServiceFormAside>
-        <RaisedCard backgroundColor="white" width="60%">
+        <RaisedCard
+          backgroundColor="white"
+          widthMedium="60%"
+          widthMobile="100%"
+          margin="0 0 40px 0"
+        >
           <StyledServiceFormMain ref={mainRef}>
             {renderStepSwitch()}
           </StyledServiceFormMain>
