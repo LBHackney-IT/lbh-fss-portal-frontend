@@ -51,8 +51,21 @@ const serviceCategoryFields = [
   "immAdv",
 ];
 
+const serviceDemographicsFields = [
+  "disbOrAut",
+  "men",
+  "women",
+  "lgbtqi",
+  "chilYoungFam",
+  "oldPe",
+  "carers",
+  "cultural",
+  "everyone",
+];
+
 export {
   organisationFormFields,
   organisationFormYesNoRadioFields,
   serviceCategoryFields,
+  serviceDemographicsFields,
 };

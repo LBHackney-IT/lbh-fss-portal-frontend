@@ -21,9 +21,6 @@ const StyledStepText = styled.p`
 const StyledServiceFormMain = styled.div`
   width: 90%;
   margin: 20px;
-  ${breakpoint("sm")`
-    width: 60%;
-  `};
 `;
 
 const StyledServiceForm = styled.div`
@@ -63,7 +60,7 @@ const ServiceForm = ({
   showHiddenField,
   setShowHiddenField,
   // initialStepId = "details",
-  initialStepId = "categories",
+  initialStepId = "demographics",
   submitLoading = false,
 }) => {
   const stepArray = [
@@ -188,7 +185,7 @@ const ServiceForm = ({
           />
           <DigitalGuideInfo />
         </StyledServiceFormAside>
-        <RaisedCard backgroundColor="white">
+        <RaisedCard backgroundColor="white" width="60%">
           <StyledServiceFormMain ref={mainRef}>
             {renderStepSwitch()}
           </StyledServiceFormMain>

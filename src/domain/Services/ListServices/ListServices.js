@@ -7,7 +7,6 @@ const ListServices = () => {
     <>
       <h1>Services</h1>
       <ButtonLink label="Add service" to="/services/add" />
-      <DigitalGuideInfo />
     </>
   );
 };

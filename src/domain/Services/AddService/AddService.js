@@ -5,10 +5,29 @@ import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
 import useServiceFetch from "../../../hooks/useServiceFetch/useServiceFetch";
 import UserContext from "../../../context/UserContext/UserContext";
-import { serviceCategoryFields } from "../../../utils/data/data";
+import {
+  serviceCategoryFields,
+  serviceDemographicsFields,
+} from "../../../utils/data/data";
+
+function doFormatDemographics(values) {
+  let formattedValues = values;
+  let demographicsArray = [];
+
+  serviceDemographicsFields.forEach((demographicField) => {
+    if (values[demographicField]) {
+      demographicsArray.push(values[demographicField]);
+    }
+    delete formattedValues[demographicField];
+  });
+
+  formattedValues.demographics = demographicsArray;
+
+  return formattedValues;
+}
 
 function doFormatCategories(values) {
-  let formattedValues = values;
+  let formattedValues = { ...values };
   let categoryArray = [];
 
   serviceCategoryFields.forEach((categoryField) => {
@@ -22,7 +41,7 @@ function doFormatCategories(values) {
 
   categoryArray.forEach((category) => {
     formattedCategories.push({
-      id: category,
+      id: values[category],
       description: values[category.concat("Details")] || "",
     });
   });
@@ -35,6 +54,7 @@ function doFormatCategories(values) {
 function doCleanFormValues(values) {
   let cleanFormValues = {};
   cleanFormValues = doFormatCategories(values);
+  cleanFormValues = doFormatDemographics(cleanFormValues);
 
   return cleanFormValues;
 }
@@ -69,8 +89,6 @@ const AddService = () => {
       toast.error("Unable to add service.");
     }
   }
-
-  //
 
   return (
     <>

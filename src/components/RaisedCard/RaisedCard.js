@@ -9,11 +9,16 @@ const StyledDiv = styled.div`
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
   border-radius: 3px;
   background-color: ${(props) => props.backgroundColor || grey[300]};
+  width: ${(props) => props.width || "100%"};
 `;
 
-const RaisedCard = ({ children, backgroundColor, padding }) => {
+const RaisedCard = ({ children, backgroundColor, padding, width }) => {
   return (
-    <StyledDiv backgroundColor={backgroundColor} padding={padding}>
+    <StyledDiv
+      backgroundColor={backgroundColor}
+      padding={padding}
+      width={width}
+    >
       {children}
     </StyledDiv>
   );
