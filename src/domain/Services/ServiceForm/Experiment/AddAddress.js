@@ -34,8 +34,10 @@ const StyledUprnText = styled.p`
 
 const ServiceLocationsForm = ({
   defaultValues = {},
-  setAddressCounter,
-  addressCounter,
+  setSelectedAddressArray,
+  selectedAddressArray,
+  // setAddressCounter,
+  // addressCounter,
 }) => {
   const [selectedPostcodeValue, setSelectedPostcodeValue] = useState("");
   const [selectedAddressValue, setSelectedAddressValue] = useState("");
@@ -80,9 +82,6 @@ const ServiceLocationsForm = ({
         },
       ],
     };
-    // setAddressesIsLoading(true);
-
-    console.log("data");
 
     if (data) {
       data.addresses.forEach((address) => {
@@ -104,6 +103,8 @@ const ServiceLocationsForm = ({
     setSelectedPostcodeValue("");
   }
 
+  console.log(selectedAddressArray);
+
   return !selectedPostcodeValue ? (
     <form
       onSubmit={handleSubmit(() => {
@@ -111,7 +112,7 @@ const ServiceLocationsForm = ({
 
         setSelectedPostcodeValue(postcode);
 
-        doFindAddress(setAddresses, addressesIsLoading, trigger);
+        doFindAddress();
         return true;
       })}
     >
@@ -136,6 +137,10 @@ const ServiceLocationsForm = ({
   ) : (
     <form
       onSubmit={handleSubmit(() => {
+        let selectedAddress = { ...addresses[getValues().address] };
+        delete selectedAddress.formattedAddress;
+        selectedAddressArray.push(selectedAddress);
+        setSelectedAddressArray(selectedAddressArray);
         return true;
       })}
     >

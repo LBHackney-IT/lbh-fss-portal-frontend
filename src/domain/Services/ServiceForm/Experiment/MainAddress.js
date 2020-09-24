@@ -41,7 +41,6 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
   const { handleSubmit } = useForm({
     defaultValues,
   });
-
   return (
     <>
       <FormFieldset
@@ -52,6 +51,8 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
         return (
           <AddAddress
             key={item}
+            setSelectedAddressArray={setSelectedAddressArray}
+            selectedAddressArray={selectedAddressArray}
             setAddressCounter={setAddressCounter}
             addressCounter={addressCounter}
           />
