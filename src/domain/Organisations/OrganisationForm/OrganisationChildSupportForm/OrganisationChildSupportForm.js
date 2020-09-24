@@ -152,14 +152,14 @@ const OrganisationChildSupportForm = ({
             label={"First name"}
             name={"childSafeguardingLeadFirstName"}
             register={register}
-            required
+            maxLength={255}
             error={errors.childSafeguardingLeadFirstName}
           />
           <FormInput
             label={"Last name"}
             name={"childSafeguardingLeadLastName"}
             register={register}
-            required
+            maxLength={255}
             error={errors.childSafeguardingLeadLastName}
           />
           <StyledQuestion>
@@ -185,8 +185,6 @@ const OrganisationChildSupportForm = ({
                   "November",
                   "December",
                 ]}
-                required
-                error={errors.childSafeguardingLeadTrainingMonth}
               />
             </div>
             <div style={{ marginLeft: "5px", width: "40%" }}>
@@ -195,8 +193,6 @@ const OrganisationChildSupportForm = ({
                 name={"childSafeguardingLeadTrainingYear"}
                 register={register}
                 options={getPreviousYears(30)}
-                required
-                error={errors.childSafeguardingLeadTrainingYear}
               />
             </div>
           </div>
