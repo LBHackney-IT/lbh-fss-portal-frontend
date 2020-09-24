@@ -41,21 +41,28 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
   const { handleSubmit } = useForm({
     defaultValues,
   });
+
+  let i = 0;
+
   return (
     <>
       <FormFieldset
         label="Service location(s)"
         help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ"
       ></FormFieldset>
-      {["a", "b", "c"].map((item) => {
+
+      {[...Array(selectedAddressArray.length + 1)].map(() => {
+        i++;
         return (
-          <AddAddress
-            key={item}
-            setSelectedAddressArray={setSelectedAddressArray}
-            selectedAddressArray={selectedAddressArray}
-            setAddressCounter={setAddressCounter}
-            addressCounter={addressCounter}
-          />
+          <div key={i}>
+            <AddAddress
+              index={i}
+              setSelectedAddressArray={setSelectedAddressArray}
+              selectedAddressArray={selectedAddressArray}
+              setAddressCounter={setAddressCounter}
+              addressCounter={addressCounter}
+            />
+          </div>
         );
       })}
 

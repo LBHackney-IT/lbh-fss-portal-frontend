@@ -33,6 +33,7 @@ const StyledUprnText = styled.p`
 `;
 
 const ServiceLocationsForm = ({
+  index,
   defaultValues = {},
   setSelectedAddressArray,
   selectedAddressArray,
@@ -103,8 +104,6 @@ const ServiceLocationsForm = ({
     setSelectedPostcodeValue("");
   }
 
-  console.log(selectedAddressArray);
-
   return !selectedPostcodeValue ? (
     <form
       onSubmit={handleSubmit(() => {
@@ -137,10 +136,9 @@ const ServiceLocationsForm = ({
   ) : (
     <form
       onSubmit={handleSubmit(() => {
-        let selectedAddress = { ...addresses[getValues().address] };
-        delete selectedAddress.formattedAddress;
-        selectedAddressArray.push(selectedAddress);
-        setSelectedAddressArray(selectedAddressArray);
+        setSelectedAddressArray(
+          selectedAddressArray.concat(addresses[getValues().address])
+        );
         return true;
       })}
     >
@@ -167,7 +165,11 @@ const ServiceLocationsForm = ({
           UPRN: {addresses[watch("address")].uprn}
         </StyledUprnText>
       ) : null}
-      <Button label="Add another location" margin="30px 0 10px 0" />
+      {index > selectedAddressArray.length ? (
+        <Button label="Add another location" margin="30px 0 10px 0" />
+      ) : (
+        <hr />
+      )}
     </form>
   );
 };
