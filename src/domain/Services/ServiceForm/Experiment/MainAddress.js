@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
 import FormDropDown from "../../../../components/FormDropDown/FormDropDown";
@@ -36,19 +36,24 @@ const StyledUprnText = styled.p`
 const MainAddress = ({ onSubmit, defaultValues = {} }) => {
   const [selectedAddressArray, setSelectedAddressArray] = useState([]);
 
+  const [addressCounter, setAddressCounter] = useState(1);
+
   const { handleSubmit } = useForm({
     defaultValues,
   });
 
-  let i = 0;
+  const addressFormRef = useRef(null);
 
+  let i = -1;
+  console.log("addressCounter");
+  console.log(addressCounter);
   return (
     <>
       <FormFieldset
         label="Service location(s)"
         help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ"
       ></FormFieldset>
-      {[...Array(selectedAddressArray.length + 1)].map(() => {
+      {[...Array(addressCounter)].map(() => {
         i++;
         return (
           <div key={i}>
@@ -56,6 +61,8 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
               index={i}
               setSelectedAddressArray={setSelectedAddressArray}
               selectedAddressArray={selectedAddressArray}
+              addressCounter={addressCounter}
+              setAddressCounter={setAddressCounter}
             />
           </div>
         );
@@ -63,6 +70,7 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
 
       <form
         onSubmit={handleSubmit(() => {
+          // TODO: add condition && doesnt contain ''
           if (selectedAddressArray.length > 0) {
             onSubmit(selectedAddressArray);
           } else {

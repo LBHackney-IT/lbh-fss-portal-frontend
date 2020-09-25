@@ -49,19 +49,23 @@ function addFormattedAddress(data) {
   return data.addresses;
 }
 
+const AddAnotherLocation = ({}) => {
+  
+}
+
 const ServiceLocationsForm = ({
   index,
   defaultValues = {},
   setSelectedAddressArray,
   selectedAddressArray,
+  addressCounter,
+  setAddressCounter,
 }) => {
   const [selectedPostcodeValue, setSelectedPostcodeValue] = useState("");
   const [selectedAddressValue, setSelectedAddressValue] = useState("");
-
+  const [removePostcode, setRemovePostcode] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [addressesIsLoading, setAddressesIsLoading] = useState(false);
-
-  const [removePostcode, setRemovePostcode] = useState(false);
 
   const { register, handleSubmit, errors, getValues, watch, trigger } = useForm(
     {
@@ -98,6 +102,17 @@ const ServiceLocationsForm = ({
           postalCode: "BS1 6NP",
           country: "United Kindgom",
         },
+        {
+          latitude: 51.819865,
+          longitude: -0.148092,
+          uprn: "200001025760",
+          address1: "Ashley Street",
+          address2: "",
+          city: "Bristol",
+          stateProvince: "Bristol",
+          postalCode: "BS1 6NA",
+          country: "United Kindgom",
+        },
       ],
     };
 
@@ -110,15 +125,57 @@ const ServiceLocationsForm = ({
     }
   }
 
-  function doUnsetPostcode() {
+  function doChangePostcode() {
+    const updatedSelectedAddressArray = [...selectedAddressArray];
+    updatedSelectedAddressArray[index] = "";
+
+    setSelectedAddressArray(updatedSelectedAddressArray);
+
     setSelectedPostcodeValue("");
   }
 
   function doRemovePostcode() {
+    const updatedSelectedAddressArray = [...selectedAddressArray];
+    updatedSelectedAddressArray[index] = "";
+
+    setSelectedAddressArray(updatedSelectedAddressArray);
+
+    setSelectedPostcodeValue("");
     setRemovePostcode(true);
   }
 
-  if (removePostcode) return null;
+  function onDropDownChange() {
+    const address = getValues().address;
+    setSelectedAddressValue(address);
+
+    const updatedSelectedAddressArray = [...selectedAddressArray];
+    updatedSelectedAddressArray[index] = address;
+
+    setSelectedAddressArray(updatedSelectedAddressArray);
+  }
+
+  if (removePostcode)
+    return (
+      <form
+        onSubmit={handleSubmit(() => {
+          setAddressCounter((addressCounter) => addressCounter + 1);
+          return true;
+        })}
+      >
+        {index + 1 === addressCounter ? (
+          <>
+            <Button
+              label={`Add another location ${index}`}
+              margin="60px 0 10px 0"
+              backgroundColor="white"
+              color={green[400]}
+              border={`1px solid ${green[400]}`}
+              padding="13px 9px"
+            />
+          </>
+        ) : null}
+      </form>
+    );
 
   return !selectedPostcodeValue ? (
     <form
@@ -128,11 +185,12 @@ const ServiceLocationsForm = ({
         setSelectedPostcodeValue(postcode);
 
         doFindAddress();
+
         return true;
       })}
-      style={{ margin: index > 1 ? "40px 0 60px 0" : "0 0 60px 0" }}
+      style={{ margin: index > 0 ? "40px 0 60px 0" : "0 0 60px 0" }}
     >
-      {index > 1 ? <StyledHr /> : null}
+      {index > 0 ? <StyledHr /> : null}
       <FormInput
         name="postcode"
         type="text"
@@ -150,22 +208,22 @@ const ServiceLocationsForm = ({
         required
       />
       <Button type="submit" label="Find address" padding="13px 47px" />
+      //
     </form>
   ) : (
     <form
       onSubmit={handleSubmit(() => {
-        setSelectedAddressArray(
-          selectedAddressArray.concat(addresses[getValues().address])
-        );
+        setSelectedAddressValue(getValues().address);
+        setAddressCounter((addressCounter) => addressCounter + 1);
         return true;
       })}
     >
-      {index > 1 ? <StyledHr /> : null}
+      {index > 0 ? <StyledHr /> : null}
       <StyledHighlightedText>Postcode</StyledHighlightedText>
       <div style={{ display: "flex", marginBottom: "20px" }}>
         <StyledPostcodeText>{selectedPostcodeValue}</StyledPostcodeText>
-        <StyledClickText onClick={doUnsetPostcode}>Change</StyledClickText>
-        {index > 1 ? (
+        <StyledClickText onClick={doChangePostcode}>Change</StyledClickText>
+        {index > 0 ? (
           <StyledClickText onClick={doRemovePostcode}>Remove</StyledClickText>
         ) : null}
       </div>
@@ -174,6 +232,7 @@ const ServiceLocationsForm = ({
         name={"address"}
         register={register}
         required
+        onChange={onDropDownChange}
         options={Object.keys(addresses).map((key) => {
           return addresses[key].formattedAddress;
         })}
@@ -187,10 +246,10 @@ const ServiceLocationsForm = ({
           UPRN: {addresses[watch("address")].uprn}
         </StyledUprnText>
       ) : null}
-      {index > selectedAddressArray.length ? (
+      {index + 1 === addressCounter ? (
         <>
           <Button
-            label="Add another location"
+            label={`Add another location ${index}`}
             margin="60px 0 10px 0"
             backgroundColor="white"
             color={green[400]}
