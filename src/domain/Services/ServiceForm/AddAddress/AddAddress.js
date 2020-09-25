@@ -56,15 +56,13 @@ const ServiceLocationsForm = ({
   setErrorMessage,
 }) => {
   const [selectedPostcodeValue, setSelectedPostcodeValue] = useState("");
-  const [removePostcode, setRemovePostcode] = useState(false);
+  const [postcodeHasBeenRemoved, setPostcodeHasBeenRemoved] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [addressesIsLoading, setAddressesIsLoading] = useState(false);
 
-  const { register, handleSubmit, errors, getValues, watch, trigger } = useForm(
-    {
-      defaultValues,
-    }
-  );
+  const { register, handleSubmit, errors, getValues, watch } = useForm({
+    defaultValues,
+  });
 
   async function doFindAddress(postcode) {
     if (addressesIsLoading) return;
@@ -100,7 +98,7 @@ const ServiceLocationsForm = ({
     setSelectedAddressArray(updatedSelectedAddressArray);
 
     setSelectedPostcodeValue("");
-    setRemovePostcode(true);
+    setPostcodeHasBeenRemoved(true);
   }
 
   function onDropDownChange() {
@@ -110,22 +108,21 @@ const ServiceLocationsForm = ({
     setSelectedAddressArray(updatedSelectedAddressArray);
   }
 
+  function doAddAnotherLocation() {
+    setAddressCounter((addressCounter) => addressCounter + 1);
+  }
+
   if (addressesIsLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (removePostcode)
+  if (postcodeHasBeenRemoved)
     return (
-      <form
-        onSubmit={handleSubmit(() => {
-          setAddressCounter((addressCounter) => addressCounter + 1);
-          return true;
-        })}
-      >
+      <form onSubmit={handleSubmit(doAddAnotherLocation)}>
         {index + 1 === addressCounter ? (
           <>
             <Button
-              label={`Add another location ${index}`}
+              label="Add another location"
               margin="60px 0 10px 0"
               backgroundColor="white"
               color={green[400]}
@@ -171,12 +168,7 @@ const ServiceLocationsForm = ({
       <Button type="submit" label="Find address" padding="13px 47px" />
     </form>
   ) : (
-    <form
-      onSubmit={handleSubmit(() => {
-        setAddressCounter((addressCounter) => addressCounter + 1);
-        return true;
-      })}
-    >
+    <form onSubmit={handleSubmit(doAddAnotherLocation)}>
       {index > 0 ? <StyledHr /> : null}
       <StyledHighlightedText>Postcode</StyledHighlightedText>
       <div style={{ display: "flex", marginBottom: "20px" }}>
@@ -206,7 +198,7 @@ const ServiceLocationsForm = ({
       {index + 1 === addressCounter ? (
         <>
           <Button
-            label={`Add another location ${index}`}
+            label="Add another location"
             margin="60px 0 10px 0"
             backgroundColor="white"
             color={green[400]}

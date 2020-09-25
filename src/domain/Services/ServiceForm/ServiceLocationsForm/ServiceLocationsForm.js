@@ -9,7 +9,6 @@ import { arrayOfObjhasDuplicates } from "../../../../utils/functions/functions";
 const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
   const [selectedAddressArray, setSelectedAddressArray] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-
   const [addressCounter, setAddressCounter] = useState(1);
 
   const { handleSubmit } = useForm({
