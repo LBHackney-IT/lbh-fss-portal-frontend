@@ -49,10 +49,6 @@ function addFormattedAddress(data) {
   return data.addresses;
 }
 
-const AddAnotherLocation = ({}) => {
-  
-}
-
 const ServiceLocationsForm = ({
   index,
   defaultValues = {},
