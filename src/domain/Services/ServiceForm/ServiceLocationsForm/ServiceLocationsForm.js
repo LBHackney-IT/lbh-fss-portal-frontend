@@ -1,190 +1,89 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
-import FormDropDown from "../../../../components/FormDropDown/FormDropDown";
-import { useForm } from "react-hook-form";
-import FormInput from "../../../../components/FormInput/FormInput";
-import { postcodeValidator } from "postcode-validator";
-import { toast } from "react-toastify";
-import styled from "styled-components";
-import { keyBy } from "lodash";
-import MainAddress from "../Experiment/MainAddress";
-
-const StyledHighlightedText = styled.p`
-  font-size: 19px;
-  font-weight: bold;
-  margin: 0;
-`;
-
-const StyledPostcodeText = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-  margin: 5px 10px 5px 0;
-`;
-
-const StyledClickText = styled.a`
-  display: block;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 5px 0;
-`;
-
-const StyledUprnText = styled.p`
-  //
-`;
+import AddAddress from "../AddAddress/AddAddress";
+import FormError from "../../../../components/FormError/FormError";
+import { arrayOfObjhasDuplicates } from "../../../../utils/functions/functions";
 
 const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
-  return <MainAddress onSubmit={onSubmit} />;
-  // const [addresses, setAddresses] = useState([]);
-  // const [addressesIsLoading, setAddressesIsLoading] = useState(false);
+  const [selectedAddressArray, setSelectedAddressArray] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // const [selectedPostcodeValue, setSelectedPostcodeValue] = useState("");
-  // const [selectedAddressValue, setSelectedAddressValue] = useState("");
+  const [addressCounter, setAddressCounter] = useState(1);
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   errors,
-  //   getValues,
-  //   setValue,
-  //   watch,
-  //   trigger,
-  // } = useForm({
-  //   defaultValues,
-  // });
+  const { handleSubmit } = useForm({
+    defaultValues,
+  });
 
-  // async function doFindAddress() {
-  //   if (addressesIsLoading) return;
+  useEffect(() => {
+    setErrorMessage("");
+  }, [selectedAddressArray, setErrorMessage]);
 
-  //   const passValidation = await trigger();
-  //   if (!passValidation) return;
+  let i = -1;
 
-  //   setSelectedPostcodeValue(getValues().postcode.toUpperCase());
+  return (
+    <>
+      <FormFieldset
+        label="Service location(s)"
+        help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ"
+      ></FormFieldset>
+      {[...Array(addressCounter)].map(() => {
+        i++;
+        return (
+          <div key={i}>
+            <AddAddress
+              index={i}
+              setSelectedAddressArray={setSelectedAddressArray}
+              selectedAddressArray={selectedAddressArray}
+              addressCounter={addressCounter}
+              setAddressCounter={setAddressCounter}
+              setErrorMessage={setErrorMessage}
+            />
+          </div>
+        );
+      })}
 
-  //   setAddressesIsLoading(true);
-  //   // replace with call to api
-  //   const data = {
-  //     addresses: [
-  //       {
-  //         latitude: 51.509865,
-  //         longitude: -0.118092,
-  //         uprn: "200001025758",
-  //         address1: "Desklodge House",
-  //         address2: "Redcliffe Way",
-  //         city: "Bristol",
-  //         stateProvince: "Bristol",
-  //         postalCode: "BS1 6NL",
-  //         country: "United Kindgom",
-  //       },
-  //       {
-  //         latitude: 51.809865,
-  //         longitude: -0.198092,
-  //         uprn: "200001025759",
-  //         address1: "St Mary",
-  //         address2: "Redcliffe Avenue",
-  //         city: "Bristol",
-  //         stateProvince: "Bristol",
-  //         postalCode: "BS1 6NP",
-  //         country: "United Kindgom",
-  //       },
-  //     ],
-  //   };
-  //   setAddressesIsLoading(true);
+      <form
+        onSubmit={handleSubmit(() => {
+          if (
+            Object.keys(selectedAddressArray).length === 0 ||
+            JSON.stringify([...selectedAddressArray]) === JSON.stringify([{}])
+          ) {
+            setErrorMessage("Please enter a location");
+            return;
+          }
 
-  //   if (data) {
-  //     data.addresses.forEach((address) => {
-  //       address["formattedAddress"] = address.address1.concat(
-  //         ", ",
-  //         address.city,
-  //         ", ",
-  //         address.postalCode
-  //       );
-  //     });
+          if (arrayOfObjhasDuplicates(selectedAddressArray)) {
+            setErrorMessage("Duplicate addresses selected");
+            return;
+          }
 
-  //     setAddresses(keyBy(data.addresses, "formattedAddress"));
-  //   } else {
-  //     toast.error("Postcode could not be found.");
-  //   }
-  // }
+          if (selectedAddressArray.includes(undefined)) {
+            return;
+          }
 
-  // function doUnsetPostcode() {
-  //   setSelectedPostcodeValue("");
-  // }
+          let cleanSelectedAddressArray = [];
 
-  // return (
-  //   <form
-  //     onSubmit={handleSubmit(() => {
-  //       console.log(getValues());
-  //       if (selectedAddressValue) {
-  //         onSubmit(selectedAddressValue);
-  //       } else {
-  //         return;
-  //       }
-  //     })}
-  //   >
-  //     <FormFieldset
-  //       label="Service location(s)"
-  //       help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ"
-  //     ></FormFieldset>
-  //     {!selectedPostcodeValue ? (
-  //       <>
-  //         <FormInput
-  //           name="postcode"
-  //           type="text"
-  //           label="Postcode"
-  //           register={register}
-  //           validate={{
-  //             pattern: (value) => {
-  //               // return true;
-  //               return (
-  //                 postcodeValidator(value, "UK") ||
-  //                 "Please enter a valid postcode"
-  //               );
-  //             },
-  //           }}
-  //           error={errors.postcode}
-  //           required
-  //         />
-  //         <Button
-  //           type="submit"
-  //           onClick={doFindAddress}
-  //           label="Find address"
-  //           padding="13px 47px"
-  //         />
-  //       </>
-  //     ) : (
-  //       <>
-  //         <StyledHighlightedText>Postcode selected</StyledHighlightedText>
-  //         <div style={{ display: "flex", marginBottom: "20px" }}>
-  //           <StyledPostcodeText>{selectedPostcodeValue}</StyledPostcodeText>
-  //           <StyledClickText onClick={doUnsetPostcode}>Change</StyledClickText>
-  //         </div>
-  //         <FormDropDown
-  //           label={"Select an address"}
-  //           name={"address"}
-  //           register={register}
-  //           required
-  //           options={Object.keys(addresses).map((key) => {
-  //             return addresses[key].formattedAddress;
-  //           })}
-  //           error={errors.address}
-  //         />
-  //         <a href="" target="_blank">
-  //           I can't find my address in the list
-  //         </a>
-  //         {watch("address") ? (
-  //           <StyledUprnText>
-  //             UPRN: {addresses[watch("address")].uprn}
-  //           </StyledUprnText>
-  //         ) : null}
-  //         <Button label="Add another location" margin="30px 0 10px 0" />
-  //         <Button type="submit" label="Continue ›" margin="30px 0 0 0" />
-  //       </>
-  //     )}
+          selectedAddressArray.forEach((item) => {
+            if (Object.keys(item) != 0) {
+              cleanSelectedAddressArray.push(item);
+            }
+          });
 
-  //     {/* add some condition to prevent progress until address is found */}
-  //   </form>
-  // );
+          console.log({ locations: cleanSelectedAddressArray });
+          onSubmit({ locations: cleanSelectedAddressArray });
+        })}
+      >
+        <div style={{ marginTop: "30px" }}>
+          {errorMessage ? (
+            <FormError error={errorMessage} marginBottom="10px" />
+          ) : null}
+          <Button type="submit" label="Continue ›" margin="0 0 0 0" />
+        </div>
+      </form>
+    </>
+  );
 };
 
 export default ServiceLocationsForm;
