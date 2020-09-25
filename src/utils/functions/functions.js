@@ -1,3 +1,5 @@
+import { uniq } from "lodash";
+
 function convertBooleanToYesNo(value) {
   if (value === null) return null;
   return value ? "yes" : "no";
@@ -24,9 +26,19 @@ function convertStepNumToWord(stepNum) {
   return words[stepNum];
 }
 
+function arrayOfObjhasDuplicates(arrayOfObj) {
+  const arrayOfObjCopy = [...arrayOfObj];
+  Object.keys(arrayOfObjCopy).forEach((key) => {
+    arrayOfObjCopy[key] = JSON.stringify(arrayOfObjCopy[key]);
+  });
+
+  return uniq(arrayOfObjCopy).length != arrayOfObjCopy.length;
+}
+
 export {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
   getPreviousYears,
   convertStepNumToWord,
+  arrayOfObjhasDuplicates,
 };

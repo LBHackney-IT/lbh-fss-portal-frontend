@@ -29,10 +29,6 @@ const StyledClickText = styled.a`
   margin: 5px 10px 0 0;
 `;
 
-const StyledUprnText = styled.p`
-  //
-`;
-
 const StyledHr = styled.hr`
   margin: 40px 0;
 `;
@@ -58,7 +54,6 @@ const ServiceLocationsForm = ({
   setAddressCounter,
 }) => {
   const [selectedPostcodeValue, setSelectedPostcodeValue] = useState("");
-  const [selectedAddressValue, setSelectedAddressValue] = useState("");
   const [removePostcode, setRemovePostcode] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [addressesIsLoading, setAddressesIsLoading] = useState(false);
@@ -123,7 +118,7 @@ const ServiceLocationsForm = ({
 
   function doChangePostcode() {
     const updatedSelectedAddressArray = [...selectedAddressArray];
-    updatedSelectedAddressArray[index] = "";
+    updatedSelectedAddressArray[index] = {};
 
     setSelectedAddressArray(updatedSelectedAddressArray);
 
@@ -132,7 +127,7 @@ const ServiceLocationsForm = ({
 
   function doRemovePostcode() {
     const updatedSelectedAddressArray = [...selectedAddressArray];
-    updatedSelectedAddressArray[index] = "";
+    updatedSelectedAddressArray[index] = {};
 
     setSelectedAddressArray(updatedSelectedAddressArray);
 
@@ -141,11 +136,8 @@ const ServiceLocationsForm = ({
   }
 
   function onDropDownChange() {
-    const address = getValues().address;
-    setSelectedAddressValue(address);
-
     const updatedSelectedAddressArray = [...selectedAddressArray];
-    updatedSelectedAddressArray[index] = address;
+    updatedSelectedAddressArray[index] = addresses[getValues().address];
 
     setSelectedAddressArray(updatedSelectedAddressArray);
   }
@@ -204,12 +196,10 @@ const ServiceLocationsForm = ({
         required
       />
       <Button type="submit" label="Find address" padding="13px 47px" />
-      //
     </form>
   ) : (
     <form
       onSubmit={handleSubmit(() => {
-        setSelectedAddressValue(getValues().address);
         setAddressCounter((addressCounter) => addressCounter + 1);
         return true;
       })}
@@ -238,9 +228,7 @@ const ServiceLocationsForm = ({
         I can't find my address in the list
       </a>
       {watch("address") ? (
-        <StyledUprnText>
-          UPRN: {addresses[watch("address")].uprn}
-        </StyledUprnText>
+        <p>UPRN: {addresses[watch("address")].uprn}</p>
       ) : null}
       {index + 1 === addressCounter ? (
         <>

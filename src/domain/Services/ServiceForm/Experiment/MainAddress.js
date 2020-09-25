@@ -1,40 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
-import FormDropDown from "../../../../components/FormDropDown/FormDropDown";
-import { useForm } from "react-hook-form";
-import FormInput from "../../../../components/FormInput/FormInput";
-import { postcodeValidator } from "postcode-validator";
-import { toast } from "react-toastify";
-import styled from "styled-components";
-import { keyBy } from "lodash";
 import AddAddress from "./AddAddress";
-
-const StyledHighlightedText = styled.p`
-  font-size: 19px;
-  font-weight: bold;
-  margin: 0;
-`;
-
-const StyledPostcodeText = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-  margin: 5px 10px 5px 0;
-`;
-
-const StyledClickText = styled.a`
-  display: block;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 5px 0;
-`;
-
-const StyledUprnText = styled.p`
-  //
-`;
+import FormError from "../../../../components/FormError/FormError";
+import { arrayOfObjhasDuplicates } from "../../../../utils/functions/functions";
 
 const MainAddress = ({ onSubmit, defaultValues = {} }) => {
   const [selectedAddressArray, setSelectedAddressArray] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [addressCounter, setAddressCounter] = useState(1);
 
@@ -42,11 +16,12 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
     defaultValues,
   });
 
-  const addressFormRef = useRef(null);
+  useEffect(() => {
+    setErrorMessage("");
+  }, [selectedAddressArray, setErrorMessage]);
 
   let i = -1;
-  console.log("addressCounter");
-  console.log(addressCounter);
+
   return (
     <>
       <FormFieldset
@@ -70,15 +45,38 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
 
       <form
         onSubmit={handleSubmit(() => {
-          // TODO: add condition && doesnt contain ''
-          if (selectedAddressArray.length > 0) {
-            onSubmit(selectedAddressArray);
-          } else {
+          if (Object.keys(selectedAddressArray) == 0) {
+            setErrorMessage("Please enter a location");
             return;
           }
+
+          if (arrayOfObjhasDuplicates(selectedAddressArray)) {
+            setErrorMessage("Duplicate addresses selected");
+            return;
+          }
+
+          if (selectedAddressArray.includes(undefined)) {
+            return;
+          }
+
+          let cleanSelectedAddressArray = [];
+
+          selectedAddressArray.forEach((item) => {
+            if (Object.keys(item) != 0) {
+              cleanSelectedAddressArray.push(item);
+            }
+          });
+
+          console.log({ locations: cleanSelectedAddressArray });
+          onSubmit({ locations: cleanSelectedAddressArray });
         })}
       >
-        <Button type="submit" label="Continue ›" margin="30px 0 0 0" />
+        <div style={{ marginTop: "30px" }}>
+          {errorMessage ? (
+            <FormError error={errorMessage} marginBottom="10px" />
+          ) : null}
+          <Button type="submit" label="Continue ›" margin="0 0 0 0" />
+        </div>
       </form>
     </>
   );
