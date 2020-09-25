@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { render } from "react-dom";
 import { useForm } from "react-hook-form";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
 import AddAddress from "../AddAddress/AddAddress";
 import FormError from "../../../../components/FormError/FormError";
 import { arrayOfObjhasDuplicates } from "../../../../utils/functions/functions";
+import Map from "../Map/Map";
+
+function selectedAddressArrayIsEmpty(selectedAddressArray) {
+  return (
+    Object.keys(selectedAddressArray).length === 0 ||
+    JSON.stringify([...selectedAddressArray]) === JSON.stringify([{}])
+  );
+}
 
 const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
   const [selectedAddressArray, setSelectedAddressArray] = useState([]);
@@ -42,13 +51,9 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
           </div>
         );
       })}
-
       <form
         onSubmit={handleSubmit(() => {
-          if (
-            Object.keys(selectedAddressArray).length === 0 ||
-            JSON.stringify([...selectedAddressArray]) === JSON.stringify([{}])
-          ) {
+          if (selectedAddressArrayIsEmpty(selectedAddressArray)) {
             setErrorMessage("Please enter a location");
             return;
           }
@@ -81,6 +86,12 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
           <Button type="submit" label="Continue ›" margin="0 0 0 0" />
         </div>
       </form>
+      {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
+        <Map
+          data={selectedAddressArray}
+          mapStyle={{ width: "400px", height: "400px", marginTop: "30px" }}
+        />
+      ) : null}
     </>
   );
 };
