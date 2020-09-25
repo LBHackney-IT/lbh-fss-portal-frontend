@@ -63,7 +63,7 @@ const ServiceCategoriesForm = ({
               onClick={(e) => doRemoveImage(e)}
               label="Remove"
               margin="20px 0 0 0"
-              color={red[400]}
+              backgroundColor={red[400]}
               padding="5px 10px"
             />
           </>

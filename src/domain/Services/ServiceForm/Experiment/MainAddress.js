@@ -36,8 +36,6 @@ const StyledUprnText = styled.p`
 const MainAddress = ({ onSubmit, defaultValues = {} }) => {
   const [selectedAddressArray, setSelectedAddressArray] = useState([]);
 
-  const [addressCounter, setAddressCounter] = useState(1);
-
   const { handleSubmit } = useForm({
     defaultValues,
   });
@@ -50,7 +48,6 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
         label="Service location(s)"
         help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ"
       ></FormFieldset>
-
       {[...Array(selectedAddressArray.length + 1)].map(() => {
         i++;
         return (
@@ -59,8 +56,6 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
               index={i}
               setSelectedAddressArray={setSelectedAddressArray}
               selectedAddressArray={selectedAddressArray}
-              setAddressCounter={setAddressCounter}
-              addressCounter={addressCounter}
             />
           </div>
         );

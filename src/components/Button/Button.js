@@ -7,9 +7,9 @@ import { darken } from "polished";
 const StyledButton = styled.button`
   display: block;
   margin: ${(props) => props.margin || "0 0 30px 0"};
-  color: ${neutral[100]};
-  background-color: ${(props) => props.color || green[400]};
-  border: none;
+  color: ${(props) => props.color || neutral[100]};
+  background-color: ${(props) => props.backgroundColor || green[400]};
+  border: ${(props) => props.border || "none"};
   padding: ${(props) => props.padding || "13px 57px"};
   font-size: 19px;
   border-bottom: 2px solid black;
@@ -17,7 +17,9 @@ const StyledButton = styled.button`
   border-radius: 3px;
   &:hover {
     background-color: ${(props) =>
-      props.color ? darken(0.1, props.color) : darken(0.1, green[400])};
+      props.backgroundColor
+        ? darken(0.1, props.backgroundColor)
+        : darken(0.1, green[400])};
   }
 `;
 
@@ -28,6 +30,8 @@ const Button = ({
   onClick = () => {},
   className,
   color,
+  backgroundColor,
+  border,
   margin,
   padding,
 }) => {
@@ -39,6 +43,8 @@ const Button = ({
         onClick={onClick}
         className={className}
         color={color}
+        backgroundColor={backgroundColor}
+        border={border}
         margin={margin}
         padding={padding}
       >

@@ -40,10 +40,13 @@ const FormInput = ({
   validate,
   help,
   placeholder,
+  labelStyle,
 }) => {
   return (
     <>
-      <StyledLabel htmlFor={name}>{label}</StyledLabel>
+      <StyledLabel htmlFor={name} style={labelStyle}>
+        {label}
+      </StyledLabel>
       {help ? <StyledHelp>{help}</StyledHelp> : ""}
       <StyledInput
         aria-label={name}
