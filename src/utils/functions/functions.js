@@ -35,10 +35,22 @@ function arrayOfObjhasDuplicates(arrayOfObj) {
   return uniq(arrayOfObjCopy).length != arrayOfObjCopy.length;
 }
 
+function removeEmptyObjFromArrayObj(array) {
+  let cleanArray = [];
+  array.forEach((item) => {
+    if (Object.keys(item) != 0) {
+      cleanArray.push(item);
+    }
+  });
+
+  return cleanArray;
+}
+
 export {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
   getPreviousYears,
   convertStepNumToWord,
   arrayOfObjhasDuplicates,
+  removeEmptyObjFromArrayObj,
 };

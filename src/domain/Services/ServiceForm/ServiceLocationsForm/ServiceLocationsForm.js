@@ -5,7 +5,10 @@ import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
 import AddAddress from "../AddAddress/AddAddress";
 import FormError from "../../../../components/FormError/FormError";
-import { arrayOfObjhasDuplicates } from "../../../../utils/functions/functions";
+import {
+  arrayOfObjhasDuplicates,
+  removeEmptyObjFromArrayObj,
+} from "../../../../utils/functions/functions";
 import Map from "../Map/Map";
 
 function selectedAddressArrayIsEmpty(selectedAddressArray) {
@@ -58,24 +61,19 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
             return;
           }
 
-          if (arrayOfObjhasDuplicates(selectedAddressArray)) {
-            setErrorMessage("Duplicate addresses selected");
-            return;
-          }
-
           if (selectedAddressArray.includes(undefined)) {
             return;
           }
 
-          let cleanSelectedAddressArray = [];
+          const cleanSelectedAddressArray = removeEmptyObjFromArrayObj(
+            selectedAddressArray
+          );
 
-          selectedAddressArray.forEach((item) => {
-            if (Object.keys(item) != 0) {
-              cleanSelectedAddressArray.push(item);
-            }
-          });
+          if (arrayOfObjhasDuplicates(cleanSelectedAddressArray)) {
+            setErrorMessage("Duplicate addresses selected");
+            return;
+          }
 
-          console.log({ locations: cleanSelectedAddressArray });
           onSubmit({ locations: cleanSelectedAddressArray });
         })}
       >

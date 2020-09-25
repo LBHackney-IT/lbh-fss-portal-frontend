@@ -1,32 +1,6 @@
-// import React from "react";
-// import { render } from "react-dom";
-// import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-// import "leaflet/dist/leaflet.css";
-// import "react-leaflet/dist/react-leaflet.css";
-
-// const position = [51.505, -0.09];
-// const HackneyMap = () => {
-//   return (
-//     <Map center={position} zoom={13}>
-//       <TileLayer
-//         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//       />
-//       <Marker position={position}>
-//         <Popup>
-//           A pretty CSS3 popup.
-//           <br />
-//           Easily customizable.
-//         </Popup>
-//       </Marker>
-//     </Map>
-//   );
-// };
-
-// export default HackneyMap;
-
 import React, { useEffect, useRef } from "react";
 import { Map, TileLayer, Marker, Popup, FeatureGroup } from "react-leaflet";
+import { removeEmptyObjFromArrayObj } from "../../../../utils/functions/functions";
 import "leaflet/dist/leaflet.css";
 const L = require("leaflet");
 
@@ -41,37 +15,41 @@ export default ({ mapStyle, data }) => {
     });
   }, []);
 
+  const cleanData = removeEmptyObjFromArrayObj(data);
+
   const avgLatitude =
-    data.reduce((total, next) => total + parseFloat(next.latitude), 0) /
-    data.length;
+    cleanData.reduce((total, next) => total + parseFloat(next.latitude), 0) /
+    cleanData.length;
 
   const avgLongitude =
-    data.reduce((total, next) => total + parseFloat(next.longitude), 0) /
-    data.length;
+    cleanData.reduce((total, next) => total + parseFloat(next.longitude), 0) /
+    cleanData.length;
 
   const mapRef = useRef(null);
   const groupRef = useRef(null);
 
-  //   function handleClick() {
-  //     const map = mapRef.current.leafletElement;
-  //     const group = groupRef.current.leafletElement;
-  //     map.fitBounds(group.getBounds());
-  //   }
-
-  useEffect(() => {
-    if (data.length === 1) return;
+  // TODO: autozoom/center works if using the click button but not so well within the useEffect
+  // note - i want it to work in the useEffect
+  function handleClick() {
     const map = mapRef.current.leafletElement;
     const group = groupRef.current.leafletElement;
     map.fitBounds(group.getBounds());
-  }, [data]);
+  }
+
+  useEffect(() => {
+    // console.log("cleanData");
+    // console.log(cleanData);
+    // console.log(cleanData.length === 1);
+    if (cleanData.length === 1) return;
+
+    const map = mapRef.current.leafletElement;
+    const group = groupRef.current.leafletElement;
+    map.fitBounds(group.getBounds());
+  }, [cleanData]);
 
   return (
     <>
-      <button
-      //   onClick={handleClick}
-      >
-        Zoom
-      </button>
+      <button onClick={handleClick}>Zoom</button>
       <Map
         center={[avgLatitude, avgLongitude]}
         // center={[1, 2]}
@@ -84,7 +62,7 @@ export default ({ mapStyle, data }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <FeatureGroup ref={groupRef}>
-          {data.map((address, index) => {
+          {cleanData.map((address, index) => {
             return (
               <Marker
                 position={[
