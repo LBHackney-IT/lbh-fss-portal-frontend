@@ -35,6 +35,7 @@ const FormInput = ({
   required,
   maxLength,
   minLength,
+  onChange = () => {},
   error,
   inputRef,
   validate,
@@ -49,6 +50,7 @@ const FormInput = ({
       </StyledLabel>
       {help ? <StyledHelp>{help}</StyledHelp> : ""}
       <StyledInput
+        onChange={onChange}
         aria-label={name}
         name={name}
         type={type}

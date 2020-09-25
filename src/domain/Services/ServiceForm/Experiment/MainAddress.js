@@ -38,6 +38,7 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
               selectedAddressArray={selectedAddressArray}
               addressCounter={addressCounter}
               setAddressCounter={setAddressCounter}
+              setErrorMessage={setErrorMessage}
             />
           </div>
         );
@@ -45,7 +46,10 @@ const MainAddress = ({ onSubmit, defaultValues = {} }) => {
 
       <form
         onSubmit={handleSubmit(() => {
-          if (Object.keys(selectedAddressArray) == 0) {
+          if (
+            Object.keys(selectedAddressArray).length === 0 ||
+            JSON.stringify([...selectedAddressArray]) === JSON.stringify([{}])
+          ) {
             setErrorMessage("Please enter a location");
             return;
           }

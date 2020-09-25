@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
 import FormDropDown from "../../../../components/FormDropDown/FormDropDown";
@@ -52,6 +52,7 @@ const ServiceLocationsForm = ({
   selectedAddressArray,
   addressCounter,
   setAddressCounter,
+  setErrorMessage,
 }) => {
   const [selectedPostcodeValue, setSelectedPostcodeValue] = useState("");
   const [removePostcode, setRemovePostcode] = useState(false);
@@ -183,6 +184,7 @@ const ServiceLocationsForm = ({
         name="postcode"
         type="text"
         label="Postcode"
+        onChange={() => setErrorMessage("")}
         register={register}
         labelStyle={{ fontWeight: "bold" }}
         validate={{
