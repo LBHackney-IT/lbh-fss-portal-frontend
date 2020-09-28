@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import FormInput from "../../../../components/FormInput/FormInput";
 import Button from "../../../../components/Button/Button";
+import FormTextbox from "../../../../components/FormTextbox/FormTextbox";
 
 const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
   const { register, handleSubmit, errors } = useForm({
@@ -25,9 +26,8 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           required
           help="This is how your service will be displayed on the website"
         />
-        <FormInput
+        <FormTextbox
           name="description"
-          type="text"
           label="Service description"
           register={register}
           maxLength={80}
