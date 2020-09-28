@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../../context/UserContext/UserContext";
 import styled from "styled-components";
 import EmptyOrganisation from "../EmptyOrganisation/EmptyOrganisation";
-import { navigate, Redirect } from "@reach/router";
+import { navigate } from "@reach/router";
 import OrganisationTable from "../OrganisationTable/OrganisationTable";
 import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
 import { ReactComponent as RightArrow } from "./icons/right-arrow.svg";
@@ -97,13 +97,6 @@ const MyOrganisation = () => {
         icon: Trash,
       },
     ];
-  }
-
-  const isInternalTeam =
-    user.roles.includes("viewer") || user.roles.includes("admin");
-
-  if (isInternalTeam) {
-    return <Redirect to="/organisations" noThrow />;
   }
 
   if (user.organisation) {
