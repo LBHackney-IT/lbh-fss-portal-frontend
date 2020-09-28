@@ -91,12 +91,12 @@ const ConfirmModal = ({
               <StyledButton
                 onClick={toggleModal}
                 label={"Cancel"}
-                color={grey[400]}
+                backgroundColor={grey[400]}
               />
               <StyledButton
                 type="submit"
                 label={confirmButtonLabel}
-                color={confirmButtonColor}
+                backgroundColor={confirmButtonColor}
               />
             </StyledActionContainer>
           </StyledForm>
@@ -108,12 +108,12 @@ const ConfirmModal = ({
             <StyledButton
               onClick={toggleModal}
               label={"Cancel"}
-              color={grey[400]}
+              backgroundColor={grey[400]}
             />
             <StyledButton
               onClick={onConfirm}
               label={confirmButtonLabel}
-              color={confirmButtonColor}
+              backgroundColor={confirmButtonColor}
             />
           </StyledActionContainer>
         </>
