@@ -38,7 +38,10 @@
     "email": "Ella47@yahoo.com",
     "status": "suspended",
     "roles": ["vcso"],
-    "organisation": null
+    "organisation": {
+      "id": 70611,
+      "name": "Carter - Bergnaum"
+    }
   },
   {
     "id": 99595,
