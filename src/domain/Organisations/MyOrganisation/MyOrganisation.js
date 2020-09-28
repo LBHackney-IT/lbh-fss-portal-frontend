@@ -10,16 +10,24 @@ import { ReactComponent as Trash } from "./icons/trash.svg";
 import OrganisationService from "../../../services/OrganisationService/OrganisationService";
 import { toast } from "react-toastify";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
-import { red } from "../../../settings";
+import { red, green } from "../../../settings";
 
 const StyledFeedback = styled.div`
-  background: rgba(190, 58, 52, 0.1);
-  border: 1px solid #be3a34;
   box-sizing: border-box;
   border-radius: 3px;
   padding: 15px;
   width: 60%;
   margin: 10px 0 30px 0;
+`;
+
+const StyledRejectedFeedback = styled(StyledFeedback)`
+  background: rgba(190, 58, 52, 0.1);
+  border: 1px solid #be3a34;
+`;
+
+const StyledApprovedFeedback = styled(StyledFeedback)`
+  background: rgba(0, 40, 31, 0.1);
+  border: 1px solid ${green[400]};
 `;
 
 const MyOrganisation = () => {
@@ -113,7 +121,14 @@ const MyOrganisation = () => {
           actionWidth={"210px"}
         />
         {organisation.status === "rejected" && organisation.reviewerMessage ? (
-          <StyledFeedback>{organisation.reviewerMessage}</StyledFeedback>
+          <StyledRejectedFeedback>
+            {organisation.reviewerMessage}
+          </StyledRejectedFeedback>
+        ) : null}
+        {organisation.status === "published" && organisation.reviewerMessage ? (
+          <StyledApprovedFeedback>
+            {organisation.reviewerMessage}
+          </StyledApprovedFeedback>
         ) : null}
         <ConfirmModal
           isOpen={removeModalIsOpen}
