@@ -1,13 +1,20 @@
 const faker = require("faker");
 const sample = require("lodash/sample");
 const mockOrganisation = require("./mockOrganisation");
+const mockAddress = require("./mockAddress");
+const { sampleSize, random } = require("lodash");
 
 const statuses = ["active", "suspended", "deleted"];
+const vocabularies = ["category", "demographic"];
 
 module.exports = () => {
   return {
     id: faker.random.number(),
     name: faker.company.companyName(),
+    user_id: faker.random.number(),
+    user_name: faker.name.findName(),
+    organisation_id: faker.random.number(),
+    organisation_name: faker.company.companyName(),
     status: sample(statuses),
     created_at: faker.date.between("2020-01-01", "2020-01-31"),
     updated_at: faker.date.between("2020-02-01", "2020-02-28"),
@@ -24,8 +31,32 @@ module.exports = () => {
     referral_email: faker.internet.email(),
     image: {
       id: faker.random.number(),
-      url: faker.image.imageUrl(),
+      medium: faker.image.imageUrl(),
+      original: faker.image.imageUrl(),
     },
-    organisation: mockOrganisation(true),
+    locations: sampleSize(
+      [mockAddress(), mockAddress(), mockAddress()],
+      random(0, 3)
+    ),
+    categories: [
+      {
+        id: faker.random.number(),
+        name: faker.company.catchPhrase(),
+        description: faker.company.catchPhrase(),
+        service_description: faker.company.catchPhrase(),
+        vocabulary: sample(vocabularies),
+        weight: faker.random.number(),
+      },
+    ],
+    demographics: [
+      {
+        id: faker.random.number(),
+        name: faker.company.catchPhrase(),
+        description: faker.company.catchPhrase(),
+        service_description: faker.company.catchPhrase(),
+        vocabulary: sample(vocabularies),
+        weight: faker.random.number(),
+      },
+    ],
   };
 };
