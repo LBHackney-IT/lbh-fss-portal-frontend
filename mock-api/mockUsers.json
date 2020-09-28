@@ -37,10 +37,10 @@
     "name": "Melody Zieme",
     "email": "Ella47@yahoo.com",
     "status": "suspended",
-    "roles": ["vcso", "viewer"],
+    "roles": ["vcso"],
     "organisation": {
-      "id": 74111,
-      "name": "Veum - Hudson"
+      "id": 70611,
+      "name": "Carter - Bergnaum"
     }
   },
   {
@@ -164,10 +164,7 @@
     "name": "Ola Kuvalis",
     "email": "Ismael30@gmail.com",
     "status": "active",
-    "roles": [
-      "admin",
-      "viewer"
-    ],
+    "roles": ["admin", "viewer"],
     "created_at": "2020-01-26T02:26:43.035Z",
     "organisation": {
       "id": 4371,
@@ -179,10 +176,7 @@
     "name": "Nels Weimann",
     "email": "Celia.MacGyver@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "admin",
-      "vcso"
-    ],
+    "roles": ["admin", "vcso"],
     "created_at": "2020-01-04T22:42:39.762Z",
     "organisation": {
       "id": 599,
@@ -194,10 +188,7 @@
     "name": "Felicita Kuvalis",
     "email": "Lorna.Kihn88@hotmail.com",
     "status": "active",
-    "roles": [
-      "admin",
-      "vcso"
-    ],
+    "roles": ["admin", "vcso"],
     "created_at": "2020-01-13T23:12:35.403Z",
     "organisation": {
       "id": 27512,
@@ -344,11 +335,7 @@
     "name": "Edd Kub",
     "email": "Delta.Cassin@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "admin",
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["admin", "vcso", "viewer"],
     "created_at": "2020-01-12T20:46:04.066Z",
     "organisation": {
       "id": 33388,
@@ -394,11 +381,7 @@
     "name": "Federico Renner",
     "email": "Sarah.Johns44@hotmail.com",
     "status": "active",
-    "roles": [
-      "admin",
-      "viewer",
-      "vcso"
-    ],
+    "roles": ["admin", "viewer", "vcso"],
     "created_at": "2020-01-29T14:50:25.064Z",
     "organisation": {
       "id": 98259,
@@ -410,10 +393,7 @@
     "name": "Monique Bergnaum",
     "email": "Trystan.Wuckert@yahoo.com",
     "status": "suspended",
-    "roles": [
-      "viewer",
-      "vcso"
-    ],
+    "roles": ["viewer", "vcso"],
     "created_at": "2020-01-11T21:00:50.667Z",
     "organisation": {
       "id": 90033,
@@ -437,9 +417,7 @@
     "name": "Ted Blick",
     "email": "Leonard51@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "created_at": "2020-01-02T17:02:20.711Z",
     "organisation": {
       "id": 39429,
@@ -539,9 +517,7 @@
     "name": "Breanne Williamson",
     "email": "Rozella.Gutmann93@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "viewer"
-    ],
+    "roles": ["viewer"],
     "created_at": "2020-01-13T21:37:53.976Z",
     "organisation": {
       "id": 71995,
@@ -575,11 +551,7 @@
     "name": "Emely Rogahn",
     "email": "Enoch_Mills@gmail.com",
     "status": "suspended",
-    "roles": [
-      "admin",
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["admin", "vcso", "viewer"],
     "created_at": "2020-01-03T12:59:24.473Z",
     "organisation": {
       "id": 38676,
@@ -591,11 +563,7 @@
     "name": "Adah Johnson",
     "email": "Kayleigh_Bode@hotmail.com",
     "status": "suspended",
-    "roles": [
-      "viewer",
-      "admin",
-      "vcso"
-    ],
+    "roles": ["viewer", "admin", "vcso"],
     "created_at": "2020-01-27T17:10:34.234Z",
     "organisation": {
       "id": 66224,
@@ -618,10 +586,7 @@
     "name": "Garrick Pfeffer",
     "email": "Bettye.Dicki51@gmail.com",
     "status": "suspended",
-    "roles": [
-      "vcso",
-      "viewer"
-    ],
+    "roles": ["vcso", "viewer"],
     "created_at": "2020-01-23T20:39:49.769Z",
     "organisation": {
       "id": 78886,
@@ -666,9 +631,7 @@
     "name": "Daniella Block",
     "email": "Paige_Krajcik85@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "created_at": "2020-01-01T19:13:22.115Z",
     "organisation": {
       "id": 58879,
@@ -702,9 +665,7 @@
     "name": "Kiara Kunze",
     "email": "Rogelio.Nicolas52@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "created_at": "2020-01-10T23:18:51.335Z",
     "organisation": {
       "id": 49306,
@@ -1044,10 +1005,7 @@
     "name": "Emily Crist",
     "email": "Margaretta.Kovacek@yahoo.com",
     "status": "deleted",
-    "roles": [
-      "viewer",
-      "vcso"
-    ],
+    "roles": ["viewer", "vcso"],
     "created_at": "2020-01-07T14:22:39.770Z",
     "organisation": {
       "id": 79780,
@@ -1093,11 +1051,7 @@
     "name": "Tamara Jenkins",
     "email": "Antonia_Schaden@gmail.com",
     "status": "suspended",
-    "roles": [
-      "vcso",
-      "admin",
-      "viewer"
-    ],
+    "roles": ["vcso", "admin", "viewer"],
     "created_at": "2020-01-04T12:43:18.807Z",
     "organisation": {
       "id": 73197,
@@ -1253,10 +1207,7 @@
     "name": "Delaney Swift",
     "email": "Kameron_Lueilwitz@gmail.com",
     "status": "suspended",
-    "roles": [
-      "viewer",
-      "vcso"
-    ],
+    "roles": ["viewer", "vcso"],
     "created_at": "2020-01-09T08:41:56.176Z",
     "organisation": {
       "id": 95516,
@@ -1268,9 +1219,7 @@
     "name": "Ruth Schumm",
     "email": "Concepcion34@hotmail.com",
     "status": "deleted",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "created_at": "2020-01-06T10:49:31.889Z",
     "organisation": {
       "id": 43234,
@@ -1304,9 +1253,7 @@
     "name": "Dr. Dudley Murray",
     "email": "Noel88@hotmail.com",
     "status": "active",
-    "roles": [
-      "vcso"
-    ],
+    "roles": ["vcso"],
     "created_at": "2020-01-27T20:11:19.467Z",
     "organisation": {
       "id": 30311,

@@ -172,7 +172,6 @@ const EditOrganisation = (props) => {
         showHiddenField={showHiddenField}
         setShowHiddenField={setShowHiddenField}
         submitLoading={submitIsLoading}
-        enableAllLinks={true}
       />
     </>
   );
