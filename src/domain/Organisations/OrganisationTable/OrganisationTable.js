@@ -81,8 +81,7 @@ function organisationIsNew(createdAt) {
   const createdAtDate = new Date(createdAt);
   const today = new Date();
   const differenceInDays = (today - createdAtDate) / (1000 * 3600 * 24);
-  return differenceInDays <= 235; // <- 235 for demo purposes
-  // return differenceInDays <= 1; // <- correct value to use after having demo'ed
+  return differenceInDays <= 1;
 }
 
 const OrganisationTable = ({
