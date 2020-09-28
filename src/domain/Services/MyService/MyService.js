@@ -1,11 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Redirect } from "@reach/router";
 import UserContext from "../../../context/UserContext/UserContext";
-import AddService from "../AddService/AddService";
 import { ReactComponent as Trash } from "./icons/trash.svg";
+import ServiceTable from "../ServiceTable/ServiceTable";
+import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
+import { red } from "../../../settings";
 
 const MyService = ({ userServices }) => {
   const user = useContext(UserContext)[0];
+  const [selectedService, setSelectedService] = useState({});
 
   const [removeIsLoading, setRemoveIsLoading] = useState(false);
   const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
@@ -29,14 +31,29 @@ const MyService = ({ userServices }) => {
   ];
 
   return (
-    // ServicesTable
     <>
-      <h1>Show service edit form here</h1>
-      <ul>
-        <li>service1 | actions</li>
-        <li>service2 | actions</li>
-        <li>service3 | actions</li>
-      </ul>
+      <ServiceTable
+        data={userServices}
+        actions={actions}
+        setSelectedService={setSelectedService}
+        showPagination={false}
+        actionWidth={"210px"}
+      />
+      <ConfirmModal
+        isOpen={removeModalIsOpen}
+        toggleModal={toggleRemoveModal}
+        confirmMessage={
+          <>
+            Are you sure you want to remove{" "}
+            <strong>{selectedService.name}</strong>?
+          </>
+        }
+        confirmButtonLabel={"Remove"}
+        confirmButtonColor={red[400]}
+        borderColor={red[400]}
+        onConfirm={doRemove}
+        includeReviewerMessage={false}
+      />
     </>
   );
 };
