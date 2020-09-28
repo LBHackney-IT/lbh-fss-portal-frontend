@@ -4,6 +4,14 @@ import { removeEmptyObjFromArrayObj } from "../../../../utils/functions/function
 import "leaflet/dist/leaflet.css";
 const L = require("leaflet");
 
+function doCleanData(data) {
+  let cleanData = data.filter(function (item) {
+    return item != null;
+  });
+  cleanData = removeEmptyObjFromArrayObj(cleanData);
+  return cleanData;
+}
+
 export default ({ mapStyle, data }) => {
   useEffect(() => {
     delete L.Icon.Default.prototype._getIconUrl;
@@ -15,13 +23,13 @@ export default ({ mapStyle, data }) => {
     });
   }, []);
 
-  const cleanData = removeEmptyObjFromArrayObj(data);
-
   const mapRef = useRef(null);
   const groupRef = useRef(null);
 
+  const cleanData = doCleanData(data);
+
   useEffect(() => {
-    if (cleanData.length === 1) return;
+    if (cleanData.length === 0 || cleanData.length === 1) return;
 
     const map = mapRef.current.leafletElement;
     const group = groupRef.current.leafletElement;
@@ -29,7 +37,7 @@ export default ({ mapStyle, data }) => {
     map.fitBounds(group.getBounds());
   }, [cleanData]);
 
-  return (
+  return cleanData.length !== 0 ? (
     <>
       <Map
         center={[cleanData[0].latitude, cleanData[0].longitude]}
@@ -56,5 +64,5 @@ export default ({ mapStyle, data }) => {
         </FeatureGroup>
       </Map>
     </>
-  );
+  ) : null;
 };

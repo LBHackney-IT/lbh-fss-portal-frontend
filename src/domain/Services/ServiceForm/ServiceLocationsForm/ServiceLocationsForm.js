@@ -14,7 +14,8 @@ import Map from "../Map/Map";
 function selectedAddressArrayIsEmpty(selectedAddressArray) {
   return (
     Object.keys(selectedAddressArray).length === 0 ||
-    JSON.stringify([...selectedAddressArray]) === JSON.stringify([{}])
+    JSON.stringify([...selectedAddressArray]) === JSON.stringify([{}]) ||
+    JSON.stringify([...selectedAddressArray]) === JSON.stringify([undefined])
   );
 }
 
@@ -84,6 +85,9 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
           <Button type="submit" label="Continue ›" margin="0 0 0 0" />
         </div>
       </form>
+      {/* {console.log("HEEERE")}
+      {console.log(selectedAddressArray)} */}
+      {/* {console.log(!selectedAddressArrayIsEmpty(selectedAddressArray))} */}
       {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
         <Map
           data={selectedAddressArray}
