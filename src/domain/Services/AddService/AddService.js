@@ -94,6 +94,9 @@ const AddService = () => {
     <>
       <ServiceForm
         onFormCompletion={doAddService}
+        defaultValues={
+          localUser.organisation ? { name: localUser.organisation.name } : {}
+        }
         submitLoading={submitIsLoading}
         showHiddenField={showHiddenField}
         setShowHiddenField={setShowHiddenField}
