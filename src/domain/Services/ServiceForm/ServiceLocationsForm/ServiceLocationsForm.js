@@ -85,13 +85,10 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
           <Button type="submit" label="Continue ›" margin="0 0 0 0" />
         </div>
       </form>
-      {/* {console.log("HEEERE")}
-      {console.log(selectedAddressArray)} */}
-      {/* {console.log(!selectedAddressArrayIsEmpty(selectedAddressArray))} */}
       {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
         <Map
           data={selectedAddressArray}
-          mapStyle={{ width: "400px", height: "400px", marginTop: "30px" }}
+          mapStyle={{ width: "100%", height: "400px", marginTop: "30px" }}
         />
       ) : null}
     </>
