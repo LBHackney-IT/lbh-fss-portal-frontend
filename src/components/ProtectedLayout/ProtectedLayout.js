@@ -56,8 +56,12 @@ const ProtectedLayout = ({ children }) => {
     <>
       <StyledLayoutTop>
         <div>
-          <StyledOrgLabel>Your organisation</StyledOrgLabel>
-          <StyledOrgName>{organisation.name}</StyledOrgName>
+          {organisation ? (
+            <>
+              <StyledOrgLabel>Your organisation</StyledOrgLabel>
+              <StyledOrgName>{organisation.name}</StyledOrgName>
+            </>
+          ) : null}
         </div>
         <StyledSecondaryNav>
           <SecondaryNavMenu />

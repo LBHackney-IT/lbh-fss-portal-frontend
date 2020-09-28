@@ -149,14 +149,14 @@ const OrganisationAdultSupportForm = ({
             label={"First name"}
             name={"adultSafeguardingLeadFirstName"}
             register={register}
-            required
+            maxLength={255}
             error={errors.adultSafeguardingLeadFirstName}
           />
           <FormInput
             label={"Last name"}
             name={"adultSafeguardingLeadLastName"}
             register={register}
-            required
+            maxLength={255}
             error={errors.adultSafeguardingLeadLastName}
           />
           <StyledQuestion>
@@ -168,7 +168,6 @@ const OrganisationAdultSupportForm = ({
                 label={"Month"}
                 name={"adultSafeguardingLeadTrainingMonth"}
                 register={register}
-                required
                 options={[
                   "January",
                   "February",
@@ -192,7 +191,6 @@ const OrganisationAdultSupportForm = ({
                 name={"adultSafeguardingLeadTrainingYear"}
                 register={register}
                 options={getPreviousYears(30)}
-                required
                 error={errors.adultSafeguardingLeadTrainingYear}
               />
             </div>

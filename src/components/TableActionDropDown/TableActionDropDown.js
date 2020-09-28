@@ -48,7 +48,7 @@ const StyledContainer = styled.div`
   position: absolute;
   top: -5px;
   left: 0;
-  width: 160px;
+  width: ${(props) => props.actionWidth || "160px"};
   ${breakpoint("md")`
     top: 0;
     left: auto;
@@ -70,7 +70,7 @@ const StyledAction = styled.div`
   cursor: pointer;
 `;
 
-function TableActionDropDown({ actions }) {
+function TableActionDropDown({ actions, actionWidth }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleDropDown() {
@@ -86,7 +86,7 @@ function TableActionDropDown({ actions }) {
         </StyledHeaderOutsideList>
         {isOpen && (
           <>
-            <StyledContainer>
+            <StyledContainer actionWidth={actionWidth}>
               <StyledDropDownList>
                 <StyledHeaderInList onClick={toggleDropDown} isOpen={isOpen}>
                   Select{" "}

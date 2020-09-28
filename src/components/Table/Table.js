@@ -83,6 +83,7 @@ const Table = ({
   isLoading,
   search,
   tdHeightMobile = "5px",
+  showPagination = true,
 }) => {
   const {
     getTableProps,
@@ -183,18 +184,20 @@ const Table = ({
               })}
             </tbody>
           </StyledTable>
-          <Pagination
-            pageMinIndex={pageMinIndex}
-            pageMaxIndex={pageMaxIndex}
-            totalEntries={data.length}
-            pageIndex={pageIndex}
-            pageCount={pageCount}
-            gotoPage={gotoPage}
-            previousPage={previousPage}
-            nextPage={nextPage}
-            canPreviousPage={canPreviousPage}
-            canNextPage={canNextPage}
-          />
+          {showPagination ? (
+            <Pagination
+              pageMinIndex={pageMinIndex}
+              pageMaxIndex={pageMaxIndex}
+              totalEntries={data.length}
+              pageIndex={pageIndex}
+              pageCount={pageCount}
+              gotoPage={gotoPage}
+              previousPage={previousPage}
+              nextPage={nextPage}
+              canPreviousPage={canPreviousPage}
+              canNextPage={canNextPage}
+            />
+          ) : null}
         </>
       ) : (
         <h1>No entries found matching '{search}'</h1>
