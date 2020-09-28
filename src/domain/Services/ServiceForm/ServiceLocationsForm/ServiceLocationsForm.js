@@ -15,7 +15,8 @@ function selectedAddressArrayIsEmpty(selectedAddressArray) {
   return (
     Object.keys(selectedAddressArray).length === 0 ||
     JSON.stringify([...selectedAddressArray]) === JSON.stringify([{}]) ||
-    JSON.stringify([...selectedAddressArray]) === JSON.stringify([undefined])
+    JSON.stringify([...selectedAddressArray]) === JSON.stringify([undefined]) ||
+    JSON.stringify([...selectedAddressArray]) === JSON.stringify([])
   );
 }
 
@@ -57,11 +58,6 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
       })}
       <form
         onSubmit={handleSubmit(() => {
-          if (selectedAddressArrayIsEmpty(selectedAddressArray)) {
-            setErrorMessage("Please enter a location");
-            return;
-          }
-
           if (selectedAddressArray.includes(undefined)) {
             return;
           }
@@ -69,6 +65,11 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
           const cleanSelectedAddressArray = removeEmptyObjFromArrayObj(
             selectedAddressArray
           );
+
+          if (selectedAddressArrayIsEmpty(selectedAddressArray)) {
+            setErrorMessage("Please enter a location");
+            return;
+          }
 
           if (arrayOfObjhasDuplicates(cleanSelectedAddressArray)) {
             setErrorMessage("Duplicate addresses selected");
