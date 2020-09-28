@@ -1,4 +1,4 @@
-let mockUsers = require("../mockServices.json");
+let mockServices = require("../mockServices.json");
 
 module.exports = (req, res) => {
   const sort = req.query.sort || "name";
@@ -11,7 +11,7 @@ module.exports = (req, res) => {
 
   const searchClean = cleanString(search);
 
-  const users = [...mockUsers]
+  const services = [...mockServices]
     .filter((item) => {
       return search.length
         ? cleanString(item.name).includes(searchClean) ||
@@ -25,17 +25,5 @@ module.exports = (req, res) => {
     })
     .slice(offset, limit);
 
-  return res.status(200).send({
-    entries: users,
-    limit,
-    offset,
-    search,
-    order: [
-      {
-        by: sort,
-        direction: direction.toUpperCase(),
-      },
-    ],
-    total_count: mockUsers.length,
-  });
+  return res.status(200).send(services);
 };

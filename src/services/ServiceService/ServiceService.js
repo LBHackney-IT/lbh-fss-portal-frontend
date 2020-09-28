@@ -19,7 +19,7 @@ const ServiceService = {
         },
       });
 
-      return response.data.entries;
+      return response.data;
     } catch (error) {
       console.error(error);
 
