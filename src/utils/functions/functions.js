@@ -46,6 +46,10 @@ function removeEmptyObjFromArrayObj(array) {
   return cleanArray;
 }
 
+function objAllFalse(obj) {
+  return Object.keys(obj).every((k) => !obj[k]);
+}
+
 export {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
@@ -53,4 +57,5 @@ export {
   convertStepNumToWord,
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
+  objAllFalse
 };

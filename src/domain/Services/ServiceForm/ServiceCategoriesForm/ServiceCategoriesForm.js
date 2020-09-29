@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
 import { useForm } from "react-hook-form";
@@ -7,7 +7,8 @@ import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import FormInput from "../../../../components/FormInput/FormInput";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import { serviceCategoryFields } from "../../../../utils/data/data";
-
+import FormError from "../../../../components/FormError/FormError";
+import { objAllFalse } from "../../../../utils/functions/functions";
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
   font-size: 15px;
@@ -27,6 +28,7 @@ const StyledHiddenFieldContainer = styled.div`
 const StyledUl = styled.ul`
   padding-left: 18px;
 `;
+
 const ServiceCategoriesForm = ({
   onSubmit,
   defaultValues = {},
@@ -34,6 +36,8 @@ const ServiceCategoriesForm = ({
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
 }) => {
+  const [showError, setShowError] = useState(false);
+
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
   });
@@ -43,11 +47,24 @@ const ServiceCategoriesForm = ({
   }, []);
 
   function handleHiddenField(id) {
+    setShowError(false);
     switch (id) {
       case "lonOrIs":
         setShowHiddenField({
           ...showHiddenField,
           lonOrIsDetails: !showHiddenField.lonOrIsDetails,
+        });
+        break;
+      case "anxOrMH":
+        setShowHiddenField({
+          ...showHiddenField,
+          anxOrMHDetails: !showHiddenField.anxOrMHDetails,
+        });
+        break;
+      case "safeAndHB":
+        setShowHiddenField({
+          ...showHiddenField,
+          safeAndHBDetails: !showHiddenField.safeAndHBDetails,
         });
         break;
       case "exAndWell":
@@ -56,16 +73,57 @@ const ServiceCategoriesForm = ({
           exAndWellDetails: !showHiddenField.exAndWellDetails,
         });
         break;
+      case "artAndCrtv":
+        setShowHiddenField({
+          ...showHiddenField,
+          artAndCrtvDetails: !showHiddenField.artAndCrtvDetails,
+        });
+        break;
+      case "foodOrShop":
+        setShowHiddenField({
+          ...showHiddenField,
+          foodOrShopDetails: !showHiddenField.foodOrShopDetails,
+        });
+        break;
+      case "faithAct":
+        setShowHiddenField({
+          ...showHiddenField,
+          faithActDetails: !showHiddenField.faithActDetails,
+        });
+        break;
+      case "monAdv":
+        setShowHiddenField({
+          ...showHiddenField,
+          monAdvDetails: !showHiddenField.monAdvDetails,
+        });
+        break;
+
+      case "emplAdv":
+        setShowHiddenField({
+          ...showHiddenField,
+          emplAdvDetails: !showHiddenField.emplAdvDetails,
+        });
+        break;
       case "houseAdv":
         setShowHiddenField({
           ...showHiddenField,
           houseAdvDetails: !showHiddenField.houseAdvDetails,
         });
         break;
+      case "immAdv":
+        setShowHiddenField({
+          ...showHiddenField,
+          immAdvDetails: !showHiddenField.immAdvDetails,
+        });
+        break;
       default:
         return false;
     }
   }
+
+  // function handleShaowError() {
+  //   trigger()
+  // }
 
   const checkboxOptions = [
     {
@@ -140,7 +198,14 @@ const ServiceCategoriesForm = ({
 
   return (
     <form
-      onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}
+      onSubmit={handleSubmit(() => {
+        if (objAllFalse(getValues())) {
+          setShowError(true);
+          return;
+        } else {
+          onSubmit(getValues(), pageQuestionNames);
+        }
+      })}
     >
       <FormFieldset label="Services you provide">
         <p>
@@ -148,8 +213,8 @@ const ServiceCategoriesForm = ({
           under.
         </p>
         <p>
-          For each category you select please provide a description of what it is
-          your service provides
+          For each category you select please provide a description of what it
+          is your service provides
         </p>
         <StyledUl>
           <li>Use first person, active voice (e.g. we provide...)</li>
@@ -177,11 +242,81 @@ const ServiceCategoriesForm = ({
                 </StyledHiddenFieldContainer>
               ) : null}
 
+              {showHiddenField.anxOrMHDetails && item.id === "anxOrMH" ? (
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"Please describe this service"}
+                    name={"anxOrMHDetails"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
+              ) : null}
+
+              {showHiddenField.safeAndHBDetails && item.id === "safeAndHB" ? (
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"Please describe this service"}
+                    name={"safeAndHBDetails"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
+              ) : null}
+
               {showHiddenField.exAndWellDetails && item.id === "exAndWell" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
                     label={"Please describe this service"}
                     name={"exAndWellDetails"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
+              ) : null}
+
+              {showHiddenField.artAndCrtvDetails && item.id === "artAndCrtv" ? (
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"Please describe this service"}
+                    name={"artAndCrtvDetails"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
+              ) : null}
+
+              {showHiddenField.foodOrShopDetails && item.id === "foodOrShop" ? (
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"Please describe this service"}
+                    name={"foodOrShopDetails"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
+              ) : null}
+
+              {showHiddenField.faithActDetails && item.id === "faithAct" ? (
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"Please describe this service"}
+                    name={"faithActDetails"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
+              ) : null}
+
+              {showHiddenField.monAdvDetails && item.id === "monAdv" ? (
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"Please describe this service"}
+                    name={"monAdvDetails"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
+              ) : null}
+
+              {showHiddenField.emplAdvDetails && item.id === "emplAdv" ? (
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"Please describe this service"}
+                    name={"emplAdvDetails"}
                     register={register}
                   />
                 </StyledHiddenFieldContainer>
@@ -196,10 +331,24 @@ const ServiceCategoriesForm = ({
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
+
+              {showHiddenField.immAdvDetails && item.id === "immAdv" ? (
+                <StyledHiddenFieldContainer>
+                  <FormInput
+                    label={"Please describe this service"}
+                    name={"immAdvDetails"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
+              ) : null}
             </div>
           );
         })}
       </FormFieldset>
+      {showError ? (
+        <FormError error="Please enter at least one category" />
+      ) : null}
+
       <Button type="submit" label="Continue ›" />
     </form>
   );

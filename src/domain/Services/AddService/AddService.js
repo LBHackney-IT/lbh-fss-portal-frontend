@@ -62,18 +62,27 @@ function doCleanFormValues(values) {
 const AddService = () => {
   const localUser = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
-  // TODO: find out how a user or organisation is related to a service
 
   const [showHiddenField, setShowHiddenField] = useState({
     lonOrIsDetails: false,
+    anxOrMHDetails: false,
+    safeAndHBDetails: false,
     exAndWellDetails: false,
+    artAndCrtvDetails: false,
+    foodOrShopDetails: false,
+    faithActDetails: false,
+    monAdvDetails: false,
+    emplAdvDetails: false,
     houseAdvDetails: false,
+    immAdvDetails: false,
   });
 
   async function doAddService(formValues) {
     if (submitIsLoading) return;
 
     const cleanFormValues = doCleanFormValues(formValues);
+
+    console.log(cleanFormValues);
 
     setSubmitIsLoading(true);
 

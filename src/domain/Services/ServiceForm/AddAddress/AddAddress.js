@@ -38,6 +38,8 @@ function addFormattedAddress(data) {
   data.addresses.forEach((address) => {
     address["formattedAddress"] = address.address1.concat(
       ", ",
+      address.address2,
+      ", ",
       address.city,
       ", ",
       address.postalCode

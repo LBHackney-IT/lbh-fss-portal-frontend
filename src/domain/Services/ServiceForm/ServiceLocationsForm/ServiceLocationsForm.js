@@ -37,9 +37,11 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
 
   return (
     <>
+      {/* TODO: update help text */}
+      {/* TODO: where will 'i can't find my address in the list' link to? */}
       <FormFieldset
         label="Service location(s)"
-        help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ"
+        help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ. Lorem ipsum dolor... explain they can use if you town hall location or similar..."
       ></FormFieldset>
       {[...Array(addressCounter)].map(() => {
         i++;
