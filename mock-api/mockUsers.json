@@ -49,10 +49,7 @@
     "email": "Pinkie_Tromp@yahoo.com",
     "status": "deleted",
     "roles": ["vcso"],
-    "organisation": {
-      "id": 88998,
-      "name": "Dicki - Mitchell"
-    }
+    "organisation": null
   },
   {
     "id": 42652,

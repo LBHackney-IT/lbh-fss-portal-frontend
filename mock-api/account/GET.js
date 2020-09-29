@@ -13,12 +13,12 @@ var sample = require("lodash/sample");
 //     );
 // };
 
-// VCSO - no services
-module.exports = (req, res) => {
-  res
-    .status(200)
-    .json(sample(mockUsers.filter((u) => u.name === "Melody Zieme")));
-};
+// VCSO - NO services
+// module.exports = (req, res) => {
+//   res
+//     .status(200)
+//     .json(sample(mockUsers.filter((u) => u.name === "Melody Zieme")));
+// };
 
 // VCSO - WITH services
 // module.exports = (req, res) => {
@@ -26,6 +26,13 @@ module.exports = (req, res) => {
 //     .status(200)
 //     .json(sample(mockUsers.filter((u) => u.name === "Reyna Simonis")));
 // };
+
+// VCSO - WITH services but NO organisations
+module.exports = (req, res) => {
+  res
+    .status(200)
+    .json(sample(mockUsers.filter((u) => u.name === "Jaylin Rutherford Sr.")));
+};
 
 // ADMIN
 // module.exports = (req, res) => {
