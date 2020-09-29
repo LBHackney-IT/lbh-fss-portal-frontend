@@ -148,7 +148,7 @@ const ServiceCategoriesForm = ({
           under.
         </p>
         <p>
-          Each category you select please provide a description of what it is
+          For each category you select please provide a description of what it is
           your service provides
         </p>
         <StyledUl>

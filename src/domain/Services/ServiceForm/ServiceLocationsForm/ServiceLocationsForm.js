@@ -80,18 +80,25 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
         })}
       >
         <div style={{ marginTop: "30px" }}>
+          {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
+            <>
+              <h2 style={{ margin: "30px 0 10px 0" }}>Map Preview</h2>
+              <Map
+                data={selectedAddressArray}
+                mapStyle={{
+                  margin: "0 0 30px 0",
+                  width: "100%",
+                  height: "400px",
+                }}
+              />
+            </>
+          ) : null}
           {errorMessage ? (
             <FormError error={errorMessage} marginBottom="10px" />
           ) : null}
           <Button type="submit" label="Continue ›" margin="0 0 0 0" />
         </div>
       </form>
-      {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
-        <Map
-          data={selectedAddressArray}
-          mapStyle={{ width: "100%", height: "400px", marginTop: "30px" }}
-        />
-      ) : null}
     </>
   );
 };

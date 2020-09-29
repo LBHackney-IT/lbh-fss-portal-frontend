@@ -59,11 +59,11 @@ const ServiceForm = ({
   submitLoading = false,
 }) => {
   const stepArray = [
-    { id: "details", label: "Your service details" },
-    { id: "locations", label: "Service location(s)" },
-    { id: "categories", label: "Services you provide" },
+    { id: "details", label: "Your details" },
+    { id: "locations", label: "Your location(s)" },
+    { id: "categories", label: "What you do" },
     { id: "demographics", label: "Who you work with" },
-    { id: "image", label: "Service image" },
+    { id: "image", label: "Your image" },
   ];
 
   const [showHiddenFieldSnapshot, setShowHiddenFieldSnapshot] = useState(

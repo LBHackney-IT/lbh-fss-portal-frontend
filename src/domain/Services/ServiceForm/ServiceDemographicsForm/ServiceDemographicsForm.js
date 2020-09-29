@@ -83,18 +83,11 @@ const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormFieldset label="Who you work with">
         <p>
-          Select the following filters if your service is for a specific
-          audience.
+          Select the following filters if your service is for a{" "}
+          <strong>specific audience</strong>.
         </p>
         <p>
           This will help make it easier for residents to help find your service.
-        </p>
-      </FormFieldset>
-      <FormFieldset label="Search keywords">
-        <p>
-          Include one or more keywords that describe your service. These
-          keywords make search results more accurate. Separate keywords with a
-          comma.
         </p>
       </FormFieldset>
       {checkboxOptions.map((item) => {
