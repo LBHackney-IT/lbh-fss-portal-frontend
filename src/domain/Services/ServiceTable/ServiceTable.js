@@ -15,7 +15,6 @@ const StyledStatus = styled.div`
   display: inline;
   ${breakpoint("md")`
     display: block;
-    width: 75%;
   `};
 `;
 
@@ -67,8 +66,6 @@ const ServiceTable = ({
   showPagination,
   actionWidth,
 }) => {
-  console.log("data");
-  console.log(data);
   const columns = useMemo(
     () => [
       {
@@ -82,13 +79,10 @@ const ServiceTable = ({
           );
         },
       },
-      // {
-      //   Header: "User",
-      //   accessor: "id",
-      //   Cell: (e) => {
-      //     return <> {organisationUser[e.value] || "User not found"} </>;
-      //   },
-      // },
+      {
+        Header: "User",
+        accessor: "user_name",
+      },
       {
         Header: "Status",
         accessor: "status",
@@ -128,14 +122,16 @@ const ServiceTable = ({
 
   return (
     <>
-      <Table
-        data={data}
-        columns={columns}
-        isLoading={false}
-        search={search}
-        tdHeightMobile={"20px"}
-        showPagination={showPagination}
-      />
+      <div style={{ marginBottom: "20px" }}>
+        <Table
+          data={data}
+          columns={columns}
+          isLoading={false}
+          search={search}
+          tdHeightMobile={"20px"}
+          showPagination={showPagination}
+        />
+      </div>
     </>
   );
 };

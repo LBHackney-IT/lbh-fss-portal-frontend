@@ -34,7 +34,7 @@ const HandleMyService = () => {
     return <Redirect to="/services" noThrow />;
   }
 
-  return userServices ? (
+  return userServices.length > 0 ? (
     <MyService userServices={userServices} />
   ) : (
     <AddService />
