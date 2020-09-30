@@ -1,4 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# LBH FSS Public Frontend
+
+## Prerequisites
+
+You will need to have [git installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+You will also need [node](https://nodejs.org/en/download/) and [yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable) installed.
+
+## Setting Up
+
+1. Copy and rename the `mapbox.example.js` as `mapbox.js` in `src/settings` and replace the token string with your Mapbox token.
+2. Run `yarn install` from project root to install packages and dependencies.
 
 ## Available Scripts
 
@@ -11,6 +21,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+### `yarn dev`
+
+Runs the app in the development mode, in addition to the mock-api.
 
 ### `yarn test`
 
@@ -49,7 +63,17 @@ Generates new dummy user data for the mock API.
 
 Generates new dummy service data for the mock API.
 
+### `yarn mock-gen:orgs`
+
+Generates new dummy organisations data for the mock API.
+
+### `yarn mock-gen:address`
+
+Generates new dummy address data for the mock API.
+
 ## Learn More
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 

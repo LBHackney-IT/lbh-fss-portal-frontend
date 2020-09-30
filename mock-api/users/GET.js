@@ -24,17 +24,5 @@ module.exports = (req, res) => {
     })
     .slice(offset, limit);
 
-  return res.status(200).send({
-    entries: users,
-    limit,
-    offset,
-    search,
-    order: [
-      {
-        by: sort,
-        direction: direction.toUpperCase(),
-      },
-    ],
-    total_count: mockUsers.length,
-  });
+  return res.status(200).send(users);
 };

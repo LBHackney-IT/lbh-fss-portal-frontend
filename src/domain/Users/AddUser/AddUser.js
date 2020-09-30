@@ -13,7 +13,7 @@ const AddUser = () => {
   async function doAddUser(formValues) {
     if (isLoading) return;
 
-    formValues.createdAt = new Date();
+    formValues.created_at = new Date();
 
     setIsLoading(true);
 

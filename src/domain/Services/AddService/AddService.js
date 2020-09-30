@@ -70,6 +70,20 @@ const AddService = () => {
     houseAdvDetails: false,
   });
 
+  const [showHiddenField, setShowHiddenField] = useState({
+    lonOrIsDetails: false,
+    anxOrMHDetails: false,
+    safeAndHBDetails: false,
+    exAndWellDetails: false,
+    artAndCrtvDetails: false,
+    foodOrShopDetails: false,
+    faithActDetails: false,
+    monAdvDetails: false,
+    emplAdvDetails: false,
+    houseAdvDetails: false,
+    immAdvDetails: false,
+  });
+
   async function doAddService(formValues) {
     if (submitIsLoading) return;
 

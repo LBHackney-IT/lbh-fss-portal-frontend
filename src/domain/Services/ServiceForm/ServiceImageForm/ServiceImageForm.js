@@ -74,7 +74,7 @@ const ServiceCategoriesForm = ({
             singleImage={true}
             buttonText="Upload Image"
             onChange={doAddImage}
-            imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+            imgExtension={[".jpg", ".jpeg", ".png"]}
             maxFileSize={5242880}
             fileContainerStyle={{
               backgroundColor: "transparents",
@@ -95,7 +95,12 @@ const ServiceCategoriesForm = ({
         )}
         {!image.preview ? (
           <StyledHelp>
+            For best results please upload a landscape picture with approximately 2:1
+            ratio
+            <br />
+            <br />
             Files supported: JPG, JPEG or PNG <br />
+            <br />
             Max file size: tbc mb
           </StyledHelp>
         ) : null}

@@ -20,6 +20,8 @@ const MyAccount = (props) => {
 
       setEditIsLoading(true);
 
+      delete formValues.confirmPassword;
+
       const newUser = await UserService.updateUser(localUser.id, formValues);
 
       setEditIsLoading(false);

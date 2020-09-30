@@ -34,10 +34,11 @@ const EditUser = (props) => {
       });
 
       user.password = formValues.password || null;
+      delete user.id;
 
       setEditIsLoading(true);
 
-      const newUser = await UserService.updateUser(props.userId, formValues);
+      const newUser = await UserService.updateUser(props.userId, user);
 
       setEditIsLoading(false);
 

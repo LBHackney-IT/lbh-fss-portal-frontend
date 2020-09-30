@@ -18,7 +18,6 @@ const StyledLayoutTop = styled.div`
   max-width: 980px;
   margin: 0 auto;
   padding-bottom: 30px;
-  margin-bottom: 25px;
   display: flex;
   justify-content: space-between;
 `;

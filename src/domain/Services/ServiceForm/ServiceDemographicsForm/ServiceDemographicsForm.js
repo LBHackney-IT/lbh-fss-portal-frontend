@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
+import { objAllFalse } from "../../../../utils/functions/functions";
 
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
@@ -27,91 +28,100 @@ const StyledHelp = styled.p`
 `;
 
 const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
-  const { register, handleSubmit } = useForm({
+  if (!Object.keys(defaultValues).includes("everyone")) {
+    defaultValues.everyone = true;
+  }
+
+  const { register, handleSubmit, setValue, getValues, reset } = useForm({
     defaultValues,
   });
 
   const checkboxOptions = [
     {
-      id: "disbOrAut",
+      id: "everyone",
       value: 1,
+      label: "Everyone",
+    },
+    {
+      id: "disbOrAut",
+      value: 2,
       label: "Disabilities or autism",
     },
     {
       id: "men",
-      value: 2,
+      value: 3,
       label: "Men",
     },
     {
       id: "women",
-      value: 3,
+      value: 4,
       label: "Women",
     },
     {
       id: "lgbtqi",
-      value: 4,
+      value: 5,
       label: "LGBTQI+",
     },
     {
       id: "chilYoungFam",
-      value: 5,
+      value: 6,
       label: "Children, young people or families",
     },
     {
       id: "oldPe",
-      value: 6,
+      value: 7,
       label: "Older people",
     },
     {
       id: "carers",
-      value: 7,
+      value: 8,
       label: "Carers",
     },
     {
       id: "cultural",
-      value: 8,
+      value: 9,
       label: "Cultural",
     },
-    {
-      id: "everyone",
-      value: 9,
-      label: "Everyone",
-    },
   ];
+
+  function handleCheckBoxClick(item) {
+    if (item.id === "everyone") {
+      reset();
+      setValue("everyone", true);
+    }
+    if (item.id !== "everyone") {
+      setValue("everyone", false);
+    }
+    if (objAllFalse(getValues())) {
+      setValue("everyone", true);
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormFieldset label="Who you work with">
         <p>
-          Select the following filters if your service is for a specific
-          audience.
-        </p>
-        <p>
-          This will help make it easier for residents to help find your service.
-        </p>
-      </FormFieldset>
-      <FormFieldset label="Search keywords">
-        <p>
-          Include one or more keywords that describe your service. These
-          keywords make search results more accurate. Separate keywords with a
-          comma.
+          In order to help make it easier for residents to help find your
+          service please indicate who your service if for.
         </p>
       </FormFieldset>
       {checkboxOptions.map((item) => {
         return (
           <div key={item.id}>
-            {item.id === "everyone" ? (
-              <StyledHelp>
-                Alternatively, if what you do can be accessed by everyone select
-                the following:
-              </StyledHelp>
-            ) : null}
             <FormCheckbox
               name={item.id}
               label={item.label}
               value={item.value}
               register={register}
+              onClick={() => handleCheckBoxClick(item)}
             />
+            {item.id === "everyone" ? (
+              <StyledHelp>
+                If your service is for a <strong>specific audience</strong>{" "}
+                please select from the following filters to indicate who your
+                service is for:
+              </StyledHelp>
+            ) : null}
           </div>
         );
       })}

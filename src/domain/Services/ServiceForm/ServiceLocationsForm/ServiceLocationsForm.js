@@ -37,9 +37,11 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
 
   return (
     <>
+      {/* TODO: update help text */}
+      {/* TODO: where will 'i can't find my address in the list' link to? */}
       <FormFieldset
         label="Service location(s)"
-        help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ"
+        help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ. Lorem ipsum dolor... explain they can use if you town hall location or similar..."
       ></FormFieldset>
       {[...Array(addressCounter)].map(() => {
         i++;
@@ -80,18 +82,25 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
         })}
       >
         <div style={{ marginTop: "30px" }}>
+          {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
+            <>
+              <h2 style={{ margin: "30px 0 10px 0" }}>Map Preview</h2>
+              <Map
+                data={selectedAddressArray}
+                mapStyle={{
+                  margin: "0 0 30px 0",
+                  width: "100%",
+                  height: "400px",
+                }}
+              />
+            </>
+          ) : null}
           {errorMessage ? (
             <FormError error={errorMessage} marginBottom="10px" />
           ) : null}
           <Button type="submit" label="Continue ›" margin="0 0 0 0" />
         </div>
       </form>
-      {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
-        <Map
-          data={selectedAddressArray}
-          mapStyle={{ width: "100%", height: "400px", marginTop: "30px" }}
-        />
-      ) : null}
     </>
   );
 };
