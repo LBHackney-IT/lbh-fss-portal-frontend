@@ -62,9 +62,17 @@
     ],
     "categories": [
       {
-        "id": 56780,
-        "name": "Organized multi-state forecast",
+        "id": 1,
+        "name": "Loneliness",
         "description": "Face to face analyzing process improvement",
+        "service_description": "Cross-platform composite protocol",
+        "vocabulary": "category",
+        "weight": 71761
+      },
+      {
+        "id": 2,
+        "name": "Anxiety",
+        "description": "Hello there lorem ipsum",
         "service_description": "Cross-platform composite protocol",
         "vocabulary": "category",
         "weight": 71761
@@ -133,7 +141,15 @@
     ],
     "categories": [
       {
-        "id": 92672,
+        "id": 3,
+        "name": "Expanded exuding orchestration",
+        "description": "Virtual bi-directional projection",
+        "service_description": "Optimized 6th generation moratorium",
+        "vocabulary": "demographic",
+        "weight": 87694
+      },
+      {
+        "id": 9,
         "name": "Expanded exuding orchestration",
         "description": "Virtual bi-directional projection",
         "service_description": "Optimized 6th generation moratorium",
