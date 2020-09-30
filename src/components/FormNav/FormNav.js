@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { grey, blue } from "../../../../settings";
-import RaisedCard from "../../../../components/RaisedCard/RaisedCard";
-import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
+import { grey, blue } from "../../settings";
+import RaisedCard from "../../components/RaisedCard/RaisedCard";
+import { breakpoint } from "../..//utils/breakpoint/breakpoint";
 
 const StyledNav = styled.div`
   width: 100%;
@@ -105,7 +105,7 @@ const OrganisationFormNavItem = ({
   );
 };
 
-const OrganisationFormNav = ({
+const FormNav = ({
   stepArray,
   stepNum,
   setStepNum,
@@ -134,4 +134,4 @@ const OrganisationFormNav = ({
   );
 };
 
-export default OrganisationFormNav;
+export default FormNav;

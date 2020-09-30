@@ -23,7 +23,10 @@ const ServiceFormNav = ({
   stepNum,
   setStepNum,
   enableAllLinks = false,
+  setShowHiddenField,
+  showHiddenFieldSnapshot,
 }) => {
+
   return (
     <nav>
       {stepArray.map((s, i) => (

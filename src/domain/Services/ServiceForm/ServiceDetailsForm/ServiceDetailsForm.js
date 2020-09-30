@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import FormInput from "../../../../components/FormInput/FormInput";
 import Button from "../../../../components/Button/Button";
+import FormTextbox from "../../../../components/FormTextbox/FormTextbox";
 
 const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
   const { register, handleSubmit, errors } = useForm({
@@ -21,14 +22,16 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           label="Service name"
           register={register}
           error={errors.name}
+          maxLength={255}
           required
-          help="This is how your service will be displayed to residents in the directory"
+          help="This is how your service will be displayed on the website"
         />
-        <FormInput
+        <FormTextbox
           name="description"
-          type="text"
           label="Service description"
           register={register}
+          maxLength={80}
+          required
           error={errors.description}
           help="Can you describe your service in 80 characters (e.g Expert services so no-one has to face a mental health problem alone)"
         />
@@ -43,6 +46,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           label="Website"
           register={register}
           error={errors.website}
+          maxLength={255}
           help="Please include a link to your contact page or equivalent"
         />
         <FormInput
@@ -51,6 +55,16 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           label="Email"
           register={register}
           error={errors.email}
+          maxLength={80}
+          validate={{
+            pattern: (value) => {
+              if (value === "") return true;
+              return (
+                value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
+                "Enter a valid e-mail address"
+              );
+            },
+          }}
           help="Ensure it is a business (not personal) email"
         />
         <FormInput
@@ -58,6 +72,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           type="tel"
           label="Phone number"
           register={register}
+          maxLength={255}
           error={errors.telephone}
           help="Ensure it is a business (not personal) number"
         />
@@ -67,7 +82,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
         help="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet varius sapien."
       >
         <FormInput
-          name="referral_link"
+          name="referralLink"
           type="text"
           label="Referral link"
           register={register}
@@ -75,11 +90,21 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           help="If you have one you can include a referral form"
         />
         <FormInput
-          name="referral_email"
+          name="referralEmail"
           type="email"
           label="Referral email"
           register={register}
-          error={errors.referral_email}
+          maxLength={255}
+          validate={{
+            pattern: (value) => {
+              if (value === "") return true;
+              return (
+                value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
+                "Enter a valid e-mail address"
+              );
+            },
+          }}
+          error={errors.referralEmail}
           help="Include a referral email if you have one"
         />
       </FormFieldset>
@@ -91,6 +116,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           name="facebook"
           type="text"
           label="Facebook"
+          maxLength={255}
           register={register}
           error={errors.facebook}
         />
@@ -98,6 +124,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           name="twitter"
           type="text"
           label="Twitter"
+          maxLength={255}
           register={register}
           error={errors.twitter}
         />
@@ -105,6 +132,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           name="instagram"
           type="text"
           label="Instagram"
+          maxLength={255}
           register={register}
           error={errors.instagram}
         />
@@ -112,6 +140,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           name="linkedin"
           type="text"
           label="LinkedIn"
+          maxLength={255}
           register={register}
           error={errors.linkedin}
         />

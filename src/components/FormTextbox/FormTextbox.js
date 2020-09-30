@@ -12,12 +12,12 @@ const StyledLabel = styled.label`
   color: black;
 `;
 
-const StyledInput = styled.input`
-  display: block;
+const StyledTextarea = styled.textarea`
+  resize: none;
+  padding: 10px;
   margin-bottom: 20px;
   max-width: 438px;
   width: 100%;
-  height: 50px;
   border: 1px solid ${neutral[500]};
   padding: 15px;
 `;
@@ -27,8 +27,7 @@ const StyledHelp = styled.p`
   margin: 5px 0 20px 0;
 `;
 
-const FormInput = ({
-  type,
+const FormTextbox = ({
   name,
   label,
   register,
@@ -42,6 +41,8 @@ const FormInput = ({
   help,
   placeholder,
   labelStyle,
+  rows = "5",
+  cols = "10",
 }) => {
   return (
     <>
@@ -49,11 +50,12 @@ const FormInput = ({
         {label}
       </StyledLabel>
       {help ? <StyledHelp>{help}</StyledHelp> : ""}
-      <StyledInput
+      <StyledTextarea
         onChange={onChange}
         aria-label={name}
         name={name}
-        type={type}
+        rows={8}
+        cols={32}
         placeholder={placeholder}
         ref={(e) => {
           register(e, { required, minLength, maxLength, validate });
@@ -69,9 +71,7 @@ const FormInput = ({
       )}
       {error && error.type === "minLength" && (
         <FormError
-          error={`${label} must be at least ${minLength} ${
-            type === "number" ? "digits" : "characters"
-          }.`}
+          error={`${label} must be at least ${minLength} characters`}
         />
       )}
       {error && error.message && <FormError error={error.message} />}
@@ -79,8 +79,7 @@ const FormInput = ({
   );
 };
 
-FormInput.propTypes = {
-  type: PropTypes.string,
+FormTextbox.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
   register: PropTypes.func,
@@ -90,4 +89,4 @@ FormInput.propTypes = {
   error: PropTypes.object,
 };
 
-export default FormInput;
+export default FormTextbox;

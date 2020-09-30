@@ -70,6 +70,17 @@ const ServiceService = {
       return false;
     }
   },
+  async findAddress(postcode) {
+    try {
+      const response = await axios.get(`/api/address-lookup`, postcode);
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+
+      return false;
+    }
+  },
 };
 
 export default ServiceService;

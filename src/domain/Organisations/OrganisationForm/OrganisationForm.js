@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import OrganisationFormNav from "./OrganisationFormNav/OrganisationFormNav";
 import OrganisationConfirmLocationForm from "./OrganisationConfirmLocationForm/OrganisationConfirmLocationForm";
 import OrganisationCharityInformationForm from "./OrganisationCharityInformationForm/OrganisationCharityInformationForm";
 import OrganisationChildSupportForm from "./OrganisationChildSupportForm/OrganisationChildSupportForm";
@@ -9,6 +8,7 @@ import scrollToRef from "../../../utils/scrollToRef/scrollToRef";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import { convertStepNumToWord } from "../../../utils/functions/functions";
 import { grey } from "../../../settings";
+import FormNav from "../../../components/FormNav/FormNav";
 
 const StyledOrganisationForm = styled.div`
   display: flex;
@@ -168,7 +168,7 @@ const OrganisationForm = ({
       <h1>Tell us about your organisation</h1>
       <StyledOrganisationForm>
         <StyledOrganisationFormAside>
-          <OrganisationFormNav
+          <FormNav
             stepArray={stepArray}
             stepNum={stepNum}
             setStepNum={setStepNum}

@@ -10,12 +10,16 @@
     "axios": "^0.19.2",
     "http-proxy-middleware": "^1.0.5",
     "js-cookie": "^2.2.1",
+    "leaflet": "^1.7.1",
     "lodash": "^4.17.19",
     "polished": "^3.6.5",
+    "postcode-validator": "^3.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.3.0",
+    "react-images-upload": "^1.2.8",
+    "react-leaflet": "^2.7.0",
     "react-scripts": "3.4.1",
     "react-table": "^7.5.0",
     "react-toastify": "^6.0.8",
@@ -32,7 +36,8 @@
     "dev": "run-p start mock-api",
     "mock-gen:users": "node ./scripts/generateMockUsers.js",
     "mock-gen:services": "node ./scripts/generateMockServices.js",
-    "mock-gen:orgs": "node ./scripts/generateMockOrganisations.js"
+    "mock-gen:orgs": "node ./scripts/generateMockOrganisations.js",
+    "mock-gen:address": "node ./scripts/generateMockAddresses.js"
   },
   "eslintConfig": {
     "extends": "react-app"
