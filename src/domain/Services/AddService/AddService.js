@@ -66,12 +66,6 @@ const AddService = () => {
 
   const [showHiddenField, setShowHiddenField] = useState({
     lonOrIsDetails: false,
-    exAndWellDetails: false,
-    houseAdvDetails: false,
-  });
-
-  const [showHiddenField, setShowHiddenField] = useState({
-    lonOrIsDetails: false,
     anxOrMHDetails: false,
     safeAndHBDetails: false,
     exAndWellDetails: false,
@@ -98,7 +92,7 @@ const AddService = () => {
     if (service) {
       toast.success(`New service ${service.name} created.`);
 
-      navigate("/services");
+      navigate("/service");
     } else {
       toast.error("Unable to add service.");
     }

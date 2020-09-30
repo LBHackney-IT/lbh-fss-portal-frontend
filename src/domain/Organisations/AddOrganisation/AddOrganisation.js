@@ -71,7 +71,7 @@ const AddOrganisation = () => {
     if (addedOrganisation) {
       toast.success(`New organisation ${addedOrganisation.name} created.`);
 
-      navigate("/services");
+      navigate("/service");
     } else {
       toast.error("Unable to add organisation.");
     }

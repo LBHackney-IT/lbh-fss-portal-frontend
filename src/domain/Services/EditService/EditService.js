@@ -26,7 +26,7 @@ const EditService = (props) => {
     if (service) {
       toast.success(`Service ${service.name} updated.`);
 
-      navigate("/services");
+      navigate("/service");
     } else {
       toast.error("Unable to update service.");
     }

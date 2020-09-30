@@ -61,7 +61,7 @@ const RegisterStep3 = () => {
     if (user) {
       setUser(user);
       Cookies.remove("registerStep1Values");
-      navigate("/services");
+      navigate("/service");
     } else {
       toast.error("Registration failed.");
     }

@@ -31,7 +31,7 @@ const Login = () => {
     if (user) {
       setUser(user);
 
-      navigate("/services");
+      navigate("/service");
     } else {
       toast.error("Invalid username or password.");
 

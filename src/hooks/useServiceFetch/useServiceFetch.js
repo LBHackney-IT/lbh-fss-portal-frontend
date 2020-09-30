@@ -18,7 +18,7 @@ function useServiceFetch(serviceId) {
       } else {
         toast.error("Unable to find service.");
 
-        navigate("/services");
+        navigate("/service");
       }
     }
 

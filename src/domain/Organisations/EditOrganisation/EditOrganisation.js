@@ -154,7 +154,7 @@ const EditOrganisation = (props) => {
         );
       }
 
-      navigate("/services");
+      navigate("/service");
     } else {
       toast.error("Unable to update organisation.");
     }
