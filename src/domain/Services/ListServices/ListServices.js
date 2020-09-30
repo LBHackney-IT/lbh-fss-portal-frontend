@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import ButtonLink from "../../../components/ButtonLink/ButtonLink";
-import DigitalGuideInfo from "../DigitalGuideInfo/DigitalGuideInfo";
+import UserContext from "../../../context/UserContext/UserContext";
+import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 
 const ListServices = () => {
-  return (
+  const { roles } = useContext(UserContext)[0];
+
+  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+
+  return accessPermission ? (
     <>
       <h1>Services</h1>
       <ButtonLink label="Add service" to="/services/add" />
     </>
+  ) : (
+    <AccessDenied />
   );
 };
 

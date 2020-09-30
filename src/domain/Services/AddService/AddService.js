@@ -62,6 +62,7 @@ function doCleanFormValues(values) {
 const AddService = () => {
   const localUser = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
+  // TODO: find out how a user or organisation is related to a service
 
   const [showHiddenField, setShowHiddenField] = useState({
     lonOrIsDetails: false,
@@ -82,8 +83,6 @@ const AddService = () => {
 
     const cleanFormValues = doCleanFormValues(formValues);
 
-    console.log(cleanFormValues);
-
     setSubmitIsLoading(true);
 
     const service = await ServiceService.createService(cleanFormValues);
@@ -93,7 +92,7 @@ const AddService = () => {
     if (service) {
       toast.success(`New service ${service.name} created.`);
 
-      navigate("/services");
+      navigate("/service");
     } else {
       toast.error("Unable to add service.");
     }

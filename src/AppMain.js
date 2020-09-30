@@ -27,6 +27,7 @@ import SearchGroups from "./domain/Search/SearchGroups/SearchGroups";
 import ListOrganisations from "./domain/Organisations/ListOrganisations/ListOrganisations";
 import AddOrganisation from "./domain/Organisations/AddOrganisation/AddOrganisation";
 import EditOrganisation from "./domain/Organisations/EditOrganisation/EditOrganisation";
+import HandleMyService from "./domain/Services/HanldeMyService/HandleMyService";
 
 const AppMain = ({ location }) => {
   const setUser = useContext(UserContext)[1];
@@ -61,6 +62,7 @@ const AppMain = ({ location }) => {
       <ProtectedRoute as={MyAccount} path="/account" />
       <ProtectedRoute as={AnalyticsDashboard} path="/analytics" />
       <ProtectedRoute as={Logout} path="/logout" withLayout={false} />
+      <ProtectedRoute as={HandleMyService} path="/service" />
       <ProtectedRoute as={AddService} path="/services/add/" />
       <ProtectedRoute as={AddService} path="/services/add/:step" />
       <ProtectedRoute as={EditService} path="/services/:serviceId/edit/" />

@@ -21,7 +21,7 @@ function useOrganisationFetch(organisationId) {
       } else {
         toast.error("Unable to find organisation.");
 
-        navigate("/services");
+        navigate("/service");
       }
     }
 

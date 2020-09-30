@@ -37,6 +37,10 @@ const StyledAddUserLink = styled.div`
   `};
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const ListUsers = ({ location }) => {
   const { roles } = useContext(UserContext)[0];
 
@@ -73,9 +77,9 @@ const ListUsers = ({ location }) => {
         <StyledActionDiv>
           <Search setSearch={setSearch} />
           <StyledAddUserLink>
-            <Link to="/users/add">
+            <StyledLink to="/users/add">
               <StyledButton label={"Add user"} />
-            </Link>
+            </StyledLink>
           </StyledAddUserLink>
         </StyledActionDiv>
       </div>

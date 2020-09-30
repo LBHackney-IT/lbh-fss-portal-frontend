@@ -119,9 +119,13 @@ function NavBar() {
               Organisations
             </StyledPrimaryLink>
           ) : null}
-          <StyledPrimaryLink to="/services">
-            {isInternalTeam ? "Listings" : "Your listings"}
-          </StyledPrimaryLink>
+
+          {!isInternalTeam ? (
+            <StyledPrimaryLink to="/service">Your listings</StyledPrimaryLink>
+          ) : null}
+          {isInternalTeam ? (
+            <StyledPrimaryLink to="/services">Listings</StyledPrimaryLink>
+          ) : null}
           {isInternalTeam ? (
             <StyledPrimaryLink to="/users">Users</StyledPrimaryLink>
           ) : null}

@@ -28,7 +28,6 @@ const StyledHiddenFieldContainer = styled.div`
 const StyledUl = styled.ul`
   padding-left: 18px;
 `;
-
 const ServiceCategoriesForm = ({
   onSubmit,
   defaultValues = {},
@@ -120,10 +119,6 @@ const ServiceCategoriesForm = ({
         return false;
     }
   }
-
-  // function handleShaowError() {
-  //   trigger()
-  // }
 
   const checkboxOptions = [
     {
