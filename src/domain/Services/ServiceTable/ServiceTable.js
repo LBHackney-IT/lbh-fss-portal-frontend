@@ -65,6 +65,7 @@ const ServiceTable = ({
   setSelectedService,
   showPagination,
   actionWidth,
+  marginTop,
 }) => {
   const columns = useMemo(
     () => [
@@ -129,6 +130,7 @@ const ServiceTable = ({
           isLoading={false}
           search={search}
           tdHeightMobile={"20px"}
+          marginTop={marginTop}
           showPagination={showPagination}
         />
       </div>

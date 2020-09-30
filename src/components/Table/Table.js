@@ -11,7 +11,7 @@ const StyledTable = styled.table`
   border-radius: 3px 3px 0px 0px;
   margin-top: 10px;
   ${breakpoint("md")`
-    margin-top: 40px;
+    margin-top: ${(props) => props.marginTop || "40px"};
   `};
 `;
 
@@ -83,6 +83,7 @@ const Table = ({
   isLoading,
   search,
   tdHeightMobile = "5px",
+  marginTop,
   showPagination = true,
 }) => {
   const {
@@ -134,7 +135,7 @@ const Table = ({
     <>
       {page.length > 0 ? (
         <>
-          <StyledTable {...getTableProps()}>
+          <StyledTable {...getTableProps()} marginTop={marginTop}>
             <StyledThead>
               {headerGroups.map((headerGroup) => (
                 <StyledHeadingTr {...headerGroup.getHeaderGroupProps()}>
