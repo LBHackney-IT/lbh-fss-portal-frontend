@@ -8,6 +8,8 @@ import { red } from "../../../settings";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import Button from "../../../components/Button/Button";
 import { Link } from "@reach/router";
+import { toast } from "react-toastify";
+import ServiceService from "../../../services/ServiceService/ServiceService";
 
 const StyledActionDiv = styled.div`
   display: flex;
@@ -50,7 +52,23 @@ const MyService = ({ userServices }) => {
   }
 
   async function doRemove() {
-    alert("remove service");
+    if (removeIsLoading) return;
+
+    setRemoveIsLoading(true);
+
+    const serviceDeleted = await ServiceService.deleteService(
+      selectedService.id
+    );
+
+    setRemoveIsLoading(false);
+
+    if (serviceDeleted) {
+      toast.success(`${selectedService.name} removed.`);
+    } else {
+      toast.error(`Unable to remove service.`);
+    }
+
+    setRemoveModalIsOpen(false);
   }
 
   let actions = [
@@ -75,7 +93,7 @@ const MyService = ({ userServices }) => {
         actions={actions}
         setSelectedService={setSelectedService}
         showPagination={false}
-        actionWidth={"210px"}
+        actionWidth={"140px"}
         marginTop={"10px"}
       />
       <ConfirmModal
