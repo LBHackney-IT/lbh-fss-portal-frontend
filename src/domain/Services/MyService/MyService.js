@@ -70,11 +70,6 @@ const MyService = ({ userServices }) => {
           </StyledLink>
         </StyledAddServiceLink>
       </StyledActionDiv>
-      {/* <StyledAddServiceLink>
-        <Link to="/services/add">
-          <StyledButton label={"Add service"} />
-        </Link>
-      </StyledAddServiceLink> */}
       <ServiceTable
         data={userServices}
         actions={actions}
