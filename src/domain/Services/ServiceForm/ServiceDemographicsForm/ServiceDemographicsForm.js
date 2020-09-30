@@ -100,7 +100,6 @@ const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormFieldset label="Who you work with">
-        <p>Lorem ipsum...</p>
         <p>
           In order to help make it easier for residents to help find your
           service please indicate who your service if for.
