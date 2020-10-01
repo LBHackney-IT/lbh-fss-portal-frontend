@@ -1,16 +1,54 @@
 import axios from "axios";
+import API_KEY from "../../settings/apiKey";
+import BASE_API_URL from "../../settings/baseApiUrl";
+// import qs from "qs";
 
 const AuthenticationService = {
   async register(name, email, password) {
     try {
-      const { data } = await axios.post("/api/registration", {
-        name,
-        email,
-        password,
-      });
+      // const options = {
+      //   method: "post",
+      //   url:
+      //     "https://d20nspk61k.execute-api.eu-west-2.amazonaws.com/development/api/v1/registration",
+      //   headers: {
+      //     "x-api-key": "3TqLIQo223anJJyIwM3tW7IysijNlDAsaMNilvcQ",
+      //     "Content-Type": "application/json",
+      //   },
+      //   data: {
+      //     name: "Finn",
+      //     email: "Williams",
+      //     password: "password",
+      //   },
+      //   transformRequest: [
+      //     (data, headers) => {
+      //       // transform the data
+
+      //       return data;
+      //     },
+      //   ],
+      // };
+      // const { data } = axios(options);
+
+      const { data } = await axios.post(
+        "https://d20nspk61k.execute-api.eu-west-2.amazonaws.com/development/api/v1/registration",
+        {
+          headers: {
+            "x-api-key": "3TqLIQo223anJJyIwM3tW7IysijNlDAsaMNilvcQ",
+            "Content-Type": "application/json",
+          },
+          params: {
+            name,
+            email,
+            password,
+          },
+        }
+      );
+
+      console.log(data);
 
       return data;
     } catch (error) {
+      console.log(error);
       return false;
     }
   },
