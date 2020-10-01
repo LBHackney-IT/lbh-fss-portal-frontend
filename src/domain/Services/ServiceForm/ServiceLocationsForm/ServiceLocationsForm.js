@@ -21,8 +21,6 @@ function selectedAddressArrayIsEmpty(selectedAddressArray) {
 }
 
 const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
-  defaultValues = {};
-
   if (defaultValues.locations) {
     defaultValues.locations.forEach((location) => {
       location.formattedAddress = location.address1.concat(

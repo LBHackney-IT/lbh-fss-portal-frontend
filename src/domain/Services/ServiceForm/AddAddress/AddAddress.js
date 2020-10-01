@@ -123,7 +123,7 @@ const ServiceLocationsForm = ({
   }
 
   if (addressesIsLoading) {
-    return <span>Loading...</span>;
+    return <div style={{ height: "270px" }}>Loading...</div>;
   }
 
   if (postcodeHasBeenRemoved)
