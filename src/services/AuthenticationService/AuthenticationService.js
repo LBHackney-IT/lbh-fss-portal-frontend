@@ -6,74 +6,43 @@ import BASE_API_URL from "../../settings/baseApiUrl";
 const AuthenticationService = {
   async register(name, email, password) {
     try {
-      // const options = {
-      //   method: "post",
-      //   url:
-      //     "https://d20nspk61k.execute-api.eu-west-2.amazonaws.com/development/api/v1/registration",
-      //   headers: {
-      //     "x-api-key": "3TqLIQo223anJJyIwM3tW7IysijNlDAsaMNilvcQ",
-      //     "Content-Type": "application/json",
-      //   },
-      //   data: {
-      //     name: "Finn",
-      //     email: "Williams",
-      //     password: "password",
-      //   },
-      //   transformRequest: [
-      //     (data, headers) => {
-      //       // transform the data
-
-      //       return data;
-      //     },
-      //   ],
-      // };
-      // const { data } = axios(options);
-
-      const post = {
-        name,
-        email,
-        password,
-      };
-
-      const { data } = await axios.post(BASE_API_URL+'/registration ', post, {
-        headers: {
-          "x-api-key": API_KEY,
-          "Content-Type": "application/json",
+      const { data } = await axios.post(
+        `${BASE_API_URL}/registration`,
+        {
+          name,
+          email,
+          password,
         },
-      });
-
-      // const { data } = await axios.post(
-      //   "https://d20nspk61k.execute-api.eu-west-2.amazonaws.com/development/api/v1/registration",
-      //   {
-      //     headers: {
-      //       "x-api-key": "3TqLIQo223anJJyIwM3tW7IysijNlDAsaMNilvcQ",
-      //       "Content-Type": "application/json",
-      //     },
-      //     params: {
-      //       name: 'Fred',
-      //       email: 'freddyb34@gmail.com',
-      //       password: "1Password"
-      //     }
-      //   }
-      // );
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       console.log(data);
 
       return data;
     } catch (error) {
-      console.log(name);
-      console.log(email);
-      console.log(password);
-      console.log(error);
       return false;
     }
   },
   async registerConfirmation(email, code) {
     try {
-      const { data } = await axios.post("/api/registration/confirmation", {
-        email,
-        code,
-      });
+      const { data } = await axios.post(
+        `${BASE_API_URL}/registration/confirmation`,
+        {
+          email,
+          code,
+        },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return data;
     } catch (error) {
