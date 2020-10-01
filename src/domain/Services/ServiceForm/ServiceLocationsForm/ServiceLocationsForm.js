@@ -21,31 +21,28 @@ function selectedAddressArrayIsEmpty(selectedAddressArray) {
 }
 
 const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
-  // defaultValues = {};
+  defaultValues = {};
 
-  const [selectedAddressArray, setSelectedAddressArray] = useState([]);
+  if (defaultValues.locations) {
+    defaultValues.locations.forEach((location) => {
+      location.formattedAddress = location.address1.concat(
+        ", ",
+        location.address2,
+        ", ",
+        location.city,
+        ", ",
+        location.postalCode
+      );
+    });
+  }
+
+  const [selectedAddressArray, setSelectedAddressArray] = useState(
+    defaultValues.locations ? defaultValues.locations : []
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const [addressCounter, setAddressCounter] = useState(
     defaultValues.locations ? defaultValues.locations.length : 1
   );
-  const [newDefaultValues, setNewDefaultValues] = useState(defaultValues);
-
-  useEffect(() => {
-    if (Object.keys(newDefaultValues).includes("locations")) {
-      newDefaultValues.locations.forEach((location) => {
-        location.formattedAddress = location.address1.concat(
-          ", ",
-          location.address2,
-          ", ",
-          location.city,
-          ", ",
-          location.postalCode
-        );
-      });
-
-      setNewDefaultValues(newDefaultValues.locations);
-    }
-  }, [newDefaultValues]);
 
   const { handleSubmit } = useForm({});
 
@@ -69,9 +66,7 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
           <div key={i}>
             <AddAddress
               index={i}
-              defaultValues={
-                newDefaultValues.locations ? newDefaultValues.locations[i] : {}
-              }
+              defaultValues={selectedAddressArray[i] || {}}
               setSelectedAddressArray={setSelectedAddressArray}
               selectedAddressArray={selectedAddressArray}
               addressCounter={addressCounter}
@@ -108,14 +103,14 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
           {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
             <>
               <h2 style={{ margin: "30px 0 10px 0" }}>Map Preview</h2>
-              {/* <Map
+              <Map
                 data={selectedAddressArray}
                 mapStyle={{
                   margin: "0 0 30px 0",
                   width: "100%",
                   height: "400px",
                 }}
-              /> */}
+              />
             </>
           ) : null}
           {errorMessage ? (

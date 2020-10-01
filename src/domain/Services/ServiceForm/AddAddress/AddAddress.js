@@ -84,7 +84,6 @@ const ServiceLocationsForm = ({
       const dataWithFormattedAddress = addFormattedAddress(data);
 
       setAddresses(keyBy(dataWithFormattedAddress, "formattedAddress"));
-      console.log(defaultValues);
       reset({
         address: defaultValues.formattedAddress,
       });
@@ -124,7 +123,7 @@ const ServiceLocationsForm = ({
   }
 
   if (addressesIsLoading) {
-    return <h1>Loading...</h1>;
+    return <span>Loading...</span>;
   }
 
   if (postcodeHasBeenRemoved)

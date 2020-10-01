@@ -30,7 +30,16 @@ export default ({ mapStyle, data }) => {
   const cleanData = doCleanData(data);
 
   useEffect(() => {
-    if (cleanData.length === 0 || cleanData.length === 1) return;
+    // console.log("data");
+    // console.log(cleanData);
+    if (
+      cleanData.length === 0 ||
+      cleanData.length === 1 ||
+      !mapRef.current ||
+      !groupRef.current
+    ) {
+      return;
+    }
 
     const map = mapRef.current.leafletElement;
     const group = groupRef.current.leafletElement;
