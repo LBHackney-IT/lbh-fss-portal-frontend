@@ -6,6 +6,7 @@ import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import { objAllFalse } from "../../../../utils/functions/functions";
+import { serviceDemographicCheckboxOptions } from "../../../../utils/data/data";
 
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
@@ -36,58 +37,17 @@ const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
     defaultValues,
   });
 
-  const checkboxOptions = [
-    {
-      id: "everyone",
-      value: 1,
-      label: "Everyone",
-    },
-    {
-      id: "disbOrAut",
-      value: 2,
-      label: "Disabilities or autism",
-    },
-    {
-      id: "men",
-      value: 3,
-      label: "Men",
-    },
-    {
-      id: "women",
-      value: 4,
-      label: "Women",
-    },
-    {
-      id: "lgbtqi",
-      value: 5,
-      label: "LGBTQI+",
-    },
-    {
-      id: "chilYoungFam",
-      value: 6,
-      label: "Children, young people or families",
-    },
-    {
-      id: "oldPe",
-      value: 7,
-      label: "Older people",
-    },
-    {
-      id: "carers",
-      value: 8,
-      label: "Carers",
-    },
-    {
-      id: "cultural",
-      value: 9,
-      label: "Cultural",
-    },
-  ];
-
   function handleCheckBoxClick(item) {
     if (item.id === "everyone") {
-      reset();
-      setValue("everyone", true);
+      let resetValues = {};
+
+      serviceDemographicCheckboxOptions.forEach((demographic) => {
+        resetValues[demographic.id] = false;
+      });
+
+      resetValues.everyone = true;
+
+      reset(resetValues);
     }
     if (item.id !== "everyone") {
       setValue("everyone", false);
@@ -105,7 +65,7 @@ const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
           service please indicate who your service if for.
         </p>
       </FormFieldset>
-      {checkboxOptions.map((item) => {
+      {serviceDemographicCheckboxOptions.map((item) => {
         return (
           <div key={item.id}>
             <FormCheckbox

@@ -140,10 +140,59 @@ const serviceCategoryCheckboxOptions = [
   },
 ];
 
+const serviceDemographicCheckboxOptions = [
+  {
+    id: "everyone",
+    value: 1,
+    label: "Everyone",
+  },
+  {
+    id: "disbOrAut",
+    value: 2,
+    label: "Disabilities or autism",
+  },
+  {
+    id: "men",
+    value: 3,
+    label: "Men",
+  },
+  {
+    id: "women",
+    value: 4,
+    label: "Women",
+  },
+  {
+    id: "lgbtqi",
+    value: 5,
+    label: "LGBTQI+",
+  },
+  {
+    id: "chilYoungFam",
+    value: 6,
+    label: "Children, young people or families",
+  },
+  {
+    id: "oldPe",
+    value: 7,
+    label: "Older people",
+  },
+  {
+    id: "carers",
+    value: 8,
+    label: "Carers",
+  },
+  {
+    id: "cultural",
+    value: 9,
+    label: "Cultural",
+  },
+];
+
 export {
   organisationFormFields,
   organisationFormYesNoRadioFields,
   serviceCategoryFields,
   serviceDemographicsFields,
   serviceCategoryCheckboxOptions,
+  serviceDemographicCheckboxOptions,
 };

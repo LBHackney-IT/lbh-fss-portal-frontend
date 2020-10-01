@@ -4,9 +4,12 @@ import useServiceFetch from "../../../hooks/useServiceFetch/useServiceFetch";
 import ServiceService from "../../../services/ServiceService/ServiceService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
-import { serviceCategoryCheckboxOptions } from "../../../utils/data/data";
+import {
+  serviceCategoryCheckboxOptions,
+  serviceDemographicCheckboxOptions,
+} from "../../../utils/data/data";
 
-function doFormatDefaultValuesCategories(values) {
+function doFormatCategoryDefaultValues(values) {
   const categoryIdArray = values.categories.map((category) => {
     return category.id;
   });
@@ -29,17 +32,32 @@ function doFormatDefaultValuesCategories(values) {
   return newValues;
 }
 
-function doFormatDefaultValuesLocations(values) {
+function doFormatDemographicDefaultValues(values) {
+  const demographicIdArray = values.demographics.map((demographic) => {
+    return demographic.id;
+  });
+
   let newValues = values;
-  // console.log(values.locations);
+
+  serviceDemographicCheckboxOptions.forEach((item) => {
+    if (demographicIdArray.includes(item.value)) {
+      const demographicInfo = values.demographics.filter((demographic) => {
+        return demographic.id === item.value;
+      });
+
+      newValues[item.id] = true;
+    }
+  });
+
+  delete newValues.demographic;
 
   return newValues;
 }
 
 function doCleanDefaultValues(values) {
   let cleanDefaultValues = {};
-  cleanDefaultValues = doFormatDefaultValuesCategories(values);
-  cleanDefaultValues = doFormatDefaultValuesLocations(cleanDefaultValues);
+  cleanDefaultValues = doFormatCategoryDefaultValues(values);
+  cleanDefaultValues = doFormatDemographicDefaultValues(cleanDefaultValues);
 
   return cleanDefaultValues;
 }
