@@ -57,14 +57,19 @@ const ServiceLocationsForm = ({
   setAddressCounter,
   setErrorMessage,
 }) => {
-  const [selectedPostcodeValue, setSelectedPostcodeValue] = useState("");
+  const [selectedPostcodeValue, setSelectedPostcodeValue] = useState(
+    defaultValues.postalCode || ""
+  );
   const [postcodeHasBeenRemoved, setPostcodeHasBeenRemoved] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [addressesIsLoading, setAddressesIsLoading] = useState(false);
 
-  const { register, handleSubmit, errors, getValues, watch } = useForm({
-    defaultValues,
-  });
+  const { register, handleSubmit, errors, getValues, reset, watch } = useForm();
+
+  useEffect(() => {
+    if (!defaultValues.postalCode) return;
+    doFindAddress(defaultValues.postalCode);
+  }, [defaultValues]);
 
   async function doFindAddress(postcode) {
     if (addressesIsLoading) return;
@@ -79,6 +84,10 @@ const ServiceLocationsForm = ({
       const dataWithFormattedAddress = addFormattedAddress(data);
 
       setAddresses(keyBy(dataWithFormattedAddress, "formattedAddress"));
+      console.log(defaultValues);
+      reset({
+        address: defaultValues.formattedAddress,
+      });
     } else {
       toast.error("Postcode could not be found.");
     }
@@ -194,9 +203,9 @@ const ServiceLocationsForm = ({
       <a href="" target="_blank">
         I can't find my address in the list
       </a>
-      {watch("address") ? (
+      {/* {watch("address") ? (
         <p>UPRN: {addresses[watch("address")].uprn}</p>
-      ) : null}
+      ) : null} */}
       {index + 1 === addressCounter ? (
         <>
           <Button

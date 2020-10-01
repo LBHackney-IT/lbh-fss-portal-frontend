@@ -55,7 +55,8 @@ const ServiceForm = ({
   defaultValues = {},
   showHiddenField,
   setShowHiddenField,
-  initialStepId = "details",
+  initialStepId = "locations",
+  // initialStepId = "details",
   submitLoading = false,
 }) => {
   const stepArray = [

@@ -44,8 +44,6 @@ const ListServices = () => {
     async function fetchServices() {
       let services = false;
 
-      console.log(search);
-
       if (search) {
         services = await ServiceService.retrieveServices({
           limit: Infinity,

@@ -31,7 +31,7 @@ function doFormatDefaultValuesCategories(values) {
 
 function doFormatDefaultValuesLocations(values) {
   let newValues = values;
-  console.log(values.locations);
+  // console.log(values.locations);
 
   return newValues;
 }
