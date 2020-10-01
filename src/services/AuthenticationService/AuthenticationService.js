@@ -29,25 +29,41 @@ const AuthenticationService = {
       // };
       // const { data } = axios(options);
 
-      const { data } = await axios.post(
-        "https://d20nspk61k.execute-api.eu-west-2.amazonaws.com/development/api/v1/registration",
-        {
-          headers: {
-            "x-api-key": "3TqLIQo223anJJyIwM3tW7IysijNlDAsaMNilvcQ",
-            "Content-Type": "application/json",
-          },
-          params: {
-            name,
-            email,
-            password,
-          },
-        }
-      );
+      const post = {
+        name,
+        email,
+        password,
+      };
+
+      const { data } = await axios.post(BASE_API_URL+'/registration ', post, {
+        headers: {
+          "x-api-key": API_KEY,
+          "Content-Type": "application/json",
+        },
+      });
+
+      // const { data } = await axios.post(
+      //   "https://d20nspk61k.execute-api.eu-west-2.amazonaws.com/development/api/v1/registration",
+      //   {
+      //     headers: {
+      //       "x-api-key": "3TqLIQo223anJJyIwM3tW7IysijNlDAsaMNilvcQ",
+      //       "Content-Type": "application/json",
+      //     },
+      //     params: {
+      //       name: 'Fred',
+      //       email: 'freddyb34@gmail.com',
+      //       password: "1Password"
+      //     }
+      //   }
+      // );
 
       console.log(data);
 
       return data;
     } catch (error) {
+      console.log(name);
+      console.log(email);
+      console.log(password);
       console.log(error);
       return false;
     }
