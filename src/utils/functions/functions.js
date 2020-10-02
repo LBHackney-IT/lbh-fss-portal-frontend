@@ -50,6 +50,20 @@ function objAllFalse(obj) {
   return Object.keys(obj).every((k) => !obj[k]);
 }
 
+function addFormattedAddress(locationsArray) {
+  locationsArray.forEach((location) => {
+    location["formattedAddress"] = location.address1.concat(
+      ", ",
+      location.address2,
+      ", ",
+      location.city,
+      ", ",
+      location.postalCode
+    );
+  });
+  return locationsArray;
+}
+
 export {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
@@ -57,5 +71,6 @@ export {
   convertStepNumToWord,
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
-  objAllFalse
+  objAllFalse,
+  addFormattedAddress,
 };

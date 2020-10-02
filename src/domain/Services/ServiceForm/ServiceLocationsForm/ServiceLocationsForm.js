@@ -6,6 +6,7 @@ import Button from "../../../../components/Button/Button";
 import AddAddress from "../AddAddress/AddAddress";
 import FormError from "../../../../components/FormError/FormError";
 import {
+  addFormattedAddress,
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
 } from "../../../../utils/functions/functions";
@@ -22,16 +23,7 @@ function selectedAddressArrayIsEmpty(selectedAddressArray) {
 
 const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
   if (defaultValues.locations) {
-    defaultValues.locations.forEach((location) => {
-      location.formattedAddress = location.address1.concat(
-        ", ",
-        location.address2,
-        ", ",
-        location.city,
-        ", ",
-        location.postalCode
-      );
-    });
+    defaultValues.locations = addFormattedAddress(defaultValues.locations);
   }
 
   const [selectedAddressArray, setSelectedAddressArray] = useState(

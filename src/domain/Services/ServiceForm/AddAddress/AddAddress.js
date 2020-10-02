@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { keyBy } from "lodash";
 import { green } from "../../../../settings";
 import ServiceService from "../../../../services/ServiceService/ServiceService";
+import { addFormattedAddress } from "../../../../utils/functions/functions";
 
 const StyledHighlightedText = styled.p`
   font-size: 19px;
@@ -34,19 +35,6 @@ const StyledHr = styled.hr`
   margin: 40px 0;
 `;
 
-function addFormattedAddress(data) {
-  data.addresses.forEach((address) => {
-    address["formattedAddress"] = address.address1.concat(
-      ", ",
-      address.address2,
-      ", ",
-      address.city,
-      ", ",
-      address.postalCode
-    );
-  });
-  return data.addresses;
-}
 
 const ServiceLocationsForm = ({
   index,
@@ -81,7 +69,7 @@ const ServiceLocationsForm = ({
     setAddressesIsLoading(false);
 
     if (data) {
-      const dataWithFormattedAddress = addFormattedAddress(data);
+      const dataWithFormattedAddress = addFormattedAddress(data.addresses);
 
       setAddresses(keyBy(dataWithFormattedAddress, "formattedAddress"));
       reset({
