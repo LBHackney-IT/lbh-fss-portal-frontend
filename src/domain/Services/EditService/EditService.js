@@ -62,6 +62,48 @@ function doCleanDefaultValues(values) {
   return cleanDefaultValues;
 }
 
+function doFormatDemographicFormValues(values) {
+  let newValues = values;
+  let demographicsArray = [];
+  serviceDemographicCheckboxOptions.forEach((item) => {
+    if (values[item.id]) {
+      demographicsArray.push(item.value);
+    }
+    delete newValues[item.id];
+  });
+
+  newValues.demographics = demographicsArray;
+
+  return newValues;
+}
+
+function doFormatCategoryFormValues(values) {
+  let newValues = values;
+  let categoriesArray = [];
+  serviceCategoryCheckboxOptions.forEach((item) => {
+    if (values[item.id]) {
+      categoriesArray.push({
+        id: item.value,
+        description: values[item.id.concat("Details")],
+      });
+    }
+    delete newValues[item.id];
+    delete newValues[item.id.concat("Details")];
+  });
+
+  newValues.categories = categoriesArray;
+
+  return newValues;
+}
+
+function doCleanFormValues(values) {
+  let cleanFormValues = {};
+  cleanFormValues = doFormatDemographicFormValues(values);
+  cleanFormValues = doFormatCategoryFormValues(values);
+
+  return cleanFormValues;
+}
+
 function doHandleHiddenFieldVisibility(
   cleanDefaultValues,
   showHiddenField,
@@ -135,11 +177,7 @@ const EditService = (props) => {
   useEffect(() => {
     if (fetchIsLoading) return;
 
-    const cleanDefaultValues = doCleanDefaultValues(
-      service,
-      showHiddenField,
-      setShowHiddenField
-    );
+    const cleanDefaultValues = doCleanDefaultValues(service);
 
     doHandleHiddenFieldVisibility(
       cleanDefaultValues,
@@ -153,11 +191,13 @@ const EditService = (props) => {
   async function doEditService(formValues) {
     if (submitIsLoading) return;
 
+    const cleanFormValues = doCleanFormValues(formValues);
+
     setSubmitIsLoading(true);
 
     const service = await ServiceService.updateService(
       props.serviceId,
-      formValues
+      cleanFormValues
     );
 
     setSubmitIsLoading(false);

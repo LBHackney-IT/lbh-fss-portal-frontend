@@ -100,7 +100,6 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
         <div style={{ marginTop: "30px" }}>
           {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
             <>
-              <h2 style={{ margin: "30px 0 10px 0" }}>Map Preview</h2>
               <Map
                 data={selectedAddressArray}
                 mapStyle={{
