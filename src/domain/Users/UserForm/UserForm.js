@@ -105,6 +105,12 @@ const UserForm = ({
                   );
                 }
               },
+              oneSpecialCharacter: (value) => {
+                return (
+                  value.match(/[@#$%^&+='!£*(/`~)]/) ||
+                  "Password must contain at least one special character"
+                );
+              },
             }}
             error={errors.password}
           />
