@@ -28,7 +28,10 @@ const ServiceCategoriesForm = ({
   defaultValues = {},
   submitLoading = false,
 }) => {
-  const [image, setImage] = useState({});
+  if (defaultValues.image) {
+    defaultValues.image.preview = defaultValues.image.medium;
+  }
+  const [image, setImage] = useState(defaultValues.image || {});
 
   const { handleSubmit } = useForm({
     defaultValues,
@@ -40,15 +43,12 @@ const ServiceCategoriesForm = ({
   }
 
   function doAddImage(picture) {
-    const data = new FormData();
-    data.append("file", picture[0]);
-
-    // TODO: check with martin how image should be sent to backend
-
-    setImage({ file: data, preview: URL.createObjectURL(picture[0]) });
+    setImage({ file: picture[0], preview: URL.createObjectURL(picture[0]) });
   }
   return (
-    <form onSubmit={handleSubmit(() => onSubmit({ image: image.file }))}>
+    <form
+      onSubmit={handleSubmit(() => onSubmit({ image: image.file || null }))}
+    >
       <FormFieldset label="Add an image">
         <p>
           Upload a picture to show residents what you do. This will be displayed

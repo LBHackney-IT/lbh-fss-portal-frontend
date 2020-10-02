@@ -40,16 +40,15 @@ function doFormatDemographicDefaultValues(values) {
   let newValues = values;
 
   serviceDemographicCheckboxOptions.forEach((item) => {
-    if (demographicIdArray.includes(item.value)) {
-      const demographicInfo = values.demographics.filter((demographic) => {
-        return demographic.id === item.value;
-      });
+    const demographicId = item.value;
+    const demographicName = item.id;
 
-      newValues[item.id] = true;
+    if (demographicIdArray.includes(demographicId)) {
+      newValues[demographicName] = true;
     }
   });
 
-  delete newValues.demographic;
+  delete newValues.demographics;
 
   return newValues;
 }
@@ -66,13 +65,21 @@ function doFormatDemographicFormValues(values) {
   let newValues = values;
   let demographicsArray = [];
   serviceDemographicCheckboxOptions.forEach((item) => {
-    if (values[item.id]) {
+    const demographicOptionSelected = Boolean(values[item.id]);
+
+    if (demographicOptionSelected) {
       demographicsArray.push(item.value);
     }
     delete newValues[item.id];
   });
 
-  newValues.demographics = demographicsArray;
+  if (demographicsArray.includes(999)) {
+    newValues.demographics = serviceDemographicCheckboxOptions
+      .filter((item) => item.value !== 999)
+      .map((item) => item.value);
+  } else {
+    newValues.demographics = demographicsArray;
+  }
 
   return newValues;
 }
@@ -95,11 +102,21 @@ function doFormatCategoryFormValues(values) {
 
   return newValues;
 }
+function doConvertIntoFormData(values) {
+  let formData = new FormData();
+
+  Object.keys(values).forEach((key) => {
+    formData.append(key, values[key]);
+  });
+
+  return formData;
+}
 
 function doCleanFormValues(values) {
   let cleanFormValues = {};
   cleanFormValues = doFormatDemographicFormValues(values);
-  cleanFormValues = doFormatCategoryFormValues(values);
+  cleanFormValues = doFormatCategoryFormValues(cleanFormValues);
+  cleanFormValues = doConvertIntoFormData(cleanFormValues);
 
   return cleanFormValues;
 }
@@ -194,6 +211,9 @@ const EditService = (props) => {
     const cleanFormValues = doCleanFormValues(formValues);
 
     setSubmitIsLoading(true);
+
+    console.log("cleanFormValues pre-submit to updateService ");
+    console.log(cleanFormValues);
 
     const service = await ServiceService.updateService(
       props.serviceId,

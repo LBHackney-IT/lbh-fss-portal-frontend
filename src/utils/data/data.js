@@ -143,47 +143,47 @@ const serviceCategoryCheckboxOptions = [
 const serviceDemographicCheckboxOptions = [
   {
     id: "everyone",
-    value: 1,
+    value: 999,
     label: "Everyone",
   },
   {
     id: "disbOrAut",
-    value: 2,
+    value: 12,
     label: "Disabilities or autism",
   },
   {
     id: "men",
-    value: 3,
+    value: 13,
     label: "Men",
   },
   {
     id: "women",
-    value: 4,
+    value: 14,
     label: "Women",
   },
   {
     id: "lgbtqi",
-    value: 5,
+    value: 15,
     label: "LGBTQI+",
   },
   {
     id: "chilYoungFam",
-    value: 6,
+    value: 16,
     label: "Children, young people or families",
   },
   {
     id: "oldPe",
-    value: 7,
+    value: 17,
     label: "Older people",
   },
   {
     id: "carers",
-    value: 8,
+    value: 18,
     label: "Carers",
   },
   {
     id: "cultural",
-    value: 9,
+    value: 19,
     label: "Cultural",
   },
 ];
