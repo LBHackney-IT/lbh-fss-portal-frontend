@@ -8,6 +8,7 @@ import {
   serviceCategoryCheckboxOptions,
   serviceDemographicCheckboxOptions,
 } from "../../../utils/data/data";
+import { doCleanServiceFormValues } from "../../../utils/functions/serviceFunctions";
 
 function doFormatCategoryDefaultValues(values) {
   const categoryIdArray = values.categories.map((category) => {
@@ -59,66 +60,6 @@ function doCleanDefaultValues(values) {
   cleanDefaultValues = doFormatDemographicDefaultValues(cleanDefaultValues);
 
   return cleanDefaultValues;
-}
-
-function doFormatDemographicFormValues(values) {
-  let newValues = values;
-  let demographicsArray = [];
-  serviceDemographicCheckboxOptions.forEach((item) => {
-    const demographicOptionSelected = Boolean(values[item.id]);
-
-    if (demographicOptionSelected) {
-      demographicsArray.push(item.value);
-    }
-    delete newValues[item.id];
-  });
-
-  if (demographicsArray.includes(999)) {
-    newValues.demographics = serviceDemographicCheckboxOptions
-      .filter((item) => item.value !== 999)
-      .map((item) => item.value);
-  } else {
-    newValues.demographics = demographicsArray;
-  }
-
-  return newValues;
-}
-
-function doFormatCategoryFormValues(values) {
-  let newValues = values;
-  let categoriesArray = [];
-  serviceCategoryCheckboxOptions.forEach((item) => {
-    if (values[item.id]) {
-      categoriesArray.push({
-        id: item.value,
-        description: values[item.id.concat("Details")],
-      });
-    }
-    delete newValues[item.id];
-    delete newValues[item.id.concat("Details")];
-  });
-
-  newValues.categories = categoriesArray;
-
-  return newValues;
-}
-function doConvertIntoFormData(values) {
-  let formData = new FormData();
-
-  Object.keys(values).forEach((key) => {
-    formData.append(key, values[key]);
-  });
-
-  return formData;
-}
-
-function doCleanFormValues(values) {
-  let cleanFormValues = {};
-  cleanFormValues = doFormatDemographicFormValues(values);
-  cleanFormValues = doFormatCategoryFormValues(cleanFormValues);
-  cleanFormValues = doConvertIntoFormData(cleanFormValues);
-
-  return cleanFormValues;
 }
 
 function doHandleHiddenFieldVisibility(
@@ -208,22 +149,25 @@ const EditService = (props) => {
   async function doEditService(formValues) {
     if (submitIsLoading) return;
 
-    const cleanFormValues = doCleanFormValues(formValues);
+    const cleanFormValues = doCleanServiceFormValues(
+      formValues,
+      serviceCategoryCheckboxOptions,
+      serviceDemographicCheckboxOptions
+    );
+
+    cleanFormValues.updated_at = new Date();
 
     setSubmitIsLoading(true);
 
-    console.log("cleanFormValues pre-submit to updateService ");
-    console.log(cleanFormValues);
-
-    const service = await ServiceService.updateService(
+    const updatedService = await ServiceService.updateService(
       props.serviceId,
       cleanFormValues
     );
 
     setSubmitIsLoading(false);
 
-    if (service) {
-      toast.success(`Service ${service.name} updated.`);
+    if (updatedService) {
+      toast.success(`Service ${updatedService.name} updated.`);
 
       navigate("/service");
     } else {
