@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Map, TileLayer, Marker, Popup, FeatureGroup } from "react-leaflet";
 import { removeEmptyObjFromArrayObj } from "../../../../utils/functions/functions";
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_URL } from "../../../../settings/mapbox";
@@ -24,14 +24,19 @@ export default ({ mapStyle, data }) => {
     });
   }, []);
 
+  const [refreshComponent, setRefreshComponent] = useState(true);
+
+  useEffect(() => {
+    // refresh component to cause map to center properly
+    setRefreshComponent(false);
+  }, [setRefreshComponent]);
+
   const mapRef = useRef(null);
   const groupRef = useRef(null);
 
   const cleanData = doCleanData(data);
 
   useEffect(() => {
-    // console.log("data");
-    // console.log(cleanData);
     if (
       cleanData.length === 0 ||
       cleanData.length === 1 ||
