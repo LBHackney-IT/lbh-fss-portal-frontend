@@ -16,7 +16,7 @@ const StyledActionDiv = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   padding: 20px;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     flex-direction: row;
     height: 80px;
     padding: 0 10px;
@@ -27,14 +27,39 @@ const StyledActionDiv = styled.div`
   background-color: ${grey[500]};
 `;
 
+const StyledButtonDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 435px) {
+    flex-direction: row;
+  }
+`;
+
 const StyledButton = styled(Button)`
   margin: auto 0;
+  width: 160px;
+  padding: 12px 15px;
+  @media (min-width: 435px) {
+    padding: 12px 0px;
+  }
+`;
+
+const StyledCSVLink = styled(CSVLink)`
+  text-decoration: none;
+  margin: 10px 20px 0 0;
+  @media (min-width: 435px) {
+    margin: 10px 20px 0 0;
+  }
+
+  ${breakpoint("md")`
+    margin-top: 0;
+  `}
 `;
 
 const StyledAddUserLink = styled.div`
-  margin: 20px 20px 0 0;
-  ${breakpoint("sm")`
-  margin: 0 20px 0 0;
+  margin: 10px 20px 0 0;
+  ${breakpoint("md")`
+    margin: 0 20px 0 0;
   `};
 `;
 
@@ -62,7 +87,6 @@ function cleanDataForExport(data) {
 
       return user;
     });
-  // console.log(newData);
   return newData;
 }
 
@@ -117,27 +141,25 @@ const ListUsers = ({ location }) => {
       <div>
         <StyledActionDiv>
           <Search setSearch={setSearch} />
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <StyledButtonDiv>
             <StyledAddUserLink>
               <StyledLink to="/users/add">
-                <StyledButton label={"Add user"} padding="15px 30px" />
+                <StyledButton label={"Add user"} />
               </StyledLink>
             </StyledAddUserLink>
-            <StyledButton
-              label={"Export all users"}
-              padding="15px 25px"
-              backgroundColor="white"
-              color={green[400]}
-              border={`1px solid ${green[400]}`}
-            />
-            <CSVLink
+            <StyledCSVLink
               data={dataForExport}
               headers={headersForExport}
               filename={"portal_users.csv"}
             >
-              Download me
-            </CSVLink>
-          </div>
+              <StyledButton
+                label={"Export users"}
+                backgroundColor="white"
+                color={green[400]}
+                border={`1px solid ${green[400]}`}
+              />
+            </StyledCSVLink>
+          </StyledButtonDiv>
         </StyledActionDiv>
       </div>
       <UserTable data={data} isLoading={isLoading} search={search} />

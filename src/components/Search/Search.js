@@ -9,7 +9,9 @@ const StyledForm = styled.form`
   display: flex;
   width: 100%;
   ${breakpoint("sm")`
-    width: 80%;
+    max-width: 80%;
+  `};
+  ${breakpoint("md")`
     max-width: 40%;
   `};
 `;
