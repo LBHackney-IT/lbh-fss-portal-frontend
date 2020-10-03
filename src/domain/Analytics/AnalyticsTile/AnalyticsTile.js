@@ -1,36 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import { green, yellow } from "../../../settings";
 
-const AnalyticsTile = ({ label, fetchValue, color }) => {
-  const [value, setValue] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+// console.log(rgba(32, 144, 119, 0.1));
 
-  useEffect(() => {
-    async function fetchNewValue() {
-      const newValue = await fetchValue();
+const StyledTileContainer = styled.div`
+  background-color: ${(props) =>
+    props.color === "yellow" ? yellow[100] : green[100]};
+  border: 1px solid
+    ${(props) => (props.color === "yellow" ? yellow[500] : green[400])};
+  height: 200px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
-      setValue(newValue);
-      setIsLoading(false);
-    }
+const StyledLabel = styled.div`
+  width: 70%;
+  text-align: center;
+  font-size: 20px;
+`;
 
-    fetchNewValue();
-  }, [setValue, setIsLoading, fetchValue]);
+const StyledValue = styled.div`
+  width: 70%;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+`;
 
-  if (isLoading) {
-    return <span>Loading</span>;
-  }
-
+const AnalyticsTile = ({ label, value, color }) => {
   return (
-    <div>
-      <div>{label}</div>
-      <div>{value}</div>
-    </div>
+    <StyledTileContainer color={color}>
+      <StyledLabel>{label}</StyledLabel>
+      <StyledValue>{value}</StyledValue>
+    </StyledTileContainer>
   );
 };
 
 AnalyticsTile.propTypes = {
   label: PropTypes.string,
-  fetchValue: PropTypes.func,
+  value: PropTypes.number,
   color: PropTypes.string,
 };
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Map, TileLayer, Marker, Popup, FeatureGroup } from "react-leaflet";
 import { removeEmptyObjFromArrayObj } from "../../../../utils/functions/functions";
-import MAPBOX_ACCESS_TOKEN from "../../../../settings/mapbox";
+import { MAPBOX_ACCESS_TOKEN } from "../../../../settings/mapbox";
 import "leaflet/dist/leaflet.css";
 const L = require("leaflet");
 
