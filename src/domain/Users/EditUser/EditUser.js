@@ -9,6 +9,7 @@ import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import { red } from "../../../settings";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 const EditUser = (props) => {
   const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);
@@ -84,9 +85,9 @@ const EditUser = (props) => {
     return "<div data-testid='loading'>Loading</div>";
   }
 
-  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(roles);
 
-  return accessPermission ? (
+  return isInternalTeam ? (
     <>
       <h1>Edit user</h1>
       <RaisedCard>

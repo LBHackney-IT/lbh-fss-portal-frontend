@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import ButtonLink from "../../../components/ButtonLink/ButtonLink";
 import UserContext from "../../../context/UserContext/UserContext";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 
 const ListServices = () => {
   const { roles } = useContext(UserContext)[0];
 
-  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(roles);
 
-  return accessPermission ? (
+  return isInternalTeam ? (
     <>
       <h1>Services</h1>
       <ButtonLink label="Add service" to="/services/add" />

@@ -9,6 +9,7 @@ import UserService from "../../../services/UserService/UserService";
 import { grey } from "../../../settings";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 const StyledActionDiv = styled.div`
   display: flex;
@@ -69,9 +70,9 @@ const ListUsers = ({ location }) => {
     fetchData();
   }, [search, setData, setIsLoading]);
 
-  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(roles);
 
-  return accessPermission ? (
+  return isInternalTeam ? (
     <>
       <div>
         <StyledActionDiv>

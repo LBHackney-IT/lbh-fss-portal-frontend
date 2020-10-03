@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import UserContext from "../../../context/UserContext/UserContext";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 const AddUser = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,9 +33,9 @@ const AddUser = () => {
 
   const { roles } = useContext(UserContext)[0];
 
-  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(roles);
 
-  return accessPermission ? (
+  return isInternalTeam ? (
     <>
       <h1>Add user</h1>
       <RaisedCard>

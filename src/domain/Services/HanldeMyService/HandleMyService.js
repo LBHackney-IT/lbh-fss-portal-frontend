@@ -6,6 +6,7 @@ import ServiceService from "../../../services/ServiceService/ServiceService";
 import { toast } from "react-toastify";
 import MyService from "../MyService/MyService";
 import useAllServiceFetch from "../../../hooks/useAllServiceFetch/useAllServiceFetch";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 const HandleMyService = () => {
   const user = useContext(UserContext)[0];
@@ -23,8 +24,7 @@ const HandleMyService = () => {
     setUserServices(userServices);
   }, [services]);
 
-  const isInternalTeam =
-    user.roles.includes("viewer") || user.roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(user.roles);
 
   if (servicesIsLoading) {
     return <span>Loading...</span>;

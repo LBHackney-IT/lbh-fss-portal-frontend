@@ -50,6 +50,16 @@ function objAllFalse(obj) {
   return Object.keys(obj).every((k) => !obj[k]);
 }
 
+function checkIsInternalTeam(roles) {
+  let isInternalTeam = false;
+
+  if (roles) {
+    isInternalTeam = roles.includes("viewer") || roles.includes("admin");
+  }
+
+  return isInternalTeam;
+}
+
 export {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
@@ -57,5 +67,6 @@ export {
   convertStepNumToWord,
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
-  objAllFalse
+  objAllFalse,
+  checkIsInternalTeam,
 };
