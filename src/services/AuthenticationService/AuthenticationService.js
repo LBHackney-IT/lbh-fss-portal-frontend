@@ -6,7 +6,7 @@ import BASE_API_URL from "../../settings/baseApiUrl";
 const AuthenticationService = {
   async register(name, email, password) {
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         `${BASE_API_URL}/registration`,
         {
           name,
@@ -21,20 +21,20 @@ const AuthenticationService = {
         }
       );
 
-      console.log(data);
+      console.log(response);
 
-      return data;
+      return response.data;
     } catch (error) {
       return false;
     }
   },
   async registerConfirmation(email, code) {
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         `${BASE_API_URL}/registration/confirmation`,
         {
-          email,
-          code,
+          email: email,
+          code: code,
         },
         {
           headers: {
@@ -44,40 +44,68 @@ const AuthenticationService = {
         }
       );
 
-      return data;
+      return response.data;
     } catch (error) {
       return false;
     }
   },
   async resendRegisterConfirmation(email) {
     try {
-      const { data } = await axios.post(
-        "/api/registration/confirmation/resend-request",
+      await axios.post(
+        `${BASE_API_URL}/registration/confirmation/resend`,
         {
-          email,
+          email: email,
+        },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
         }
       );
 
-      return data;
+      return true;
     } catch (error) {
       return false;
     }
   },
   async login(email, password) {
+    // TODO: test this
     try {
-      const { data } = await axios.post("/api/session", { email, password });
+      await axios.post(
+        `${BASE_API_URL}/session`,
+        { email: email, password: password },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      return data;
+      return true;
     } catch (error) {
       return false;
     }
   },
   async me() {
+    // TODO: test this
+    console.log("account -x");
     try {
-      const { data } = await axios.get("/api/account");
+      const response = await axios.get(
+        `${BASE_API_URL}/account`,
+        { withCredentials: true },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+          },
+        }
+      );
 
-      return data;
+      return response.data;
     } catch (error) {
+      console.log("error ");
+      console.log(error);
       return false;
     }
   },
@@ -91,21 +119,38 @@ const AuthenticationService = {
     }
   },
   async passwordRecovery(email) {
+    // TODO: test this
     try {
-      await axios.post("/api/password-recovery", { email });
-
+      await axios.post(
+        `${BASE_API_URL}/password-recovery`,
+        { email: email },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("pass");
       return true;
     } catch (error) {
+      console.log("fail");
       return false;
     }
   },
   async passwordRecoveryConfirmation(email, code, password) {
+    // TODO: test this
     try {
-      await axios.post("/api/password-recovery/confirmation", {
-        email,
-        code,
-        password,
-      });
+      await axios.post(
+        `${BASE_API_URL}/password-recovery/confirmation`,
+        { email: email, code: code, password: password },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return true;
     } catch (error) {
