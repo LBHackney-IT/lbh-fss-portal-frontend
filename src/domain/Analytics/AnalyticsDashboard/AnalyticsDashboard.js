@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import AnalyticsTile from "../AnalyticsTile/AnalyticsTile";
 import UserContext from "../../../context/UserContext/UserContext";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
@@ -6,6 +7,14 @@ import useAllServiceFetch from "../../../hooks/useAllServiceFetch/useAllServiceF
 import useAllOrganisationFetch from "../../../hooks/useAllOrganisationFetch/useAllOrganisationFetch";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import {
+  calcOrganisations,
+  calcApprovedOrganisations,
+  calcServices,
+  calcUnapprovedOrganisation,
+  calcDateRange,
+} from "../../../utils/functions/analyticsFunctions";
+import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 
 const StyledHr = styled.hr`
   border: 3px solid #000000;
@@ -24,40 +33,6 @@ const StyledTilesContainer = styled.div`
   `}
 `;
 
-const calcOrganisations = (organisations) => {
-  let organisationsValue = organisations.length;
-  return organisationsValue;
-};
-
-const calcApprovedOrganisations = (organisations) => {
-  let approvedOrganisationsValue = organisations.filter((organisation) => {
-    return organisation.status === "published";
-  }).length;
-
-  return approvedOrganisationsValue;
-};
-
-const calcServices = (services) => {
-  let servicesValue = services.length;
-  return servicesValue;
-};
-
-const calcUnapprovedOrganisation = (organisations) => {
-  let unpprovedOrganisationsValue = organisations.filter((organisation) => {
-    return (
-      organisation.status !== "published" && organisation.status !== "rejected"
-    );
-  }).length;
-
-  return unpprovedOrganisationsValue;
-};
-
-const calcDateRange = () => {
-  const today = new Date();
-
-  return;
-};
-
 const AnalyticsDashboard = () => {
   const { services, servicesIsLoading } = useAllServiceFetch();
   const { organisations, organisationsIsLoading } = useAllOrganisationFetch();
@@ -69,23 +44,33 @@ const AnalyticsDashboard = () => {
     unapprovedOrganisation: null,
   });
 
-  const [dateRange, setDateRange] = useState();
+  const dateRangeArray = calcDateRange();
+
+  const [selectedWeek, setSelectedWeek] = useState(dateRangeArray[0]);
 
   useEffect(() => {
     const newValues = {};
 
-    newValues.organisations = calcOrganisations(organisations);
+    newValues.organisations = calcOrganisations(organisations, selectedWeek);
 
-    newValues.approvedOrganisations = calcApprovedOrganisations(organisations);
+    newValues.approvedOrganisations = calcApprovedOrganisations(
+      organisations,
+      selectedWeek
+    );
 
-    newValues.services = calcServices(services);
+    newValues.services = calcServices(services, selectedWeek);
 
     newValues.unapprovedOrganisation = calcUnapprovedOrganisation(
-      organisations
+      organisations,
+      selectedWeek
     );
 
     setValues(newValues);
-  }, [services, organisations, setValues]);
+  }, [services, organisations, selectedWeek, setValues]);
+
+  const { register, handleSubmit, errors, getValues } = useForm({
+    defaultValues: { dateRange: dateRangeArray[0] },
+  });
 
   const { roles } = useContext(UserContext)[0];
 
@@ -97,6 +82,14 @@ const AnalyticsDashboard = () => {
 
   return accessPermission ? (
     <>
+      <FormDropDown
+        label={""}
+        name={"dateRange"}
+        register={register}
+        options={dateRangeArray}
+        error={errors.dateRange}
+        onChange={() => setSelectedWeek(getValues().dateRange)}
+      />
       <StyledTilesContainer>
         <AnalyticsTile
           label="Total number of organisations"
