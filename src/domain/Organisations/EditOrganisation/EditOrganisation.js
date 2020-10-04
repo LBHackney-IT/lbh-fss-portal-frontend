@@ -36,6 +36,10 @@ function doCleanFormValues(values) {
     }
   });
 
+  if (values.status === "awaiting reverification") {
+    values.status = "published";
+  }
+
   return values;
 }
 
