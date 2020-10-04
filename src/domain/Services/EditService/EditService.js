@@ -181,9 +181,8 @@ const EditService = (props) => {
 
   return (
     <>
-      <span>Your service</span>
-      <h1>Edit your service listing</h1>
       <ServiceForm
+        pageTitle={"Edit your service listing"}
         onFormCompletion={doEditService}
         defaultValues={defaultValues}
         showHiddenField={showHiddenField}
