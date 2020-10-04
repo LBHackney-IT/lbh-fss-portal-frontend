@@ -4,19 +4,25 @@ import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import { green, yellow } from "../../../settings";
 
-// console.log(rgba(32, 144, 119, 0.1));
-
 const StyledTileContainer = styled.div`
   background-color: ${(props) =>
     props.color === "yellow" ? yellow[100] : green[100]};
   border: 1px solid
     ${(props) => (props.color === "yellow" ? yellow[500] : green[400])};
   height: 200px;
-  width: 30%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 20px;
+  ${breakpoint("sm")`
+    width: 30%;
+    height: 175px;
+    margin: 0;
+  `}
+  ${breakpoint("md")`
+    height: 200px;
+  `}
 `;
 
 const StyledLabel = styled.div`

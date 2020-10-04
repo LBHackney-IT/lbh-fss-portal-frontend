@@ -23,15 +23,29 @@ const StyledSelect = styled.select`
 
 const StyledOption = styled.option``;
 
-const FormDropDown = ({ label, name, options, required, error, register, onChange=()=>{} }) => {
+const FormDropDown = ({
+  label,
+  name,
+  options,
+  values,
+  required,
+  error,
+  register,
+  onChange = () => {},
+}) => {
   return (
     <>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
-      <StyledSelect name={name} ref={register({ required })} onChange={onChange}>
+      <StyledSelect
+        name={name}
+        ref={register({ required })}
+        onChange={onChange}
+      >
         <StyledOption value="" defaultValue></StyledOption>
-        {options.map((option) => {
+        {options.map((option, index) => {
+          // console.log(values[index]);
           return (
-            <StyledOption key={option} value={option}>
+            <StyledOption key={option} value={values ? values[index] : option}>
               {option}
             </StyledOption>
           );

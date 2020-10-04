@@ -46,7 +46,10 @@ const AnalyticsDashboard = () => {
 
   const dateRangeArray = calcDateRange();
 
-  const [selectedWeek, setSelectedWeek] = useState(dateRangeArray[0]);
+  const [selectedWeek, setSelectedWeek] = useState(dateRangeArray[0].dateRaw);
+
+  // console.log("---------------------------selectedWeek[0]");
+  // console.log(selectedWeek[0]);
 
   useEffect(() => {
     const newValues = {};
@@ -69,7 +72,7 @@ const AnalyticsDashboard = () => {
   }, [services, organisations, selectedWeek, setValues]);
 
   const { register, handleSubmit, errors, getValues } = useForm({
-    defaultValues: { dateRange: dateRangeArray[0] },
+    defaultValues: { dateRange: dateRangeArray[0].dateLabel },
   });
 
   const { roles } = useContext(UserContext)[0];
@@ -86,9 +89,14 @@ const AnalyticsDashboard = () => {
         label={""}
         name={"dateRange"}
         register={register}
-        options={dateRangeArray}
+        options={dateRangeArray.map((date) => date.dateLabel)}
+        values={dateRangeArray.map((date) =>
+          JSON.stringify({ value: date.dateRaw })
+        )}
         error={errors.dateRange}
-        onChange={() => setSelectedWeek(getValues().dateRange)}
+        onChange={() => {
+          setSelectedWeek(JSON.parse(getValues().dateRange).value);
+        }}
       />
       <StyledTilesContainer>
         <AnalyticsTile
