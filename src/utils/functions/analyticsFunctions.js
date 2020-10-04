@@ -1,21 +1,24 @@
 import moment from "moment";
 
+const checkIfIsInDateRange = (date, selectedWeek) => {
+  let isInDateRange = true;
+
+  if (selectedWeek[0] !== "All dates") {
+    isInDateRange = moment
+      .utc(date)
+      .isBetween(selectedWeek[0], selectedWeek[1], null, "[]");
+  }
+
+  return isInDateRange;
+};
+
 const calcOrganisations = (organisations, selectedWeek) => {
   let organisationsValue = organisations.filter((organisation) => {
-    let isInDateRange = true;
+    const createdAtDate = moment(organisation.createdAt).format("DD MMM YYYY");
 
-    if (selectedWeek[0] !== "All dates") {
-      const createdAtDate = moment(organisation.createdAt).format(
-        "DD MMM YYYY"
-      );
-      isInDateRange = moment
-        .utc(createdAtDate)
-        .isBetween(selectedWeek[0], selectedWeek[1], null, "[]");
-    }
+    const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
 
-    const isActive = organisation.status === "published";
-
-    return isInDateRange && isActive;
+    return isInDateRange;
   }).length;
 
   return organisationsValue;
@@ -23,22 +26,40 @@ const calcOrganisations = (organisations, selectedWeek) => {
 
 const calcApprovedOrganisations = (organisations, selectedWeek) => {
   let approvedOrganisationsValue = organisations.filter((organisation) => {
-    return organisation.status === "published";
+    const createdAtDate = moment(organisation.createdAt).format("DD MMM YYYY");
+
+    const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
+
+    const isApproved = organisation.status === "published";
+
+    return isInDateRange && isApproved;
   }).length;
 
   return approvedOrganisationsValue;
 };
 
 const calcServices = (services, selectedWeek) => {
-  let servicesValue = services.length;
+  let servicesValue = services.filter((organisation) => {
+    const createdAtDate = moment(organisation.created_at).format("DD MMM YYYY"); // TODO: update to createdAt
+
+    const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
+
+    return isInDateRange;
+  }).length;
+
   return servicesValue;
 };
 
 const calcUnapprovedOrganisation = (organisations, selectedWeek) => {
   let unpprovedOrganisationsValue = organisations.filter((organisation) => {
-    return (
-      organisation.status !== "published" && organisation.status !== "rejected"
-    );
+    const createdAtDate = moment(organisation.createdAt).format("DD MMM YYYY");
+
+    const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
+
+    const isUnapproved =
+      organisation.status !== "published" && organisation.status !== "rejected";
+
+    return isInDateRange && isUnapproved;
   }).length;
 
   return unpprovedOrganisationsValue;
