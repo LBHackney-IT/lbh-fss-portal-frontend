@@ -1,4 +1,5 @@
 import axios from "axios";
+import { snakeToCamelKeys } from "../../utils/functions/functions";
 
 const ServiceService = {
   async retrieveServices({
@@ -40,6 +41,8 @@ const ServiceService = {
   async getService(id) {
     try {
       const response = await axios.get(`/api/services/${id}`);
+
+      response.data = snakeToCamelKeys(response.data);
 
       return response.data;
     } catch (error) {

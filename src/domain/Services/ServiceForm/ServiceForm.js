@@ -51,7 +51,7 @@ function doHandleHiddenFieldValues(formValues, pageQuestionNames) {
 }
 
 const ServiceForm = ({
-  pageTitle = { pageTitle },
+  pageTitle,
   onFormCompletion,
   defaultValues = {},
   showHiddenField,
