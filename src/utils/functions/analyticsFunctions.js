@@ -1,39 +1,21 @@
-import Moment from "moment";
-import { extendMoment } from "moment-range";
-
-const moment = extendMoment(Moment);
+import moment from "moment";
 
 const calcOrganisations = (organisations, selectedWeek) => {
   let organisationsValue = organisations.filter((organisation) => {
-    const createdAtDate = moment(organisation.createdAt).format("DD MMM YYYY");
+    let isInDateRange = true;
 
-    console.log("createdAtDate");
-    console.log(moment.utc(createdAtDate));
-    console.log("temp0");
-    console.log(moment.utc(selectedWeek[0]));
-    console.log("temp1");
-    console.log(moment.utc(selectedWeek[1]));
-    console.log(
-      moment
+    if (selectedWeek[0] !== "All dates") {
+      const createdAtDate = moment(organisation.createdAt).format(
+        "DD MMM YYYY"
+      );
+      isInDateRange = moment
         .utc(createdAtDate)
-        .isBetween(
-          moment.utc(selectedWeek[0]),
-          moment.utc(selectedWeek[1]),
-          null,
-          "[]"
-        )
-    );
+        .isBetween(selectedWeek[0], selectedWeek[1], null, "[]");
+    }
 
-    // console.log("----- TEST -----");
-    // console.log(createdAtDate.isBetween("2020-01-10", "2020-02-10"));
+    const isActive = organisation.status === "published";
 
-    return moment(createdAtDate).isBetween(
-      moment(selectedWeek[0]),
-      moment(selectedWeek[1])
-    );
-    //   selectedWeek.dateRaw.contains(createdAtDate) &&
-    //   selectedWeekArray.includes(createdAtDate) &&
-    //   organisation.status === "published"
+    return isInDateRange && isActive;
   }).length;
 
   return organisationsValue;
@@ -73,35 +55,15 @@ const calcDateRange = () => {
     let startDateWeek = startDate.isoWeekday("Monday").format("DD MMM YYYY");
     let endDateWeek = startDate.isoWeekday("Sunday").format("DD MMM YYYY");
     startDate.add(7, "days");
-    // const day = 60 * 60 * 24 * 1000;
-    // const startDateInDateFormat = new Date(startDate);
     weeks.push({
       dateLabel: `${startDateWeek} - ${endDateWeek}`,
-      dateRaw: [moment.utc(startDateWeek), moment.utc(endDateWeek)],
-
-      // new Date(startDateWeek),
-      // new Date(endDateWeek),
-      // moment().range(new Date(startDateWeek), new Date(endDateWeek)),
-
-      // new Date(startDate.clone().subtract(13, "days")),
-      // new Date(startDate.clone().subtract(12, "days")),
-      // new Date(startDate.clone().subtract(11, "days")),
-      // new Date(startDate.clone().subtract(10, "days")),
-      // new Date(startDate.clone().subtract(9, "days")),
-      // new Date(startDate.clone().subtract(8, "days")),
-      // new Date(startDate.clone().subtract(7, "days")),
-      // // -----
-      // new Date(startDateInDateFormat.getTime() - 13 * day),
-      // new Date(startDateInDateFormat.getTime() - 12 * day),
-      // new Date(startDateInDateFormat.getTime() - 11 * day),
-      // new Date(startDateInDateFormat.getTime() - 10 * day),
-      // new Date(startDateInDateFormat.getTime() - 9 * day),
-      // new Date(startDateInDateFormat.getTime() - 8 * day),
-      // new Date(startDateInDateFormat.getTime() - 7 * day),
+      dateRaw: [startDateWeek, endDateWeek],
     });
   }
-  //   console.log("WEEKS");
-  //   console.log(weeks);
+  weeks.push({
+    dateLabel: "All dates",
+    dateRaw: ["All dates"],
+  });
   return weeks.reverse();
 };
 

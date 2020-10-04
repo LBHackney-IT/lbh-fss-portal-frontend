@@ -7,6 +7,7 @@ import useAllServiceFetch from "../../../hooks/useAllServiceFetch/useAllServiceF
 import useAllOrganisationFetch from "../../../hooks/useAllOrganisationFetch/useAllOrganisationFetch";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import { grey } from "../../../settings";
 import {
   calcOrganisations,
   calcApprovedOrganisations,
@@ -15,6 +16,19 @@ import {
   calcDateRange,
 } from "../../../utils/functions/analyticsFunctions";
 import FormDropDown from "../../../components/FormDropDown/FormDropDown";
+import moment from "moment";
+
+const StyledDateSelectContainer = styled.div`
+  background-color: ${grey[500]};
+  display: flex;
+  padding: 10px 20px;
+  ${breakpoint("sm")`
+    margin-bottom: 30px;
+  `}
+
+  margin-left: calc(49% - 50vw);
+  width: 100vw;
+`;
 
 const StyledHr = styled.hr`
   border: 3px solid #000000;
@@ -46,10 +60,7 @@ const AnalyticsDashboard = () => {
 
   const dateRangeArray = calcDateRange();
 
-  const [selectedWeek, setSelectedWeek] = useState(dateRangeArray[0].dateRaw);
-
-  // console.log("---------------------------selectedWeek[0]");
-  // console.log(selectedWeek[0]);
+  const [selectedWeek, setSelectedWeek] = useState("All dates");
 
   useEffect(() => {
     const newValues = {};
@@ -85,19 +96,45 @@ const AnalyticsDashboard = () => {
 
   return accessPermission ? (
     <>
-      <FormDropDown
-        label={""}
-        name={"dateRange"}
-        register={register}
-        options={dateRangeArray.map((date) => date.dateLabel)}
-        values={dateRangeArray.map((date) =>
-          JSON.stringify({ value: date.dateRaw })
-        )}
-        error={errors.dateRange}
-        onChange={() => {
-          setSelectedWeek(JSON.parse(getValues().dateRange).value);
-        }}
-      />
+      <StyledDateSelectContainer>
+        <div
+          style={{
+            width: "960px",
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div>
+            <p style={{ margin: "0", fontSize: "20px" }}>Select date:</p>
+          </div>
+          <FormDropDown
+            label={""}
+            name={"dateRange"}
+            register={register}
+            options={dateRangeArray.map((date) => date.dateLabel)}
+            values={dateRangeArray.map((date) =>
+              JSON.stringify({ value: date.dateRaw })
+            )}
+            blankDefaultValue={false}
+            selectStyle={{ margin: "auto 0" }}
+            error={errors.dateRange}
+            onChange={() => {
+              const selectedWeekDateRange = JSON.parse(getValues().dateRange)
+                .value;
+
+              if (selectedWeekDateRange[0].search("All dates") === -1) {
+                setSelectedWeek([
+                  moment.utc(selectedWeekDateRange[0]),
+                  moment.utc(selectedWeekDateRange[1]),
+                ]);
+              } else {
+                setSelectedWeek(["All dates"]);
+              }
+            }}
+          />
+        </div>
+      </StyledDateSelectContainer>
       <StyledTilesContainer>
         <AnalyticsTile
           label="Total number of organisations"
