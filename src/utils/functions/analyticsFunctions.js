@@ -67,7 +67,7 @@ const calcUnapprovedOrganisation = (organisations, selectedWeek) => {
 
 const calcDateRange = () => {
   var weeks = [];
-  var startDate = moment(new Date(2017, 0, 1)).isoWeekday(8);
+  var startDate = moment(new Date(2020, 0, 1)).isoWeekday(8);
   if (startDate.date() == 8) {
     startDate = startDate.isoWeekday(-6);
   }
