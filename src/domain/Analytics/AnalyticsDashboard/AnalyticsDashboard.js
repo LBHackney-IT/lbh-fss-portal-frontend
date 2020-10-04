@@ -60,7 +60,7 @@ const AnalyticsDashboard = () => {
 
   const dateRangeArray = calcDateRange();
 
-  const [selectedWeek, setSelectedWeek] = useState("All dates");
+  const [selectedWeek, setSelectedWeek] = useState(["All dates"]);
 
   useEffect(() => {
     const newValues = {};
@@ -82,8 +82,8 @@ const AnalyticsDashboard = () => {
     setValues(newValues);
   }, [services, organisations, selectedWeek, setValues]);
 
-  const { register, handleSubmit, errors, getValues } = useForm({
-    defaultValues: { dateRange: dateRangeArray[0].dateLabel },
+  const { register, getValues } = useForm({
+    defaultValues: { dateRange: JSON.stringify({ value: ["All dates"] }) },
   });
 
   const { roles } = useContext(UserContext)[0];
@@ -116,9 +116,8 @@ const AnalyticsDashboard = () => {
             values={dateRangeArray.map((date) =>
               JSON.stringify({ value: date.dateRaw })
             )}
-            blankDefaultValue={false}
+            includeBlankValue={false}
             selectStyle={{ margin: "auto 0" }}
-            error={errors.dateRange}
             onChange={() => {
               const selectedWeekDateRange = JSON.parse(getValues().dateRange)
                 .value;

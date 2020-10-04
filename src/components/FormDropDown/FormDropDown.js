@@ -32,6 +32,7 @@ const FormDropDown = ({
   error,
   register,
   onChange = () => {},
+  includeBlankValue = true,
 }) => {
   return (
     <>
@@ -41,9 +42,10 @@ const FormDropDown = ({
         ref={register({ required })}
         onChange={onChange}
       >
-        <StyledOption value="" defaultValue></StyledOption>
+        {includeBlankValue ? (
+          <StyledOption value="" defaultValue></StyledOption>
+        ) : null}
         {options.map((option, index) => {
-          // console.log(values[index]);
           return (
             <StyledOption key={option} value={values ? values[index] : option}>
               {option}
