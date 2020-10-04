@@ -33,6 +33,7 @@ const FormDropDown = ({
   register,
   onChange = () => {},
   includeBlankValue = true,
+  selectStyle,
 }) => {
   return (
     <>
@@ -41,6 +42,7 @@ const FormDropDown = ({
         name={name}
         ref={register({ required })}
         onChange={onChange}
+        style={selectStyle}
       >
         {includeBlankValue ? (
           <StyledOption value="" defaultValue></StyledOption>

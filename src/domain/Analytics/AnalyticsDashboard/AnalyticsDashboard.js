@@ -18,16 +18,47 @@ import {
 import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 import moment from "moment";
 
-const StyledDateSelectContainer = styled.div`
+const StyledDateSelectOuterContainer = styled.div`
   background-color: ${grey[500]};
   display: flex;
   padding: 10px 20px;
+  height: 100px;
   ${breakpoint("sm")`
     margin-bottom: 30px;
   `}
 
   margin-left: calc(49% - 50vw);
   width: 100vw;
+`;
+
+const StyledSelectorTitleDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledSelectorTitle = styled.p`
+  margin: 10px 0 0 0;
+  font-size: 20px;
+  ${breakpoint("sm")`
+    margin: 0 10px 0 0;
+  `}
+`;
+
+const StyledDateSelectInnerContainer = styled.div`
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  ${breakpoint("sm")`
+    width: 100%;
+    margin: 0 0 0 5px;
+  `};
+  ${breakpoint("md")`
+    margin: 0 auto;
+    flex-direction: row;
+    width: 960px;
+    padding: 0 10px;
+  `};
 `;
 
 const StyledHr = styled.hr`
@@ -96,18 +127,11 @@ const AnalyticsDashboard = () => {
 
   return accessPermission ? (
     <>
-      <StyledDateSelectContainer>
-        <div
-          style={{
-            width: "960px",
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <div>
-            <p style={{ margin: "0", fontSize: "20px" }}>Select date:</p>
-          </div>
+      <StyledDateSelectOuterContainer>
+        <StyledDateSelectInnerContainer>
+          <StyledSelectorTitleDiv>
+            <StyledSelectorTitle>Select date:</StyledSelectorTitle>
+          </StyledSelectorTitleDiv>
           <FormDropDown
             label={""}
             name={"dateRange"}
@@ -117,7 +141,11 @@ const AnalyticsDashboard = () => {
               JSON.stringify({ value: date.dateRaw })
             )}
             includeBlankValue={false}
-            selectStyle={{ margin: "auto 0" }}
+            selectStyle={{
+              margin: "auto 0",
+              boxShadow: "4px 4px 4px rgba(0, 30, 58, 0.05)",
+              borderRadius: "2px",
+            }}
             onChange={() => {
               const selectedWeekDateRange = JSON.parse(getValues().dateRange)
                 .value;
@@ -132,8 +160,8 @@ const AnalyticsDashboard = () => {
               }
             }}
           />
-        </div>
-      </StyledDateSelectContainer>
+        </StyledDateSelectInnerContainer>
+      </StyledDateSelectOuterContainer>
       <StyledTilesContainer>
         <AnalyticsTile
           label="Total number of organisations"
