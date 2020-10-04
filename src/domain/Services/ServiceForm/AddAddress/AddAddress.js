@@ -35,7 +35,6 @@ const StyledHr = styled.hr`
   margin: 40px 0;
 `;
 
-
 const ServiceLocationsForm = ({
   index,
   defaultValues = {},
@@ -72,11 +71,12 @@ const ServiceLocationsForm = ({
       const dataWithFormattedAddress = addFormattedAddress(data.addresses);
 
       setAddresses(keyBy(dataWithFormattedAddress, "formattedAddress"));
+
       reset({
         address: defaultValues.formattedAddress,
       });
     } else {
-      toast.error("Postcode could not be found.");
+      toast.error(`Postcode ${postcode} could not be found.`);
     }
   }
 
@@ -190,9 +190,9 @@ const ServiceLocationsForm = ({
       <a href="" target="_blank">
         I can't find my address in the list
       </a>
-      {/* {watch("address") ? (
+      {watch("address") ? (
         <p>UPRN: {addresses[watch("address")].uprn}</p>
-      ) : null} */}
+      ) : null}
       {index + 1 === addressCounter ? (
         <>
           <Button

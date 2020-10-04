@@ -68,7 +68,18 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
       })}
       <form
         onSubmit={handleSubmit(() => {
-          if (selectedAddressArray.includes(undefined)) {
+          if (
+            selectedAddressArray.includes(undefined) &&
+            selectedAddressArray.length === 0
+          ) {
+            return;
+          }
+
+          if (
+            selectedAddressArray.includes(undefined) &&
+            selectedAddressArray.length > 0
+          ) {
+            setErrorMessage("Please enter a location for all postcodes");
             return;
           }
 
