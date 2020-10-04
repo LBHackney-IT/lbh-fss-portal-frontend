@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
-import { objAllFalse } from "../../../../utils/functions/functions";
+import { objAllFalse, objAllTrue } from "../../../../utils/functions/functions";
 import { serviceDemographicCheckboxOptions } from "../../../../utils/data/data";
 
 const StyledSubTextContainer = styled.div`
@@ -29,31 +29,39 @@ const StyledHelp = styled.p`
 `;
 
 const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
-  if (!Object.keys(defaultValues).includes("everyone")) {
-    defaultValues.everyone = true;
-  }
-
   const { register, handleSubmit, setValue, getValues, reset } = useForm({
     defaultValues,
   });
 
+  function setEveryoneTrueAllElseFalse() {
+    let resetValues = {};
+
+    serviceDemographicCheckboxOptions.forEach((demographic) => {
+      resetValues[demographic.id] = false;
+    });
+
+    resetValues.everyone = true;
+
+    reset(resetValues);
+  }
+
   function handleCheckBoxClick(item) {
     if (item.id === "everyone") {
-      let resetValues = {};
-
-      serviceDemographicCheckboxOptions.forEach((demographic) => {
-        resetValues[demographic.id] = false;
-      });
-
-      resetValues.everyone = true;
-
-      reset(resetValues);
+      setEveryoneTrueAllElseFalse();
     }
     if (item.id !== "everyone") {
       setValue("everyone", false);
     }
     if (objAllFalse(getValues())) {
       setValue("everyone", true);
+    }
+
+    let valuesCopy = { ...getValues() };
+
+    delete valuesCopy.everyone;
+
+    if (objAllTrue(valuesCopy)) {
+      setEveryoneTrueAllElseFalse();
     }
   }
 

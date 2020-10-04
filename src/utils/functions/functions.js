@@ -50,6 +50,10 @@ function objAllFalse(obj) {
   return Object.keys(obj).every((k) => !obj[k]);
 }
 
+function objAllTrue(obj) {
+  return Object.keys(obj).every((k) => obj[k]);
+}
+
 function addFormattedAddress(locationsArray) {
   locationsArray.forEach((location) => {
     location["formattedAddress"] = location.address1.concat(
@@ -88,6 +92,7 @@ export {
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
   objAllFalse,
+  objAllTrue,
   addFormattedAddress,
   snakeToCamelKeys,
 };
