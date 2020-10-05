@@ -89,30 +89,18 @@ const AuthenticationService = {
     }
   },
   async me() {
-    // TODO: test this
-    console.log("account -x");
     try {
-      // const response = await axios.get(
-      //   `${BASE_API_URL}/account`,
-      //   {
-      //     headers: {
-      //       "x-api-key": API_KEY,
-      //     },
-      //   }
-      // );
+      const { data } = await axios.get("/api/account");
 
-      await axios.get(
-        "https://d20nspk61k.execute-api.eu-west-2.amazonaws.com/development/api/v1/account",
-        {
-          headers: {
-            "x-api-key": API_KEY,
-            // withCredentials: true,
-            Authorization: `Bearer baa9b9ce-6090-412f-bb32-f5d095ff1d1d`,
-          },
-        }
-      );
+      return data;
 
-      return true;
+      // const response = await axios.get(`${BASE_API_URL}/account`, {
+      //   headers: {
+      //     "x-api-key": API_KEY,
+      //   },
+      // });
+
+      // return response.data;
     } catch (error) {
       console.log("error ");
       console.log(error);
