@@ -8,7 +8,8 @@
     "organisation": {
       "id": 9999,
       "name": "Nudge Digital"
-    }
+    },
+    "password_needs_setting": true
   },
   {
     "id": 54400,
@@ -19,7 +20,8 @@
     "organisation": {
       "id": 16047,
       "name": "Goodwin - Ruecker"
-    }
+    },
+    "password_needs_setting": false
   },
   {
     "id": 95941,
@@ -30,7 +32,8 @@
     "organisation": {
       "id": 38295,
       "name": "Carter - Bergnaum"
-    }
+    },
+    "password_needs_setting": true
   },
   {
     "id": 65615,
@@ -41,7 +44,8 @@
     "organisation": {
       "id": 70611,
       "name": "Carter - Bergnaum"
-    }
+    },
+    "password_needs_setting": false
   },
   {
     "id": 99595,
