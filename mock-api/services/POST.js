@@ -1,8 +1,14 @@
-module.exports = (req, res) => {
-  const { name } = req.body;
+var mockServices = require("../mockServices.json");
+var sample = require("lodash/sample");
 
-  res.status(200).json({
-    id: 1,
-    name,
-  });
+module.exports = (req, res) => {
+  const service = sample(mockServices);
+
+  console.log(mockServices);
+
+  if (service) {
+    res.status(200).json(service);
+  } else {
+    res.status(404).json({});
+  }
 };

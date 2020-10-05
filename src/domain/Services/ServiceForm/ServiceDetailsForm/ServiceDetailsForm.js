@@ -51,7 +51,6 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
         />
         <FormInput
           name="email"
-          type="email"
           label="Email"
           register={register}
           error={errors.email}
@@ -91,7 +90,6 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
         />
         <FormInput
           name="referralEmail"
-          type="email"
           label="Referral email"
           register={register}
           maxLength={255}

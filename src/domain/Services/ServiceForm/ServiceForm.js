@@ -51,6 +51,7 @@ function doHandleHiddenFieldValues(formValues, pageQuestionNames) {
 }
 
 const ServiceForm = ({
+  pageTitle,
   onFormCompletion,
   defaultValues = {},
   showHiddenField,
@@ -167,7 +168,7 @@ const ServiceForm = ({
   return (
     <>
       <StyledStepText>Step {convertStepNumToWord(stepNum)}</StyledStepText>
-      <h1>Create your service listing</h1>
+      <h1>{pageTitle}</h1>
       <StyledServiceForm>
         <StyledServiceFormAside>
           <FormNav

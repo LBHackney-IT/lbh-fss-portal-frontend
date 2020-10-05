@@ -6,6 +6,7 @@ import Button from "../../../../components/Button/Button";
 import AddAddress from "../AddAddress/AddAddress";
 import FormError from "../../../../components/FormError/FormError";
 import {
+  addFormattedAddress,
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
 } from "../../../../utils/functions/functions";
@@ -21,13 +22,19 @@ function selectedAddressArrayIsEmpty(selectedAddressArray) {
 }
 
 const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
-  const [selectedAddressArray, setSelectedAddressArray] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [addressCounter, setAddressCounter] = useState(1);
+  if (defaultValues.locations) {
+    defaultValues.locations = addFormattedAddress(defaultValues.locations);
+  }
 
-  const { handleSubmit } = useForm({
-    defaultValues,
-  });
+  const [selectedAddressArray, setSelectedAddressArray] = useState(
+    defaultValues.locations ? defaultValues.locations : []
+  );
+  const [errorMessage, setErrorMessage] = useState("");
+  const [addressCounter, setAddressCounter] = useState(
+    defaultValues.locations ? defaultValues.locations.length : 1
+  );
+
+  const { handleSubmit } = useForm({});
 
   useEffect(() => {
     setErrorMessage("");
@@ -49,6 +56,7 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
           <div key={i}>
             <AddAddress
               index={i}
+              defaultValues={selectedAddressArray[i] || {}}
               setSelectedAddressArray={setSelectedAddressArray}
               selectedAddressArray={selectedAddressArray}
               addressCounter={addressCounter}
@@ -60,7 +68,18 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
       })}
       <form
         onSubmit={handleSubmit(() => {
-          if (selectedAddressArray.includes(undefined)) {
+          if (
+            selectedAddressArray.includes(undefined) &&
+            selectedAddressArray.length === 0
+          ) {
+            return;
+          }
+
+          if (
+            selectedAddressArray.includes(undefined) &&
+            selectedAddressArray.length > 0
+          ) {
+            setErrorMessage("Please enter a location for all postcodes");
             return;
           }
 
@@ -84,7 +103,6 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
         <div style={{ marginTop: "30px" }}>
           {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
             <>
-              <h2 style={{ margin: "30px 0 10px 0" }}>Map Preview</h2>
               <Map
                 data={selectedAddressArray}
                 mapStyle={{
