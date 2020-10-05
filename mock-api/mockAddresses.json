@@ -22,6 +22,17 @@
     "country": "Andorra"
   },
   {
+    "latitude": "51.512533",
+    "longitude": "-0.133321",
+    "uprn": 38972,
+    "address1": "3599 Pfannerstill Ports",
+    "address2": "Apt. 345",
+    "city": "Welchhaven",
+    "stateProvince": "Welchhaven",
+    "postalCode": "96891-2962",
+    "country": "Andorra"
+  },
+  {
     "latitude": "51.580694",
     "longitude": "-0.170525",
     "uprn": 62348,
@@ -30,6 +41,17 @@
     "city": "South Francescaland",
     "stateProvince": "Bedfordshire",
     "postalCode": "30025",
+    "country": "Zambia"
+  },
+  {
+    "latitude": "51.780694",
+    "longitude": "-0.179525",
+    "uprn": 62348,
+    "address1": "81031 Littel Cape",
+    "address2": "Suite 537",
+    "city": "Larkinstad",
+    "stateProvince": "Larkinstad",
+    "postalCode": "79536",
     "country": "Zambia"
   },
   {
@@ -107,6 +129,17 @@
     "city": "New Rosalee",
     "stateProvince": "Buckinghamshire",
     "postalCode": "96124-8853",
+    "country": "Guinea"
+  },
+  {
+    "latitude": "51.531805",
+    "longitude": "-0.133868",
+    "uprn": 76733,
+    "address1": "29351 Nathen Mountain",
+    "address2": "Suite 615",
+    "city": "South Lilliana",
+    "stateProvince": "South Lilliana",
+    "postalCode": "64288",
     "country": "Guinea"
   }
 ]
