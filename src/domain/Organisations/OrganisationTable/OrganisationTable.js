@@ -100,7 +100,6 @@ const OrganisationTable = ({
         Header: "Organisation",
         accessor: "name",
         Cell: (e) => {
-          console.log(e.row.original.created_at);
           return (
             <>
               <Link to={`/organisations/${e.row.original.id}/edit`}>

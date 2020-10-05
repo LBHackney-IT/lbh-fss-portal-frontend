@@ -7,6 +7,31 @@ import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
 
+function doCleanFormValues(user, formValues) {
+  user.organisation_id = user.organisation.id;
+  user.password = formValues.password;
+  user.name = formValues.name;
+
+  const fieldsToKeep = [
+    "name",
+    "status",
+    "roles",
+    "password",
+    "created_at",
+    "organisation_id",
+  ];
+
+  let newFormValues = {};
+
+  Object.keys(user).forEach((key) => {
+    if (fieldsToKeep.includes(key)) {
+      newFormValues[key] = user[key];
+    }
+  });
+
+  return newFormValues;
+}
+
 const MyAccount = (props) => {
   const localUser = useContext(UserContext)[0];
 
@@ -20,9 +45,15 @@ const MyAccount = (props) => {
 
       setEditIsLoading(true);
 
-      delete formValues.confirmPassword;
+      console.log("user");
+      console.log(user);
 
-      const newUser = await UserService.updateUser(localUser.id, formValues);
+      const cleanFormValues = doCleanFormValues(user, formValues);
+
+      const newUser = await UserService.updateUser(
+        localUser.id,
+        cleanFormValues
+      );
 
       setEditIsLoading(false);
 
@@ -39,7 +70,7 @@ const MyAccount = (props) => {
   };
 
   if (fetchIsLoading) {
-    return "<div data-testid='loading'>Loading</div>";
+    return <div data-testid="loading">Loading</div>;
   }
 
   return (
