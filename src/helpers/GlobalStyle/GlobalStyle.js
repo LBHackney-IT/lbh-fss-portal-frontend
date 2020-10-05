@@ -24,6 +24,7 @@ body {
   font-family: ${defaultTheme.primaryFont};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 @font-face {

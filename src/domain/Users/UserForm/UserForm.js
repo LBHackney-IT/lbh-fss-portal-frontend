@@ -41,6 +41,7 @@ const UserForm = ({
   submitLoading = false,
   showPassword = true,
   showRoles = true,
+  showEmail = true,
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
@@ -50,22 +51,24 @@ const UserForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormInput
-        name="email"
-        label="Email"
-        register={register}
-        error={errors.email}
-        required
-        maxLength={255}
-        validate={{
-          pattern: (value) => {
-            return (
-              value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
-              "Enter a valid e-mail address"
-            );
-          },
-        }}
-      />
+      {showEmail ? (
+        <FormInput
+          name="email"
+          label="Email"
+          register={register}
+          error={errors.email}
+          required
+          maxLength={255}
+          validate={{
+            pattern: (value) => {
+              return (
+                value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
+                "Enter a valid e-mail address"
+              );
+            },
+          }}
+        />
+      ) : null}
       <FormInput
         name="name"
         type="text"
@@ -75,6 +78,25 @@ const UserForm = ({
         required
         maxLength={255}
       />
+      {showRoles ? (
+        <FormFieldset label="Roles">
+          {Object.keys(roles).map((item) => {
+            loopIteration++;
+            return (
+              <FormCheckbox
+                key={item}
+                name="roles"
+                label={roles[item]}
+                value={item}
+                register={register}
+                dataTestid={`checkbox-${loopIteration}`}
+              />
+            );
+          })}
+        </FormFieldset>
+      ) : (
+        ""
+      )}
       {showPassword ? (
         <>
           <FormInput
@@ -126,25 +148,7 @@ const UserForm = ({
       ) : (
         ""
       )}
-      {showRoles ? (
-        <FormFieldset label="Roles">
-          {Object.keys(roles).map((item) => {
-            loopIteration++;
-            return (
-              <FormCheckbox
-                key={item}
-                name="roles"
-                label={roles[item]}
-                value={item}
-                register={register}
-                dataTestid={`checkbox-${loopIteration}`}
-              />
-            );
-          })}
-        </FormFieldset>
-      ) : (
-        ""
-      )}
+
       <StyledActionDiv>
         <Button type="submit" label={submitLabel} disabled={submitLoading} />
         {showDeleteButton ? (

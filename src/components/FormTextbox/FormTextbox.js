@@ -43,6 +43,7 @@ const FormTextbox = ({
   labelStyle,
   rows = "5",
   cols = "10",
+  spellCheck = "true",
 }) => {
   return (
     <>
@@ -62,6 +63,7 @@ const FormTextbox = ({
           if (inputRef) inputRef.current = e;
         }}
         aria-invalid={error ? "true" : "false"}
+        spellCheck={spellCheck}
       />
       {error && error.type === "required" && (
         <FormError error={`${label} is required.`} />

@@ -99,6 +99,7 @@ const EditUser = (props) => {
           }}
           submitLoading={editIsLoading}
           showDeleteButton={true}
+          showEmail={false}
           onDelete={onDelete}
         />
       </RaisedCard>

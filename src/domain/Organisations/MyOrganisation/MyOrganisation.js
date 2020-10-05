@@ -21,7 +21,7 @@ const StyledFeedback = styled.div`
 `;
 
 const StyledRejectedFeedback = styled(StyledFeedback)`
-  background: rgba(190, 58, 52, 0.1);
+  background: ${red[100]};
   border: 1px solid #be3a34;
 `;
 
@@ -31,7 +31,7 @@ const StyledReverificationFeedback = styled(StyledFeedback)`
 `;
 
 const StyledApprovedFeedback = styled(StyledFeedback)`
-  background: rgba(32, 144, 119, 0.1);
+  background: ${green[100]};
   border: 1px solid ${green[400]};
 `;
 

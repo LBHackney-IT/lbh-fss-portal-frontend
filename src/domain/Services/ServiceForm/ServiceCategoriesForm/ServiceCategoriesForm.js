@@ -167,6 +167,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"lonOrIsDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -177,6 +178,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"anxOrMHDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -187,6 +189,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"safeAndHBDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -197,6 +200,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"exAndWellDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -207,6 +211,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"artAndCrtvDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -217,6 +222,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"foodOrShopDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -227,6 +233,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"faithActDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -237,6 +244,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"monAdvDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -247,6 +255,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"emplAdvDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -257,6 +266,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"houseAdvDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -267,6 +277,7 @@ const ServiceCategoriesForm = ({
                     label={"Please describe this service"}
                     name={"immAdvDetails"}
                     register={register}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}

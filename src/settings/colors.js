@@ -24,6 +24,7 @@ export const orange = {
 };
 
 export const red = {
+  100: "#BE3A3419",
   400: "#BE3A35",
 };
 

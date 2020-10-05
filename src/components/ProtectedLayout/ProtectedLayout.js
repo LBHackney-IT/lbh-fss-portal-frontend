@@ -8,7 +8,7 @@ import SecondaryNavMenu from "../SecondaryNavMenu/SecondaryNavMenu";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 
 const StyledLayout = styled.div`
-  padding: 30px 10px;
+  padding: 0 10px 30px 10px;
   max-width: 980px;
   margin: 0 auto;
 `;

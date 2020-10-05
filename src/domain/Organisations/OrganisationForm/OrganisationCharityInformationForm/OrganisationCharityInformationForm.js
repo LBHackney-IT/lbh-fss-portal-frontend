@@ -178,6 +178,7 @@ const OrganisationCharityInformationForm = ({
                     }
                     name={"rslOrHaAssociation"}
                     register={register}
+                    spellCheck={'true'}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -189,6 +190,7 @@ const OrganisationCharityInformationForm = ({
                     label={"Please detail which Lottery Funded project"}
                     name={"lotteryFundedProject"}
                     register={register}
+                    spellCheck={'true'}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -210,6 +212,7 @@ const OrganisationCharityInformationForm = ({
         label={"Other - how is your activity funded?"}
         name={"fundingOther"}
         register={register}
+        spellCheck={'true'}
         validate={{
           notEmpty: () => {
             const emptyFormMessage =
