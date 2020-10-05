@@ -38,7 +38,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
       </FormFieldset>
       <FormFieldset
         label="Contact details"
-        help="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet varius sapien."
+        help="To make sure your listing has the most up to date information, please add the appropriate details below."
       >
         <FormInput
           name="website"
@@ -78,7 +78,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
       </FormFieldset>
       <FormFieldset
         label="Referral details"
-        help="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet varius sapien."
+        help="This is for health and care professionals who may want to make a more formal referral to you."
       >
         <FormInput
           name="referralLink"
@@ -108,7 +108,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
       </FormFieldset>
       <FormFieldset
         label="Social media"
-        help="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet varius sapien."
+        help="Add links to your social media channels that are regularly updated."
       >
         <FormInput
           name="facebook"

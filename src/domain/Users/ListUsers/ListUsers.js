@@ -133,9 +133,6 @@ const ListUsers = ({ location }) => {
 
   const dataForExport = cleanDataForExport(data);
 
-  console.log("dataForExport");
-  console.log(dataForExport);
-
   return accessPermission ? (
     <>
       <div>

@@ -69,8 +69,7 @@ function doCleanServiceFormValues(
     cleanFormValues,
     serviceCategoryCheckboxOptions
   );
-  console.log("cleanFormValues - pre submit");
-  console.log(cleanFormValues);
+  
   cleanFormValues = doConvertServiceFormValuesIntoFormData(cleanFormValues);
 
   return cleanFormValues;

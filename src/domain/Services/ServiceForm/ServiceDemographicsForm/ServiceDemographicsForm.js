@@ -69,8 +69,8 @@ const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormFieldset label="Who you work with">
         <p>
-          In order to help make it easier for residents to help find your
-          service please indicate who your service if for.
+          In order to make it easier for users of the website to find your
+          service, please select who your service is for.
         </p>
       </FormFieldset>
       {serviceDemographicCheckboxOptions.map((item) => {
@@ -85,9 +85,8 @@ const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
             />
             {item.id === "everyone" ? (
               <StyledHelp>
-                If your service is for a <strong>specific audience</strong>{" "}
-                please select from the following filters to indicate who your
-                service is for:
+                If your service is for a <strong>specific audience</strong>,{" "}
+                please select the the appropriate filters below.
               </StyledHelp>
             ) : null}
           </div>

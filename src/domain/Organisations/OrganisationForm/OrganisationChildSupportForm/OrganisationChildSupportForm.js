@@ -61,9 +61,14 @@ const OrganisationChildSupportForm = ({
     >
       <FormFieldset label="Do you provide support or activities for people under 16?">
         <StyledLeadText>
-          Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam
-          aliquam bibendum dapibus.
-          <a href="" target="_blank">
+          We are asking you this because there are additional safeguarding
+          checks for organisations working with under 16's.
+          <br />
+          <a
+            href="https://www.gov.uk/guidance/safeguarding-duties-for-charity-trustees"
+            target="_blank"
+            rel="noreffer noopener"
+          >
             Click here to see the statutory guidance and best practice
           </a>
         </StyledLeadText>

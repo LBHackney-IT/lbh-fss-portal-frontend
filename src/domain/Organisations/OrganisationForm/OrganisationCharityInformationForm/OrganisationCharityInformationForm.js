@@ -158,7 +158,11 @@ const OrganisationCharityInformationForm = ({
               {showHiddenField.charityNumber &&
               item.id === "isRegisteredCharity" ? (
                 <StyledHiddenFieldContainer>
-                  <StyledExternalLink href="">
+                  <StyledExternalLink
+                    href="https://www.gov.uk/find-charity-information"
+                    target="_blank"
+                    rel="noreffer noopener"
+                  >
                     Look up your charity number
                   </StyledExternalLink>
                   <FormInput
@@ -178,7 +182,7 @@ const OrganisationCharityInformationForm = ({
                     }
                     name={"rslOrHaAssociation"}
                     register={register}
-                    spellCheck={'true'}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -190,7 +194,7 @@ const OrganisationCharityInformationForm = ({
                     label={"Please detail which Lottery Funded project"}
                     name={"lotteryFundedProject"}
                     register={register}
-                    spellCheck={'true'}
+                    spellCheck={"true"}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -212,7 +216,7 @@ const OrganisationCharityInformationForm = ({
         label={"Other - how is your activity funded?"}
         name={"fundingOther"}
         register={register}
-        spellCheck={'true'}
+        spellCheck={"true"}
         validate={{
           notEmpty: () => {
             const emptyFormMessage =
