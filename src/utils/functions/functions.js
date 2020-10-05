@@ -67,13 +67,13 @@ function objAllTrue(obj) {
 
 function addFormattedAddress(locationsArray) {
   locationsArray.forEach((location) => {
-    location["formattedAddress"] = location.address1.concat(
+    location["formattedAddress"] = location.address_1.concat(
       ", ",
-      location.address2,
+      location.address_2,
       ", ",
       location.city,
       ", ",
-      location.postalCode
+      location.postal_code
     );
   });
   return locationsArray;

@@ -45,7 +45,7 @@ const ServiceLocationsForm = ({
   setErrorMessage,
 }) => {
   const [selectedPostcodeValue, setSelectedPostcodeValue] = useState(
-    defaultValues.postalCode || ""
+    defaultValues.postal_code || ""
   );
   const [postcodeHasBeenRemoved, setPostcodeHasBeenRemoved] = useState(false);
   const [addresses, setAddresses] = useState([]);
@@ -54,8 +54,8 @@ const ServiceLocationsForm = ({
   const { register, handleSubmit, errors, getValues, reset, watch } = useForm();
 
   useEffect(() => {
-    if (!defaultValues.postalCode) return;
-    doFindAddress(defaultValues.postalCode);
+    if (!defaultValues.postal_code) return;
+    doFindAddress(defaultValues.postal_code);
   }, [defaultValues]);
 
   async function doFindAddress(postcode) {

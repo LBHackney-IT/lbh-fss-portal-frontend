@@ -133,8 +133,8 @@ const ListOrganisations = ({ location }) => {
     setApproveIsLoading(true);
 
     selectedOrganisation.status = "published";
-    selectedOrganisation.reviewedAt = new Date();
-    selectedOrganisation.reviewerMessage = reviewerMessage;
+    selectedOrganisation.reviewed_at = new Date();
+    selectedOrganisation.reviewer_message = reviewerMessage;
 
     const organisation = await OrganisationService.updateOrganisation(
       selectedOrganisation.id,
@@ -157,8 +157,8 @@ const ListOrganisations = ({ location }) => {
     setDeclineIsLoading(true);
 
     selectedOrganisation.status = "rejected";
-    selectedOrganisation.reviewedAt = new Date();
-    selectedOrganisation.reviewerMessage = reviewerMessage;
+    selectedOrganisation.reviewed_at = new Date();
+    selectedOrganisation.reviewer_message = reviewerMessage;
 
     const organisation = await OrganisationService.updateOrganisation(
       selectedOrganisation.id,
