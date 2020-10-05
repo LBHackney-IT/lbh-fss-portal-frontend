@@ -42,6 +42,7 @@ const FormInput = ({
   help,
   placeholder,
   labelStyle,
+  spellCheck = "false",
 }) => {
   return (
     <>
@@ -60,6 +61,7 @@ const FormInput = ({
           if (inputRef) inputRef.current = e;
         }}
         aria-invalid={error ? "true" : "false"}
+        spellCheck={spellCheck}
       />
       {error && error.type === "required" && (
         <FormError error={`${label} is required.`} />
