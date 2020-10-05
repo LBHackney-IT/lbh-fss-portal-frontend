@@ -9,7 +9,7 @@
       "id": 9999,
       "name": "Nudge Digital"
     },
-    "password_needs_setting": true
+    "set_password_required": true
   },
   {
     "id": 54400,
@@ -21,7 +21,7 @@
       "id": 16047,
       "name": "Goodwin - Ruecker"
     },
-    "password_needs_setting": false
+    "set_password_required": false
   },
   {
     "id": 95941,
@@ -33,7 +33,7 @@
       "id": 38295,
       "name": "Carter - Bergnaum"
     },
-    "password_needs_setting": true
+    "set_password_required": true
   },
   {
     "id": 65615,
@@ -45,7 +45,7 @@
       "id": 70611,
       "name": "Carter - Bergnaum"
     },
-    "password_needs_setting": false
+    "set_password_required": false
   },
   {
     "id": 99595,

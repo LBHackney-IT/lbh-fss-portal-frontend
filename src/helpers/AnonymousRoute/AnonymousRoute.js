@@ -9,7 +9,7 @@ const AnonymousRoute = ({ as: Component, ...props }) => {
   return (
     <>
       {user ? (
-        <Redirect to="/services" noThrow />
+        <Redirect to="/organisation" noThrow />
       ) : (
         <AnonymousLayout>
           <Component {...props} />
