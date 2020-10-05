@@ -10,9 +10,6 @@ const HandleMyOrganisation = () => {
   const isInternalTeam =
     user.roles.includes("viewer") || user.roles.includes("admin");
 
-  if (user.setPasswordRequired) {
-    return <Redirect to="/account" noThrow />;
-  }
 
   if (isInternalTeam) {
     return <Redirect to="/organisations" noThrow />;
