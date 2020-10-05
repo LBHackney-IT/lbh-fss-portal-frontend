@@ -21,14 +21,16 @@ import moment from "moment";
 const StyledDateSelectOuterContainer = styled.div`
   background-color: ${grey[500]};
   display: flex;
-  padding: 10px 20px;
-  height: 100px;
+  height: 110px;
   ${breakpoint("sm")`
     margin-bottom: 30px;
   `}
+  ${breakpoint("md")`
+    height: 80px;
+  `}
 
-  margin-left: calc(49% - 50vw);
   width: 100vw;
+  margin-left: calc(-50vw + 50%);
 `;
 
 const StyledSelectorTitleDiv = styled.div`
@@ -49,22 +51,26 @@ const StyledDateSelectInnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
+  margin: 0 35px;
   ${breakpoint("sm")`
     width: 100%;
-    margin: 0 0 0 5px;
+    margin: 15px 18px;
   `};
   ${breakpoint("md")`
     margin: 0 auto;
     flex-direction: row;
     width: 960px;
-    padding: 0 10px;
+    padding: 0 20px;
   `};
+  @media (min-width: 1000px) {
+    padding: 0;
+  }
 `;
 
 const StyledHr = styled.hr`
   border: 3px solid #000000;
   background-color: black;
-  width: 95%;
+  width: 99%;
   margin: 50px auto;
 `;
 
@@ -142,10 +148,11 @@ const AnalyticsDashboard = () => {
             )}
             includeBlankValue={false}
             selectStyle={{
-              margin: "auto 0",
               boxShadow: "4px 4px 4px rgba(0, 30, 58, 0.05)",
               borderRadius: "2px",
             }}
+            selectMarginMobile="0"
+            selectMarginMedium="auto 0"
             onChange={() => {
               const selectedWeekDateRange = JSON.parse(getValues().dateRange)
                 .value;

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import FormError from "../FormError/FormError";
 import { neutral } from "../../settings";
+import { breakpoint } from "../../utils/breakpoint/breakpoint";
 
 const StyledLabel = styled.label`
   display: block;
@@ -13,6 +14,10 @@ const StyledLabel = styled.label`
 
 const StyledSelect = styled.select`
   display: block;
+  margin: ${(props) => props.selectMarginMobile};
+  ${breakpoint("md")`
+     margin: ${(props) => props.selectMarginMedium};  
+  `};
   margin-bottom: 20px;
   max-width: 438px;
   width: 100%;
@@ -34,6 +39,8 @@ const FormDropDown = ({
   onChange = () => {},
   includeBlankValue = true,
   selectStyle,
+  selectMarginMobile = "20px 0 0 0",
+  selectMarginMedium = "20px 0 0 0",
 }) => {
   return (
     <>
@@ -43,6 +50,8 @@ const FormDropDown = ({
         ref={register({ required })}
         onChange={onChange}
         style={selectStyle}
+        selectMarginMobile={selectMarginMobile}
+        selectMarginMedium={selectMarginMedium}
       >
         {includeBlankValue ? (
           <StyledOption value="" defaultValue></StyledOption>
