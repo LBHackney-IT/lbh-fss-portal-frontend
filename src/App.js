@@ -8,6 +8,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { ModalProvider, BaseModalBackground } from "styled-react-modal";
 import { grey } from "./settings";
 import styled from "styled-components";
+import TagManager from "react-gtm-module";
+
+const tagManagerArgs = {
+  gtmId: "GTM-000000",
+};
+
+TagManager.initialize(tagManagerArgs);
+
+
 
 const StyledDiv = styled.div`
   background-color: ${grey[300]};
