@@ -20,10 +20,10 @@ const AddOrganisation = () => {
 
   const [showHiddenField, setShowHiddenField] = useState({
     notBasedInWarning: false,
-    charityNumber: false,
+    charity_number: false,
     RslOrHaAssociation: false,
-    lotteryFundedProject: false,
-    localOfferLink: false,
+    lottery_funded_project: false,
+    local_offer_link: false,
     childSafeGuardLead: false,
     childSafeguardLeadDetails: false,
     adultSafeguardLead: false,

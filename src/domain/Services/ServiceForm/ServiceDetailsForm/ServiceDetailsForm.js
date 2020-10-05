@@ -81,7 +81,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
         help="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet varius sapien."
       >
         <FormInput
-          name="referralLink"
+          name="referral_link"
           type="text"
           label="Referral link"
           register={register}
@@ -89,7 +89,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           help="If you have one you can include a referral form"
         />
         <FormInput
-          name="referralEmail"
+          name="referral_email"
           label="Referral email"
           register={register}
           maxLength={255}
@@ -102,7 +102,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
               );
             },
           }}
-          error={errors.referralEmail}
+          error={errors.referral_email}
           help="Include a referral email if you have one"
         />
       </FormFieldset>
