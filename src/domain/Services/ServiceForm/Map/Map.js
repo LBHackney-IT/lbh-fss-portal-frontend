@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Map, TileLayer, Marker, Popup, FeatureGroup } from "react-leaflet";
+import { Map, TileLayer, Marker, FeatureGroup } from "react-leaflet";
 import { removeEmptyObjFromArrayObj } from "../../../../utils/functions/functions";
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_URL } from "../../../../settings/mapbox";
 import "leaflet/dist/leaflet.css";
