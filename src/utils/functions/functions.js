@@ -50,6 +50,40 @@ function objAllFalse(obj) {
   return Object.keys(obj).every((k) => !obj[k]);
 }
 
+function objAllTrue(obj) {
+  return Object.keys(obj).every((k) => obj[k]);
+}
+
+function addFormattedAddress(locationsArray) {
+  locationsArray.forEach((location) => {
+    location["formattedAddress"] = location.address1.concat(
+      ", ",
+      location.address2,
+      ", ",
+      location.city,
+      ", ",
+      location.postalCode
+    );
+  });
+  return locationsArray;
+}
+
+function snakeToCamel(str) {
+  return str.replace(/([-_][a-z])/g, (group) =>
+    group.toUpperCase().replace("-", "").replace("_", "")
+  );
+}
+
+function snakeToCamelKeys(obj) {
+  const newObj = {};
+
+  Object.keys(obj).forEach((key) => {
+    newObj[snakeToCamel(key)] = obj[key];
+  });
+
+  return newObj;
+}
+
 export {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
@@ -57,5 +91,8 @@ export {
   convertStepNumToWord,
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
-  objAllFalse
+  objAllFalse,
+  objAllTrue,
+  addFormattedAddress,
+  snakeToCamelKeys,
 };

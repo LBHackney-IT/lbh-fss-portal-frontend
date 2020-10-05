@@ -4,6 +4,7 @@ export const blue = {
 };
 
 export const green = {
+  100: "#20907719",
   300: "#267D69",
   400: "#00664F",
 };
@@ -13,7 +14,9 @@ export const limeGreen = {
 };
 
 export const yellow = {
+  100: "#FFC84519",
   400: "#ffc844",
+  500: "#FFC845",
 };
 
 export const orange = {

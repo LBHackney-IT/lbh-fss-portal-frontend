@@ -10,7 +10,7 @@ import { ReactComponent as Trash } from "./icons/trash.svg";
 import OrganisationService from "../../../services/OrganisationService/OrganisationService";
 import { toast } from "react-toastify";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
-import { red, green } from "../../../settings";
+import { red, green, yellow } from "../../../settings";
 
 const StyledFeedback = styled.div`
   box-sizing: border-box;
@@ -23,6 +23,11 @@ const StyledFeedback = styled.div`
 const StyledRejectedFeedback = styled(StyledFeedback)`
   background: rgba(190, 58, 52, 0.1);
   border: 1px solid #be3a34;
+`;
+
+const StyledReverificationFeedback = styled(StyledFeedback)`
+  background: ${yellow[100]};
+  border: 1px solid ${yellow[500]};
 `;
 
 const StyledApprovedFeedback = styled(StyledFeedback)`
@@ -124,6 +129,14 @@ const MyOrganisation = () => {
           <StyledRejectedFeedback>
             {organisation.reviewerMessage}
           </StyledRejectedFeedback>
+        ) : null}
+        {organisation.status === "awaiting reverification" ? (
+          <StyledReverificationFeedback>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. It has
+            been 12 months since you last verified your organisation
+            information. Please re-verify your organisation by reviewing your
+            organisation information and re-submitting the form.
+          </StyledReverificationFeedback>
         ) : null}
         {organisation.status === "published" && organisation.reviewerMessage ? (
           <StyledApprovedFeedback>

@@ -14,8 +14,7 @@ module.exports = (req, res) => {
   const services = [...mockServices]
     .filter((item) => {
       return search.length
-        ? cleanString(item.name).includes(searchClean) ||
-            cleanString(item.author).includes(searchClean)
+        ? cleanString(item.name).includes(searchClean)
         : true;
     })
     .sort(function (a, b) {

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Map, TileLayer, Marker, Popup, FeatureGroup } from "react-leaflet";
 import { removeEmptyObjFromArrayObj } from "../../../../utils/functions/functions";
-import MAPBOX_ACCESS_TOKEN from "../../../../settings/mapbox";
+import { MAPBOX_ACCESS_TOKEN, MAPBOX_URL } from "../../../../settings/mapbox";
 import "leaflet/dist/leaflet.css";
 const L = require("leaflet");
 
@@ -24,13 +24,27 @@ export default ({ mapStyle, data }) => {
     });
   }, []);
 
+  const [refreshComponent, setRefreshComponent] = useState(true);
+
+  useEffect(() => {
+    // refresh component to cause map to center properly
+    setRefreshComponent(false);
+  }, [setRefreshComponent]);
+
   const mapRef = useRef(null);
   const groupRef = useRef(null);
 
   const cleanData = doCleanData(data);
 
   useEffect(() => {
-    if (cleanData.length === 0 || cleanData.length === 1) return;
+    if (
+      cleanData.length === 0 ||
+      cleanData.length === 1 ||
+      !mapRef.current ||
+      !groupRef.current
+    ) {
+      return;
+    }
 
     const map = mapRef.current.leafletElement;
     const group = groupRef.current.leafletElement;
@@ -40,6 +54,7 @@ export default ({ mapStyle, data }) => {
 
   return cleanData.length !== 0 ? (
     <>
+      <h2 style={{ margin: "30px 0 10px 0" }}>Map Preview</h2>
       <Map
         center={[cleanData[0].latitude, cleanData[0].longitude]}
         zoom={13}
@@ -49,7 +64,7 @@ export default ({ mapStyle, data }) => {
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          url={`https://api.mapbox.com/styles/v1/samnudge/ckf5pfyrj2ua819ld0f4yq4hk/tiles/256/{z}/{x}/{y}@2x?access_token=${MAPBOX_ACCESS_TOKEN}`}
+          url={`${MAPBOX_URL}${MAPBOX_ACCESS_TOKEN}`}
           // url={`https://api.mapbox.com/styles/v1/hackneygis/ck7ounc2t0cg41imjb3j53dp8/tiles/256/{z}/{x}/{y}@2x?access_token=${MAPBOX_ACCESS_TOKEN}`}
         />
         <FeatureGroup ref={groupRef}>
