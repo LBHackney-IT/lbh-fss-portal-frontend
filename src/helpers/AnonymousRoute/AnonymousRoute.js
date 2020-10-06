@@ -5,7 +5,7 @@ import UserContext from "../../context/UserContext/UserContext";
 
 const AnonymousRoute = ({ as: Component, ...props }) => {
   const user = useContext(UserContext)[0];
-
+  
   return (
     <>
       {user ? (

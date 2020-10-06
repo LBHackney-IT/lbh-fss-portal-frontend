@@ -45,9 +45,6 @@ const MyAccount = (props) => {
 
       setEditIsLoading(true);
 
-      console.log("user");
-      console.log(user);
-
       const cleanFormValues = doCleanFormValues(user, formValues);
 
       const newUser = await UserService.updateUser(
