@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import UserContext from "../../../context/UserContext/UserContext";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
@@ -98,13 +99,13 @@ const ListServices = () => {
     },
   ];
 
-  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(roles);
 
   if (isLoading) {
     return <span>Loading...</span>;
   }
 
-  return accessPermission ? (
+  return isInternalTeam ? (
     <>
       <div>
         <StyledActionDiv>

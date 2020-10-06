@@ -6,6 +6,7 @@ import UserService from "../../../services/UserService/UserService";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
+import { doCleanFormValues } from "../../../utils/functions/userFunctions";
 
 const MyAccount = (props) => {
   const localUser = useContext(UserContext)[0];
@@ -20,9 +21,17 @@ const MyAccount = (props) => {
 
       setEditIsLoading(true);
 
-      delete formValues.confirmPassword;
+      const cleanFormValues = doCleanFormValues({
+        user: user,
+        formValues: formValues,
+        updateRoles: false,
+        setCreatedAt: true,
+      });
 
-      const newUser = await UserService.updateUser(localUser.id, formValues);
+      const newUser = await UserService.updateUser(
+        localUser.id,
+        cleanFormValues
+      );
 
       setEditIsLoading(false);
 
@@ -39,7 +48,7 @@ const MyAccount = (props) => {
   };
 
   if (fetchIsLoading) {
-    return "<div data-testid='loading'>Loading</div>";
+    return <div data-testid="loading">Loading</div>;
   }
 
   return (

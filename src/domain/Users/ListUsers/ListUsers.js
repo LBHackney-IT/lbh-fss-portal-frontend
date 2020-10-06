@@ -9,6 +9,7 @@ import UserService from "../../../services/UserService/UserService";
 import { grey, green } from "../../../settings";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 import { CSVLink } from "react-csv";
 
 const StyledActionDiv = styled.div`
@@ -118,7 +119,7 @@ const ListUsers = ({ location }) => {
     fetchData();
   }, [search, setData, setIsLoading]);
 
-  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(roles);
 
   const headersForExport = [
     { label: "ID", key: "id" },
@@ -133,10 +134,7 @@ const ListUsers = ({ location }) => {
 
   const dataForExport = cleanDataForExport(data);
 
-  console.log("dataForExport");
-  console.log(dataForExport);
-
-  return accessPermission ? (
+  return isInternalTeam ? (
     <>
       <div>
         <StyledActionDiv>

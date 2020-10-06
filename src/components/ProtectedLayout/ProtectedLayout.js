@@ -47,9 +47,7 @@ const StyledSecondaryNav = styled.nav`
 `;
 
 const ProtectedLayout = ({ children }) => {
-  const { roles, organisation } = useContext(UserContext)[0];
-
-  const isInternalTeam = roles.includes("viewer") || roles.includes("admin");
+  const { organisation } = useContext(UserContext)[0];
 
   return (
     <>

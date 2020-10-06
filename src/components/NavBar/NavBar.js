@@ -8,6 +8,7 @@ import SecondaryNavMenu from "../SecondaryNavMenu/SecondaryNavMenu";
 import closeIcon from "./icons/close.svg";
 import burgerIcon from "./icons/open-menu.svg";
 import { green } from "../../settings";
+import { checkIsInternalTeam } from "../../utils/functions/functions";
 
 const StyledPrimaryLink = styled(NavLinkPrimary)`
   text-decoration: none;
@@ -98,7 +99,8 @@ function NavBar() {
   }
 
   const { roles } = useContext(UserContext)[0];
-  const isInternalTeam = roles.includes("viewer") || roles.includes("admin");
+
+  const isInternalTeam = checkIsInternalTeam(roles);
 
   return (
     <>
@@ -109,32 +111,30 @@ function NavBar() {
       </StyledMobileTitle>
       <StyledNavOuter>
         <StyledNavInner menuIsOpen={menuIsOpen}>
-          {!isInternalTeam ? (
-            <StyledPrimaryLink to="/organisation">
-              Your organisation
-            </StyledPrimaryLink>
-          ) : null}
           {isInternalTeam ? (
             <StyledPrimaryLink to="/organisations">
               Organisations
             </StyledPrimaryLink>
-          ) : null}
+          ) : (
+            <StyledPrimaryLink to="/organisation">
+              Your organisation
+            </StyledPrimaryLink>
+          )}
 
-          {!isInternalTeam ? (
-            <StyledPrimaryLink to="/service">Your listings</StyledPrimaryLink>
-          ) : null}
           {isInternalTeam ? (
             <StyledPrimaryLink to="/services">Listings</StyledPrimaryLink>
-          ) : null}
+          ) : (
+            <StyledPrimaryLink to="/service">Your listings</StyledPrimaryLink>
+          )}
+
           {isInternalTeam ? (
-            <StyledPrimaryLink to="/users">Users</StyledPrimaryLink>
+            <>
+              <StyledPrimaryLink to="/users">Users</StyledPrimaryLink>
+              <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
+              <StyledPrimaryLink to="/search">Search</StyledPrimaryLink>
+            </>
           ) : null}
-          {isInternalTeam ? (
-            <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
-          ) : null}
-          {isInternalTeam ? (
-            <StyledPrimaryLink to="/search">Search</StyledPrimaryLink>
-          ) : null}
+
           <StyledSecondaryNavMenuContainer>
             <SecondaryNavMenu />
           </StyledSecondaryNavMenuContainer>

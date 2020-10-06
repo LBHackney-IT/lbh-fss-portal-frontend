@@ -5,11 +5,11 @@ import UserContext from "../../context/UserContext/UserContext";
 
 const AnonymousRoute = ({ as: Component, ...props }) => {
   const user = useContext(UserContext)[0];
-
+  
   return (
     <>
       {user ? (
-        <Redirect to="/services" noThrow />
+        <Redirect to="/service" noThrow />
       ) : (
         <AnonymousLayout>
           <Component {...props} />
