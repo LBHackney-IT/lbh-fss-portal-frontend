@@ -47,7 +47,7 @@
     "id": 99595,
     "name": "Jaylin Rutherford Sr.",
     "email": "Pinkie_Tromp@yahoo.com",
-    "status": "deleted",
+    "status": "unverified",
     "roles": ["vcso"],
     "organisation": null
   },
@@ -97,7 +97,7 @@
     "id": 40457,
     "name": "Alfredo Kling",
     "email": "Raquel48@gmail.com",
-    "status": "active",
+    "status": "unverified",
     "roles": ["vcso", "viewer", "admin"],
     "organisation": {
       "id": 6806,
@@ -196,7 +196,7 @@
     "id": 29450,
     "name": "Macy Hahn",
     "email": "Ayana52@gmail.com",
-    "status": "suspended",
+    "status": "unverified",
     "roles": ["vcso"],
     "organisation": {
       "id": 83929,

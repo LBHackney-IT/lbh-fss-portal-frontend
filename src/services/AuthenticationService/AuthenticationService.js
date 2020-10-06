@@ -6,22 +6,54 @@ const AuthenticationService = {
   async register(name, email, password) {
     try {
       // TODO: Live API
+      // const response = await axios.post(`${BASE_API_URL}/registration`, {
+      //   data: {
+      //     name: name,
+      //     email: email,
+      //     password: password,
+      //   },
+      //   headers: {
+      //     "x-api-key": API_KEY,
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      // // TODO: Live API
       const response = await axios.post(
         `${BASE_API_URL}/registration`,
-        {
-          name: name,
-          email: email,
-          password: password,
-        },
         {
           headers: {
             "x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
+          params: {
+            now: "NOW",
+          },
+          data: {
+            name: name,
+            email: email,
+            password: password,
+          },
         }
       );
-
-      console.log(response);
+      // // // TODO: Live API
+      // const response = await axios.post(
+      //   `${BASE_API_URL}/registration`,
+      //   {
+      //     name: name,
+      //     email: email,
+      //     password: password,
+      //   },
+      //   {
+      //     headers: {
+      //       "x-api-key": API_KEY,
+      //       "Content-Type": "application/json",
+      //     },
+      //     params: {
+      //       now: "NOW",
+      //     },
+      //   }
+      // );
 
       return response.data;
     } catch (error) {

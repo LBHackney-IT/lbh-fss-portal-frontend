@@ -17,6 +17,8 @@ const EditUser = (props) => {
   const [editIsLoading, setEditIsLoading] = useState(false);
   const [deleteIsLoading, setDeleteIsLoading] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [resendAuthIsLoading, setResendAuthIsLoading] = useState(false);
+
   const { roles } = useContext(UserContext)[0];
 
   function toggleDeleteModal() {
@@ -83,7 +85,25 @@ const EditUser = (props) => {
     setDeleteModalIsOpen(true);
   };
 
-  if (fetchIsLoading) {
+  async function doResendAuthentication() {
+    if (resendAuthIsLoading) return;
+
+    setResendAuthIsLoading(true);
+
+    const resendSuccess = await UserService.resendAuthentication(props.userId);
+
+    setResendAuthIsLoading(false);
+
+    if (resendSuccess) {
+      toast.success(`Authentication details sent to ${user.name}.`);
+
+      navigate("/users");
+    } else {
+      toast.error("Unable to resend authentication details.");
+    }
+  }
+
+  if (fetchIsLoading || resendAuthIsLoading) {
     return <div data-testid="loading">Loading</div>;
   }
 
@@ -104,6 +124,8 @@ const EditUser = (props) => {
           showDeleteButton={true}
           showEmail={false}
           onDelete={onDelete}
+          showResendAuth={user.status === "unverified"}
+          onResendAuth={doResendAuthentication}
         />
       </RaisedCard>
       <ConfirmModal
