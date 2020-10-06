@@ -6,31 +6,7 @@ import UserService from "../../../services/UserService/UserService";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
-
-function doCleanFormValues(user, formValues) {
-  user.organisation_id = user.organisation.id;
-  user.password = formValues.password;
-  user.name = formValues.name;
-
-  const fieldsToKeep = [
-    "name",
-    "status",
-    "roles",
-    "password",
-    "created_at",
-    "organisation_id",
-  ];
-
-  let newFormValues = {};
-
-  Object.keys(user).forEach((key) => {
-    if (fieldsToKeep.includes(key)) {
-      newFormValues[key] = user[key];
-    }
-  });
-
-  return newFormValues;
-}
+import { doCleanFormValues } from "../../../utils/functions/userFunctions";
 
 const MyAccount = (props) => {
   const localUser = useContext(UserContext)[0];
@@ -45,7 +21,12 @@ const MyAccount = (props) => {
 
       setEditIsLoading(true);
 
-      const cleanFormValues = doCleanFormValues(user, formValues);
+      const cleanFormValues = doCleanFormValues({
+        user: user,
+        formValues: formValues,
+        updateRoles: false,
+        setCreatedAt: true,
+      });
 
       const newUser = await UserService.updateUser(
         localUser.id,

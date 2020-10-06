@@ -8,9 +8,9 @@ const AxiosInterceptorService = {
         return response;
       },
       function (error) {
-        if (401 === error.response.status) {
-          navigate("/");
-        }
+        // if (401 === error.response.status) {
+        //   navigate("/");
+        // }
 
         return Promise.reject(error);
       }

@@ -5,6 +5,7 @@ import BASE_API_URL from "../../settings/baseApiUrl";
 const AuthenticationService = {
   async register(name, email, password) {
     try {
+      // TODO: Live API
       const response = await axios.post(
         `${BASE_API_URL}/registration`,
         {
@@ -29,6 +30,7 @@ const AuthenticationService = {
   },
   async registerConfirmation(email, code) {
     try {
+      // TODO: Live API
       const response = await axios.post(
         `${BASE_API_URL}/registration/confirmation`,
         {
@@ -50,6 +52,7 @@ const AuthenticationService = {
   },
   async resendRegisterConfirmation(email) {
     try {
+      // TODO: Live API
       await axios.post(
         `${BASE_API_URL}/registration/confirmation/resend`,
         {
@@ -69,8 +72,8 @@ const AuthenticationService = {
     }
   },
   async login(email, password) {
-    // TODO: test this
     try {
+      // TODO: Live API
       await axios.post(
         `${BASE_API_URL}/session`,
         { email: email, password: password },
@@ -89,10 +92,12 @@ const AuthenticationService = {
   },
   async me() {
     try {
+      // TODO: Mock API
       const response = await axios.get("/api/account");
 
       return response.data;
 
+      // TODO: Live API
       // const response = await axios.get(`${BASE_API_URL}/account`, {
       //   headers: {
       //     "x-api-key": API_KEY,
@@ -101,8 +106,6 @@ const AuthenticationService = {
 
       // return response.data;
     } catch (error) {
-      console.log("error ");
-      console.log(error);
       return false;
     }
   },
@@ -116,7 +119,7 @@ const AuthenticationService = {
     }
   },
   async passwordRecovery(email) {
-    // TODO: test this
+    // TODO: Mock API
     try {
       await axios.post("api/password-recovery", { email: email });
       console.log("pass");
@@ -125,6 +128,8 @@ const AuthenticationService = {
       console.log("fail");
       return false;
     }
+
+    // TODO: Live API
     // try {
     //   await axios.post(
     //     `${BASE_API_URL}/password-recovery`,
@@ -146,8 +151,7 @@ const AuthenticationService = {
     // }
   },
   async passwordRecoveryConfirmation(email, code, password) {
-    // TODO: test this
-    // console.log("passwordRecoveryConfirmation");
+    // TODO: Mock API
     try {
       await axios.post("api/password-recovery/confirmation", {
         email: email,
@@ -161,6 +165,7 @@ const AuthenticationService = {
       return false;
     }
 
+    // TODO: Live API
     // try {
     //   await axios.post(
     //     `${BASE_API_URL}/password-recovery/confirmation`,

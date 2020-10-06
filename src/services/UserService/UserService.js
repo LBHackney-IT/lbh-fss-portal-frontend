@@ -1,4 +1,6 @@
 import axios from "axios";
+import API_KEY from "../../settings/apiKey";
+import BASE_API_URL from "../../settings/baseApiUrl";
 
 const UserService = {
   async retrieveUsers(
@@ -9,26 +11,65 @@ const UserService = {
     search = ""
   ) {
     try {
+      // TODO: Mock API
       const response = await axios.get("/api/users", {
         params: {
-          sort,
-          direction,
-          offset,
-          limit,
-          search,
+          sort: sort,
+          direction: direction,
+          offset: offset,
+          limit: limit,
+          search: search,
         },
       });
 
       return response.data;
+
+      // // TODO: Live API
+      // const response = await axios.get(
+      //   "/api/users",
+      //   {
+      //     data: {
+      //       sort: sort,
+      //       direction: direction,
+      //       offset: offset,
+      //       limit: limit,
+      //       search: search,
+      //     },
+      //     params: {
+      //       sort,
+      //       direction,
+      //       offset,
+      //       limit,
+      //       search,
+      //     },
+      //   },
+      //   {
+      //     headers: {
+      //       "x-api-key": API_KEY,
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+
+      // return response.data;
     } catch (error) {
       console.error(error);
-
       return false;
     }
   },
   async createUser(values) {
+    console.log(values);
     try {
+      // TODO: Mock API
       const response = await axios.post("/api/users", values);
+
+      // TODO: Live API
+      // const response = await axios.post(`${BASE_API_URL}/users`, values, {
+      //   headers: {
+      //     "x-api-key": API_KEY,
+      //     "Content-Type": "application/json",
+      //   },
+      // });
 
       return response.data;
     } catch (error) {
@@ -39,7 +80,15 @@ const UserService = {
   },
   async getUser(id) {
     try {
+      // TODO: Mock API
       const response = await axios.get(`/api/users/${id}`);
+
+      // TODO: Live API
+      // const response = await axios.post(`${BASE_API_URL}/users/${id}`, {
+      //   headers: {
+      //     "x-api-key": API_KEY,
+      //   },
+      // });
 
       return response.data;
     } catch (error) {
@@ -49,9 +98,7 @@ const UserService = {
     }
   },
   async updateUser(id, values) {
-    if (values.password === "") {
-      values.password = null;
-    }
+    console.log("updateUser triggered");
     try {
       const response = await axios.patch(`/api/users/${id}`, values);
 

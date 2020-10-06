@@ -8,17 +8,26 @@ import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import UserContext from "../../../context/UserContext/UserContext";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
+function doCleanFormValues(formValues) {
+  let newFormValues = formValues;
+
+  newFormValues.created_at = new Date();
+  newFormValues.status = "invited";
+
+  return newFormValues;
+}
+
 const AddUser = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   async function doAddUser(formValues) {
     if (isLoading) return;
 
-    formValues.created_at = new Date();
+    const cleanFormValues = doCleanFormValues(formValues);
 
     setIsLoading(true);
 
-    const user = await UserService.createUser(formValues);
+    const user = await UserService.createUser(cleanFormValues);
 
     setIsLoading(false);
 
