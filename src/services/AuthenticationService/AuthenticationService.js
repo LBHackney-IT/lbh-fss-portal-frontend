@@ -1,59 +1,110 @@
 import axios from "axios";
+import API_KEY from "../../settings/apiKey";
+import BASE_API_URL from "../../settings/baseApiUrl";
 
 const AuthenticationService = {
   async register(name, email, password) {
     try {
-      const { data } = await axios.post("/api/registration", {
-        name,
-        email,
-        password,
-      });
+      // TODO: Live API
+      const response = await axios.post(
+        `${BASE_API_URL}/registration`,
+        {
+          name: name,
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      return data;
+      console.log(response);
+
+      return response.data;
     } catch (error) {
       return false;
     }
   },
   async registerConfirmation(email, code) {
     try {
-      const { data } = await axios.post("/api/registration/confirmation", {
-        email,
-        code,
-      });
+      // TODO: Live API
+      const response = await axios.post(
+        `${BASE_API_URL}/registration/confirmation`,
+        {
+          email: email,
+          code: code,
+        },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      return data;
+      return response.data;
     } catch (error) {
       return false;
     }
   },
   async resendRegisterConfirmation(email) {
     try {
-      const { data } = await axios.post(
-        "/api/registration/confirmation/resend-request",
+      // TODO: Live API
+      await axios.post(
+        `${BASE_API_URL}/registration/confirmation/resend`,
         {
-          email,
+          email: email,
+        },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
         }
       );
 
-      return data;
+      return true;
     } catch (error) {
       return false;
     }
   },
   async login(email, password) {
     try {
-      const { data } = await axios.post("/api/session", { email, password });
+      // TODO: Live API
+      await axios.post(
+        `${BASE_API_URL}/session`,
+        { email: email, password: password },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      return data;
+      return true;
     } catch (error) {
       return false;
     }
   },
   async me() {
     try {
-      const { data } = await axios.get("/api/account");
+      // TODO: Mock API
+      const response = await axios.get("/api/account");
 
-      return data;
+      return response.data;
+
+      // TODO: Live API
+      // const response = await axios.get(`${BASE_API_URL}/account`, {
+      //   headers: {
+      //     "x-api-key": API_KEY,
+      //   },
+      // });
+
+      // return response.data;
     } catch (error) {
       return false;
     }
@@ -68,26 +119,73 @@ const AuthenticationService = {
     }
   },
   async passwordRecovery(email) {
+    // TODO: Mock API
     try {
-      await axios.post("/api/password-recovery", { email });
-
+      await axios.post("api/password-recovery", { email: email });
+      console.log("pass");
       return true;
     } catch (error) {
+      console.log("fail");
       return false;
     }
+
+    // TODO: Live API
+    // try {
+    //   await axios.post(
+    //     `${BASE_API_URL}/password-recovery`,
+    //     {
+    //       email: email,
+    //     },
+    //     {
+    //       headers: {
+    //         "x-api-key": API_KEY,
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+    //   console.log("pass");
+    //   return true;
+    // } catch (error) {
+    //   console.log("fail");
+    //   return false;
+    // }
   },
   async passwordRecoveryConfirmation(email, code, password) {
+    // TODO: Mock API
     try {
-      await axios.post("/api/password-recovery/confirmation", {
-        email,
-        code,
-        password,
+      await axios.post("api/password-recovery/confirmation", {
+        email: email,
+        code: code,
+        password: password,
       });
-
+      console.log("pass");
       return true;
     } catch (error) {
+      console.log("fail");
       return false;
     }
+
+    // TODO: Live API
+    // try {
+    //   await axios.post(
+    //     `${BASE_API_URL}/password-recovery/confirmation`,
+    //     {
+    //       email: email,
+    //       code: code,
+    //       password: password,
+    //     },
+    //     {
+    //       headers: {
+    //         "x-api-key": API_KEY,
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+
+    //   return true;
+    // } catch (error) {
+    //   return false;
+    // }
   },
 };
 

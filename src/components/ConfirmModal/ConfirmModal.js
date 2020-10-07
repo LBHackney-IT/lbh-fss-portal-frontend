@@ -76,12 +76,12 @@ const ConfirmModal = ({
             <StyledH1>{confirmTitle}</StyledH1>
           </StyledTitleContainer>
           <StyledForm
-            onSubmit={handleSubmit(({ reviewerMessage }) =>
-              onConfirm(reviewerMessage)
+            onSubmit={handleSubmit(({ reviewer_message }) =>
+              onConfirm(reviewer_message)
             )}
           >
             <StyledTextarea
-              name="reviewerMessage"
+              name="reviewer_message"
               placeholder={reviewerMessagePlaceholder}
               rows={8}
               cols={32}

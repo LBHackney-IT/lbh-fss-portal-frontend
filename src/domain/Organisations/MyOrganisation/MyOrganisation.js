@@ -125,9 +125,9 @@ const MyOrganisation = () => {
           actions={actions}
           actionWidth={"210px"}
         />
-        {organisation.status === "rejected" && organisation.reviewerMessage ? (
+        {organisation.status === "rejected" && organisation.reviewer_message ? (
           <StyledRejectedFeedback>
-            {organisation.reviewerMessage}
+            {organisation.reviewer_message}
           </StyledRejectedFeedback>
         ) : null}
         {organisation.status === "awaiting reverification" ? (
@@ -138,9 +138,9 @@ const MyOrganisation = () => {
             organisation information and re-submitting the form.
           </StyledReverificationFeedback>
         ) : null}
-        {organisation.status === "published" && organisation.reviewerMessage ? (
+        {organisation.status === "published" && organisation.reviewer_message ? (
           <StyledApprovedFeedback>
-            {organisation.reviewerMessage}
+            {organisation.reviewer_message}
           </StyledApprovedFeedback>
         ) : null}
         <ConfirmModal

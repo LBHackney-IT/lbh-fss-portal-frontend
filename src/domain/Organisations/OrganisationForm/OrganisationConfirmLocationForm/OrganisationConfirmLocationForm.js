@@ -42,7 +42,7 @@ const OrganisationConfirmLocationForm = ({
     setShowHiddenFieldSnapshot(showHiddenField);
   }, []);
 
-  const pageQuestionNames = ["isHackneyBased"];
+  const pageQuestionNames = ["is_hackney_based"];
 
   return (
     <form
@@ -56,7 +56,7 @@ const OrganisationConfirmLocationForm = ({
                 <StyledRadioOption key={item}>
                   <FormRadio
                     key={item}
-                    name="isHackneyBased"
+                    name="is_hackney_based"
                     label={item}
                     value={item.toLowerCase()}
                     register={register}
@@ -77,8 +77,8 @@ const OrganisationConfirmLocationForm = ({
               );
             })}
           </StyledRadioOptionDiv>
-          {errors.isHackneyBased &&
-            errors.isHackneyBased.type === "required" && (
+          {errors.is_hackney_based &&
+            errors.is_hackney_based.type === "required" && (
               <FormError
                 error={"Please complete this question"}
                 marginTop="10px"

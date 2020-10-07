@@ -105,7 +105,7 @@ const OrganisationTable = ({
               <Link to={`/organisations/${e.row.original.id}/edit`}>
                 {e.value}
               </Link>{" "}
-              {organisationIsNew(e.row.original.createdAt) ? (
+              {organisationIsNew(e.row.original.created_at) ? (
                 <StyledNewOrganisation>new</StyledNewOrganisation>
               ) : null}
             </>
@@ -129,7 +129,7 @@ const OrganisationTable = ({
       },
       {
         Header: "Submitted",
-        accessor: "submittedAt",
+        accessor: "submitted_at",
         Cell: (e) => {
           const submittedAtDate = new Date(e.value);
           return submittedAtDate.toLocaleString();

@@ -44,12 +44,12 @@ const OrganisationAdultSupportForm = ({
   });
 
   const pageQuestionNames = [
-    "hasAdultSupport",
-    "hasAdultSafeguardingLead",
-    "adultSafeguardingLeadFirstName",
-    "adultSafeguardingLeadLastName",
-    "adultSafeguardingLeadTrainingMonth",
-    "adultSafeguardingLeadTrainingYear",
+    "has_adult_support",
+    "has_adult_safeguarding_lead",
+    "adult_safeguarding_lead_first_name",
+    "adult_safeguarding_lead_last_name",
+    "adult_safeguarding_lead_training_month",
+    "adult_safeguarding_lead_training_year",
   ];
 
   return (
@@ -75,7 +75,7 @@ const OrganisationAdultSupportForm = ({
               <StyledRadioOption key={item}>
                 <FormRadio
                   key={item}
-                  name="hasAdultSupport"
+                  name="has_adult_support"
                   label={item}
                   value={item.toLowerCase()}
                   register={register}
@@ -97,13 +97,14 @@ const OrganisationAdultSupportForm = ({
           })}
         </StyledRadioOptionDiv>
       </FormFieldset>
-      {errors.hasAdultSupport && errors.hasAdultSupport.type === "required" && (
-        <FormError
-          error={"Please complete this question"}
-          marginTop="10px"
-          marginBottom="20px"
-        />
-      )}
+      {errors.has_adult_support &&
+        errors.has_adult_support.type === "required" && (
+          <FormError
+            error={"Please complete this question"}
+            marginTop="10px"
+            marginBottom="20px"
+          />
+        )}
 
       {showHiddenField.adultSafeguardLead ? (
         <FormFieldset label="Does your organisation have an Adult’s Safeguarding Lead? ">
@@ -113,7 +114,7 @@ const OrganisationAdultSupportForm = ({
                 <StyledRadioOption key={item}>
                   <FormRadio
                     key={item}
-                    name="hasAdultSafeguardingLead"
+                    name="has_adult_safeguarding_lead"
                     label={item}
                     value={item.toLowerCase()}
                     register={register}
@@ -136,8 +137,8 @@ const OrganisationAdultSupportForm = ({
           </StyledRadioOptionDiv>
         </FormFieldset>
       ) : null}
-      {errors.hasAdultSafeguardingLead &&
-        errors.hasAdultSafeguardingLead.type === "required" && (
+      {errors.has_adult_safeguarding_lead &&
+        errors.has_adult_safeguarding_lead.type === "required" && (
           <FormError
             error={"Please complete this question"}
             marginTop="10px"
@@ -152,17 +153,17 @@ const OrganisationAdultSupportForm = ({
 
           <FormInput
             label={"First name"}
-            name={"adultSafeguardingLeadFirstName"}
+            name={"adult_safeguarding_lead_first_name"}
             register={register}
             maxLength={255}
-            error={errors.adultSafeguardingLeadFirstName}
+            error={errors.adult_safeguarding_lead_first_name}
           />
           <FormInput
             label={"Last name"}
-            name={"adultSafeguardingLeadLastName"}
+            name={"adult_safeguarding_lead_last_name"}
             register={register}
             maxLength={255}
-            error={errors.adultSafeguardingLeadLastName}
+            error={errors.adult_safeguarding_lead_last_name}
           />
           <StyledQuestion>
             Date of the designated safeguarding lead training{" "}
@@ -171,7 +172,7 @@ const OrganisationAdultSupportForm = ({
             <div style={{ marginRight: "5px", width: "40%" }}>
               <FormDropDown
                 label={"Month"}
-                name={"adultSafeguardingLeadTrainingMonth"}
+                name={"adult_safeguarding_lead_training_month"}
                 register={register}
                 options={[
                   "January",
@@ -187,16 +188,16 @@ const OrganisationAdultSupportForm = ({
                   "November",
                   "December",
                 ]}
-                error={errors.adultSafeguardingLeadTrainingMonth}
+                error={errors.adult_safeguarding_lead_training_month}
               />
             </div>
             <div style={{ marginLeft: "5px", width: "40%" }}>
               <FormDropDown
                 label={"Year"}
-                name={"adultSafeguardingLeadTrainingYear"}
+                name={"adult_safeguarding_lead_training_year"}
                 register={register}
                 options={getPreviousYears(30)}
-                error={errors.adultSafeguardingLeadTrainingYear}
+                error={errors.adult_safeguarding_lead_training_year}
               />
             </div>
           </div>
