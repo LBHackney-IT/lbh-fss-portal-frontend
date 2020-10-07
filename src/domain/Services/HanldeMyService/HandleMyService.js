@@ -14,13 +14,13 @@ const HandleMyService = () => {
   const [userServices, setUserServices] = useState([]);
 
   useEffect(() => {
-    const userServices = [];
+    let userServicesArray = [];
     services.forEach((service) => {
       if (service.user_id === user.id) {
-        userServices.push(service);
+        userServicesArray.push(service);
       }
     });
-    setUserServices(userServices);
+    setUserServices(userServicesArray);
   }, [services]);
 
   const isInternalTeam =

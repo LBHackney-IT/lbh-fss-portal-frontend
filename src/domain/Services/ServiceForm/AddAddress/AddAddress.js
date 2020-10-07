@@ -190,7 +190,7 @@ const ServiceLocationsForm = ({
       <a href="" target="_blank">
         I can't find my address in the list
       </a>
-      {watch("address") ? (
+      {watch("address") && addresses[watch("address")] ? (
         <p>UPRN: {addresses[watch("address")].uprn}</p>
       ) : null}
       {index + 1 === addressCounter ? (
