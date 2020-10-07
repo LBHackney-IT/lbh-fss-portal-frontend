@@ -47,12 +47,12 @@ const OrganisationChildSupportForm = ({
   }, []);
 
   const pageQuestionNames = [
-    "hasChildSupport",
-    "hasChildSafeguardingLead",
-    "childSafeguardingLeadFirstName",
-    "childSafeguardingLeadLastName",
-    "childSafeguardingLeadTrainingMonth",
-    "childSafeguardingLeadTrainingYear",
+    "has_child_support",
+    "has_child_safeguarding_lead",
+    "child_safeguarding_lead_first_name",
+    "child_safeguarding_lead_last_name",
+    "child_safeguarding_lead_training_month",
+    "child_safeguarding_lead_training_year",
   ];
 
   return (
@@ -73,7 +73,7 @@ const OrganisationChildSupportForm = ({
               <StyledRadioOption key={item}>
                 <FormRadio
                   key={item}
-                  name="hasChildSupport"
+                  name="has_child_support"
                   label={item}
                   value={item.toLowerCase()}
                   register={register}
@@ -95,13 +95,14 @@ const OrganisationChildSupportForm = ({
           })}
         </StyledRadioOptionDiv>
       </FormFieldset>
-      {errors.hasChildSupport && errors.hasChildSupport.type === "required" && (
-        <FormError
-          error={"Please complete this question"}
-          marginTop="10px"
-          marginBottom="20px"
-        />
-      )}
+      {errors.has_child_support &&
+        errors.has_child_support.type === "required" && (
+          <FormError
+            error={"Please complete this question"}
+            marginTop="10px"
+            marginBottom="20px"
+          />
+        )}
       {showHiddenField.childSafeGuardLead ? (
         <FormFieldset label="Does your organisation have a Children’s Safeguarding Lead?">
           <StyledRadioOptionDiv>
@@ -110,7 +111,7 @@ const OrganisationChildSupportForm = ({
                 <StyledRadioOption key={item}>
                   <FormRadio
                     key={item}
-                    name="hasChildSafeguardingLead"
+                    name="has_child_safeguarding_lead"
                     label={item}
                     value={item.toLowerCase()}
                     register={register}
@@ -133,8 +134,8 @@ const OrganisationChildSupportForm = ({
           </StyledRadioOptionDiv>
         </FormFieldset>
       ) : null}
-      {errors.hasChildSafeguardingLead &&
-        errors.hasChildSafeguardingLead.type === "required" && (
+      {errors.has_child_safeguarding_lead &&
+        errors.has_child_safeguarding_lead.type === "required" && (
           <FormError
             error={"Please complete this question"}
             marginTop="10px"
@@ -150,17 +151,17 @@ const OrganisationChildSupportForm = ({
 
           <FormInput
             label={"First name"}
-            name={"childSafeguardingLeadFirstName"}
+            name={"child_safeguarding_lead_first_name"}
             register={register}
             maxLength={255}
-            error={errors.childSafeguardingLeadFirstName}
+            error={errors.child_safeguarding_lead_first_name}
           />
           <FormInput
             label={"Last name"}
-            name={"childSafeguardingLeadLastName"}
+            name={"child_safeguarding_lead_last_name"}
             register={register}
             maxLength={255}
-            error={errors.childSafeguardingLeadLastName}
+            error={errors.child_safeguarding_lead_last_name}
           />
           <StyledQuestion>
             Date of the designated safeguarding lead training{" "}
@@ -169,7 +170,7 @@ const OrganisationChildSupportForm = ({
             <div style={{ marginRight: "5px", width: "40%" }}>
               <FormDropDown
                 label={"Month"}
-                name={"childSafeguardingLeadTrainingMonth"}
+                name={"child_safeguarding_lead_training_month"}
                 register={register}
                 options={[
                   "January",
@@ -190,7 +191,7 @@ const OrganisationChildSupportForm = ({
             <div style={{ marginLeft: "5px", width: "40%" }}>
               <FormDropDown
                 label={"Year"}
-                name={"childSafeguardingLeadTrainingYear"}
+                name={"child_safeguarding_lead_training_year"}
                 register={register}
                 options={getPreviousYears(30)}
               />

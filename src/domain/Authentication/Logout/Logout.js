@@ -2,17 +2,22 @@ import React, { useEffect, useContext } from "react";
 import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
 import { navigate } from "@reach/router";
 import UserContext from "../../../context/UserContext/UserContext";
+import { toast } from "react-toastify";
 
 const Logout = () => {
   const setUser = useContext(UserContext)[1];
 
   useEffect(() => {
     async function doLogout() {
-      await AuthenticationService.logout();
+      const hasLoggedOut = await AuthenticationService.logout();
 
-      setUser(false);
+      if (hasLoggedOut) {
+        setUser(false);
 
-      navigate("/");
+        navigate("/");
+      } else {
+        toast.error("Failed to logout.");
+      }
     }
 
     doLogout();

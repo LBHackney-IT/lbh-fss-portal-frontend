@@ -39,8 +39,8 @@ const FormDropDown = ({
   onChange = () => {},
   includeBlankValue = true,
   selectStyle,
-  selectMarginMobile = "20px 0 0 0",
-  selectMarginMedium = "20px 0 0 0",
+  selectMarginMobile = "20px 0",
+  selectMarginMedium = "20px 0",
 }) => {
   return (
     <>

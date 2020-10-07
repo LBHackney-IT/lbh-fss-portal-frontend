@@ -50,39 +50,36 @@ function objAllFalse(obj) {
   return Object.keys(obj).every((k) => !obj[k]);
 }
 
+
+
+function checkIsInternalTeam(roles) {
+  let isInternalTeam = false;
+
+  if (roles) {
+    isInternalTeam = roles.includes("viewer") || roles.includes("admin");
+  }
+
+  return isInternalTeam;
+}
 function objAllTrue(obj) {
   return Object.keys(obj).every((k) => obj[k]);
 }
 
 function addFormattedAddress(locationsArray) {
   locationsArray.forEach((location) => {
-    location["formattedAddress"] = location.address1.concat(
+    location["formattedAddress"] = location.address_1.concat(
       ", ",
-      location.address2,
+      location.address_2,
       ", ",
       location.city,
       ", ",
-      location.postalCode
+      location.postal_code
     );
   });
   return locationsArray;
 }
 
-function snakeToCamel(str) {
-  return str.replace(/([-_][a-z])/g, (group) =>
-    group.toUpperCase().replace("-", "").replace("_", "")
-  );
-}
 
-function snakeToCamelKeys(obj) {
-  const newObj = {};
-
-  Object.keys(obj).forEach((key) => {
-    newObj[snakeToCamel(key)] = obj[key];
-  });
-
-  return newObj;
-}
 
 export {
   convertBooleanToYesNo,
@@ -92,7 +89,7 @@ export {
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
   objAllFalse,
+  checkIsInternalTeam,
   objAllTrue,
   addFormattedAddress,
-  snakeToCamelKeys,
 };

@@ -20,10 +20,10 @@ const AddOrganisation = () => {
 
   const [showHiddenField, setShowHiddenField] = useState({
     notBasedInWarning: false,
-    charityNumber: false,
+    charity_number: false,
     RslOrHaAssociation: false,
-    lotteryFundedProject: false,
-    localOfferLink: false,
+    lottery_funded_project: false,
+    local_offer_link: false,
     childSafeGuardLead: false,
     childSafeguardLeadDetails: false,
     adultSafeguardLead: false,
@@ -45,11 +45,11 @@ const AddOrganisation = () => {
 
     // TODO: agree these with martin
     values.id = "";
-    values.createdAt = new Date();
-    values.updatedAt = "";
-    values.submittedAt = new Date();
-    values.reviewedAt = "";
-    values.reviewerMessage = "";
+    values.created_at = new Date();
+    values.updated_at = "";
+    values.submitted_at = new Date();
+    values.reviewed_at = "";
+    values.reviewer_message = "";
     values.status = "awaiting review";
 
     return values;

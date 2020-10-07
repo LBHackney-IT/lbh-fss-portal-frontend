@@ -25,7 +25,7 @@ const Login = () => {
     setIsLoading(true);
 
     const user = await AuthenticationService.login(email, password);
-    const isLoggedIn = await AuthenticationService.me(email);
+    const isLoggedIn = await AuthenticationService.me();
 
     setIsLoading(false);
 
