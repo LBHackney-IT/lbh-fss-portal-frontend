@@ -25,7 +25,7 @@ const UserService = {
       return response.data;
 
       // TODO: Live API
-      // const response = await axios.get("/api/users", {
+      // const response = await axios.get(`${BASE_API_URL}/users`, {
       //   params: {
       //     sort: sort,
       //     direction: direction,
@@ -35,7 +35,6 @@ const UserService = {
       //   },
       //   headers: {
       //     "x-api-key": API_KEY,
-      //     "Content-Type": "application/json",
       //   },
       // });
 
