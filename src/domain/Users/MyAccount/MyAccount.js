@@ -6,7 +6,17 @@ import UserService from "../../../services/UserService/UserService";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
+import styled from "styled-components";
+import { yellow } from "../../../settings";
 import { doCleanFormValues } from "../../../utils/functions/userFunctions";
+
+const StyledSetPasswordMessage = styled.div`
+  padding: 0px 30px;
+  background: ${yellow[100]};
+  border: 1px solid ${yellow[500]};
+  font-weight: bold;
+  margin-bottom: 40px;
+`;
 
 const MyAccount = (props) => {
   const localUser = useContext(UserContext)[0];
@@ -38,7 +48,7 @@ const MyAccount = (props) => {
       if (newUser) {
         toast.success(`Your account has been updated.`);
 
-        navigate("/users");
+        navigate("/organisation");
       } else {
         toast.error("Unable to update account.");
       }
@@ -53,6 +63,11 @@ const MyAccount = (props) => {
 
   return (
     <>
+      {user.set_password_required ? (
+        <StyledSetPasswordMessage>
+          <p>Please set your password below</p>
+        </StyledSetPasswordMessage>
+      ) : null}
       <h1>My account</h1>
       <RaisedCard>
         <UserForm
