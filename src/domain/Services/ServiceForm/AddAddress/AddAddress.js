@@ -114,6 +114,8 @@ const ServiceLocationsForm = ({
     return <div style={{ height: "270px" }}>Loading...</div>;
   }
 
+  console.log(addressCounter);
+
   if (postcodeHasBeenRemoved)
     return (
       <form onSubmit={handleSubmit(doAddAnotherLocation)}>
@@ -187,9 +189,11 @@ const ServiceLocationsForm = ({
         })}
         error={errors.address}
       />
-      <a href="" target="_blank">
+      {/* <a href="" target="_blank">
         I can't find my address in the list
-      </a>
+      </a> */}
+      If you have can't find your address in the list please contact{" "}
+      <a href="mailto:fss@hackney.gov.uk">fss@hackney.gov.uk</a>
       {watch("address") && addresses[watch("address")] ? (
         <p>UPRN: {addresses[watch("address")].uprn}</p>
       ) : null}
