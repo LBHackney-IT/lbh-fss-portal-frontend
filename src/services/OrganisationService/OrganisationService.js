@@ -110,10 +110,10 @@ const OrganisationService = {
       const response = await axios.patch(`/api/organisations/${id}`, values);
 
       // TODO: Live API
-      const response = await axios.patch(
-        `${BASE_API_URL}/organisations/${id}`,
-        values
-      );
+      // const response = await axios.patch(
+      //   `${BASE_API_URL}/organisations/${id}`,
+      //   values
+      // );
 
       return response.data;
     } catch (error) {
