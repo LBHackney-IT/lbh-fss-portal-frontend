@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Map, TileLayer, Marker, FeatureGroup } from "react-leaflet";
+import { divIcon } from "leaflet";
 import { removeEmptyObjFromArrayObj } from "../../../../utils/functions/functions";
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_URL } from "../../../../settings/mapbox";
+import { renderToStaticMarkup } from "react-dom/server";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "leaflet/dist/leaflet.css";
 const L = require("leaflet");
 
@@ -52,6 +55,16 @@ export default ({ mapStyle, data }) => {
     map.fitBounds(group.getBounds());
   }, [cleanData]);
 
+  const iconMarkup = renderToStaticMarkup(
+    <div className="hackney-map-marker">
+      <FontAwesomeIcon icon={["fas", "map-marker-alt"]} size="3x" />
+      <FontAwesomeIcon icon={["fas", "map-marker"]} size="3x" />
+    </div>
+  );
+  const customMarkerIcon = divIcon({
+    html: iconMarkup,
+  });
+
   return cleanData.length !== 0 ? (
     <>
       <h2 style={{ margin: "30px 0 10px 0" }}>Map Preview</h2>
@@ -76,6 +89,7 @@ export default ({ mapStyle, data }) => {
                   parseFloat(address.longitude),
                 ]}
                 key={index}
+                icon={customMarkerIcon}
               ></Marker>
             );
           })}
