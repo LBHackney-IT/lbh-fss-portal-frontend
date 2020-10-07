@@ -25,13 +25,20 @@ const Login = () => {
     setIsLoading(true);
 
     const user = await AuthenticationService.login(email, password);
+    const isLoggedIn = await AuthenticationService.me();
 
     setIsLoading(false);
+
+    if (!isLoggedIn) {
+      toast.error("Unable to login.");
+      navigate("/");
+      return;
+    }
 
     if (user) {
       setUser(user);
 
-      navigate("/service");
+      navigate("/organisation");
     } else {
       toast.error("Invalid username or password.");
 

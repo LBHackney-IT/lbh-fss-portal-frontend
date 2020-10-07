@@ -5,6 +5,7 @@ import { breakpoint } from "../../utils/breakpoint/breakpoint";
 import UserContext from "../../context/UserContext/UserContext";
 import NavLinkSecondary from "../NavLinkSecondary/NavLinkSecondary";
 import { green, blue } from "../../settings";
+import { checkIsInternalTeam } from "../../utils/functions/functions";
 
 const StyledSecondaryLink = styled(NavLinkSecondary)`
   margin: 10px 0;
@@ -57,7 +58,8 @@ function SecondaryNavMenu() {
   }
 
   const { roles } = useContext(UserContext)[0];
-  const isInternalTeam = roles.includes("viewer") || roles.includes("admin");
+
+  const isInternalTeam = checkIsInternalTeam(roles);
 
   return (
     <StyledNav>

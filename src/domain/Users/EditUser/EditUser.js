@@ -9,6 +9,8 @@ import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import { red } from "../../../settings";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
+import { doCleanFormValues } from "../../../utils/functions/userFunctions";
 
 const EditUser = (props) => {
   const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);
@@ -27,18 +29,19 @@ const EditUser = (props) => {
     async function doEditUser() {
       if (editIsLoading) return;
 
-      Object.keys(user).forEach(function (key) {
-        if (formValues[key]) {
-          user[key] = formValues[key];
-        }
+      const cleanFormValues = doCleanFormValues({
+        user: user,
+        formValues: formValues,
+        updateRoles: true,
+        setCreatedAt: false,
       });
-
-      user.password = formValues.password || null;
-      delete user.id;
 
       setEditIsLoading(true);
 
-      const newUser = await UserService.updateUser(props.userId, user);
+      const newUser = await UserService.updateUser(
+        props.userId,
+        cleanFormValues
+      );
 
       setEditIsLoading(false);
 
@@ -81,12 +84,12 @@ const EditUser = (props) => {
   };
 
   if (fetchIsLoading) {
-    return "<div data-testid='loading'>Loading</div>";
+    return <div data-testid="loading">Loading</div>;
   }
 
-  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(roles);
 
-  return accessPermission ? (
+  return isInternalTeam ? (
     <>
       <h1>Edit user</h1>
       <RaisedCard>

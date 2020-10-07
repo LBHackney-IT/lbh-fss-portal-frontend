@@ -13,6 +13,7 @@ import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
 import { ReactComponent as Trash } from "./icons/trash.svg";
 import { toast } from "react-toastify";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 const StyledActionDiv = styled.div`
   display: flex;
@@ -132,8 +133,8 @@ const ListOrganisations = ({ location }) => {
     setApproveIsLoading(true);
 
     selectedOrganisation.status = "published";
-    selectedOrganisation.reviewedAt = new Date();
-    selectedOrganisation.reviewerMessage = reviewerMessage;
+    selectedOrganisation.reviewed_at = new Date();
+    selectedOrganisation.reviewer_message = reviewerMessage;
 
     const organisation = await OrganisationService.updateOrganisation(
       selectedOrganisation.id,
@@ -156,8 +157,8 @@ const ListOrganisations = ({ location }) => {
     setDeclineIsLoading(true);
 
     selectedOrganisation.status = "rejected";
-    selectedOrganisation.reviewedAt = new Date();
-    selectedOrganisation.reviewerMessage = reviewerMessage;
+    selectedOrganisation.reviewed_at = new Date();
+    selectedOrganisation.reviewer_message = reviewerMessage;
 
     const organisation = await OrganisationService.updateOrganisation(
       selectedOrganisation.id,
@@ -213,13 +214,13 @@ const ListOrganisations = ({ location }) => {
     },
   ];
 
-  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(roles);
 
   if (isLoading || organisationUserIsLoading) {
     return <span>Loading</span>;
   }
 
-  return accessPermission ? (
+  return isInternalTeam ? (
     <>
       <div>
         <StyledActionDiv>

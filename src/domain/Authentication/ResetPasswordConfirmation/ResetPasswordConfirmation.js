@@ -109,6 +109,12 @@ const ResetPasswordConfirmation = () => {
                 "Password must contain at least one number"
               );
             },
+            oneSpecialCharacter: (value) => {
+              return (
+                value.match(/[@#$%^&+='!£*(/`~)]/) ||
+                "Password must contain at least one special character"
+              );
+            },
           }}
           error={errors.password}
         />

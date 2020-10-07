@@ -8,7 +8,7 @@ import SecondaryNavMenu from "../SecondaryNavMenu/SecondaryNavMenu";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 
 const StyledLayout = styled.div`
-  padding: 0 10px 30px 10px;
+  padding: 30px 10px 30px 10px;
   max-width: 980px;
   margin: 0 auto;
 `;
@@ -47,9 +47,7 @@ const StyledSecondaryNav = styled.nav`
 `;
 
 const ProtectedLayout = ({ children }) => {
-  const { roles, organisation } = useContext(UserContext)[0];
-
-  const isInternalTeam = roles.includes("viewer") || roles.includes("admin");
+  const { organisation } = useContext(UserContext)[0];
 
   return (
     <>
