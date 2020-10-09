@@ -42,11 +42,19 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
       >
         <FormInput
           name="website"
-          type="text"
+          type="url"
           label="Website"
           register={register}
           error={errors.website}
           maxLength={255}
+          validate={{
+            pattern: (value) => {
+              const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+              const regex = new RegExp(expression);
+              if (value === "") return true;
+              return value.match(regex) || "Enter a valid url";
+            },
+          }}
           help="Please include a link to your contact page or equivalent"
         />
         <FormInput
@@ -82,7 +90,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
       >
         <FormInput
           name="referral_link"
-          type="text"
+          type="url"
           label="Referral link"
           register={register}
           error={errors.referral_link}
@@ -116,6 +124,14 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           label="Facebook"
           maxLength={255}
           register={register}
+          validate={{
+            pattern: (value) => {
+              const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+              const regex = new RegExp(expression);
+              if (value === "") return true;
+              return value.match(regex) || "Enter a valid url";
+            },
+          }}
           error={errors.facebook}
         />
         <FormInput
@@ -124,6 +140,14 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           label="Twitter"
           maxLength={255}
           register={register}
+          validate={{
+            pattern: (value) => {
+              const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+              const regex = new RegExp(expression);
+              if (value === "") return true;
+              return value.match(regex) || "Enter a valid url";
+            },
+          }}
           error={errors.twitter}
         />
         <FormInput
@@ -132,6 +156,14 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           label="Instagram"
           maxLength={255}
           register={register}
+          validate={{
+            pattern: (value) => {
+              const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+              const regex = new RegExp(expression);
+              if (value === "") return true;
+              return value.match(regex) || "Enter a valid url";
+            },
+          }}
           error={errors.instagram}
         />
         <FormInput
@@ -140,6 +172,14 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           label="LinkedIn"
           maxLength={255}
           register={register}
+          validate={{
+            pattern: (value) => {
+              const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+              const regex = new RegExp(expression);
+              if (value === "") return true;
+              return value.match(regex) || "Enter a valid url";
+            },
+          }}
           error={errors.linkedin}
         />
       </FormFieldset>
