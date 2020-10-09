@@ -42,7 +42,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
       >
         <FormInput
           name="website"
-          type="url"
+          type="text"
           label="Website"
           register={register}
           error={errors.website}
@@ -52,7 +52,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
               const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
               const regex = new RegExp(expression);
               if (value === "") return true;
-              return value.match(regex) || "Enter a valid url";
+              return value.match(regex) || "Enter a valid URL";
             },
           }}
           help="Please include a link to your contact page or equivalent"
@@ -129,7 +129,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
               const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
               const regex = new RegExp(expression);
               if (value === "") return true;
-              return value.match(regex) || "Enter a valid url";
+              return value.match(regex) || "Enter a valid URL";
             },
           }}
           error={errors.facebook}
@@ -145,7 +145,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
               const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
               const regex = new RegExp(expression);
               if (value === "") return true;
-              return value.match(regex) || "Enter a valid url";
+              return value.match(regex) || "Enter a valid URL";
             },
           }}
           error={errors.twitter}
@@ -161,7 +161,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
               const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
               const regex = new RegExp(expression);
               if (value === "") return true;
-              return value.match(regex) || "Enter a valid url";
+              return value.match(regex) || "Enter a valid URL";
             },
           }}
           error={errors.instagram}
@@ -177,7 +177,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
               const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
               const regex = new RegExp(expression);
               if (value === "") return true;
-              return value.match(regex) || "Enter a valid url";
+              return value.match(regex) || "Enter a valid URL";
             },
           }}
           error={errors.linkedin}
