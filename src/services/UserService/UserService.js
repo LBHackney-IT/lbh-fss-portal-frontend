@@ -58,7 +58,6 @@ const UserService = {
     }
   },
   async createUser(values) {
-    console.log(values);
     try {
       // TODO: Mock API
       const response = await axios.post("/api/users", values);

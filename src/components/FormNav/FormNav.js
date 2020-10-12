@@ -164,10 +164,6 @@ const FormNav = ({
 }) => {
   const [showAllItems, setShowAllItems] = useState(false);
 
-  console.log("stepArray");
-  console.log(stepArray);
-  console.log(stepArray.length);
-
   return (
     <RaisedCard backgroundColor={"white"} padding={"10px 5px 10px 5px"}>
       <StyledNav>
