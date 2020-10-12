@@ -19,23 +19,20 @@ const AuthenticationService = {
       // });
 
       // // TODO: Live API
-      const response = await axios.post(
-        `${BASE_API_URL}/registration`,
-        {
-          headers: {
-            "x-api-key": API_KEY,
-            "Content-Type": "application/json",
-          },
-          params: {
-            now: "NOW",
-          },
-          data: {
-            name: name,
-            email: email,
-            password: password,
-          },
-        }
-      );
+      const response = await axios.post(`${BASE_API_URL}/registration`, {
+        headers: {
+          "x-api-key": API_KEY,
+          "Content-Type": "application/json",
+        },
+        params: {
+          now: "NOW",
+        },
+        data: {
+          name: name,
+          email: email,
+          password: password,
+        },
+      });
       // // // TODO: Live API
       // const response = await axios.post(
       //   `${BASE_API_URL}/registration`,
@@ -127,8 +124,6 @@ const AuthenticationService = {
       // TODO: Mock API
       const response = await axios.get("/api/account");
 
-      return response.data;
-
       // TODO: Live API
       // const response = await axios.get(`${BASE_API_URL}/account`, {
       //   headers: {
@@ -136,7 +131,7 @@ const AuthenticationService = {
       //   },
       // });
 
-      // return response.data;
+      return response.data;
     } catch (error) {
       return false;
     }
