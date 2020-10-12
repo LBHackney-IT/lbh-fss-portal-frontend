@@ -28,7 +28,7 @@ const AuthenticationService = {
   async registerConfirmation(email, code) {
     try {
       const response = await axios.post(
-        "api/registration/confirmation",
+        `${BASE_API_URL}/registration/confirmation`,
         {
           email: email,
           code: code,
@@ -49,7 +49,7 @@ const AuthenticationService = {
   async resendRegisterConfirmation(email) {
     try {
       await axios.post(
-        "api/registration/confirmation/resend",
+        `${BASE_API_URL}/registration/confirmation/resend`,
         {
           email: email,
         },
@@ -69,7 +69,7 @@ const AuthenticationService = {
   async login(email, password) {
     try {
       await axios.post(
-        "api/session",
+        `${BASE_API_URL}/session`,
         { email: email, password: password },
         {
           headers: {
@@ -86,7 +86,7 @@ const AuthenticationService = {
   },
   async me() {
     try {
-      const response = await axios.get("api/account", {
+      const response = await axios.get(`${BASE_API_URL}/account`, {
         headers: {
           "x-api-key": API_KEY,
         },
@@ -99,7 +99,7 @@ const AuthenticationService = {
   },
   async logout() {
     try {
-      await axios.post("/api/logout");
+      await axios.post(`${BASE_API_URL}/logout`);
 
       return true;
     } catch (error) {
@@ -109,7 +109,7 @@ const AuthenticationService = {
   async passwordRecovery(email) {
     try {
       await axios.post(
-        "api/password-recovery",
+        `${BASE_API_URL}/password-recovery`,
         {
           email: email,
         },
@@ -128,7 +128,7 @@ const AuthenticationService = {
   async passwordRecoveryConfirmation(email, code, password) {
     try {
       await axios.post(
-        "api/password-recovery/confirmation",
+        `${BASE_API_URL}/password-recovery/confirmation`,
         {
           email: email,
           code: code,
