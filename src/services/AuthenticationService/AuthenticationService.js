@@ -1,11 +1,12 @@
 import axios from "axios";
 import API_KEY from "../../settings/apiKey";
+import BASE_API_URL from "../../settings/baseApiUrl";
 
 const AuthenticationService = {
   async register(name, email, password) {
     try {
       const response = await axios.post(
-        "api/registration",
+        `${BASE_API_URL}/registration`,
         {
           name: name,
           email: email,
