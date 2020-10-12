@@ -76,21 +76,20 @@ const OrganisationAdultSupportForm = ({
                   register={register}
                   required
                   onClick={() => {
-                    if(item === "Yes") {
+                    if (item === "Yes") {
                       setShowHiddenField({
                         ...showHiddenField,
                         adultSafeguardLead: true,
                         adultSafeguardLeadDetails: false,
-                      })
-                      defaultValues.has_adult_safeguarding_lead = null
+                      });
+                      defaultValues.has_adult_safeguarding_lead = null;
                     } else {
                       setShowHiddenField({
                         ...showHiddenField,
                         adultSafeguardLead: false,
-                      })
+                      });
                     }
-                  }
-                }
+                  }}
                 />
               </StyledRadioOption>
             );

@@ -55,8 +55,6 @@ const OrganisationChildSupportForm = ({
     "child_safeguarding_lead_training_year",
   ];
 
-  // function hi(item) 
-
   return (
     <form
       onSubmit={handleSubmit(() => onSubmit(getValues(), pageQuestionNames))}
@@ -80,22 +78,21 @@ const OrganisationChildSupportForm = ({
                   value={item.toLowerCase()}
                   register={register}
                   required
-                  onClick={() =>  {
-                    if(item === "Yes") {
+                  onClick={() => {
+                    if (item === "Yes") {
                       setShowHiddenField({
                         ...showHiddenField,
                         childSafeGuardLead: true,
                         childSafeguardLeadDetails: false,
-                      })
-                      defaultValues.has_child_safeguarding_lead = null
+                      });
+                      defaultValues.has_child_safeguarding_lead = null;
                     } else {
                       setShowHiddenField({
                         ...showHiddenField,
                         childSafeGuardLead: false,
-                      })
+                      });
                     }
-                  }
-                  }
+                  }}
                 />
               </StyledRadioOption>
             );
