@@ -50,8 +50,6 @@ function objAllFalse(obj) {
   return Object.keys(obj).every((k) => !obj[k]);
 }
 
-
-
 function checkIsInternalTeam(roles) {
   let isInternalTeam = false;
 
@@ -65,22 +63,6 @@ function objAllTrue(obj) {
   return Object.keys(obj).every((k) => obj[k]);
 }
 
-function addFormattedAddress(locationsArray) {
-  locationsArray.forEach((location) => {
-    location["formattedAddress"] = location.address_1.concat(
-      ", ",
-      location.address_2,
-      ", ",
-      location.city,
-      ", ",
-      location.postal_code
-    );
-  });
-  return locationsArray;
-}
-
-
-
 export {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
@@ -91,5 +73,4 @@ export {
   objAllFalse,
   checkIsInternalTeam,
   objAllTrue,
-  addFormattedAddress,
 };

@@ -200,6 +200,16 @@ const OrganisationCharityInformationForm = ({
                 <FormInput
                   label={"Please add weblink"}
                   name={"local_offer_link"}
+                  error={errors.local_offer_link}
+                  maxLength={255}
+                  validate={{
+                    pattern: (value) => {
+                      const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+                      const regex = new RegExp(expression);
+                      if (value === "") return true;
+                      return value.match(regex) || "Enter a valid URL";
+                    },
+                  }}
                   register={register}
                 />
               ) : null}

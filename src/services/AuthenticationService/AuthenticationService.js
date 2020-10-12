@@ -6,22 +6,51 @@ const AuthenticationService = {
   async register(name, email, password) {
     try {
       // TODO: Live API
-      const response = await axios.post(
-        `${BASE_API_URL}/registration`,
-        {
+      // const response = await axios.post(`${BASE_API_URL}/registration`, {
+      //   data: {
+      //     name: name,
+      //     email: email,
+      //     password: password,
+      //   },
+      //   headers: {
+      //     "x-api-key": API_KEY,
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      // // TODO: Live API
+      const response = await axios.post(`${BASE_API_URL}/registration`, {
+        headers: {
+          "x-api-key": API_KEY,
+          "Content-Type": "application/json",
+        },
+        params: {
+          now: "NOW",
+        },
+        data: {
           name: name,
           email: email,
           password: password,
         },
-        {
-          headers: {
-            "x-api-key": API_KEY,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log(response);
+      });
+      // // // TODO: Live API
+      // const response = await axios.post(
+      //   `${BASE_API_URL}/registration`,
+      //   {
+      //     name: name,
+      //     email: email,
+      //     password: password,
+      //   },
+      //   {
+      //     headers: {
+      //       "x-api-key": API_KEY,
+      //       "Content-Type": "application/json",
+      //     },
+      //     params: {
+      //       now: "NOW",
+      //     },
+      //   }
+      // );
 
       return response.data;
     } catch (error) {
@@ -95,8 +124,6 @@ const AuthenticationService = {
       // TODO: Mock API
       const response = await axios.get("/api/account");
 
-      return response.data;
-
       // TODO: Live API
       // const response = await axios.get(`${BASE_API_URL}/account`, {
       //   headers: {
@@ -104,7 +131,7 @@ const AuthenticationService = {
       //   },
       // });
 
-      // return response.data;
+      return response.data;
     } catch (error) {
       return false;
     }

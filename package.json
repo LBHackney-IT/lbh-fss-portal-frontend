@@ -19,6 +19,7 @@
     "react": "^16.13.1",
     "react-csv": "^2.0.3",
     "react-dom": "^16.13.1",
+    "react-gtm-module": "^2.0.11",
     "react-hook-form": "^6.3.0",
     "react-images-upload": "^1.2.8",
     "react-leaflet": "^2.7.0",

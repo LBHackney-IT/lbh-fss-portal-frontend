@@ -17,7 +17,7 @@ var sample = require("lodash/sample");
 //     );
 // };
 
-// ADMIN
+// ADMIN;
 module.exports = (req, res) => {
   res
     .status(200)

@@ -23,7 +23,6 @@ import Logout from "./domain/Authentication/Logout/Logout";
 import AddService from "./domain/Services/AddService/AddService";
 import EditService from "./domain/Services/EditService/EditService";
 import HandleMyOrganisation from "./domain/Organisations/HanldeMyOrganisation/HandleMyOrganisation";
-import SearchGroups from "./domain/Search/SearchGroups/SearchGroups";
 import ListOrganisations from "./domain/Organisations/ListOrganisations/ListOrganisations";
 import AddOrganisation from "./domain/Organisations/AddOrganisation/AddOrganisation";
 import EditOrganisation from "./domain/Organisations/EditOrganisation/EditOrganisation";
@@ -79,7 +78,6 @@ const AppMain = ({ location }) => {
         as={EditOrganisation}
         path="/organisations/:organisationId/edit/:step"
       />
-      <ProtectedRoute as={SearchGroups} path="/search" />
       <PageNotFound default />
     </Router>
   );

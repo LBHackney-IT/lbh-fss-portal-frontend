@@ -6,10 +6,10 @@ import Button from "../../../../components/Button/Button";
 import AddAddress from "../AddAddress/AddAddress";
 import FormError from "../../../../components/FormError/FormError";
 import {
-  addFormattedAddress,
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
 } from "../../../../utils/functions/functions";
+import { addFormattedAddress } from "../../../../utils/functions/serviceFunctions";
 import Map from "../Map/Map";
 
 function selectedAddressArrayIsEmpty(selectedAddressArray) {

@@ -69,7 +69,7 @@ function doCleanServiceFormValues(
     cleanFormValues,
     serviceCategoryCheckboxOptions
   );
-  
+
   cleanFormValues = doConvertServiceFormValuesIntoFormData(cleanFormValues);
 
   return cleanFormValues;
