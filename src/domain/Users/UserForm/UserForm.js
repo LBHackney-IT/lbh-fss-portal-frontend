@@ -8,14 +8,41 @@ import FormFieldset from "../../../components/FormFieldset/FormFieldset";
 import { roles } from "../../../settings/roles";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
-import { red } from "../../../settings";
+import { red, green } from "../../../settings";
 import { darken } from "polished";
+
+const StyledSaveButton = styled(Button)`
+  background-color: ${green[400]};
+  &:hover {
+    background-color: ${darken(0.1, green[400])};
+  }
+  width: 100% !important;
+  max-width: 438px !important;
+  margin-bottom: 20px;
+  ${breakpoint("sm")`
+    max-width: 216px !important;
+  `}
+`;
 
 const StyledDeleteButton = styled(Button)`
   background-color: ${red[400]};
   &:hover {
     background-color: ${darken(0.1, red[400])};
   }
+  width: 100% !important;
+  max-width: 438px !important;
+  margin-bottom: 20px;
+  ${breakpoint("sm")`
+    max-width: 213px !important;
+  `}
+`;
+
+const StyledResendButton = styled(Button)`
+  color: ${green[400]};
+  padding: 20px 0 !important;
+  width: 100%;
+  max-width: 438px;
+  margin-bottom: 20px;
 `;
 
 const StyledActionDiv = styled.div`
@@ -36,12 +63,14 @@ const UserForm = ({
   onSubmit,
   defaultValues = {},
   onDelete = () => {},
+  onResendAuth = () => {},
   showDeleteButton = false,
   submitLabel = "Save",
   submitLoading = false,
   showPassword = true,
   showRoles = true,
   showEmail = true,
+  showResendAuth = true,
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
@@ -159,14 +188,31 @@ const UserForm = ({
         ""
       )}
 
-      <StyledActionDiv>
-        <Button type="submit" label={submitLabel} disabled={submitLoading} />
-        {showDeleteButton ? (
-          <StyledDeleteButton label={"Delete account"} onClick={onDelete} />
+      <div>
+        <StyledActionDiv>
+          <StyledSaveButton
+            type="submit"
+            label={submitLabel}
+            disabled={submitLoading}
+          />
+          {showDeleteButton ? (
+            <StyledDeleteButton label={"Delete account"} onClick={onDelete} />
+          ) : (
+            ""
+          )}
+        </StyledActionDiv>
+
+        {showResendAuth ? (
+          <StyledResendButton
+            label={"Resend authentication details"}
+            onClick={onResendAuth}
+            backgroundColor="white"
+            border={`1px sold ${green[400]}`}
+          />
         ) : (
           ""
         )}
-      </StyledActionDiv>
+      </div>
     </form>
   );
 };

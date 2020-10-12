@@ -131,7 +131,6 @@ function NavBar() {
             <>
               <StyledPrimaryLink to="/users">Users</StyledPrimaryLink>
               <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
-              <StyledPrimaryLink to="/search">Search</StyledPrimaryLink>
             </>
           ) : null}
 

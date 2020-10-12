@@ -22,6 +22,7 @@ const StyledDateSelectOuterContainer = styled.div`
   background-color: ${grey[500]};
   display: flex;
   height: 110px;
+  margin: -30px 0 0 0;
   ${breakpoint("sm")`
     margin-bottom: 30px;
   `}

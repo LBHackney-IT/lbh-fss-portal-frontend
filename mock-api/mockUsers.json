@@ -8,7 +8,8 @@
     "organisation": {
       "id": 9999,
       "name": "Nudge Digital"
-    }
+    },
+    "set_password_required": true
   },
   {
     "id": 54400,
@@ -19,7 +20,8 @@
     "organisation": {
       "id": 16047,
       "name": "Goodwin - Ruecker"
-    }
+    },
+    "set_password_required": false
   },
   {
     "id": 95941,
@@ -30,7 +32,8 @@
     "organisation": {
       "id": 38295,
       "name": "Carter - Bergnaum"
-    }
+    },
+    "set_password_required": true
   },
   {
     "id": 65615,
@@ -41,13 +44,14 @@
     "organisation": {
       "id": 70611,
       "name": "Carter - Bergnaum"
-    }
+    },
+    "set_password_required": false
   },
   {
     "id": 99595,
     "name": "Jaylin Rutherford Sr.",
     "email": "Pinkie_Tromp@yahoo.com",
-    "status": "deleted",
+    "status": "unverified",
     "roles": ["vcso"],
     "organisation": null
   },
@@ -97,7 +101,7 @@
     "id": 40457,
     "name": "Alfredo Kling",
     "email": "Raquel48@gmail.com",
-    "status": "active",
+    "status": "unverified",
     "roles": ["vcso", "viewer", "admin"],
     "organisation": {
       "id": 6806,
@@ -196,7 +200,7 @@
     "id": 29450,
     "name": "Macy Hahn",
     "email": "Ayana52@gmail.com",
-    "status": "suspended",
+    "status": "unverified",
     "roles": ["vcso"],
     "organisation": {
       "id": 83929,

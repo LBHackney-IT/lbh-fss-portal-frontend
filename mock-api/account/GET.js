@@ -19,9 +19,21 @@ var sample = require("lodash/sample");
 
 // // ADMIN
 // module.exports = (req, res) => {
+//   res.status(400).json({});
+// };
+
+// ADMIN;
+module.exports = (req, res) => {
+  res
+    .status(200)
+    .json(sample(mockUsers.filter((u) => u.name === "Reyna Simonis")));
+};
+
+// // VCSO - WITH services and WITH organisation
+// module.exports = (req, res) => {
 //   res
 //     .status(200)
-//     .json(sample(mockUsers.filter((u) => u.name === "Reyna Simonis")));
+//     .json(sample(mockUsers.filter((u) => u.name === "Tommie Dietrich")));
 // };
 
 // // VCSO - NO services but WITH organisation

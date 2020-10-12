@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { keyBy } from "lodash";
 import { green } from "../../../../settings";
 import ServiceService from "../../../../services/ServiceService/ServiceService";
-import { addFormattedAddress } from "../../../../utils/functions/functions";
+import { addFormattedAddress } from "../../../../utils/functions/serviceFunctions";
 
 const StyledHighlightedText = styled.p`
   font-size: 19px;

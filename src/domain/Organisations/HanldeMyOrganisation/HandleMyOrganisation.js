@@ -10,6 +10,7 @@ const HandleMyOrganisation = () => {
 
   const isInternalTeam = checkIsInternalTeam(user.roles);
 
+
   if (isInternalTeam) {
     return <Redirect to="/organisations" noThrow />;
   }
