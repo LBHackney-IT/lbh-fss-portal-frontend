@@ -95,8 +95,7 @@ const ServiceCategoriesForm = ({
         )}
         {!image.preview ? (
           <StyledHelp>
-            For best results please upload a landscape picture with
-            approximately 2:1 ratio
+            Upload a landscape image to ensure it displays correctly.
             <br />
             <br />
             Files supported: JPG, JPEG or PNG <br />

@@ -158,7 +158,11 @@ const OrganisationCharityInformationForm = ({
               {showHiddenField.charity_number &&
               item.id === "is_registered_charity" ? (
                 <StyledHiddenFieldContainer>
-                  <StyledExternalLink href="">
+                  <StyledExternalLink
+                    href="https://www.gov.uk/find-charity-information"
+                    target="_blank"
+                    rel="noreffer noopener"
+                  >
                     Look up your charity number
                   </StyledExternalLink>
                   <FormInput

@@ -44,11 +44,17 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
 
   return (
     <>
-      {/* TODO: update help text */}
-      {/* TODO: where will 'i can't find my address in the list' link to? */}
       <FormFieldset
         label="Service location(s)"
-        help="This will be where your service(s) are located on the map. If you offer a remote service you get put in your HQ. Lorem ipsum dolor... explain they can use if you town hall location or similar..."
+        help={
+          <>
+            This will be where your service(s) are located on the map. If you
+            offer a remote service, or don't want to publicly display your
+            address, please put:
+            <br />
+            Hackney Town Hall, Mare St, Hackney, London E8 1EA.
+          </>
+        }
       ></FormFieldset>
       {[...Array(addressCounter)].map(() => {
         i++;
