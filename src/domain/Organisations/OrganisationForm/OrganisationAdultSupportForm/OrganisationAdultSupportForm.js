@@ -80,17 +80,21 @@ const OrganisationAdultSupportForm = ({
                   value={item.toLowerCase()}
                   register={register}
                   required
-                  onClick={() =>
-                    item === "Yes"
-                      ? setShowHiddenField({
-                          ...showHiddenField,
-                          adultSafeguardLead: true,
-                        })
-                      : setShowHiddenField({
-                          ...showHiddenField,
-                          adultSafeguardLead: false,
-                        })
-                  }
+                  onClick={() => {
+                    if (item === "Yes") {
+                      setShowHiddenField({
+                        ...showHiddenField,
+                        adultSafeguardLead: true,
+                        adultSafeguardLeadDetails: false,
+                      });
+                      defaultValues.has_adult_safeguarding_lead = null;
+                    } else {
+                      setShowHiddenField({
+                        ...showHiddenField,
+                        adultSafeguardLead: false,
+                      });
+                    }
+                  }}
                 />
               </StyledRadioOption>
             );

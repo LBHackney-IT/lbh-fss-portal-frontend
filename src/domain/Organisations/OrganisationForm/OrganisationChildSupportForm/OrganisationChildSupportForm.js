@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Button from "../../../../components/Button/Button";
@@ -83,17 +83,21 @@ const OrganisationChildSupportForm = ({
                   value={item.toLowerCase()}
                   register={register}
                   required
-                  onClick={() =>
-                    item === "Yes"
-                      ? setShowHiddenField({
-                          ...showHiddenField,
-                          childSafeGuardLead: true,
-                        })
-                      : setShowHiddenField({
-                          ...showHiddenField,
-                          childSafeGuardLead: false,
-                        })
-                  }
+                  onClick={() => {
+                    if (item === "Yes") {
+                      setShowHiddenField({
+                        ...showHiddenField,
+                        childSafeGuardLead: true,
+                        childSafeguardLeadDetails: false,
+                      });
+                      defaultValues.has_child_safeguarding_lead = null;
+                    } else {
+                      setShowHiddenField({
+                        ...showHiddenField,
+                        childSafeGuardLead: false,
+                      });
+                    }
+                  }}
                 />
               </StyledRadioOption>
             );
