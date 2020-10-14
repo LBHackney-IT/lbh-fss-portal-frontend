@@ -3,7 +3,6 @@ import ServiceForm from "../ServiceForm/ServiceForm";
 import ServiceService from "../../../services/ServiceService/ServiceService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
-import useServiceFetch from "../../../hooks/useServiceFetch/useServiceFetch";
 import UserContext from "../../../context/UserContext/UserContext";
 import {
   serviceCategoryCheckboxOptions,

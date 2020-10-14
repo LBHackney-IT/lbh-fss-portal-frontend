@@ -49,7 +49,7 @@ const AuthenticationService = {
   async resendRegisterConfirmation(email) {
     try {
       await axios.post(
-        `${BASE_API_URL}/registration/confirmation/resend`,
+        `${BASE_API_URL}/registration/confirmation/resend-request`,
         {
           email: email,
         },
@@ -89,6 +89,7 @@ const AuthenticationService = {
       const response = await axios.get(`${BASE_API_URL}/account`, {
         headers: {
           "x-api-key": API_KEY,
+          withCredentials: true,
         },
       });
 

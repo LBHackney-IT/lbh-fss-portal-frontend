@@ -16,8 +16,6 @@ function useAllServiceFetch(paramsObject = { limit: Infinity, search: "" }) {
 
       if (retrievedServices) {
         setServices(retrievedServices);
-      } else {
-        toast.error("Unable to find services");
       }
     }
 

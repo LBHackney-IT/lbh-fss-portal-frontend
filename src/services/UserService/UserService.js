@@ -1,5 +1,6 @@
 import axios from "axios";
 import API_KEY from "../../settings/apiKey";
+import BASE_API_URL from "../../settings/baseApiUrl";
 
 const UserService = {
   async retrieveUsers(
@@ -48,7 +49,7 @@ const UserService = {
   },
   async getUser(id) {
     try {
-      const response = await axios.post(`api/users/${id}`, {
+      const response = await axios.get(`${BASE_API_URL}/users/${id}`, {
         headers: {
           "x-api-key": API_KEY,
         },
@@ -76,6 +77,7 @@ const UserService = {
     }
   },
   async deleteUser(id) {
+    console.log(`${BASE_API_URL}/users/${id}`);
     try {
       await axios.delete(`api/users/${id}`, {
         headers: {
