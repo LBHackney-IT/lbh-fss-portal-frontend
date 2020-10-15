@@ -45,15 +45,6 @@ function doFormatServiceCategoryFormValues(
 
   return newValues;
 }
-function doConvertServiceFormValuesIntoFormData(values) {
-  let formData = new FormData();
-
-  Object.keys(values).forEach((key) => {
-    formData.append(key, values[key]);
-  });
-
-  return formData;
-}
 
 function doCleanServiceFormValues(
   values,
@@ -70,9 +61,15 @@ function doCleanServiceFormValues(
     serviceCategoryCheckboxOptions
   );
 
-  cleanFormValues = doConvertServiceFormValuesIntoFormData(cleanFormValues);
-
   return cleanFormValues;
+}
+
+function doCleanServiceImage(image) {
+  let formData = new FormData();
+
+  formData.append("image", image);
+
+  return formData;
 }
 
 function addFormattedAddress(locationsArray) {
@@ -89,4 +86,4 @@ function addFormattedAddress(locationsArray) {
   return locationsArray;
 }
 
-export { doCleanServiceFormValues, addFormattedAddress };
+export { doCleanServiceFormValues, addFormattedAddress, doCleanServiceImage };

@@ -81,6 +81,21 @@ const ServiceService = {
       return false;
     }
   },
+  async createServiceImage(id, image) {
+    try {
+      const response = await axios.post(`/api/services/${id}/image`, image, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+
+      return false;
+    }
+  },
 };
 
 export default ServiceService;

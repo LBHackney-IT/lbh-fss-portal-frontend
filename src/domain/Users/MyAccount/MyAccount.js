@@ -80,6 +80,7 @@ const MyAccount = (props) => {
           submitLoading={editIsLoading}
           showRoles={false}
           showEmail={false}
+          showResendAuth={false}
         />
       </RaisedCard>
     </>

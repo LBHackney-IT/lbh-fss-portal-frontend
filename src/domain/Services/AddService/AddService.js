@@ -9,7 +9,10 @@ import {
   serviceCategoryCheckboxOptions,
   serviceDemographicCheckboxOptions,
 } from "../../../utils/data/data";
-import { doCleanServiceFormValues } from "../../../utils/functions/serviceFunctions";
+import {
+  doCleanServiceFormValues,
+  doCleanServiceImage,
+} from "../../../utils/functions/serviceFunctions";
 
 const AddService = () => {
   const localUser = useContext(UserContext)[0];
@@ -46,14 +49,29 @@ const AddService = () => {
     cleanFormValues.created_at = new Date();
     cleanFormValues.updated_at = null;
 
+    const serviceImage = doCleanServiceImage(cleanFormValues.image);
+
+    delete cleanFormValues.image;
+
     setSubmitIsLoading(true);
 
     const service = await ServiceService.createService(cleanFormValues);
 
+    const returnedServiceImage = await ServiceService.createServiceImage(
+      localUser.id, // TODO: update this with serviceId
+      serviceImage
+    );
+
     setSubmitIsLoading(false);
 
-    if (service) {
+    if (service && returnedServiceImage) {
       toast.success(`New service ${service.name} created.`);
+
+      navigate("/service");
+    } else if (service && !returnedServiceImage) {
+      toast.warning(
+        `New service ${service.name} created but service image failed to upload.`
+      );
 
       navigate("/service");
     } else {
