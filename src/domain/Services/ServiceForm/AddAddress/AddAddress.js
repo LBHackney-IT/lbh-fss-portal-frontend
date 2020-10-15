@@ -68,6 +68,8 @@ const ServiceLocationsForm = ({
     setAddressesIsLoading(false);
 
     if (data) {
+      setSelectedPostcodeValue(postcode);
+
       const dataWithFormattedAddress = addFormattedAddress(data.addresses);
 
       setAddresses(keyBy(dataWithFormattedAddress, "formattedAddress"));
@@ -137,8 +139,6 @@ const ServiceLocationsForm = ({
     <form
       onSubmit={handleSubmit(() => {
         let postcode = getValues().postcode.toUpperCase();
-
-        setSelectedPostcodeValue(postcode);
 
         doFindAddress(postcode);
 
