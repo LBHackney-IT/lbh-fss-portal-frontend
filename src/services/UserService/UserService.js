@@ -77,7 +77,6 @@ const UserService = {
     }
   },
   async deleteUser(id) {
-    console.log(`${BASE_API_URL}/users/${id}`);
     try {
       await axios.delete(`api/users/${id}`, {
         headers: {

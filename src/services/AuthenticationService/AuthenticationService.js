@@ -85,11 +85,11 @@ const AuthenticationService = {
     }
   },
   async me() {
+    console.log(`${BASE_API_URL}/account`);
     try {
       const response = await axios.get(`${BASE_API_URL}/account`, {
         headers: {
           "x-api-key": API_KEY,
-          withCredentials: true,
         },
       });
 
@@ -100,7 +100,15 @@ const AuthenticationService = {
   },
   async logout() {
     try {
-      await axios.post(`${BASE_API_URL}/logout`);
+      await axios.post(
+        `${BASE_API_URL}/logout`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return true;
     } catch (error) {

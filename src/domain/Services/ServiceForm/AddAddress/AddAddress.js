@@ -76,6 +76,7 @@ const ServiceLocationsForm = ({
         address: defaultValues.formattedAddress,
       });
     } else {
+      setSelectedPostcodeValue("");
       toast.error(`Postcode ${postcode} could not be found.`);
     }
   }
