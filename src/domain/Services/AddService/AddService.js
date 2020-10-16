@@ -57,21 +57,25 @@ const AddService = () => {
 
     const service = await ServiceService.createService(cleanFormValues);
 
-    const returnedServiceImage = await ServiceService.createServiceImage(
-      localUser.id, // TODO: update this with serviceId
-      serviceImage
-    );
-
     setSubmitIsLoading(false);
 
-    if (service && returnedServiceImage) {
-      toast.success(`New service ${service.name} created.`);
+    if (service) {
+      setSubmitIsLoading(true);
 
-      navigate("/service");
-    } else if (service && !returnedServiceImage) {
-      toast.warning(
-        `New service ${service.name} created but service image failed to upload.`
+      const returnedServiceImage = await ServiceService.createServiceImage(
+        service.id,
+        serviceImage
       );
+
+      setSubmitIsLoading(false);
+
+      if (returnedServiceImage) {
+        toast.success(`New service ${service.name} created.`);
+      } else {
+        toast.warning(
+          `New service ${service.name} created but service image failed to upload.`
+        );
+      }
 
       navigate("/service");
     } else {
