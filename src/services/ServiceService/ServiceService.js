@@ -1,4 +1,8 @@
 import axios from "axios";
+import API_KEY from "../../settings/apiKey";
+import BASE_API_URL from "../../settings/baseApiUrl";
+
+axios.defaults.withCredentials = true;
 
 const ServiceService = {
   async retrieveServices({
@@ -9,7 +13,7 @@ const ServiceService = {
     search = "",
   }) {
     try {
-      const response = await axios.get("/api/services", {
+      const response = await axios.get(`${BASE_API_URL}/services`, {
         params: {
           sort,
           direction,
@@ -28,7 +32,12 @@ const ServiceService = {
   },
   async createService(values) {
     try {
-      const response = await axios.post("/api/services", values);
+      const response = await axios.post(`${BASE_API_URL}/services`, values, {
+        headers: {
+          "x-api-key": API_KEY,
+          "Content-Type": "application/json",
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -39,7 +48,7 @@ const ServiceService = {
   },
   async getService(id) {
     try {
-      const response = await axios.get(`/api/services/${id}`);
+      const response = await axios.get(`${BASE_API_URL}/services/${id}`);
 
       return response.data;
     } catch (error) {
@@ -50,7 +59,16 @@ const ServiceService = {
   },
   async updateService(id, values) {
     try {
-      const response = await axios.patch(`/api/services/${id}`, values);
+      const response = await axios.patch(
+        `${BASE_API_URL}/services/${id}`,
+        values,
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -61,7 +79,7 @@ const ServiceService = {
   },
   async deleteService(id) {
     try {
-      await axios.delete(`/api/services/${id}`);
+      await axios.delete(`${BASE_API_URL}/services/${id}`);
 
       return true;
     } catch (error) {
@@ -72,7 +90,10 @@ const ServiceService = {
   },
   async findAddress(postcode) {
     try {
-      const response = await axios.get(`/api/address-lookup`, postcode);
+      const response = await axios.get(
+        `${BASE_API_URL}/address-lookup`,
+        postcode
+      );
 
       return response.data;
     } catch (error) {

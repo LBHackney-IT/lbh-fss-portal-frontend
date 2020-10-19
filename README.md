@@ -7,14 +7,9 @@ You will also need [node](https://nodejs.org/en/download/) and [yarn](https://cl
 
 ## Setting Up
 
-<<<<<<< HEAD
 1. Copy and rename the `mapbox.example.js` as `mapbox.js` in `src/settings` and replace the token string with your Mapbox token.
 2. Copy and rename the `apiKey.example.js` as `apiKey.js` in `src/settings` and replace the token string with the API key.
 3. Run `yarn install` from project root to install packages and dependencies.
-=======
-1. Copy and rename the `mapbox.example.js` as `mapbox.js` in `src/settings` and replace the token string with your Mapbox token and the url string with your Mapbox url.
-2. Run `yarn install` from project root to install packages and dependencies.
->>>>>>> develop
 
 ## Available Scripts
 

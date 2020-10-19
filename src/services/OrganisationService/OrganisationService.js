@@ -1,5 +1,8 @@
 import axios from "axios";
 import API_KEY from "../../settings/apiKey";
+import BASE_API_URL from "../../settings/baseApiUrl";
+
+axios.defaults.withCredentials = true;
 
 const OrganisationService = {
   async retrieveOrganisations({
@@ -16,7 +19,7 @@ const OrganisationService = {
     reviewed_after = "",
   }) {
     try {
-      const response = await axios.get("/api/organisations", {
+      const response = await axios.get(`${BASE_API_URL}/organisations`, {
         params: {
           sort: sort,
           direction: direction,
@@ -44,12 +47,16 @@ const OrganisationService = {
   },
   async createOrganisation(values) {
     try {
-      const response = await axios.post("/api/organisations", values, {
-        headers: {
-          "x-api-key": API_KEY,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        `${BASE_API_URL}/organisations`,
+        values,
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -60,7 +67,7 @@ const OrganisationService = {
   },
   async getOrganisation(id) {
     try {
-      const response = await axios.get(`/api/organisations/${id}`, {
+      const response = await axios.get(`${BASE_API_URL}/organisations/${id}`, {
         headers: {
           "x-api-key": API_KEY,
         },
@@ -75,12 +82,16 @@ const OrganisationService = {
   },
   async updateOrganisation(id, values) {
     try {
-      const response = await axios.patch(`/api/organisations/${id}`, values, {
-        headers: {
-          "x-api-key": API_KEY,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.patch(
+        `${BASE_API_URL}/organisations/${id}`,
+        values,
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -91,7 +102,7 @@ const OrganisationService = {
   },
   async deleteOrganisation(id) {
     try {
-      await axios.delete(`/api/organisations/${id}`, {
+      await axios.delete(`${BASE_API_URL}/organisations/${id}`, {
         headers: {
           "x-api-key": API_KEY,
         },

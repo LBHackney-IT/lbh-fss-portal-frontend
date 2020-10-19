@@ -1,7 +1,10 @@
 function doCleanFormValues({ user, formValues, updateRoles, setCreatedAt }) {
   let newFormValues = {};
 
-  newFormValues.organisation_id = user.organisation.id;
+  newFormValues.organisation_id = user.organisation
+    ? user.organisation.id
+    : null;
+
   newFormValues.status = user.status;
   newFormValues.password = formValues.password;
   newFormValues.name = formValues.name;

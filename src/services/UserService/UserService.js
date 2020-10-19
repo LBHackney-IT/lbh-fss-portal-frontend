@@ -2,6 +2,8 @@ import axios from "axios";
 import API_KEY from "../../settings/apiKey";
 import BASE_API_URL from "../../settings/baseApiUrl";
 
+axios.defaults.withCredentials = true;
+
 const UserService = {
   async retrieveUsers(
     sort = "name",
@@ -11,7 +13,7 @@ const UserService = {
     search = ""
   ) {
     try {
-      const response = await axios.get("api/users", {
+      const response = await axios.get(`${BASE_API_URL}/users`, {
         params: {
           sort: sort,
           direction: direction,
@@ -33,7 +35,7 @@ const UserService = {
   },
   async createUser(values) {
     try {
-      const response = await axios.post("api/users", values, {
+      const response = await axios.post(`${BASE_API_URL}/users`, values, {
         headers: {
           "x-api-key": API_KEY,
           "Content-Type": "application/json",
@@ -63,11 +65,16 @@ const UserService = {
   },
   async updateUser(id, values) {
     try {
-      const response = await axios.patch(`api/users/${id}`, values, {
-        headers: {
-          "x-api-key": API_KEY,
-        },
-      });
+      const response = await axios.patch(
+        `${BASE_API_URL}/users/${id}`,
+        values,
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -78,7 +85,7 @@ const UserService = {
   },
   async deleteUser(id) {
     try {
-      await axios.delete(`api/users/${id}`, {
+      await axios.delete(`${BASE_API_URL}/users/${id}`, {
         headers: {
           "x-api-key": API_KEY,
         },
@@ -93,9 +100,10 @@ const UserService = {
   },
   async resendAuthentication(id) {
     try {
-      await axios.post(`api/users/${id}/resend`, {
+      await axios.post(`${BASE_API_URL}/users/${id}/resend`, {
         headers: {
           "x-api-key": API_KEY,
+          "Content-Type": "application/json",
         },
       });
 

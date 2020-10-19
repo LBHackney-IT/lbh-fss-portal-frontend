@@ -2,6 +2,8 @@ import axios from "axios";
 import API_KEY from "../../settings/apiKey";
 import BASE_API_URL from "../../settings/baseApiUrl";
 
+axios.defaults.withCredentials = true;
+
 const AuthenticationService = {
   async register(name, email, password) {
     try {
@@ -85,7 +87,6 @@ const AuthenticationService = {
     }
   },
   async me() {
-    console.log(`${BASE_API_URL}/account`);
     try {
       const response = await axios.get(`${BASE_API_URL}/account`, {
         headers: {
