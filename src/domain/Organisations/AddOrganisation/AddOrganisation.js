@@ -5,10 +5,14 @@ import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
 // import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
 // import UserContext from "../../../context/UserContext/UserContext";
-import { convertYesNoToBoolean } from "../../../utils/functions/functions";
+import {
+  convertYesNoToBoolean,
+  convertCheckboxToBoolean,
+} from "../../../utils/functions/functions";
 import {
   organisationFormFields as allFields,
   organisationFormYesNoRadioFields as yesNoRadioFields,
+  organisationFormCheckboxFields as checkboxFields,
 } from "../../../utils/data/data";
 
 const AddOrganisation = () => {
@@ -43,13 +47,18 @@ const AddOrganisation = () => {
       }
     });
 
-    // TODO: agree these with martin
-    values.id = "";
+    checkboxFields.forEach((field) => {
+      if (field in values) {
+        values[field] = convertCheckboxToBoolean(values[field]);
+      }
+    });
+
+    values.id = null;
     values.created_at = new Date();
-    values.updated_at = "";
+    values.updated_at = null;
     values.submitted_at = new Date();
-    values.reviewed_at = "";
-    values.reviewer_message = "";
+    values.reviewed = null;
+    values.reviewer_id = null;
     values.status = "awaiting review";
 
     return values;

@@ -7,10 +7,12 @@ import { toast } from "react-toastify";
 import {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
+  convertCheckboxToBoolean,
 } from "../../../utils/functions/functions";
 import {
   organisationFormFields as allFields,
   organisationFormYesNoRadioFields as yesNoRadioFields,
+  organisationFormCheckboxFields as checkboxFields,
 } from "../../../utils/data/data";
 
 function doCleanDefaultValues(values) {
@@ -33,6 +35,12 @@ function doCleanFormValues(values) {
   yesNoRadioFields.forEach((field) => {
     if (field in values) {
       values[field] = convertYesNoToBoolean(values[field]);
+    }
+  });
+
+  checkboxFields.forEach((field) => {
+    if (field in values) {
+      values[field] = convertCheckboxToBoolean(values[field]);
     }
   });
 

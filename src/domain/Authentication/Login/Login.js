@@ -24,29 +24,7 @@ const Login = () => {
 
     setIsLoading(true);
 
-    // TODO: replace with this code  // REWRITE - start
-
-    // const isLoggedIn = await AuthenticationService.login(email, password);
-
-    // setIsLoading(false);
-
-    // if (!isLoggedIn) {
-    //   toast.error("Unable to login.");
-    //   navigate("/");
-    //   return;
-    // }
-
-    // setIsLoading(true);
-
-    // const user = await AuthenticationService.me();
-
-    // setIsLoading(false);
-
-    // // - end
-
-    const user = await AuthenticationService.login(email, password);
-    // const isLoggedIn = await AuthenticationService.me();
-    const isLoggedIn = true;
+    const isLoggedIn = await AuthenticationService.login(email, password);
 
     setIsLoading(false);
 
@@ -55,6 +33,26 @@ const Login = () => {
       navigate("/");
       return;
     }
+
+    setIsLoading(true);
+
+    const user = await AuthenticationService.me();
+
+    setIsLoading(false);
+
+    // // // - end
+
+    // const user = await AuthenticationService.login(email, password);
+    // // const isLoggedIn = await AuthenticationService.me();
+    // const isLoggedIn = true;
+
+    // setIsLoading(false);
+
+    // if (!isLoggedIn) {
+    //   toast.error("Unable to login.");
+    //   navigate("/");
+    //   return;
+    // }
 
     if (user) {
       setUser(user);

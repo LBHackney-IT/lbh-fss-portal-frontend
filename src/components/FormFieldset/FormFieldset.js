@@ -15,10 +15,16 @@ const StyledLegend = styled.legend`
 
 const StyledHelp = styled.p``;
 
-const FormFieldset = ({ label, children, help, marginBottom = "20px" }) => {
+const FormFieldset = ({
+  label,
+  children,
+  help,
+  marginBottom = "20px",
+  legendStyle,
+}) => {
   return (
     <StyledFieldset marginBottom={marginBottom}>
-      <StyledLegend>{label}</StyledLegend>
+      <StyledLegend style={legendStyle}>{label}</StyledLegend>
       {help ? <StyledHelp>{help}</StyledHelp> : ""}
       {children}
     </StyledFieldset>

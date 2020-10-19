@@ -10,6 +10,11 @@ function convertYesNoToBoolean(value) {
   return value.toLowerCase() === "yes" ? true : false;
 }
 
+function convertCheckboxToBoolean(value) {
+  if (value === null) return null;
+  return value ? true : false;
+}
+
 function getPreviousYears(numberOfYears) {
   const currentYear = new Date().getFullYear();
 
@@ -66,6 +71,7 @@ function objAllTrue(obj) {
 export {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
+  convertCheckboxToBoolean,
   getPreviousYears,
   convertStepNumToWord,
   arrayOfObjhasDuplicates,
