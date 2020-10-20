@@ -104,7 +104,7 @@ const EditUser = (props) => {
   }
 
   if (fetchIsLoading || resendAuthIsLoading) {
-    return <div data-testid="loading">Loading</div>;
+    return <div data-testid="loading">Loading...</div>;
   }
 
   const isInternalTeam = checkIsInternalTeam(roles);

@@ -28,6 +28,26 @@ const StyledActionDiv = styled.div`
   background-color: ${grey[500]};
 `;
 
+async function fetchServices(search, setIsLoading, setData) {
+  let services = false;
+
+  if (search) {
+    services = await ServiceService.retrieveServices({
+      limit: 9999,
+      search: search,
+    });
+  } else {
+    services = await ServiceService.retrieveServices({
+      limit: 9999,
+      search: "",
+    });
+  }
+
+  setIsLoading(false);
+
+  setData(services || []);
+}
+
 const ListServices = () => {
   const { roles } = useContext(UserContext)[0];
 
@@ -42,27 +62,27 @@ const ListServices = () => {
   const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
 
   useEffect(() => {
-    async function fetchServices() {
-      let services = false;
+    // async function fetchServices() {
+    //   let services = false;
 
-      if (search) {
-        services = await ServiceService.retrieveServices({
-          limit: 9999,
-          search: search,
-        });
-      } else {
-        services = await ServiceService.retrieveServices({
-          limit: 9999,
-          search: "",
-        });
-      }
+    //   if (search) {
+    //     services = await ServiceService.retrieveServices({
+    //       limit: 9999,
+    //       search: search,
+    //     });
+    //   } else {
+    //     services = await ServiceService.retrieveServices({
+    //       limit: 9999,
+    //       search: "",
+    //     });
+    //   }
 
-      setIsLoading(false);
+    //   setIsLoading(false);
 
-      setData(services || []);
-    }
+    //   setData(services || []);
+    // }
 
-    fetchServices();
+    fetchServices(search, setIsLoading, setData);
   }, [search, setIsLoading, setData]);
 
   function toggleRemoveModal() {
@@ -84,6 +104,7 @@ const ListServices = () => {
 
     if (serviceDeleted) {
       toast.success(`${selectedService.name} removed.`);
+      fetchServices(search, setIsLoading, setData);
     } else {
       toast.error(`Unable to remove service.`);
     }

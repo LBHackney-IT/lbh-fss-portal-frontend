@@ -49,7 +49,9 @@ const UserTable = ({ data, isLoading, search }) => {
         accessor: "created_at",
         Cell: (e) => {
           const createdAtDate = new Date(e.value);
-          return createdAtDate.toLocaleDateString();
+          return createdAtDate == "Invalid Date"
+            ? "Unknown"
+            : createdAtDate.toLocaleDateString();
         },
       },
     ],

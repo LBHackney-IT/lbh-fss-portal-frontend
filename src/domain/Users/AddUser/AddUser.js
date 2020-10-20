@@ -53,6 +53,7 @@ const AddUser = () => {
           submitLabel="Create account"
           submitLoading={isLoading}
           showPassword={false}
+          showResendAuth={false}
         />
       </RaisedCard>
     </>

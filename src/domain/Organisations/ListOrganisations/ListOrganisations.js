@@ -31,6 +31,28 @@ const StyledActionDiv = styled.div`
   background-color: ${grey[500]};
 `;
 
+async function fetchData(search, setData, setIsLoading) {
+  let organisations = false;
+
+  setIsLoading(true);
+
+  if (search) {
+    organisations = await OrganisationService.retrieveOrganisations({
+      limit: 9999,
+      search: search,
+    });
+  } else {
+    organisations = await OrganisationService.retrieveOrganisations({
+      limit: 9999,
+      search: "",
+    });
+  }
+
+  setIsLoading(false);
+
+  setData(organisations || []);
+}
+
 const ListOrganisations = ({ location }) => {
   const { roles } = useContext(UserContext)[0];
 
@@ -80,27 +102,7 @@ const ListOrganisations = ({ location }) => {
   }, [setOrganisationUser, setOrganisationUserIsLoading]);
 
   useEffect(() => {
-    async function fetchData() {
-      let organisations = false;
-
-      if (search) {
-        organisations = await OrganisationService.retrieveOrganisations({
-          limit: 9999,
-          search: search,
-        });
-      } else {
-        organisations = await OrganisationService.retrieveOrganisations({
-          limit: 9999,
-          search: "",
-        });
-      }
-
-      setIsLoading(false);
-
-      setData(organisations || []);
-    }
-
-    fetchData();
+    fetchData(search, setData, setIsLoading);
   }, [search, setData, setIsLoading]);
 
   function toggleApproveModal() {
@@ -139,6 +141,7 @@ const ListOrganisations = ({ location }) => {
 
     if (organisation) {
       toast.success(`${selectedOrganisation.name} was approved.`);
+      fetchData(search, setData, setIsLoading);
     } else {
       toast.error(`Unable to approve organisation.`);
     }
@@ -163,6 +166,7 @@ const ListOrganisations = ({ location }) => {
 
     if (organisation) {
       toast.success(`${selectedOrganisation.name} was declined.`);
+      fetchData(search, setData, setIsLoading);
     } else {
       toast.error(`Unable to decline organisation.`);
     }
@@ -183,6 +187,7 @@ const ListOrganisations = ({ location }) => {
 
     if (organisationDeleted) {
       toast.success(`${selectedOrganisation.name} removed.`);
+      fetchData(search, setData, setIsLoading);
     } else {
       toast.error(`Unable to remove organisation.`);
     }
@@ -211,7 +216,7 @@ const ListOrganisations = ({ location }) => {
   const isInternalTeam = checkIsInternalTeam(roles);
 
   if (isLoading || organisationUserIsLoading) {
-    return <span>Loading</span>;
+    return <span>Loading...</span>;
   }
 
   return isInternalTeam ? (

@@ -90,10 +90,11 @@ const ServiceService = {
   },
   async findAddress(postcode) {
     try {
-      const response = await axios.get(
-        `${BASE_API_URL}/address-lookup`,
-        postcode
-      );
+      const response = await axios.get(`${BASE_API_URL}/address-lookup`, {
+        params: {
+          postcode: postcode.replace(/ /g, ""),
+        },
+      });
 
       return response.data;
     } catch (error) {

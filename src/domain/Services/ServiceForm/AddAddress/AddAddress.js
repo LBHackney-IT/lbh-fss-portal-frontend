@@ -70,7 +70,7 @@ const ServiceLocationsForm = ({
     if (data) {
       setSelectedPostcodeValue(postcode);
 
-      const dataWithFormattedAddress = addFormattedAddress(data.addresses);
+      const dataWithFormattedAddress = addFormattedAddress(data);
 
       setAddresses(keyBy(dataWithFormattedAddress, "formattedAddress"));
 

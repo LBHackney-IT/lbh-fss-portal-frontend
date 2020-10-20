@@ -108,7 +108,7 @@ const Table = ({
   );
 
   if (isLoading) {
-    return <span>Loading</span>;
+    return <span>Loading...</span>;
   }
 
   let pageMinIndex = 0;

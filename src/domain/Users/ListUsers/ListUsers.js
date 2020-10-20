@@ -106,6 +106,11 @@ const ListUsers = ({ location }) => {
       } else {
         users = await UserService.retrieveUsers("name", "asc", 0, 9999, "");
       }
+
+      if (users) {
+        users = users.filter((user) => user.status !== "deleted");
+      }
+
       setData(users || []);
       setIsLoading(false);
     }

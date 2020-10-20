@@ -87,7 +87,7 @@ const AddOrganisation = () => {
   }
 
   if (submitIsLoading) {
-    return <span>Loading</span>;
+    return <span>Loading...</span>;
   }
 
   return (
