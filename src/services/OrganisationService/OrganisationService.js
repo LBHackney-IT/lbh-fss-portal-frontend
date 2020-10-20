@@ -38,7 +38,7 @@ const OrganisationService = {
         },
       });
 
-      return response.data;
+      return response.data.organisations;
     } catch (error) {
       console.error(error);
 

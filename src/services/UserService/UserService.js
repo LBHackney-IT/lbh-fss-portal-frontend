@@ -26,7 +26,7 @@ const UserService = {
         },
       });
 
-      return response.data;
+      return response.data.users;
     } catch (error) {
       console.error(error);
 

@@ -72,7 +72,7 @@ function cleanDataForExport(data) {
   const newData = data
     .filter((user) => user.status === "active")
     .map((user) => {
-      user.organisationName = user.organisation.name;
+      user.organisationName = user.organisation ? user.organisation.name : "";
 
       if (user.roles.includes("vcso")) {
         user.rolesVcso = "Yes";

@@ -15,7 +15,6 @@ const StyledStatus = styled.div`
   display: inline;
   ${breakpoint("md")`
     display: block;
-    width: 75%;
   `};
 `;
 

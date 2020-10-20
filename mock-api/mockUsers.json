@@ -16,7 +16,7 @@
     "name": "Reyna Simonis",
     "email": "Kory50@gmail.com",
     "status": "active",
-    "roles": ["vcso", "admin"],
+    "roles": ["Admin"],
     "organisation": {
       "id": 16047,
       "name": "Goodwin - Ruecker"
