@@ -47,12 +47,12 @@ const ListServices = () => {
 
       if (search) {
         services = await ServiceService.retrieveServices({
-          limit: Infinity,
+          limit: 9999,
           search: search,
         });
       } else {
         services = await ServiceService.retrieveServices({
-          limit: Infinity,
+          limit: 9999,
           search: "",
         });
       }

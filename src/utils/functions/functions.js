@@ -56,6 +56,8 @@ function objAllFalse(obj) {
 }
 
 function checkIsInternalTeam(roles) {
+  roles.forEach((role) => role.toLowerCase());
+
   let isInternalTeam = false;
 
   if (roles) {

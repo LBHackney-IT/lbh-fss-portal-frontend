@@ -57,13 +57,7 @@ const ListOrganisations = ({ location }) => {
 
   useEffect(() => {
     async function fetchOrganisationUser() {
-      const users = await UserService.retrieveUsers(
-        "name",
-        "asc",
-        0,
-        Infinity,
-        ""
-      );
+      const users = await UserService.retrieveUsers("name", "asc", 0, 9999, "");
 
       setOrganisationUserIsLoading(false);
 
@@ -91,12 +85,12 @@ const ListOrganisations = ({ location }) => {
 
       if (search) {
         organisations = await OrganisationService.retrieveOrganisations({
-          limit: Infinity,
+          limit: 9999,
           search: search,
         });
       } else {
         organisations = await OrganisationService.retrieveOrganisations({
-          limit: Infinity,
+          limit: 9999,
           search: "",
         });
       }

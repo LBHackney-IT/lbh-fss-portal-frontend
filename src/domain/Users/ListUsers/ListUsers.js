@@ -102,15 +102,9 @@ const ListUsers = ({ location }) => {
     async function fetchData() {
       let users = false;
       if (search) {
-        users = await UserService.retrieveUsers(
-          "name",
-          "asc",
-          0,
-          Infinity,
-          search
-        );
+        users = await UserService.retrieveUsers("name", "asc", 0, 9999, search);
       } else {
-        users = await UserService.retrieveUsers("name", "asc", 0, Infinity, "");
+        users = await UserService.retrieveUsers("name", "asc", 0, 9999, "");
       }
       setData(users || []);
       setIsLoading(false);
