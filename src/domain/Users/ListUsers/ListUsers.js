@@ -69,6 +69,12 @@ const StyledLink = styled(Link)`
 `;
 
 function cleanDataForExport(data) {
+  data.forEach((user) => {
+    user.roles = user.roles.map((role) => {
+      return role.toLowerCase();
+    });
+  });
+
   const newData = data
     .filter((user) => user.status === "active")
     .map((user) => {
@@ -88,6 +94,7 @@ function cleanDataForExport(data) {
 
       return user;
     });
+
   return newData;
 }
 
