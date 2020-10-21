@@ -45,7 +45,12 @@ async function fetchServices(search, setIsLoading, setData) {
 
   setIsLoading(false);
 
-  setData(services || []);
+  if (services) {
+    setData(services);
+  } else {
+    toast.error("Could not find services");
+    setData([]);
+  }
 }
 
 const ListServices = () => {
@@ -62,26 +67,6 @@ const ListServices = () => {
   const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
 
   useEffect(() => {
-    // async function fetchServices() {
-    //   let services = false;
-
-    //   if (search) {
-    //     services = await ServiceService.retrieveServices({
-    //       limit: 9999,
-    //       search: search,
-    //     });
-    //   } else {
-    //     services = await ServiceService.retrieveServices({
-    //       limit: 9999,
-    //       search: "",
-    //     });
-    //   }
-
-    //   setIsLoading(false);
-
-    //   setData(services || []);
-    // }
-
     fetchServices(search, setIsLoading, setData);
   }, [search, setIsLoading, setData]);
 

@@ -109,6 +109,10 @@ const EditUser = (props) => {
 
   const isInternalTeam = checkIsInternalTeam(roles);
 
+  user.roles = user.roles.map((role) => {
+    return role.toLowerCase();
+  });
+
   return isInternalTeam ? (
     <>
       <h1>Edit user</h1>

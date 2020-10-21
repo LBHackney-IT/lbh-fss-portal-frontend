@@ -29,7 +29,7 @@ const Login = () => {
     setIsLoading(false);
 
     if (!isLoggedIn) {
-      toast.error("Unable to login.");
+      toast.error("Username or password is incorrect.");
       navigate("/");
       return;
     }
@@ -39,20 +39,6 @@ const Login = () => {
     const user = await AuthenticationService.me();
 
     setIsLoading(false);
-
-    // // // - end
-
-    // const user = await AuthenticationService.login(email, password);
-    // // const isLoggedIn = await AuthenticationService.me();
-    // const isLoggedIn = true;
-
-    // setIsLoading(false);
-
-    // if (!isLoggedIn) {
-    //   toast.error("Unable to login.");
-    //   navigate("/");
-    //   return;
-    // }
 
     if (user) {
       setUser(user);
