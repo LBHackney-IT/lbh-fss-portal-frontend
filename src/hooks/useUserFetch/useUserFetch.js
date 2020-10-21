@@ -18,7 +18,7 @@ function useUserFetch(userId) {
       } else {
         toast.error("Unable to find user.");
 
-        navigate("/users");
+        navigate("/organisation");
       }
     }
 

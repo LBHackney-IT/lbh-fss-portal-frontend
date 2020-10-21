@@ -87,7 +87,7 @@ const RegisterStep2 = () => {
               register={register}
               required
               maxLength={255}
-              minLength={6}
+              minLength={8}
               validate={{
                 oneCapital: (value) => {
                   return (

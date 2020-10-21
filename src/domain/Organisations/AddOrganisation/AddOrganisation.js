@@ -14,13 +14,23 @@ import {
   organisationFormYesNoRadioFields as yesNoRadioFields,
   organisationFormCheckboxFields as checkboxFields,
 } from "../../../utils/data/data";
+import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
+import UserContext from "../../../context/UserContext/UserContext";
+
+async function fetchMe(setUser, setIsLoading) {
+  setIsLoading(true);
+
+  const user = await AuthenticationService.me();
+
+  setIsLoading(false);
+
+  setUser(user);
+}
 
 const AddOrganisation = () => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
-  // const localUser = useContext(UserContext)[0];
-  // const { organisation, isLoading: fetchIsLoading } = useOrganisationFetch(
-  //   localUser.organisation.id
-  // );
+  const setLocalUser = useContext(UserContext)[1];
+  const [isLoading, setIsLoading] = useState(false);
 
   const [showHiddenField, setShowHiddenField] = useState({
     notBasedInWarning: false,
@@ -80,13 +90,15 @@ const AddOrganisation = () => {
     if (addedOrganisation) {
       toast.success(`New organisation ${addedOrganisation.name} created.`);
 
+      fetchMe(setLocalUser, setIsLoading);
+
       navigate("/service");
     } else {
       toast.error("Unable to add organisation.");
     }
   }
 
-  if (submitIsLoading) {
+  if (submitIsLoading || isLoading) {
     return <span>Loading...</span>;
   }
 
