@@ -92,7 +92,7 @@ const AddOrganisation = () => {
 
       fetchMe(setLocalUser, setIsLoading);
 
-      navigate("/service");
+      navigate("/organisation");
     } else {
       toast.error("Unable to add organisation.");
     }

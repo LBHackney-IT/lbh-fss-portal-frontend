@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import ServiceForm from "../ServiceForm/ServiceForm";
 import ServiceService from "../../../services/ServiceService/ServiceService";
-import { navigate } from "@reach/router";
+import { navigate, Redirect } from "@reach/router";
 import { toast } from "react-toastify";
 import UserContext from "../../../context/UserContext/UserContext";
 import {
@@ -12,6 +12,8 @@ import {
   doCleanServiceFormValues,
   doCleanServiceImage,
 } from "../../../utils/functions/serviceFunctions";
+import AccessDenied from "../../Error/AccessDenied/AccessDenied";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 const AddService = () => {
   const localUser = useContext(UserContext)[0];
@@ -82,7 +84,13 @@ const AddService = () => {
     }
   }
 
-  return (
+  const isInternalTeam = checkIsInternalTeam(localUser.roles);
+
+  if (isInternalTeam) {
+    return <Redirect to="/services" noThrow />;
+  }
+
+  return localUser.organisation ? (
     <>
       <ServiceForm
         pageTitle={"Create your service listing"}
@@ -95,6 +103,8 @@ const AddService = () => {
         setShowHiddenField={setShowHiddenField}
       />
     </>
+  ) : (
+    <AccessDenied />
   );
 };
 
