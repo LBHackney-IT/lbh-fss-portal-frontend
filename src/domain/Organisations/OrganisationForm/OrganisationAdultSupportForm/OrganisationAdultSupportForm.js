@@ -58,9 +58,14 @@ const OrganisationAdultSupportForm = ({
     >
       <FormFieldset label="Do you provide support or activities for vulnerable adults?">
         <StyledLeadText>
-          Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam
-          aliquam bibendum dapibus.
-          <a href="" target="_blank">
+          We are asking you this because there are additional safeguarding
+          checks for organisations working with vulnerable adults.
+          <br />
+          <a
+            href="https://www.gov.uk/guidance/safeguarding-duties-for-charity-trustees"
+            target="_blank"
+            rel="noreffer noopener"
+          >
             Click here to see the statutory guidance and best practice
           </a>
         </StyledLeadText>
@@ -75,17 +80,21 @@ const OrganisationAdultSupportForm = ({
                   value={item.toLowerCase()}
                   register={register}
                   required
-                  onClick={() =>
-                    item === "Yes"
-                      ? setShowHiddenField({
-                          ...showHiddenField,
-                          adultSafeguardLead: true,
-                        })
-                      : setShowHiddenField({
-                          ...showHiddenField,
-                          adultSafeguardLead: false,
-                        })
-                  }
+                  onClick={() => {
+                    if (item === "Yes") {
+                      setShowHiddenField({
+                        ...showHiddenField,
+                        adultSafeguardLead: true,
+                        adultSafeguardLeadDetails: false,
+                      });
+                      defaultValues.has_adult_safeguarding_lead = null;
+                    } else {
+                      setShowHiddenField({
+                        ...showHiddenField,
+                        adultSafeguardLead: false,
+                      });
+                    }
+                  }}
                 />
               </StyledRadioOption>
             );

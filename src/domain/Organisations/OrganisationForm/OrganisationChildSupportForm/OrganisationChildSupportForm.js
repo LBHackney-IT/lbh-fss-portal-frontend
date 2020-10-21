@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Button from "../../../../components/Button/Button";
@@ -61,9 +61,14 @@ const OrganisationChildSupportForm = ({
     >
       <FormFieldset label="Do you provide support or activities for people under 16?">
         <StyledLeadText>
-          Lorem ipsum dolo r sit amet, consectetur adipis cing elit. Nullam
-          aliquam bibendum dapibus.
-          <a href="" target="_blank">
+          We are asking you this because there are additional safeguarding
+          checks for organisations working with under 16's.
+          <br />
+          <a
+            href="https://www.gov.uk/guidance/safeguarding-duties-for-charity-trustees"
+            target="_blank"
+            rel="noreffer noopener"
+          >
             Click here to see the statutory guidance and best practice
           </a>
         </StyledLeadText>
@@ -78,17 +83,21 @@ const OrganisationChildSupportForm = ({
                   value={item.toLowerCase()}
                   register={register}
                   required
-                  onClick={() =>
-                    item === "Yes"
-                      ? setShowHiddenField({
-                          ...showHiddenField,
-                          childSafeGuardLead: true,
-                        })
-                      : setShowHiddenField({
-                          ...showHiddenField,
-                          childSafeGuardLead: false,
-                        })
-                  }
+                  onClick={() => {
+                    if (item === "Yes") {
+                      setShowHiddenField({
+                        ...showHiddenField,
+                        childSafeGuardLead: true,
+                        childSafeguardLeadDetails: false,
+                      });
+                      defaultValues.has_child_safeguarding_lead = null;
+                    } else {
+                      setShowHiddenField({
+                        ...showHiddenField,
+                        childSafeGuardLead: false,
+                      });
+                    }
+                  }}
                 />
               </StyledRadioOption>
             );

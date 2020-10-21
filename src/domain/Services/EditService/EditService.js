@@ -8,7 +8,10 @@ import {
   serviceCategoryCheckboxOptions,
   serviceDemographicCheckboxOptions,
 } from "../../../utils/data/data";
-import { doCleanServiceFormValues } from "../../../utils/functions/serviceFunctions";
+import {
+  doCleanServiceFormValues,
+  doCleanServiceImage,
+} from "../../../utils/functions/serviceFunctions";
 
 function doFormatCategoryDefaultValues(values) {
   const categoryIdArray = values.categories.map((category) => {
@@ -126,6 +129,7 @@ const EditService = (props) => {
   const [defaultValues, setDefaultValues] = useState({});
 
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
+  const [serviceImageIsLoading, setServiceImageIsLoading] = useState(false);
 
   const [showHiddenField, setShowHiddenField] = useState({
     lonOrIsDetails: false,
@@ -142,17 +146,34 @@ const EditService = (props) => {
   });
 
   useEffect(() => {
-    if (fetchIsLoading) return;
+    async function handleDefaultValues() {
+      if (fetchIsLoading) return;
 
-    const cleanDefaultValues = doCleanDefaultValues(service);
+      setServiceImageIsLoading(true);
 
-    doHandleHiddenFieldVisibility(
-      cleanDefaultValues,
-      showHiddenField,
-      setShowHiddenField
-    );
+      const serviceImage = await ServiceService.createServiceImage(
+        props.serviceId,
+        null
+      );
 
-    setDefaultValues(cleanDefaultValues);
+      setServiceImageIsLoading(false);
+
+      console.log(serviceImage.url);
+
+      service.image.preview = serviceImage.url;
+
+      const cleanDefaultValues = doCleanDefaultValues(service);
+
+      doHandleHiddenFieldVisibility(
+        cleanDefaultValues,
+        showHiddenField,
+        setShowHiddenField
+      );
+
+      setDefaultValues(cleanDefaultValues);
+    }
+
+    handleDefaultValues();
   }, [service, fetchIsLoading, setDefaultValues]);
 
   async function doEditService(formValues) {
@@ -166,6 +187,10 @@ const EditService = (props) => {
 
     cleanFormValues.updated_at = new Date();
 
+    const serviceImage = doCleanServiceImage(cleanFormValues.image);
+
+    delete cleanFormValues.image;
+
     setSubmitIsLoading(true);
 
     const updatedService = await ServiceService.updateService(
@@ -173,10 +198,21 @@ const EditService = (props) => {
       cleanFormValues
     );
 
+    const returnedServiceImage = await ServiceService.createServiceImage(
+      props.serviceId,
+      serviceImage
+    );
+
     setSubmitIsLoading(false);
 
-    if (updatedService) {
-      toast.success(`Service ${updatedService.name} updated.`);
+    if (updatedService && returnedServiceImage) {
+      toast.success(`New service ${updatedService.name} created.`);
+
+      navigate("/service");
+    } else if (updatedService && !returnedServiceImage) {
+      toast.warning(
+        `New service ${updatedService.name} created but service image failed to upload.`
+      );
 
       navigate("/service");
     } else {
@@ -184,7 +220,11 @@ const EditService = (props) => {
     }
   }
 
-  if (fetchIsLoading || Object.keys(defaultValues).length === 0) {
+  if (
+    fetchIsLoading ||
+    Object.keys(defaultValues).length === 0 ||
+    serviceImageIsLoading
+  ) {
     return <div data-testid="loading">Loading...</div>;
   }
 

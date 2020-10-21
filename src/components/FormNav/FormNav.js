@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { grey, blue } from "../../settings";
 import RaisedCard from "../../components/RaisedCard/RaisedCard";
 import { breakpoint } from "../..//utils/breakpoint/breakpoint";
+import { ReactComponent as ArrowDown } from "./icons/down-arrow.svg";
+import SVGIcon from "../../components/SVGIcon/SVGIcon";
 
 const StyledNav = styled.div`
   width: 100%;
@@ -12,8 +14,13 @@ const StyledNavContent = styled.div`
   display: flex;
   padding: 5px;
   margin: 5px 0;
+  width: 100%;
+  ${breakpoint("sm")`
+    width: 90%
+  `};
   ${breakpoint("md")`
     margin: 10px 0;
+    width: 100%;
   `};
 `;
 const StyledNavIndexContainer = styled.div`
@@ -34,7 +41,7 @@ const StyledNavIndex = styled.div`
   margin: 0 auto;
 `;
 
-const StyledNavText = styled.div`
+const StyledNavDiv = styled.div`
   display: flex;
   align-items: center;
   margin-left: 10px;
@@ -45,16 +52,28 @@ const StyledNavText = styled.div`
   `};
 `;
 
+const StyledNavText = styled.p`
+  margin: 0 0 0 10px;
+  ${breakpoint("md")`
+    margin: 0;
+  `};
+`;
+
 const StyledButton = styled.button`
-  width: 90%;
   margin: 0 auto;
   border: 0;
-  border-bottom: 1px solid ${grey[202]};
+  border-bottom: ${(props) =>
+    props.isLast ? "none" : `1px solid ${grey[202]}`};
   width: 100%;
   background-color: white;
   &:focus {
     outline: none;
   }
+
+  display: ${(props) => (props.showAllItems ? "block" : "none")};
+  ${breakpoint("sm")`
+    display: block;
+  `};
 `;
 
 const StyledLinkButton = styled(StyledButton)`
@@ -65,6 +84,25 @@ const StyledLinkButton = styled(StyledButton)`
 const StyledActiveButton = styled(StyledButton)`
   color: ${blue[400]};
   font-weight: bold;
+
+  display: block;
+  border-bottom: ${(props) =>
+    props.showAllItems ? `border-bottom: 1px solid ${grey[202]}` : "none"};
+  cursor: pointer;
+  ${breakpoint("sm")`
+    cursor: default;
+    border-bottom: 1px solid ${grey[202]};
+  `};
+`;
+
+const StyledIconContainer = styled.div`
+  display: flex;
+  margin-bottom: 5px;
+  align-items: center;
+
+  ${breakpoint("sm")`
+    display: none;
+  `};
 `;
 
 const OrganisationFormStep = ({ stepNum, label }) => {
@@ -73,9 +111,9 @@ const OrganisationFormStep = ({ stepNum, label }) => {
       <StyledNavIndexContainer>
         <StyledNavIndex>{stepNum + 1}</StyledNavIndex>{" "}
       </StyledNavIndexContainer>
-      <StyledNavText>
-        <p style={{ margin: 0 }}>{label}</p>
-      </StyledNavText>
+      <StyledNavDiv>
+        <StyledNavText>{label}</StyledNavText>
+      </StyledNavDiv>
     </StyledNavContent>
   );
 };
@@ -85,21 +123,32 @@ const OrganisationFormNavItem = ({
   label,
   isLink,
   isActive,
+  isLast,
   onClick,
+  showAllItems,
+  setShowAllItems,
 }) => {
   if (isActive) {
     return (
-      <StyledActiveButton>
-        <OrganisationFormStep stepNum={stepNum} label={label} />
+      <StyledActiveButton
+        showAllItems={showAllItems}
+        onClick={() => setShowAllItems(!showAllItems)}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <OrganisationFormStep stepNum={stepNum} label={label} />
+          <StyledIconContainer>
+            <SVGIcon SVGComponent={ArrowDown} width={"21px"} height={"21px"} />
+          </StyledIconContainer>
+        </div>
       </StyledActiveButton>
     );
   }
   return isLink ? (
-    <StyledLinkButton onClick={onClick}>
+    <StyledLinkButton onClick={onClick} showAllItems={showAllItems}>
       <OrganisationFormStep stepNum={stepNum} label={label} />
     </StyledLinkButton>
   ) : (
-    <StyledButton>
+    <StyledButton showAllItems={showAllItems} isLast={isLast}>
       <OrganisationFormStep stepNum={stepNum} label={label} />
     </StyledButton>
   );
@@ -113,8 +162,10 @@ const FormNav = ({
   setShowHiddenField,
   showHiddenFieldSnapshot,
 }) => {
+  const [showAllItems, setShowAllItems] = useState(false);
+
   return (
-    <RaisedCard backgroundColor={"white"} padding={"10px 5px 30px 5px"}>
+    <RaisedCard backgroundColor={"white"} padding={"10px 5px 10px 5px"}>
       <StyledNav>
         {stepArray.map((s, i) => (
           <OrganisationFormNavItem
@@ -123,10 +174,13 @@ const FormNav = ({
             label={s.label}
             isLink={enableAllLinks || stepNum > i}
             isActive={stepNum === i}
+            isLast={stepArray.length === i + 1}
             onClick={() => {
               setShowHiddenField(showHiddenFieldSnapshot);
               setStepNum(i);
             }}
+            showAllItems={showAllItems}
+            setShowAllItems={setShowAllItems}
           />
         ))}
       </StyledNav>
