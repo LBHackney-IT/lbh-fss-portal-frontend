@@ -46,6 +46,16 @@ function doFormatServiceCategoryFormValues(
   return newValues;
 }
 
+function doFormatLocationFormValues(values) {
+  let newValues = values;
+  if (newValues.locations) {
+    newValues.locations.forEach((location) => {
+      location.uprn = location.uprn.toString();
+    });
+  }
+  return newValues;
+}
+
 function doCleanServiceFormValues(
   values,
   serviceCategoryCheckboxOptions,
@@ -60,6 +70,7 @@ function doCleanServiceFormValues(
     cleanFormValues,
     serviceCategoryCheckboxOptions
   );
+  cleanFormValues = doFormatLocationFormValues(cleanFormValues);
 
   return cleanFormValues;
 }
