@@ -28,7 +28,7 @@ const HandleMyService = () => {
 
   const isInternalTeam = checkIsInternalTeam(user.roles);
 
-  if (servicesIsLoading) {
+  if (servicesIsLoading || !userServiceHasUpdated) {
     return <span>Loading...</span>;
   }
 
@@ -36,7 +36,7 @@ const HandleMyService = () => {
     return <Redirect to="/services" noThrow />;
   }
 
-  return userServices.length > 0 && userServiceHasUpdated ? (
+  return userServices.length > 0 ? (
     <MyService userServices={userServices} />
   ) : (
     <AddService />
