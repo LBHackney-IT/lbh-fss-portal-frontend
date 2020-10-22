@@ -88,7 +88,9 @@ const AddOrganisation = () => {
     setSubmitIsLoading(false);
 
     if (addedOrganisation) {
-      toast.success(`New organisation ${addedOrganisation.name} created.`);
+      toast.success(
+        `New organisation ${addedOrganisation.name} has been submitted for review.`
+      );
 
       fetchMe(setLocalUser, setIsLoading);
 

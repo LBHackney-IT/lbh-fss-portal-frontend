@@ -11,6 +11,7 @@ import { checkIsInternalTeam } from "../../../utils/functions/functions";
 const HandleMyService = () => {
   const user = useContext(UserContext)[0];
   const { services, servicesIsLoading } = useAllServiceFetch();
+  const [userServiceHasUpdated, setUserServiceHasUpdated] = useState(false);
 
   const [userServices, setUserServices] = useState([]);
 
@@ -22,6 +23,7 @@ const HandleMyService = () => {
       }
     });
     setUserServices(userServicesArray);
+    setUserServiceHasUpdated(true);
   }, [services]);
 
   const isInternalTeam = checkIsInternalTeam(user.roles);
@@ -34,7 +36,7 @@ const HandleMyService = () => {
     return <Redirect to="/services" noThrow />;
   }
 
-  return userServices.length > 0 ? (
+  return userServices.length > 0 && userServiceHasUpdated ? (
     <MyService userServices={userServices} />
   ) : (
     <AddService />

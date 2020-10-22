@@ -90,9 +90,17 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
       >
         <FormInput
           name="referral_link"
-          type="url"
+          type="text"
           label="Referral link"
           register={register}
+          validate={{
+            pattern: (value) => {
+              const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+              const regex = new RegExp(expression);
+              if (value === "") return true;
+              return value.match(regex) || "Enter a valid URL";
+            },
+          }}
           error={errors.referral_link}
           help="If you have one you can include a referral form"
         />
