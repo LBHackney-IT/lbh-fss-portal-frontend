@@ -76,7 +76,7 @@ function cleanDataForExport(data) {
   });
 
   const newData = data
-    .filter((user) => user.status === "active")
+    .filter((user) => user.status.toLowerCase() === "active")
     .map((user) => {
       user.organisationName = user.organisation ? user.organisation.name : "";
 
@@ -102,6 +102,7 @@ const ListUsers = ({ location }) => {
   const { roles } = useContext(UserContext)[0];
 
   const [data, setData] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [search, setSearch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -109,9 +110,12 @@ const ListUsers = ({ location }) => {
     async function fetchData() {
       let users = false;
       if (search) {
+        console.log("1.");
         users = await UserService.retrieveUsers("name", "asc", 0, 9999, search);
       } else {
+        console.log("2.");
         users = await UserService.retrieveUsers("name", "asc", 0, 9999, "");
+        setAllUsers(users);
       }
 
       if (users) {
@@ -123,7 +127,7 @@ const ListUsers = ({ location }) => {
     }
 
     fetchData();
-  }, [search, setData, setIsLoading]);
+  }, [search, setData, setAllUsers, setIsLoading]);
 
   const isInternalTeam = checkIsInternalTeam(roles);
 
@@ -138,7 +142,7 @@ const ListUsers = ({ location }) => {
     { label: "Status", key: "status" },
   ];
 
-  const dataForExport = cleanDataForExport(data);
+  const dataForExport = cleanDataForExport(allUsers);
 
   return isInternalTeam ? (
     <>
