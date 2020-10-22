@@ -130,12 +130,12 @@ function Pagination({
               {pageIndex + 3}
             </StyledButton>
           ) : null}
-          {pageIndex + 3 <= 4 ? (
+          {pageIndex + 3 <= 4 && totalEntries > 20 ? (
             <StyledButton onClick={() => gotoPage(pageIndex + 3)}>
               {pageIndex + 4}
             </StyledButton>
           ) : null}
-          {pageIndex + 4 <= 4 ? (
+          {pageIndex + 4 <= 4 && totalEntries > 30 ? (
             <StyledButton onClick={() => gotoPage(pageIndex + 4)}>
               {pageIndex + 5}
             </StyledButton>
