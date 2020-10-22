@@ -8,12 +8,14 @@ import {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
   convertCheckboxToBoolean,
+  checkIsInternalTeam,
 } from "../../../utils/functions/functions";
 import {
   organisationFormFields as allFields,
   organisationFormYesNoRadioFields as yesNoRadioFields,
   organisationFormCheckboxFields as checkboxFields,
 } from "../../../utils/data/data";
+import UserContext from "../../../context/UserContext/UserContext";
 
 function doCleanDefaultValues(values) {
   yesNoRadioFields.forEach((field) => {
@@ -102,6 +104,7 @@ function doAppendUpdatedFields(organisation, formFields) {
 }
 
 const EditOrganisation = (props) => {
+  const user = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [defaultValues, setDefaultValues] = useState({});
 
@@ -166,7 +169,13 @@ const EditOrganisation = (props) => {
         );
       }
 
-      navigate("/organisation");
+      const isInternalTeam = checkIsInternalTeam(user);
+
+      if (isInternalTeam) {
+        navigate("/organisations");
+      } else {
+        navigate("/service");
+      }
     } else {
       toast.error("Unable to update organisation.");
     }
