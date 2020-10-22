@@ -11,9 +11,9 @@ import { checkIsInternalTeam } from "../../../utils/functions/functions";
 const HandleMyService = () => {
   const user = useContext(UserContext)[0];
   const { services, servicesIsLoading } = useAllServiceFetch();
-  const [userServiceHasUpdated, setUserServiceHasUpdated] = useState(false);
 
   const [userServices, setUserServices] = useState([]);
+  const [userServicesHasUpdated, setUserServicesHasUpdated] = useState(false);
 
   useEffect(() => {
     let userServicesArray = [];
@@ -22,13 +22,15 @@ const HandleMyService = () => {
         userServicesArray.push(service);
       }
     });
-    setUserServices(userServicesArray);
-    setUserServiceHasUpdated(true);
+    if (services.length > 0) {
+      setUserServices(userServicesArray);
+      setUserServicesHasUpdated(true);
+    }
   }, [services]);
 
   const isInternalTeam = checkIsInternalTeam(user.roles);
 
-  if (servicesIsLoading || !userServiceHasUpdated) {
+  if (servicesIsLoading || !userServicesHasUpdated) {
     return <span>Loading...</span>;
   }
 
