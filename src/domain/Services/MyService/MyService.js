@@ -93,7 +93,7 @@ const MyService = ({ userServices }) => {
         actions={actions}
         setSelectedService={setSelectedService}
         showPagination={false}
-        actionWidth={"140px"}
+        actionWidth={"190px"}
         marginTop={"10px"}
       />
       <ConfirmModal

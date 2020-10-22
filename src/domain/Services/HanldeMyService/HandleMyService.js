@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { Redirect } from "@reach/router";
 import UserContext from "../../../context/UserContext/UserContext";
 import AddService from "../AddService/AddService";
-import ServiceService from "../../../services/ServiceService/ServiceService";
-import { toast } from "react-toastify";
 import MyService from "../MyService/MyService";
 import useAllServiceFetch from "../../../hooks/useAllServiceFetch/useAllServiceFetch";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";

@@ -169,7 +169,7 @@ const EditOrganisation = (props) => {
         );
       }
 
-      const isInternalTeam = checkIsInternalTeam(user);
+      const isInternalTeam = checkIsInternalTeam(user.roles);
 
       if (isInternalTeam) {
         navigate("/organisations");
