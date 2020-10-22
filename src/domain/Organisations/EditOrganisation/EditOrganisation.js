@@ -44,8 +44,8 @@ function doCleanFormValues(values) {
     }
   });
 
-  if (values.status === "awaiting reverification") {
-    values.status = "published";
+  if (values.status === "rejected") {
+    values.status = "awaiting reverification";
   }
 
   return values;
@@ -156,7 +156,7 @@ const EditOrganisation = (props) => {
     setSubmitIsLoading(false);
 
     if (updatedOrganisation) {
-      if (updatedOrganisation.status === "rejected") {
+      if (updatedOrganisation.status === "awaiting reverification") {
         toast.warning(
           `Organisation ${updatedOrganisation.name} has been submitted for review.`
         );
@@ -166,7 +166,7 @@ const EditOrganisation = (props) => {
         );
       }
 
-      navigate("/service");
+      navigate("/organisation");
     } else {
       toast.error("Unable to update organisation.");
     }
