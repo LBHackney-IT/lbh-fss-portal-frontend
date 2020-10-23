@@ -110,10 +110,8 @@ const ListUsers = ({ location }) => {
     async function fetchData() {
       let users = false;
       if (search) {
-        console.log("1.");
         users = await UserService.retrieveUsers("name", "asc", 0, 9999, search);
       } else {
-        console.log("2.");
         users = await UserService.retrieveUsers("name", "asc", 0, 9999, "");
         setAllUsers(users);
       }

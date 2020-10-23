@@ -50,9 +50,8 @@ const AddService = () => {
     cleanFormValues.created_at = new Date();
     cleanFormValues.updated_at = null;
 
-    const serviceImage = doCleanServiceImage({ ...cleanFormValues.image });
+    const serviceImage = doCleanServiceImage(cleanFormValues.image);
 
-    delete cleanFormValues.image;
 
     setSubmitIsLoading(true);
 

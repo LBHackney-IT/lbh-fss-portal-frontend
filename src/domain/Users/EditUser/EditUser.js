@@ -128,7 +128,7 @@ const EditUser = (props) => {
           showDeleteButton={true}
           showEmail={false}
           onDelete={onDelete}
-          showResendAuth={user.status === "unverified"}
+          showResendAuth={user.status === "invited"}
           onResendAuth={doResendAuthentication}
         />
       </RaisedCard>

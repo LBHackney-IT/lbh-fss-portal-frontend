@@ -138,13 +138,13 @@ const serviceCategoryCheckboxOptions = [
   },
   {
     id: "houseAdv",
-    value: 11,
+    value: 10,
     label: "Housing advice",
     help: "For advice on tenancy rights, accommodation and homelessness.",
   },
   {
     id: "immAdv",
-    value: 12,
+    value: 11,
     label: "Immigration advice",
     help: "For help and advice on immigration, asylum and refugee status.",
   },

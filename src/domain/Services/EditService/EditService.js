@@ -158,8 +158,6 @@ const EditService = (props) => {
 
       setServiceImageIsLoading(false);
 
-      console.log(serviceImage.url);
-
       service.image.preview = serviceImage.url;
 
       const cleanDefaultValues = doCleanDefaultValues(service);

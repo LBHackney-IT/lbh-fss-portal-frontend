@@ -117,8 +117,6 @@ const ServiceLocationsForm = ({
     return <div style={{ height: "270px" }}>Loading...</div>;
   }
 
-  console.log(addressCounter);
-
   if (postcodeHasBeenRemoved)
     return (
       <form onSubmit={handleSubmit(doAddAnotherLocation)}>
