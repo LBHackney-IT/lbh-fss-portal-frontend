@@ -52,14 +52,13 @@ const AddService = () => {
 
     const serviceImage = doCleanServiceImage(cleanFormValues.image);
 
-
     setSubmitIsLoading(true);
 
     const service = await ServiceService.createService(cleanFormValues);
 
     setSubmitIsLoading(false);
 
-    if (service) {
+    if (service && cleanFormValues.image) {
       setSubmitIsLoading(true);
 
       const returnedServiceImage = await ServiceService.createServiceImage(
@@ -71,12 +70,14 @@ const AddService = () => {
 
       if (returnedServiceImage) {
         toast.success(`New service ${service.name} created.`);
+        navigate("/service");
       } else {
         toast.warning(
           `New service ${service.name} created but service image failed to upload.`
         );
       }
-
+    } else if (service) {
+      toast.success(`New service ${service.name} created.`);
       navigate("/service");
     } else {
       toast.error("Unable to add service.");

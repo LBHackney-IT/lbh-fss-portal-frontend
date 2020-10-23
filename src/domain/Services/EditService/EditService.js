@@ -146,32 +146,17 @@ const EditService = (props) => {
   });
 
   useEffect(() => {
-    async function handleDefaultValues() {
-      if (fetchIsLoading) return;
+    if (fetchIsLoading) return;
 
-      setServiceImageIsLoading(true);
+    const cleanDefaultValues = doCleanDefaultValues(service);
 
-      const serviceImage = await ServiceService.createServiceImage(
-        props.serviceId,
-        null
-      );
+    doHandleHiddenFieldVisibility(
+      cleanDefaultValues,
+      showHiddenField,
+      setShowHiddenField
+    );
 
-      setServiceImageIsLoading(false);
-
-      service.image.preview = serviceImage.url;
-
-      const cleanDefaultValues = doCleanDefaultValues(service);
-
-      doHandleHiddenFieldVisibility(
-        cleanDefaultValues,
-        showHiddenField,
-        setShowHiddenField
-      );
-
-      setDefaultValues(cleanDefaultValues);
-    }
-
-    handleDefaultValues();
+    setDefaultValues(cleanDefaultValues);
   }, [service, fetchIsLoading, setDefaultValues]);
 
   async function doEditService(formValues) {
