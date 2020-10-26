@@ -27,7 +27,8 @@ function doFormatCategoryDefaultValues(values) {
       });
 
       newValues[item.id] = true;
-      newValues[item.id.concat("Details")] = categoryInfo[0].description;
+      newValues[item.id.concat("Details")] =
+        categoryInfo[0].service_description;
     }
   });
 
@@ -176,6 +177,8 @@ const EditService = (props) => {
 
     setSubmitIsLoading(true);
 
+    console.log(cleanFormValues);
+
     const updatedService = await ServiceService.updateService(
       props.serviceId,
       cleanFormValues
@@ -188,8 +191,8 @@ const EditService = (props) => {
 
     setSubmitIsLoading(false);
 
-    if (updatedService && returnedServiceImage) {
-      toast.success(`New service ${updatedService.name} created.`);
+    if (updatedService && (returnedServiceImage || !cleanFormValues.image)) {
+      toast.success(`Service updated.`);
 
       navigate("/service");
     } else if (updatedService && !returnedServiceImage) {

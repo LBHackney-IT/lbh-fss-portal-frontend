@@ -68,7 +68,7 @@ const AddService = () => {
 
       setSubmitIsLoading(false);
 
-      if (returnedServiceImage) {
+      if (returnedServiceImage || !cleanFormValues.image) {
         toast.success(`New service ${service.name} created.`);
         navigate("/service");
       } else {
