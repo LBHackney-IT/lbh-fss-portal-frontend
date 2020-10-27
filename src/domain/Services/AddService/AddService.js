@@ -15,7 +15,7 @@ import {
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
-const AddService = ({ doRetrieveServices }) => {
+const AddService = ({ doRetrieveServices = () => {} }) => {
   const localUser = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
 
