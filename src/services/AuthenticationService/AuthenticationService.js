@@ -173,10 +173,9 @@ const AuthenticationService = {
           },
         }
       );
-      console.log("YES YES");
+
       return true;
     } catch (error) {
-      console.log("error");
       return false;
     }
   },

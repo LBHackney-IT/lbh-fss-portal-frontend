@@ -46,8 +46,11 @@ const MyAccount = (props) => {
       setEditIsLoading(false);
 
       if (newUser) {
-        toast.success(`Your account has been updated.`);
-
+        if (cleanFormValues.password) {
+          toast.success(`Your password has been updated.`);
+        } else {
+          toast.success(`Your account has been updated.`);
+        }
         navigate("/organisation");
       } else {
         toast.error("Unable to update account.");
