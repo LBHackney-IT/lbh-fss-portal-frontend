@@ -27,6 +27,7 @@ import ListOrganisations from "./domain/Organisations/ListOrganisations/ListOrga
 import AddOrganisation from "./domain/Organisations/AddOrganisation/AddOrganisation";
 import EditOrganisation from "./domain/Organisations/EditOrganisation/EditOrganisation";
 import HandleMyService from "./domain/Services/HanldeMyService/HandleMyService";
+import InvitationResetPassword from "./domain/Authentication/InvitationResetPassword/InvitationResetPassword";
 
 const AppMain = ({ location }) => {
   const setUser = useContext(UserContext)[1];
@@ -52,6 +53,7 @@ const AppMain = ({ location }) => {
       <AnonymousRoute as={RegisterStep2} path="/register/step-2" />
       <AnonymousRoute as={RegisterStep3} path="/register/step-3" />
       <AnonymousRoute as={ResetPassword} path="/password" />
+      <AnonymousRoute as={InvitationResetPassword} path="/invitation" />
       <AnonymousRoute as={ResetPasswordConfirmation} path="/password/reset" />
       <AnonymousRoute as={TermsAndConditions} path="/terms-and-conditions" />
       <ProtectedRoute as={ListServices} path="/services" />

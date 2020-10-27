@@ -157,6 +157,29 @@ const AuthenticationService = {
       return false;
     }
   },
+  async invitationConfirmation(email, password, newPassword) {
+    try {
+      await axios.post(
+        `${BASE_API_URL}/invitation/confirmation`,
+        {
+          email: email,
+          password: password,
+          newPassword: newPassword,
+        },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("YES YES");
+      return true;
+    } catch (error) {
+      console.log("error");
+      return false;
+    }
+  },
 };
 
 export default AuthenticationService;
