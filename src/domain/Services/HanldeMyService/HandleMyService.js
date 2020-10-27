@@ -37,7 +37,7 @@ const HandleMyService = () => {
   }
 
   return userServices.length > 0 ? (
-    <MyService userServices={userServices} />
+    <MyService userServices={userServices} setUserServices={setUserServices} />
   ) : (
     <AddService />
   );
