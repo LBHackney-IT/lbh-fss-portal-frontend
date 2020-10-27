@@ -100,12 +100,16 @@ const UserService = {
   },
   async resendAuthentication(id) {
     try {
-      await axios.post(`${BASE_API_URL}/users/${id}/resend`, {
-        headers: {
-          "x-api-key": API_KEY,
-          "Content-Type": "application/json",
-        },
-      });
+      await axios.post(
+        `${BASE_API_URL}/users/${id}/resend`,
+        {},
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return true;
     } catch (error) {

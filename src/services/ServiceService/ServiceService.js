@@ -105,17 +105,13 @@ const ServiceService = {
   },
   async createServiceImage(id, image) {
     try {
-      const response = await axios.post(
-        `${BASE_API_URL}/services/${id}/image`,
-        image,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.post(`${BASE_API_URL}/services/${id}/image`, image, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      return response.data;
+      return true;
     } catch (error) {
       console.error(error);
 
