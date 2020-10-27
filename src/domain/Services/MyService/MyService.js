@@ -38,7 +38,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const MyService = ({ userServices, setUserServices }) => {
+const MyService = ({ userServices, doRetrieveServices }) => {
   const user = useContext(UserContext)[0];
   const [selectedService, setSelectedService] = useState({});
 
@@ -63,11 +63,7 @@ const MyService = ({ userServices, setUserServices }) => {
     setRemoveIsLoading(false);
 
     if (serviceDeleted) {
-      const remainingUserServices = userServices.filter(
-        (service) => service.id !== selectedService.id
-      );
-      setUserServices(remainingUserServices);
-
+      doRetrieveServices();
       toast.success(`${selectedService.name} removed.`);
     } else {
       toast.error(`Unable to remove service.`);

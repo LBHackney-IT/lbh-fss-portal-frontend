@@ -3,15 +3,39 @@ import { Redirect } from "@reach/router";
 import UserContext from "../../../context/UserContext/UserContext";
 import AddService from "../AddService/AddService";
 import MyService from "../MyService/MyService";
-import useAllServiceFetch from "../../../hooks/useAllServiceFetch/useAllServiceFetch";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
+import ServiceService from "../../../services/ServiceService/ServiceService";
 
 const HandleMyService = () => {
   const user = useContext(UserContext)[0];
-  const { services, servicesIsLoading } = useAllServiceFetch();
+  const [services, setServices] = useState([]);
+  const [servicesIsLoading, setServicesIsLoading] = useState(true);
 
   const [userServices, setUserServices] = useState([]);
   const [userServicesHasUpdated, setUserServicesHasUpdated] = useState(false);
+
+  const [retrieveServices, setRetrieveServices] = useState(true);
+
+  function doRetrieveServices() {
+    setRetrieveServices(!retrieveServices);
+  }
+
+  useEffect(() => {
+    async function fetchServices() {
+      const retrievedServices = await ServiceService.retrieveServices({
+        limit: 9999,
+        search: "",
+      });
+
+      setServicesIsLoading(false);
+
+      if (retrievedServices) {
+        setServices(retrievedServices);
+      }
+    }
+
+    fetchServices();
+  }, [retrieveServices, setServices, setServicesIsLoading]);
 
   useEffect(() => {
     let userServicesArray = [];
@@ -37,9 +61,12 @@ const HandleMyService = () => {
   }
 
   return userServices.length > 0 ? (
-    <MyService userServices={userServices} setUserServices={setUserServices} />
+    <MyService
+      userServices={userServices}
+      doRetrieveServices={doRetrieveServices}
+    />
   ) : (
-    <AddService />
+    <AddService doRetrieveServices={doRetrieveServices} />
   );
 };
 

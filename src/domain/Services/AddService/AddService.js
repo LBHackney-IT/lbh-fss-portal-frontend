@@ -15,7 +15,7 @@ import {
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
-const AddService = () => {
+const AddService = ({ doRetrieveServices }) => {
   const localUser = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
 
@@ -70,6 +70,7 @@ const AddService = () => {
 
       if (returnedServiceImage || !cleanFormValues.image) {
         toast.success(`New service ${service.name} created.`);
+        doRetrieveServices();
         navigate("/service");
       } else {
         toast.warning(
@@ -78,6 +79,7 @@ const AddService = () => {
       }
     } else if (service) {
       toast.success(`New service ${service.name} created.`);
+      doRetrieveServices();
       navigate("/service");
     } else {
       toast.error("Unable to add service.");
