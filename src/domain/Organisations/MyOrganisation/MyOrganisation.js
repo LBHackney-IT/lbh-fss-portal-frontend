@@ -132,13 +132,13 @@ const MyOrganisation = () => {
         ) : null}
         {organisation.status === "awaiting reverification" ? (
           <StyledReverificationFeedback>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. It has
-            been 12 months since you last verified your organisation
+            It has been 12 months since you last verified your organisation
             information. Please re-verify your organisation by reviewing your
             organisation information and re-submitting the form.
           </StyledReverificationFeedback>
         ) : null}
-        {organisation.status === "published" && organisation.reviewer_message ? (
+        {organisation.status === "published" &&
+        organisation.reviewer_message ? (
           <StyledApprovedFeedback>
             {organisation.reviewer_message}
           </StyledApprovedFeedback>
