@@ -24,13 +24,6 @@ var sample = require("lodash/sample");
 //     .json(sample(mockUsers.filter((u) => u.name === "Reyna Simonis")));
 // };
 
-// // VCSO - WITH services and WITH organisation
-// module.exports = (req, res) => {
-//   res
-//     .status(200)
-//     .json(sample(mockUsers.filter((u) => u.name === "Tommie Dietrich")));
-// };
-
 // // VCSO - NO services but WITH organisation
 // module.exports = (req, res) => {
 //   res

@@ -4,27 +4,36 @@ import UserContext from "../../../context/UserContext/UserContext";
 import { ReactComponent as Trash } from "./icons/trash.svg";
 import ServiceTable from "../ServiceTable/ServiceTable";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
-import { red } from "../../../settings";
+import { red, grey } from "../../../settings";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import Button from "../../../components/Button/Button";
 import { Link } from "@reach/router";
 import { toast } from "react-toastify";
 import ServiceService from "../../../services/ServiceService/ServiceService";
+import Search from "../../../components/Search/Search";
 
 const StyledActionDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  background-color: ${grey[500]};
+  padding: 10px;
   ${breakpoint("md")`
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
   `};
 `;
 
 const StyledButton = styled(Button)`
-  margin: auto 0;
   padding: 10px 15px;
+  margin: -10px 5px 0 0;
+  ${breakpoint("sm")`
+    margin: 10px 0;
+  `};
+  ${breakpoint("md")`
+    margin: auto 0; 
+  `};
 `;
 
 const StyledAddServiceLink = styled.div`
@@ -38,7 +47,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const MyService = ({ userServices, doRetrieveServices }) => {
+const MyService = ({ userServices, doRetrieveServices, setSearch }) => {
   const user = useContext(UserContext)[0];
   const [selectedService, setSelectedService] = useState({});
 
@@ -83,6 +92,7 @@ const MyService = ({ userServices, doRetrieveServices }) => {
   return (
     <>
       <StyledActionDiv>
+        <Search setSearch={setSearch} />
         <StyledAddServiceLink>
           <StyledLink to="/services/add">
             <StyledButton label={"Add service"} />
@@ -93,9 +103,7 @@ const MyService = ({ userServices, doRetrieveServices }) => {
         data={userServices}
         actions={actions}
         setSelectedService={setSelectedService}
-        showPagination={false}
         actionWidth={"190px"}
-        marginTop={"10px"}
       />
       <ConfirmModal
         isOpen={removeModalIsOpen}

@@ -16,6 +16,8 @@ const HandleMyService = () => {
 
   const [retrieveServices, setRetrieveServices] = useState(true);
 
+  const [search, setSearch] = useState("");
+
   function doRetrieveServices() {
     setRetrieveServices(!retrieveServices);
   }
@@ -24,7 +26,7 @@ const HandleMyService = () => {
     async function fetchServices() {
       const retrievedServices = await ServiceService.retrieveServices({
         limit: 9999,
-        search: "",
+        search: search,
       });
 
       setServicesIsLoading(false);
@@ -35,7 +37,7 @@ const HandleMyService = () => {
     }
 
     fetchServices();
-  }, [retrieveServices, setServices, setServicesIsLoading]);
+  }, [retrieveServices, search, setServices, setServicesIsLoading]);
 
   useEffect(() => {
     let userServicesArray = [];
@@ -64,6 +66,7 @@ const HandleMyService = () => {
     <MyService
       userServices={userServices}
       doRetrieveServices={doRetrieveServices}
+      setSearch={setSearch}
     />
   ) : (
     <AddService doRetrieveServices={doRetrieveServices} />
