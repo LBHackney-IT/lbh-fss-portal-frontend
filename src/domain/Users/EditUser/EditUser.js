@@ -9,7 +9,10 @@ import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import { red } from "../../../settings";
-import { checkIsInternalTeam } from "../../../utils/functions/functions";
+import {
+  checkIsInternalTeam,
+  arraysEqual,
+} from "../../../utils/functions/functions";
 import { doCleanFormValues } from "../../../utils/functions/userFunctions";
 
 const EditUser = (props) => {
@@ -48,7 +51,15 @@ const EditUser = (props) => {
       setEditIsLoading(false);
 
       if (newUser) {
-        toast.success(`User ${newUser.name} updated.`);
+        if (
+          user.name == newUser.name &&
+          arraysEqual(user.roles.sort(), newUser.roles.sort()) &&
+          cleanFormValues.password
+        ) {
+          toast.success(`User ${newUser.name} password updated.`);
+        } else {
+          toast.success(`User ${newUser.name} updated.`);
+        }
 
         navigate("/users");
       } else {
