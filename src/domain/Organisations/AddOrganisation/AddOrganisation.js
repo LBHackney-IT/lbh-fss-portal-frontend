@@ -80,19 +80,18 @@ const AddOrganisation = () => {
 
     setSubmitIsLoading(true);
 
-    const addedOrganisation = await OrganisationService.createOrganisation(
+    const organisationAdded = await OrganisationService.createOrganisation(
       cleanedFormValues
     );
 
     setSubmitIsLoading(false);
 
-    if (addedOrganisation) {
+    if (organisationAdded) {
       toast.success(
-        `New organisation ${addedOrganisation.name} has been submitted for review.`
+        `New organisation ${organisationAdded.name} has been submitted for review.`
       );
 
       fetchMe(setLocalUser, setIsLoading);
-
       navigate("/organisation");
     } else {
       toast.error("Unable to add organisation.");

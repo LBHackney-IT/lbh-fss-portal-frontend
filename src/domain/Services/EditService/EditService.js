@@ -178,8 +178,6 @@ const EditService = (props) => {
 
     setSubmitIsLoading(true);
 
-    console.log(cleanFormValues);
-
     const updatedService = await ServiceService.updateService(
       props.serviceId,
       cleanFormValues

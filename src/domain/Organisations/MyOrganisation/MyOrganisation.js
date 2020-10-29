@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import { red, green, yellow } from "../../../settings";
 import AppLoading from "../../../AppLoading";
+import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
 
 const StyledFeedback = styled.div`
   box-sizing: border-box;
@@ -36,13 +37,26 @@ const StyledApprovedFeedback = styled(StyledFeedback)`
   border: 1px solid ${green[400]};
 `;
 
+async function fetchMe(setUser, setUserIsLoading) {
+  setUserIsLoading(true);
+
+  const user = await AuthenticationService.me();
+
+  setUserIsLoading(false);
+
+  setUser(user);
+}
+
 const MyOrganisation = () => {
-  const user = useContext(UserContext)[0];
+  const [user, setUser] = useContext(UserContext);
+  const [userIsLoading, setUserIsLoading] = useState(false);
+
   const [selectedOrganisation, setSelectedOrganisation] = useState({});
 
   const [removeIsLoading, setRemoveIsLoading] = useState(false);
   const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
 
+  console.log("3. MyOrganisation");
   const {
     organisation,
     isLoading: organisationFetchIsLoading,
@@ -69,10 +83,6 @@ const MyOrganisation = () => {
     navigate(`/organisations/${user.organisation.id}/edit`);
   }
 
-  function doUpdateOrganisation() {
-    navigate(`/organisations/${user.organisation.id}/edit`);
-  }
-
   async function doRemove() {
     if (removeIsLoading) return;
 
@@ -85,6 +95,7 @@ const MyOrganisation = () => {
     setRemoveIsLoading(false);
 
     if (organisationDeleted) {
+      fetchMe(setUser, setUserIsLoading);
       toast.success(`${selectedOrganisation.name} removed.`);
     } else {
       toast.error(`Unable to remove organisation.`);
@@ -113,11 +124,11 @@ const MyOrganisation = () => {
     ];
   }
 
-  if (organisationFetchIsLoading) {
+  if (organisationFetchIsLoading || removeIsLoading || userIsLoading) {
     return <AppLoading />;
   }
 
-  return user.organisation ? (
+  return (
     <>
       <OrganisationTable
         data={[organisation]}
@@ -160,8 +171,6 @@ const MyOrganisation = () => {
         includeReviewerMessage={false}
       />
     </>
-  ) : (
-    <EmptyOrganisation />
   );
 };
 
