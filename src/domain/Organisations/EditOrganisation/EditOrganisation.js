@@ -16,6 +16,7 @@ import {
   organisationFormCheckboxFields as checkboxFields,
 } from "../../../utils/data/data";
 import UserContext from "../../../context/UserContext/UserContext";
+import AppLoading from "../../../AppLoading";
 
 function doCleanDefaultValues(values) {
   yesNoRadioFields.forEach((field) => {
@@ -186,7 +187,7 @@ const EditOrganisation = (props) => {
   }
 
   if (organisationFetchIsLoading || Object.keys(defaultValues).length === 0) {
-    return "Loading";
+    return <AppLoading />;
   }
 
   return (

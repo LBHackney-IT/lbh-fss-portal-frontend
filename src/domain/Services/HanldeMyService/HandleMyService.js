@@ -5,6 +5,7 @@ import AddService from "../AddService/AddService";
 import MyService from "../MyService/MyService";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 import ServiceService from "../../../services/ServiceService/ServiceService";
+import AppLoading from "../../../AppLoading";
 
 const HandleMyService = () => {
   const user = useContext(UserContext)[0];
@@ -55,7 +56,7 @@ const HandleMyService = () => {
   const isInternalTeam = checkIsInternalTeam(user.roles);
 
   if (servicesIsLoading || !userServicesHasUpdated) {
-    return <span>Loading...</span>;
+    return <AppLoading />;
   }
 
   if (isInternalTeam) {

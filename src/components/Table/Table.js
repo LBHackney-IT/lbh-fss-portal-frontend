@@ -4,6 +4,7 @@ import Pagination from "../Pagination/Pagination";
 import { grey } from "../../settings";
 import { breakpoint } from "../../utils/breakpoint/breakpoint";
 import { useTable, usePagination } from "react-table";
+import AppLoading from "../../AppLoading";
 
 const StyledTable = styled.table`
   width: 100%;
@@ -108,7 +109,7 @@ const Table = ({
   );
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return <AppLoading />;
   }
 
   let pageMinIndex = 0;

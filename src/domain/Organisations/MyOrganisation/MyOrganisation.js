@@ -11,6 +11,7 @@ import OrganisationService from "../../../services/OrganisationService/Organisat
 import { toast } from "react-toastify";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import { red, green, yellow } from "../../../settings";
+import AppLoading from "../../../AppLoading";
 
 const StyledFeedback = styled.div`
   box-sizing: border-box;
@@ -114,7 +115,7 @@ const MyOrganisation = () => {
 
   if (user.organisation) {
     return organisationFetchIsLoading ? (
-      <div>Loading...</div>
+      <AppLoading />
     ) : (
       <>
         <OrganisationTable

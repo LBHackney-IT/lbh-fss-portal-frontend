@@ -3,8 +3,6 @@ import OrganisationForm from "../OrganisationForm/OrganisationForm";
 import OrganisationService from "../../../services/OrganisationService/OrganisationService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
-// import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
-// import UserContext from "../../../context/UserContext/UserContext";
 import {
   convertYesNoToBoolean,
   convertCheckboxToBoolean,
@@ -16,6 +14,7 @@ import {
 } from "../../../utils/data/data";
 import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
 import UserContext from "../../../context/UserContext/UserContext";
+import AppLoading from "../../../AppLoading";
 
 async function fetchMe(setUser, setIsLoading) {
   setIsLoading(true);
@@ -101,7 +100,7 @@ const AddOrganisation = () => {
   }
 
   if (submitIsLoading || isLoading) {
-    return <span>Loading...</span>;
+    return <AppLoading />;
   }
 
   return (

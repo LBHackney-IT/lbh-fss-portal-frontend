@@ -11,6 +11,7 @@ import { ReactComponent as Trash } from "./icons/trash.svg";
 import { toast } from "react-toastify";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import ServiceTable from "../ServiceTable/ServiceTable";
+import AppLoading from "../../../AppLoading";
 
 const StyledActionDiv = styled.div`
   display: flex;
@@ -108,7 +109,17 @@ const ListServices = () => {
   const isInternalTeam = checkIsInternalTeam(roles);
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return (
+      <>
+        <div>
+          <StyledActionDiv>
+            <Search setSearch={setSearch} />
+          </StyledActionDiv>
+        </div>
+
+        <AppLoading />
+      </>
+    );
   }
 
   return isInternalTeam ? (

@@ -9,6 +9,7 @@ import { navigate } from "@reach/router";
 import styled from "styled-components";
 import { yellow } from "../../../settings";
 import { doCleanFormValues } from "../../../utils/functions/userFunctions";
+import AppLoading from "../../../AppLoading";
 
 const StyledSetPasswordMessage = styled.div`
   padding: 0px 30px;
@@ -61,7 +62,7 @@ const MyAccount = (props) => {
   };
 
   if (fetchIsLoading) {
-    return <div data-testid="loading">Loading...</div>;
+    return <AppLoading />;
   }
 
   return (

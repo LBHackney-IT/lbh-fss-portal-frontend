@@ -14,6 +14,7 @@ import {
   arraysEqual,
 } from "../../../utils/functions/functions";
 import { doCleanFormValues } from "../../../utils/functions/userFunctions";
+import AppLoading from "../../../AppLoading";
 
 const EditUser = (props) => {
   const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);
@@ -127,7 +128,7 @@ const EditUser = (props) => {
   }
 
   if (fetchIsLoading || resendAuthIsLoading) {
-    return <div data-testid="loading">Loading...</div>;
+    return <AppLoading />;
   }
 
   const isInternalTeam = checkIsInternalTeam(roles);

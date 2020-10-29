@@ -7,6 +7,7 @@ import { grey, green, red } from "../../../../settings";
 import ImageUploader from "react-images-upload";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import { toast } from "react-toastify";
+import AppLoading from "../../../../AppLoading";
 
 const StyledHelp = styled.p`
   color: ${grey[400]};
@@ -49,6 +50,11 @@ const ServiceCategoriesForm = ({
       setImage({ file: picture[0], preview: URL.createObjectURL(picture[0]) });
     }
   }
+
+  if (submitLoading) {
+    return <AppLoading />;
+  }
+
   return (
     <form
       onSubmit={handleSubmit(() => onSubmit({ image: image.file || null }))}

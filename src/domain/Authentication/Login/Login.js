@@ -8,6 +8,7 @@ import Button from "../../../components/Button/Button";
 import UserContext from "../../../context/UserContext/UserContext";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import AppLoading from "../../../AppLoading";
 
 const StyledButton = styled(Button)`
   width: 100%;
@@ -51,6 +52,10 @@ const Login = () => {
 
       emailRef.current.focus();
     }
+  }
+
+  if (isLoading) {
+    return <AppLoading />;
   }
 
   return (

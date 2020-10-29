@@ -3,6 +3,7 @@ import AuthenticationService from "../../../services/AuthenticationService/Authe
 import { navigate } from "@reach/router";
 import UserContext from "../../../context/UserContext/UserContext";
 import { toast } from "react-toastify";
+import AppLoading from "../../../AppLoading";
 
 const Logout = () => {
   const setUser = useContext(UserContext)[1];
@@ -23,7 +24,7 @@ const Logout = () => {
     doLogout();
   }, [setUser]);
 
-  return <>Please wait whilst we log you out.</>;
+  return <AppLoading />;
 };
 
 export default Logout;

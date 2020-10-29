@@ -12,6 +12,7 @@ import {
   doCleanServiceFormValues,
   doCleanServiceImage,
 } from "../../../utils/functions/serviceFunctions";
+import AppLoading from "../../../AppLoading";
 
 function doFormatCategoryDefaultValues(values) {
   const categoryIdArray = values.categories.map((category) => {
@@ -211,7 +212,7 @@ const EditService = (props) => {
     Object.keys(defaultValues).length === 0 ||
     serviceImageIsLoading
   ) {
-    return <div data-testid="loading">Loading...</div>;
+    return <AppLoading />;
   }
 
   return (

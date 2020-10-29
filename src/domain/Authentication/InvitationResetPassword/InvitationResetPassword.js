@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
 import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
+import AppLoading from "../../../AppLoading";
 
 const StyledButton = styled(Button)`
   width: 100%;
@@ -37,7 +38,7 @@ function InvitationResetPassword() {
   }
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return <AppLoading />;
   }
 
   return (
