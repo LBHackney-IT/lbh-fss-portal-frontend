@@ -113,57 +113,56 @@ const MyOrganisation = () => {
     ];
   }
 
-  if (user.organisation) {
-    return organisationFetchIsLoading ? (
-      <AppLoading />
-    ) : (
-      <>
-        <OrganisationTable
-          data={[organisation]}
-          organisationUser={organisationUser}
-          showPagination={false}
-          setSelectedOrganisation={setSelectedOrganisation}
-          actions={actions}
-          actionWidth={"210px"}
-        />
-        {organisation.status === "rejected" && organisation.reviewer_message ? (
-          <StyledRejectedFeedback>
-            {organisation.reviewer_message}
-          </StyledRejectedFeedback>
-        ) : null}
-        {organisation.status === "awaiting reverification" ? (
-          <StyledReverificationFeedback>
-            It has been 12 months since you last verified your organisation
-            information. Please re-verify your organisation by reviewing your
-            organisation information and re-submitting the form.
-          </StyledReverificationFeedback>
-        ) : null}
-        {organisation.status === "published" &&
-        organisation.reviewer_message ? (
-          <StyledApprovedFeedback>
-            {organisation.reviewer_message}
-          </StyledApprovedFeedback>
-        ) : null}
-        <ConfirmModal
-          isOpen={removeModalIsOpen}
-          toggleModal={toggleRemoveModal}
-          confirmMessage={
-            <>
-              Are you sure you want to remove{" "}
-              <strong>{selectedOrganisation.name}</strong>?
-            </>
-          }
-          confirmButtonLabel={"Remove"}
-          confirmButtonColor={red[400]}
-          borderColor={red[400]}
-          onConfirm={doRemove}
-          includeReviewerMessage={false}
-        />
-      </>
-    );
-  } else {
-    return <EmptyOrganisation />;
+  if (organisationFetchIsLoading) {
+    return <AppLoading />;
   }
+
+  return user.organisation ? (
+    <>
+      <OrganisationTable
+        data={[organisation]}
+        organisationUser={organisationUser}
+        showPagination={false}
+        setSelectedOrganisation={setSelectedOrganisation}
+        actions={actions}
+        actionWidth={"210px"}
+      />
+      {organisation.status === "rejected" && organisation.reviewer_message ? (
+        <StyledRejectedFeedback>
+          {organisation.reviewer_message}
+        </StyledRejectedFeedback>
+      ) : null}
+      {organisation.status === "awaiting reverification" ? (
+        <StyledReverificationFeedback>
+          It has been 12 months since you last verified your organisation
+          information. Please re-verify your organisation by reviewing your
+          organisation information and re-submitting the form.
+        </StyledReverificationFeedback>
+      ) : null}
+      {organisation.status === "published" && organisation.reviewer_message ? (
+        <StyledApprovedFeedback>
+          {organisation.reviewer_message}
+        </StyledApprovedFeedback>
+      ) : null}
+      <ConfirmModal
+        isOpen={removeModalIsOpen}
+        toggleModal={toggleRemoveModal}
+        confirmMessage={
+          <>
+            Are you sure you want to remove{" "}
+            <strong>{selectedOrganisation.name}</strong>?
+          </>
+        }
+        confirmButtonLabel={"Remove"}
+        confirmButtonColor={red[400]}
+        borderColor={red[400]}
+        onConfirm={doRemove}
+        includeReviewerMessage={false}
+      />
+    </>
+  ) : (
+    <EmptyOrganisation />
+  );
 };
 
 export default MyOrganisation;

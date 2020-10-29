@@ -10,13 +10,7 @@ const AppLoading = ({ height = 200 }) => {
       }}
     >
       <div style={{ margin: "10px auto" }}>
-        <Loader
-          type="Oval"
-          color={green[300]}
-          height={height}
-          width={100}
-          timeout={3000}
-        />
+        <Loader type="Oval" color={green[300]} height={height} width={100} />
       </div>
     </div>
   );
