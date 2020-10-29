@@ -51,9 +51,21 @@ const EditUser = (props) => {
       setEditIsLoading(false);
 
       if (newUser) {
+        const previousRoles = user.roles
+          .map((role) => {
+            return role.toLowerCase();
+          })
+          .sort();
+
+        const newRoles = newUser.roles
+          .map((role) => {
+            return role.toLowerCase();
+          })
+          .sort();
+
         if (
           user.name == newUser.name &&
-          arraysEqual(user.roles.sort(), newUser.roles.sort()) &&
+          arraysEqual(previousRoles, newRoles) &&
           cleanFormValues.password
         ) {
           toast.success(`User ${newUser.name} password updated.`);
@@ -139,6 +151,7 @@ const EditUser = (props) => {
           showDeleteButton={true}
           showEmail={false}
           onDelete={onDelete}
+          showPassword={user.status !== "invited"}
           showResendAuth={user.status === "invited"}
           onResendAuth={doResendAuthentication}
         />
