@@ -50,6 +50,10 @@ function doCleanFormValues(values) {
     values.status = "awaiting reverification";
   }
 
+  if (values.status === "awaiting reverification") {
+    values.status = "published";
+  }
+
   return values;
 }
 
