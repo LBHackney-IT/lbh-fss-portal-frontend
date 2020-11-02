@@ -16,7 +16,7 @@
     "name": "Reyna Simonis",
     "email": "Kory50@gmail.com",
     "status": "active",
-    "roles": ["vcso", "admin"],
+    "roles": ["Admin"],
     "organisation": {
       "id": 16047,
       "name": "Goodwin - Ruecker"
@@ -564,7 +564,7 @@
     "name": "Adah Johnson",
     "email": "Kayleigh_Bode@hotmail.com",
     "status": "suspended",
-    "roles": ["viewer", "admin", "vcso"],
+    "roles": ["Viewer", "Admin", "VCSO"],
     "created_at": "2020-01-27T17:10:34.234Z",
     "organisation": {
       "id": 66224,

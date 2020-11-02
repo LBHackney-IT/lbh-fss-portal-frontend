@@ -1,4 +1,5 @@
 const organisationFormFields = [
+  "name",
   "is_hackney_based",
   "is_registered_charity",
   "charity_number",
@@ -32,6 +33,15 @@ const organisationFormYesNoRadioFields = [
   "has_child_safeguarding_lead",
   "has_adult_support",
   "has_adult_safeguarding_lead",
+];
+
+const organisationFormCheckboxFields = [
+  "is_registered_charity",
+  "has_hc_or_col_grant",
+  "has_hcvs_or_hg_or_ael_grant",
+  "is_tra_registered",
+  "is_lottery_funded",
+  "is_local_offer_listed",
 ];
 
 const serviceCategoryFields = [
@@ -128,13 +138,13 @@ const serviceCategoryCheckboxOptions = [
   },
   {
     id: "houseAdv",
-    value: 11,
+    value: 10,
     label: "Housing advice",
     help: "For advice on tenancy rights, accommodation and homelessness.",
   },
   {
     id: "immAdv",
-    value: 12,
+    value: 11,
     label: "Immigration advice",
     help: "For help and advice on immigration, asylum and refugee status.",
   },
@@ -191,6 +201,7 @@ const serviceDemographicCheckboxOptions = [
 export {
   organisationFormFields,
   organisationFormYesNoRadioFields,
+  organisationFormCheckboxFields,
   serviceCategoryFields,
   serviceDemographicsFields,
   serviceCategoryCheckboxOptions,

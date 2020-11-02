@@ -9,6 +9,7 @@ import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import { convertStepNumToWord } from "../../../utils/functions/functions";
 import { grey } from "../../../settings";
 import FormNav from "../../../components/FormNav/FormNav";
+import OrganisationName from "./OrganisationName/OrganisationName";
 
 const StyledOrganisationForm = styled.div`
   display: flex;
@@ -56,11 +57,15 @@ const OrganisationForm = ({
   defaultValues = {},
   showHiddenField,
   setShowHiddenField,
-  initialStepId = "confirm-location",
+  initialStepId = "organisation-name",
   submitLoading = false,
   enableAllLinks = false,
 }) => {
   const stepArray = [
+    {
+      id: "organisation-name",
+      label: "Organisation name",
+    },
     {
       id: "confirm-location",
       label: "Where do you provide support?",
@@ -71,7 +76,7 @@ const OrganisationForm = ({
     },
     {
       id: "child-support",
-      label: "Do you provide services for under 16’s",
+      label: "Do you provide services for under 16’s?",
     },
     {
       id: "adult-support",
@@ -116,6 +121,16 @@ const OrganisationForm = ({
 
   const renderStepSwitch = () => {
     switch (stepArray[stepNum].id) {
+      case "organisation-name":
+        return (
+          <OrganisationName
+            defaultValues={draftOrganisation}
+            onSubmit={moveToNextStep}
+            showHiddenField={showHiddenField}
+            setShowHiddenField={setShowHiddenField}
+            setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
+          />
+        );
       case "confirm-location":
         return (
           <OrganisationConfirmLocationForm

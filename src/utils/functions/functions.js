@@ -10,6 +10,11 @@ function convertYesNoToBoolean(value) {
   return value.toLowerCase() === "yes" ? true : false;
 }
 
+function convertCheckboxToBoolean(value) {
+  if (value === null) return null;
+  return value ? true : false;
+}
+
 function getPreviousYears(numberOfYears) {
   const currentYear = new Date().getFullYear();
 
@@ -51,6 +56,10 @@ function objAllFalse(obj) {
 }
 
 function checkIsInternalTeam(roles) {
+  roles = roles.map((role) => {
+    return role.toLowerCase();
+  });
+
   let isInternalTeam = false;
 
   if (roles) {
@@ -63,9 +72,21 @@ function objAllTrue(obj) {
   return Object.keys(obj).every((k) => obj[k]);
 }
 
+function arraysEqual(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length !== b.length) return false;
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
 export {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
+  convertCheckboxToBoolean,
   getPreviousYears,
   convertStepNumToWord,
   arrayOfObjhasDuplicates,
@@ -73,4 +94,5 @@ export {
   objAllFalse,
   checkIsInternalTeam,
   objAllTrue,
+  arraysEqual,
 };

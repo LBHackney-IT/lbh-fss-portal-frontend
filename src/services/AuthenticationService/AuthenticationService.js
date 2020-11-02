@@ -2,55 +2,25 @@ import axios from "axios";
 import API_KEY from "../../settings/apiKey";
 import BASE_API_URL from "../../settings/baseApiUrl";
 
+axios.defaults.withCredentials = true;
+
 const AuthenticationService = {
   async register(name, email, password) {
     try {
-      // TODO: Live API
-      // const response = await axios.post(`${BASE_API_URL}/registration`, {
-      //   data: {
-      //     name: name,
-      //     email: email,
-      //     password: password,
-      //   },
-      //   headers: {
-      //     "x-api-key": API_KEY,
-      //     "Content-Type": "application/json",
-      //   },
-      // });
-
-      // // TODO: Live API
-      const response = await axios.post(`${BASE_API_URL}/registration`, {
-        headers: {
-          "x-api-key": API_KEY,
-          "Content-Type": "application/json",
-        },
-        params: {
-          now: "NOW",
-        },
-        data: {
+      const response = await axios.post(
+        `${BASE_API_URL}/registration`,
+        {
           name: name,
           email: email,
           password: password,
         },
-      });
-      // // // TODO: Live API
-      // const response = await axios.post(
-      //   `${BASE_API_URL}/registration`,
-      //   {
-      //     name: name,
-      //     email: email,
-      //     password: password,
-      //   },
-      //   {
-      //     headers: {
-      //       "x-api-key": API_KEY,
-      //       "Content-Type": "application/json",
-      //     },
-      //     params: {
-      //       now: "NOW",
-      //     },
-      //   }
-      // );
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -59,7 +29,6 @@ const AuthenticationService = {
   },
   async registerConfirmation(email, code) {
     try {
-      // TODO: Live API
       const response = await axios.post(
         `${BASE_API_URL}/registration/confirmation`,
         {
@@ -81,9 +50,8 @@ const AuthenticationService = {
   },
   async resendRegisterConfirmation(email) {
     try {
-      // TODO: Live API
       await axios.post(
-        `${BASE_API_URL}/registration/confirmation/resend`,
+        `${BASE_API_URL}/registration/confirmation/resend-request`,
         {
           email: email,
         },
@@ -102,7 +70,6 @@ const AuthenticationService = {
   },
   async login(email, password) {
     try {
-      // TODO: Live API
       await axios.post(
         `${BASE_API_URL}/session`,
         { email: email, password: password },
@@ -121,15 +88,11 @@ const AuthenticationService = {
   },
   async me() {
     try {
-      // TODO: Mock API
-      const response = await axios.get("/api/account");
-
-      // TODO: Live API
-      // const response = await axios.get(`${BASE_API_URL}/account`, {
-      //   headers: {
-      //     "x-api-key": API_KEY,
-      //   },
-      // });
+      const response = await axios.get(`${BASE_API_URL}/account`, {
+        headers: {
+          "x-api-key": API_KEY,
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -138,7 +101,15 @@ const AuthenticationService = {
   },
   async logout() {
     try {
-      await axios.post("/api/logout");
+      await axios.post(
+        `${BASE_API_URL}/logout`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return true;
     } catch (error) {
@@ -146,73 +117,67 @@ const AuthenticationService = {
     }
   },
   async passwordRecovery(email) {
-    // TODO: Mock API
     try {
-      await axios.post("api/password-recovery", { email: email });
-      console.log("pass");
+      await axios.post(
+        `${BASE_API_URL}/password-recovery`,
+        {
+          email: email,
+        },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       return true;
     } catch (error) {
-      console.log("fail");
       return false;
     }
-
-    // TODO: Live API
-    // try {
-    //   await axios.post(
-    //     `${BASE_API_URL}/password-recovery`,
-    //     {
-    //       email: email,
-    //     },
-    //     {
-    //       headers: {
-    //         "x-api-key": API_KEY,
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-    //   console.log("pass");
-    //   return true;
-    // } catch (error) {
-    //   console.log("fail");
-    //   return false;
-    // }
   },
   async passwordRecoveryConfirmation(email, code, password) {
-    // TODO: Mock API
     try {
-      await axios.post("api/password-recovery/confirmation", {
-        email: email,
-        code: code,
-        password: password,
-      });
-      console.log("pass");
+      await axios.post(
+        `${BASE_API_URL}/password-recovery/confirmation`,
+        {
+          email: email,
+          code: code,
+          password: password,
+        },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       return true;
     } catch (error) {
-      console.log("fail");
       return false;
     }
+  },
+  async invitationConfirmation(email, password, newPassword) {
+    try {
+      await axios.post(
+        `${BASE_API_URL}/invitation/confirmation`,
+        {
+          email: email,
+          password: password,
+          newPassword: newPassword,
+        },
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    // TODO: Live API
-    // try {
-    //   await axios.post(
-    //     `${BASE_API_URL}/password-recovery/confirmation`,
-    //     {
-    //       email: email,
-    //       code: code,
-    //       password: password,
-    //     },
-    //     {
-    //       headers: {
-    //         "x-api-key": API_KEY,
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-
-    //   return true;
-    // } catch (error) {
-    //   return false;
-    // }
+      return true;
+    } catch (error) {
+      return false;
+    }
   },
 };
 

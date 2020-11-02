@@ -11,6 +11,7 @@ import { ReactComponent as Trash } from "./icons/trash.svg";
 import { toast } from "react-toastify";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import ServiceTable from "../ServiceTable/ServiceTable";
+import AppLoading from "../../../AppLoading";
 
 const StyledActionDiv = styled.div`
   display: flex;
@@ -28,6 +29,31 @@ const StyledActionDiv = styled.div`
   background-color: ${grey[500]};
 `;
 
+async function fetchServices(search, setIsLoading, setData) {
+  let services = false;
+
+  if (search) {
+    services = await ServiceService.retrieveServices({
+      limit: 9999,
+      search: search,
+    });
+  } else {
+    services = await ServiceService.retrieveServices({
+      limit: 9999,
+      search: "",
+    });
+  }
+
+  setIsLoading(false);
+
+  if (services) {
+    setData(services);
+  } else {
+    toast.error("Could not find services");
+    setData([]);
+  }
+}
+
 const ListServices = () => {
   const { roles } = useContext(UserContext)[0];
 
@@ -42,27 +68,7 @@ const ListServices = () => {
   const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
 
   useEffect(() => {
-    async function fetchServices() {
-      let services = false;
-
-      if (search) {
-        services = await ServiceService.retrieveServices({
-          limit: Infinity,
-          search: search,
-        });
-      } else {
-        services = await ServiceService.retrieveServices({
-          limit: Infinity,
-          search: "",
-        });
-      }
-
-      setIsLoading(false);
-
-      setData(services || []);
-    }
-
-    fetchServices();
+    fetchServices(search, setIsLoading, setData);
   }, [search, setIsLoading, setData]);
 
   function toggleRemoveModal() {
@@ -84,6 +90,7 @@ const ListServices = () => {
 
     if (serviceDeleted) {
       toast.success(`${selectedService.name} removed.`);
+      fetchServices(search, setIsLoading, setData);
     } else {
       toast.error(`Unable to remove service.`);
     }
@@ -102,7 +109,17 @@ const ListServices = () => {
   const isInternalTeam = checkIsInternalTeam(roles);
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return (
+      <>
+        <div>
+          <StyledActionDiv>
+            <Search setSearch={setSearch} />
+          </StyledActionDiv>
+        </div>
+
+        <AppLoading />
+      </>
+    );
   }
 
   return isInternalTeam ? (

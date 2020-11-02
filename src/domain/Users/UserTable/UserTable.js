@@ -38,19 +38,21 @@ const UserTable = ({ data, isLoading, search }) => {
           return (
             <StyledUl>
               {e.value.map((item, i) => {
-                return <li key={i}>{roles[item]}</li>;
+                return <li key={i}>{item}</li>;
               })}
             </StyledUl>
           );
         },
       },
       {
-        Header: "Member for",
-        accessor: "member_for",
-      },
-      {
-        Header: "Last access",
-        accessor: "last_access",
+        Header: "Member since",
+        accessor: "created_at",
+        Cell: (e) => {
+          const createdAtDate = new Date(e.value);
+          return createdAtDate == "Invalid Date"
+            ? "Unknown"
+            : createdAtDate.toLocaleDateString();
+        },
       },
     ],
     []

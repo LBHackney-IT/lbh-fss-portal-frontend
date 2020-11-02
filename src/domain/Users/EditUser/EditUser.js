@@ -9,8 +9,12 @@ import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import { red } from "../../../settings";
-import { checkIsInternalTeam } from "../../../utils/functions/functions";
+import {
+  checkIsInternalTeam,
+  arraysEqual,
+} from "../../../utils/functions/functions";
 import { doCleanFormValues } from "../../../utils/functions/userFunctions";
+import AppLoading from "../../../AppLoading";
 
 const EditUser = (props) => {
   const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);
@@ -48,7 +52,27 @@ const EditUser = (props) => {
       setEditIsLoading(false);
 
       if (newUser) {
-        toast.success(`User ${newUser.name} updated.`);
+        const previousRoles = user.roles
+          .map((role) => {
+            return role.toLowerCase();
+          })
+          .sort();
+
+        const newRoles = newUser.roles
+          .map((role) => {
+            return role.toLowerCase();
+          })
+          .sort();
+
+        if (
+          user.name == newUser.name &&
+          arraysEqual(previousRoles, newRoles) &&
+          cleanFormValues.password
+        ) {
+          toast.success(`User ${newUser.name} password updated.`);
+        } else {
+          toast.success(`User ${newUser.name} updated.`);
+        }
 
         navigate("/users");
       } else {
@@ -104,10 +128,14 @@ const EditUser = (props) => {
   }
 
   if (fetchIsLoading || resendAuthIsLoading) {
-    return <div data-testid="loading">Loading</div>;
+    return <AppLoading />;
   }
 
   const isInternalTeam = checkIsInternalTeam(roles);
+
+  user.roles = user.roles.map((role) => {
+    return role.toLowerCase();
+  });
 
   return isInternalTeam ? (
     <>
@@ -124,7 +152,8 @@ const EditUser = (props) => {
           showDeleteButton={true}
           showEmail={false}
           onDelete={onDelete}
-          showResendAuth={user.status === "unverified"}
+          showPassword={user.status !== "invited"}
+          showResendAuth={user.status === "invited"}
           onResendAuth={doResendAuthentication}
         />
       </RaisedCard>

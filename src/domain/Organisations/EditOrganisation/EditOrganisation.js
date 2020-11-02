@@ -7,11 +7,16 @@ import { toast } from "react-toastify";
 import {
   convertBooleanToYesNo,
   convertYesNoToBoolean,
+  convertCheckboxToBoolean,
+  checkIsInternalTeam,
 } from "../../../utils/functions/functions";
 import {
   organisationFormFields as allFields,
   organisationFormYesNoRadioFields as yesNoRadioFields,
+  organisationFormCheckboxFields as checkboxFields,
 } from "../../../utils/data/data";
+import UserContext from "../../../context/UserContext/UserContext";
+import AppLoading from "../../../AppLoading";
 
 function doCleanDefaultValues(values) {
   yesNoRadioFields.forEach((field) => {
@@ -35,6 +40,16 @@ function doCleanFormValues(values) {
       values[field] = convertYesNoToBoolean(values[field]);
     }
   });
+
+  checkboxFields.forEach((field) => {
+    if (field in values) {
+      values[field] = convertCheckboxToBoolean(values[field]);
+    }
+  });
+
+  if (values.status === "rejected") {
+    values.status = "awaiting reverification";
+  }
 
   if (values.status === "awaiting reverification") {
     values.status = "published";
@@ -94,6 +109,7 @@ function doAppendUpdatedFields(organisation, formFields) {
 }
 
 const EditOrganisation = (props) => {
+  const user = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [defaultValues, setDefaultValues] = useState({});
 
@@ -148,7 +164,7 @@ const EditOrganisation = (props) => {
     setSubmitIsLoading(false);
 
     if (updatedOrganisation) {
-      if (updatedOrganisation.status === "rejected") {
+      if (updatedOrganisation.status === "awaiting reverification") {
         toast.warning(
           `Organisation ${updatedOrganisation.name} has been submitted for review.`
         );
@@ -158,14 +174,20 @@ const EditOrganisation = (props) => {
         );
       }
 
-      navigate("/service");
+      const isInternalTeam = checkIsInternalTeam(user.roles);
+
+      if (isInternalTeam) {
+        navigate("/organisations");
+      } else {
+        navigate("/service");
+      }
     } else {
       toast.error("Unable to update organisation.");
     }
   }
 
   if (organisationFetchIsLoading || Object.keys(defaultValues).length === 0) {
-    return "Loading";
+    return <AppLoading />;
   }
 
   return (

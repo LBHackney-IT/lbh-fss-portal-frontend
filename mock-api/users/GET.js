@@ -24,5 +24,5 @@ module.exports = (req, res) => {
     })
     .slice(offset, limit);
 
-  return res.status(200).send(users);
+  return res.status(200).send({ users: users });
 };

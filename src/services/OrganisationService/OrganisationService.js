@@ -1,4 +1,8 @@
 import axios from "axios";
+import API_KEY from "../../settings/apiKey";
+import BASE_API_URL from "../../settings/baseApiUrl";
+
+axios.defaults.withCredentials = true;
 
 const OrganisationService = {
   async retrieveOrganisations({
@@ -15,45 +19,26 @@ const OrganisationService = {
     reviewed_after = "",
   }) {
     try {
-      // TODO: Mock API
-      const response = await axios.get("/api/organisations", {
+      const response = await axios.get(`${BASE_API_URL}/organisations`, {
         params: {
-          sort,
-          direction,
-          offset,
-          limit,
-          search,
-          created_before,
-          created_after,
-          submitted_before,
-          submitted_after,
-          reviewed_before,
-          reviewed_after,
+          sort: sort,
+          direction: direction,
+          offset: offset,
+          limit: limit,
+          search: search,
+          created_before: created_before,
+          created_after: created_after,
+          submitted_before: submitted_before,
+          submitted_after: submitted_after,
+          reviewed_before: reviewed_before,
+          reviewed_after: reviewed_after,
+        },
+        headers: {
+          "x-api-key": API_KEY,
         },
       });
 
-      // TODO: Live API
-      // const response = await axios.get(
-      // `${BASE_API_URL}/organisations`, {
-      //   params: {
-      //     sort: sort,
-      //     direction: direction,
-      //     offset: offset,
-      //     limit: limit,
-      //     search: search,
-      //     created_before: created_before,
-      //     created_after: created_after,
-      //     submitted_before: submitted_before,
-      //     submitted_after: submitted_after,
-      //     reviewed_before: reviewed_before,
-      //     reviewed_after: reviewed_after,
-      //   },
-      //   headers: {
-      //     "x-api-key": API_KEY,
-      //   },
-      // });
-
-      return response.data;
+      return response.data.organisations;
     } catch (error) {
       console.error(error);
 
@@ -62,20 +47,16 @@ const OrganisationService = {
   },
   async createOrganisation(values) {
     try {
-      // TODO: Mock API
-      const response = await axios.post("/api/organisations", values);
-
-      // TODO: Live API
-      // const response = await axios.post(
-      //   `${BASE_API_URL}/organisations`,
-      //   values,
-      //   {
-      //     headers: {
-      //       "x-api-key": API_KEY,
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
+      const response = await axios.post(
+        `${BASE_API_URL}/organisations`,
+        values,
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -86,16 +67,11 @@ const OrganisationService = {
   },
   async getOrganisation(id) {
     try {
-      // TODO: Mock API
-      const response = await axios.get(`/api/organisations/${id}`);
-
-      // TODO: Live API
-      // const response = await axios.get(`${BASE_API_URL}/organisations/${id}`, {
-      //   headers: {
-      //     "x-api-key": API_KEY,
-      //     "Content-Type": "application/json",
-      //   },
-      // });
+      const response = await axios.get(`${BASE_API_URL}/organisations/${id}`, {
+        headers: {
+          "x-api-key": API_KEY,
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -106,14 +82,16 @@ const OrganisationService = {
   },
   async updateOrganisation(id, values) {
     try {
-      // TODO: Mock API
-      const response = await axios.patch(`/api/organisations/${id}`, values);
-
-      // TODO: Live API
-      // const response = await axios.patch(
-      //   `${BASE_API_URL}/organisations/${id}`,
-      //   values
-      // );
+      const response = await axios.patch(
+        `${BASE_API_URL}/organisations/${id}`,
+        values,
+        {
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -124,7 +102,11 @@ const OrganisationService = {
   },
   async deleteOrganisation(id) {
     try {
-      await axios.delete(`/api/organisations/${id}`);
+      await axios.delete(`${BASE_API_URL}/organisations/${id}`, {
+        headers: {
+          "x-api-key": API_KEY,
+        },
+      });
 
       return true;
     } catch (error) {

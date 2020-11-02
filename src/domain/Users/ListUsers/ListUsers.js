@@ -69,10 +69,16 @@ const StyledLink = styled(Link)`
 `;
 
 function cleanDataForExport(data) {
+  data.forEach((user) => {
+    user.roles = user.roles.map((role) => {
+      return role.toLowerCase();
+    });
+  });
+
   const newData = data
-    .filter((user) => user.status === "active")
+    .filter((user) => user.status.toLowerCase() === "active")
     .map((user) => {
-      user.organisationName = user.organisation.name;
+      user.organisationName = user.organisation ? user.organisation.name : "";
 
       if (user.roles.includes("vcso")) {
         user.rolesVcso = "Yes";
@@ -88,6 +94,7 @@ function cleanDataForExport(data) {
 
       return user;
     });
+
   return newData;
 }
 
@@ -95,6 +102,7 @@ const ListUsers = ({ location }) => {
   const { roles } = useContext(UserContext)[0];
 
   const [data, setData] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [search, setSearch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -102,22 +110,22 @@ const ListUsers = ({ location }) => {
     async function fetchData() {
       let users = false;
       if (search) {
-        users = await UserService.retrieveUsers(
-          "name",
-          "asc",
-          0,
-          Infinity,
-          search
-        );
+        users = await UserService.retrieveUsers("name", "asc", 0, 9999, search);
       } else {
-        users = await UserService.retrieveUsers("name", "asc", 0, Infinity, "");
+        users = await UserService.retrieveUsers("name", "asc", 0, 9999, "");
+        setAllUsers(users);
       }
+
+      if (users) {
+        users = users.filter((user) => user.status !== "deleted");
+      }
+
       setData(users || []);
       setIsLoading(false);
     }
 
     fetchData();
-  }, [search, setData, setIsLoading]);
+  }, [search, setData, setAllUsers, setIsLoading]);
 
   const isInternalTeam = checkIsInternalTeam(roles);
 
@@ -132,7 +140,7 @@ const ListUsers = ({ location }) => {
     { label: "Status", key: "status" },
   ];
 
-  const dataForExport = cleanDataForExport(data);
+  const dataForExport = cleanDataForExport(allUsers);
 
   return isInternalTeam ? (
     <>

@@ -1,17 +1,21 @@
 import React, { useContext, useState } from "react";
 import ServiceForm from "../ServiceForm/ServiceForm";
 import ServiceService from "../../../services/ServiceService/ServiceService";
-import { navigate } from "@reach/router";
+import { navigate, Redirect } from "@reach/router";
 import { toast } from "react-toastify";
-import useServiceFetch from "../../../hooks/useServiceFetch/useServiceFetch";
 import UserContext from "../../../context/UserContext/UserContext";
 import {
   serviceCategoryCheckboxOptions,
   serviceDemographicCheckboxOptions,
 } from "../../../utils/data/data";
-import { doCleanServiceFormValues } from "../../../utils/functions/serviceFunctions";
+import {
+  doCleanServiceFormValues,
+  doCleanServiceImage,
+} from "../../../utils/functions/serviceFunctions";
+import AccessDenied from "../../Error/AccessDenied/AccessDenied";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
-const AddService = () => {
+const AddService = ({ doRetrieveServices = () => {} }) => {
   const localUser = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
 
@@ -46,22 +50,49 @@ const AddService = () => {
     cleanFormValues.created_at = new Date();
     cleanFormValues.updated_at = null;
 
+    const serviceImage = doCleanServiceImage(cleanFormValues.image);
+
     setSubmitIsLoading(true);
 
     const service = await ServiceService.createService(cleanFormValues);
 
     setSubmitIsLoading(false);
 
-    if (service) {
-      toast.success(`New service ${service.name} created.`);
+    if (service && cleanFormValues.image) {
+      setSubmitIsLoading(true);
 
+      const returnedServiceImage = await ServiceService.createServiceImage(
+        service.id,
+        serviceImage
+      );
+
+      setSubmitIsLoading(false);
+
+      if (returnedServiceImage || !cleanFormValues.image) {
+        toast.success(`New service ${service.name} created.`);
+        doRetrieveServices();
+        navigate("/service");
+      } else {
+        toast.warning(
+          `New service ${service.name} created but service image failed to upload.`
+        );
+      }
+    } else if (service) {
+      toast.success(`New service ${service.name} created.`);
+      doRetrieveServices();
       navigate("/service");
     } else {
       toast.error("Unable to add service.");
     }
   }
 
-  return (
+  const isInternalTeam = checkIsInternalTeam(localUser.roles);
+
+  if (isInternalTeam) {
+    return <Redirect to="/services" noThrow />;
+  }
+
+  return localUser.organisation ? (
     <>
       <ServiceForm
         pageTitle={"Create your service listing"}
@@ -74,6 +105,8 @@ const AddService = () => {
         setShowHiddenField={setShowHiddenField}
       />
     </>
+  ) : (
+    <AccessDenied />
   );
 };
 

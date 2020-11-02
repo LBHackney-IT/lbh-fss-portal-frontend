@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { grey, green, red } from "../../../../settings";
 import ImageUploader from "react-images-upload";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
+import { toast } from "react-toastify";
+import AppLoading from "../../../../AppLoading";
 
 const StyledHelp = styled.p`
   color: ${grey[400]};
@@ -31,6 +33,7 @@ const ServiceCategoriesForm = ({
   if (defaultValues.image) {
     defaultValues.image.preview = defaultValues.image.medium;
   }
+
   const [image, setImage] = useState(defaultValues.image || {});
 
   const { handleSubmit } = useForm({
@@ -43,8 +46,15 @@ const ServiceCategoriesForm = ({
   }
 
   function doAddImage(picture) {
-    setImage({ file: picture[0], preview: URL.createObjectURL(picture[0]) });
+    if (picture.length !== 0) {
+      setImage({ file: picture[0], preview: URL.createObjectURL(picture[0]) });
+    }
   }
+
+  if (submitLoading) {
+    return <AppLoading />;
+  }
+
   return (
     <form
       onSubmit={handleSubmit(() => onSubmit({ image: image.file || null }))}
@@ -91,6 +101,7 @@ const ServiceCategoriesForm = ({
               padding: "15px",
               borderBottom: "2px solid black",
             }}
+            errorStyle={{ fontSize: "15px" }}
           />
         )}
         {!image.preview ? (

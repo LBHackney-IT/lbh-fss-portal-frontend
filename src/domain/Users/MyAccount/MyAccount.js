@@ -9,6 +9,7 @@ import { navigate } from "@reach/router";
 import styled from "styled-components";
 import { yellow } from "../../../settings";
 import { doCleanFormValues } from "../../../utils/functions/userFunctions";
+import AppLoading from "../../../AppLoading";
 
 const StyledSetPasswordMessage = styled.div`
   padding: 0px 30px;
@@ -46,8 +47,11 @@ const MyAccount = (props) => {
       setEditIsLoading(false);
 
       if (newUser) {
-        toast.success(`Your account has been updated.`);
-
+        if (cleanFormValues.password) {
+          toast.success(`Your password has been updated.`);
+        } else {
+          toast.success(`Your account has been updated.`);
+        }
         navigate("/organisation");
       } else {
         toast.error("Unable to update account.");
@@ -58,7 +62,7 @@ const MyAccount = (props) => {
   };
 
   if (fetchIsLoading) {
-    return <div data-testid="loading">Loading</div>;
+    return <AppLoading />;
   }
 
   return (
@@ -80,6 +84,7 @@ const MyAccount = (props) => {
           submitLoading={editIsLoading}
           showRoles={false}
           showEmail={false}
+          showResendAuth={false}
         />
       </RaisedCard>
     </>

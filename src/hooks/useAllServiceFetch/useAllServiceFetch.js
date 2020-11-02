@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ServiceService from "../../services/ServiceService/ServiceService";
 import { toast } from "react-toastify";
 
-function useAllServiceFetch(paramsObject = { limit: Infinity, search: "" }) {
+function useAllServiceFetch(paramsObject = { limit: 9999, search: "" }) {
   const [services, setServices] = useState([]);
   const [servicesIsLoading, setServicesIsLoading] = useState(true);
 
@@ -16,8 +16,6 @@ function useAllServiceFetch(paramsObject = { limit: Infinity, search: "" }) {
 
       if (retrievedServices) {
         setServices(retrievedServices);
-      } else {
-        toast.error("Unable to find services");
       }
     }
 

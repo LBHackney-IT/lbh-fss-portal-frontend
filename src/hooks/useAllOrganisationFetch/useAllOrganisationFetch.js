@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import OrganisationService from "../../services/OrganisationService/OrganisationService";
 import { toast } from "react-toastify";
 
-function useAllOrganisationFetch(
-  paramsObject = { limit: Infinity, search: "" }
-) {
+function useAllOrganisationFetch(paramsObject = { limit: 9999, search: "" }) {
   const [organisations, setOrganisations] = useState([]);
   const [organisationsIsLoading, setOrganisationsIsLoading] = useState(true);
 

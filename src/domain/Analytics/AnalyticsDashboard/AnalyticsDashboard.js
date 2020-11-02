@@ -17,6 +17,8 @@ import {
 } from "../../../utils/functions/analyticsFunctions";
 import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 import moment from "moment";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
+import AppLoading from "../../../AppLoading";
 
 const StyledDateSelectOuterContainer = styled.div`
   background-color: ${grey[500]};
@@ -126,13 +128,13 @@ const AnalyticsDashboard = () => {
 
   const { roles } = useContext(UserContext)[0];
 
-  const accessPermission = roles.includes("viewer") || roles.includes("admin");
+  const isInternalTeam = checkIsInternalTeam(roles);
 
   if (servicesIsLoading || organisationsIsLoading) {
-    return <span>Loading...</span>;
+    return <AppLoading />;
   }
 
-  return accessPermission ? (
+  return isInternalTeam ? (
     <>
       <StyledDateSelectOuterContainer>
         <StyledDateSelectInnerContainer>

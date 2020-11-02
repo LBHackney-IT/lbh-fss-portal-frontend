@@ -47,21 +47,23 @@ const RegisterStep3 = () => {
     defaultValues: defaultValues,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const setUser = useContext(UserContext)[1];
   const [emailValidationStatus, setEmailValidationStatus] = useState("pass");
 
   // define function to trigger on form submission
   async function doRegisterConfirmation({ email, code }) {
     setIsLoading(true);
 
-    const user = await AuthenticationService.registerConfirmation(email, code);
+    const isRegistered = await AuthenticationService.registerConfirmation(
+      email,
+      code
+    );
 
     setIsLoading(false);
 
-    if (user) {
-      setUser(user);
+    if (isRegistered) {
+      toast.success("Account successfully created.");
       Cookies.remove("registerStep1Values");
-      navigate("/service");
+      navigate("/");
     } else {
       toast.error("Registration failed.");
     }

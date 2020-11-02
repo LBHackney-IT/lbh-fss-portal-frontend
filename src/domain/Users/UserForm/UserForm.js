@@ -134,7 +134,7 @@ const UserForm = ({
             name="password"
             register={register}
             maxLength={255}
-            minLength={6}
+            minLength={8}
             validate={{
               oneCapital: (value) => {
                 if (value.length === 0) {

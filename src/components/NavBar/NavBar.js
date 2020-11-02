@@ -98,9 +98,9 @@ function NavBar() {
     setMenuIsOpen(!menuIsOpen);
   }
 
-  const { roles } = useContext(UserContext)[0];
+  const user = useContext(UserContext)[0];
 
-  const isInternalTeam = checkIsInternalTeam(roles);
+  const isInternalTeam = checkIsInternalTeam(user.roles);
 
   return (
     <>
@@ -123,9 +123,11 @@ function NavBar() {
 
           {isInternalTeam ? (
             <StyledPrimaryLink to="/services">Listings</StyledPrimaryLink>
-          ) : (
+          ) : null}
+
+          {!isInternalTeam && user.organisation ? (
             <StyledPrimaryLink to="/service">Your listings</StyledPrimaryLink>
-          )}
+          ) : null}
 
           {isInternalTeam ? (
             <>

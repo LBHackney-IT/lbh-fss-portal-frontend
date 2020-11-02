@@ -3,20 +3,33 @@ import OrganisationForm from "../OrganisationForm/OrganisationForm";
 import OrganisationService from "../../../services/OrganisationService/OrganisationService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
-// import useOrganisationFetch from "../../../hooks/useOrganisationFetch/useOrganisationFetch";
-// import UserContext from "../../../context/UserContext/UserContext";
-import { convertYesNoToBoolean } from "../../../utils/functions/functions";
+import {
+  convertYesNoToBoolean,
+  convertCheckboxToBoolean,
+} from "../../../utils/functions/functions";
 import {
   organisationFormFields as allFields,
   organisationFormYesNoRadioFields as yesNoRadioFields,
+  organisationFormCheckboxFields as checkboxFields,
 } from "../../../utils/data/data";
+import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
+import UserContext from "../../../context/UserContext/UserContext";
+import AppLoading from "../../../AppLoading";
+
+async function fetchMe(setUser, setIsLoading) {
+  setIsLoading(true);
+
+  const user = await AuthenticationService.me();
+
+  setIsLoading(false);
+
+  setUser(user);
+}
 
 const AddOrganisation = () => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
-  // const localUser = useContext(UserContext)[0];
-  // const { organisation, isLoading: fetchIsLoading } = useOrganisationFetch(
-  //   localUser.organisation.id
-  // );
+  const setLocalUser = useContext(UserContext)[1];
+  const [isLoading, setIsLoading] = useState(false);
 
   const [showHiddenField, setShowHiddenField] = useState({
     notBasedInWarning: false,
@@ -43,13 +56,18 @@ const AddOrganisation = () => {
       }
     });
 
-    // TODO: agree these with martin
-    values.id = "";
+    checkboxFields.forEach((field) => {
+      if (field in values) {
+        values[field] = convertCheckboxToBoolean(values[field]);
+      }
+    });
+
+    values.id = null;
     values.created_at = new Date();
-    values.updated_at = "";
+    values.updated_at = null;
     values.submitted_at = new Date();
-    values.reviewed_at = "";
-    values.reviewer_message = "";
+    values.reviewed = null;
+    values.reviewer_id = null;
     values.status = "awaiting review";
 
     return values;
@@ -62,23 +80,26 @@ const AddOrganisation = () => {
 
     setSubmitIsLoading(true);
 
-    const addedOrganisation = await OrganisationService.createOrganisation(
+    const organisationAdded = await OrganisationService.createOrganisation(
       cleanedFormValues
     );
 
     setSubmitIsLoading(false);
 
-    if (addedOrganisation) {
-      toast.success(`New organisation ${addedOrganisation.name} created.`);
+    if (organisationAdded) {
+      toast.success(
+        `New organisation ${organisationAdded.name} has been submitted for review.`
+      );
 
-      navigate("/service");
+      fetchMe(setLocalUser, setIsLoading);
+      navigate("/organisation");
     } else {
       toast.error("Unable to add organisation.");
     }
   }
 
-  if (submitIsLoading) {
-    return <span>Loading</span>;
+  if (submitIsLoading || isLoading) {
+    return <AppLoading />;
   }
 
   return (

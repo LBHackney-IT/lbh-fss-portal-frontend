@@ -8,6 +8,7 @@ import Button from "../../../components/Button/Button";
 import UserContext from "../../../context/UserContext/UserContext";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import AppLoading from "../../../AppLoading";
 
 const StyledButton = styled(Button)`
   width: 100%;
@@ -24,16 +25,21 @@ const Login = () => {
 
     setIsLoading(true);
 
-    const user = await AuthenticationService.login(email, password);
-    const isLoggedIn = await AuthenticationService.me();
+    const isLoggedIn = await AuthenticationService.login(email, password);
 
     setIsLoading(false);
 
     if (!isLoggedIn) {
-      toast.error("Unable to login.");
+      toast.error("Username or password is incorrect.");
       navigate("/");
       return;
     }
+
+    setIsLoading(true);
+
+    const user = await AuthenticationService.me();
+
+    setIsLoading(false);
 
     if (user) {
       setUser(user);
@@ -46,6 +52,10 @@ const Login = () => {
 
       emailRef.current.focus();
     }
+  }
+
+  if (isLoading) {
+    return <AppLoading />;
   }
 
   return (

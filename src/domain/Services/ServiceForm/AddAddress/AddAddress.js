@@ -11,6 +11,7 @@ import { keyBy } from "lodash";
 import { green } from "../../../../settings";
 import ServiceService from "../../../../services/ServiceService/ServiceService";
 import { addFormattedAddress } from "../../../../utils/functions/serviceFunctions";
+import AppLoading from "../../../../AppLoading";
 
 const StyledHighlightedText = styled.p`
   font-size: 19px;
@@ -68,7 +69,9 @@ const ServiceLocationsForm = ({
     setAddressesIsLoading(false);
 
     if (data) {
-      const dataWithFormattedAddress = addFormattedAddress(data.addresses);
+      setSelectedPostcodeValue(postcode);
+
+      const dataWithFormattedAddress = addFormattedAddress(data);
 
       setAddresses(keyBy(dataWithFormattedAddress, "formattedAddress"));
 
@@ -76,6 +79,7 @@ const ServiceLocationsForm = ({
         address: defaultValues.formattedAddress,
       });
     } else {
+      setSelectedPostcodeValue("");
       toast.error(`Postcode ${postcode} could not be found.`);
     }
   }
@@ -111,10 +115,12 @@ const ServiceLocationsForm = ({
   }
 
   if (addressesIsLoading) {
-    return <div style={{ height: "270px" }}>Loading...</div>;
+    return (
+      <div style={{ height: "270px" }}>
+        <AppLoading />
+      </div>
+    );
   }
-
-  console.log(addressCounter);
 
   if (postcodeHasBeenRemoved)
     return (
@@ -138,8 +144,6 @@ const ServiceLocationsForm = ({
     <form
       onSubmit={handleSubmit(() => {
         let postcode = getValues().postcode.toUpperCase();
-
-        setSelectedPostcodeValue(postcode);
 
         doFindAddress(postcode);
 
