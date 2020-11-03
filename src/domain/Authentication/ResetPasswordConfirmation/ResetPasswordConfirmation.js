@@ -57,6 +57,8 @@ const ResetPasswordConfirmation = () => {
 
       toast.error("Password reset failed.");
     }
+
+    Cookies.remove("passwordReset");
   }
 
   return (

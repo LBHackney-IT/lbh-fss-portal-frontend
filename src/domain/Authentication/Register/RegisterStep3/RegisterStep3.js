@@ -105,7 +105,7 @@ const RegisterStep3 = () => {
 
   return (
     <>
-      <h1>Enter confirmation</h1>
+      <h1>Enter confirmation code</h1>
       <form onSubmit={handleSubmit(doRegisterConfirmation)}>
         <FormInput
           label="Email"

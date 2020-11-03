@@ -39,12 +39,15 @@ const EmptyOrganisation = () => {
             <strong>Tell us about your organisation</strong>
           </div>
           <p>
-            You can <strong>only</strong> be added to the directory if your
-            organisation meets our criteria:
+            You may only be added to Find support services if your organisation
+            meets our criteria:
           </p>
           <ul>
-            <li>Your organisation operates in Hackney or City</li>
-            <li>Is a registered charity or receives funding</li>
+            <li>Operates in Hackney or City of London</li>
+            <li>
+              Is a registered charity, receives funding from a known source or
+              is registered with a Tenants’ and Residents’ Association
+            </li>
             <li>Has relevant safeguarding leads in place (if required)</li>
           </ul>
         </div>
@@ -53,12 +56,12 @@ const EmptyOrganisation = () => {
           <div>
             <strong>Tell us what you do</strong>
           </div>
-          <p>You can add details such as:</p>
+          <p>You can add details including:</p>
           <ul>
-            <li>Your service name</li>
-            <li>Descriptions about your services</li>
-            <li>Contact details</li>
-            <li>Your location</li>
+            <li>Organisation name</li>
+            <li>Description of your services and activities</li>
+            <li>Who your service is for</li>
+            <li>Contact details and location(s)</li>
           </ul>
         </div>
         <Button
