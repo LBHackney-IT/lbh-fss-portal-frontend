@@ -92,7 +92,7 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
     return <Redirect to="/services" noThrow />;
   }
 
-  return localUser.organisation ? (
+  return (
     <>
       <ServiceForm
         pageTitle={"Create your service listing"}
@@ -105,8 +105,6 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
         setShowHiddenField={setShowHiddenField}
       />
     </>
-  ) : (
-    <AccessDenied />
   );
 };
 

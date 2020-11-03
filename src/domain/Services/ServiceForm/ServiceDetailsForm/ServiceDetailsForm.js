@@ -19,16 +19,16 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
         <FormInput
           name="name"
           type="text"
-          label="Service name"
+          label="Organisation name"
           register={register}
           error={errors.name}
           maxLength={255}
           required
-          help="This is how your service will be displayed on the website"
+          help="This is how you will be displayed on the website"
         />
         <FormTextbox
           name="description"
-          label="Service description"
+          label="Organisation description"
           register={register}
           maxLength={80}
           required
