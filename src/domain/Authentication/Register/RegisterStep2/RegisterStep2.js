@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import FormInput from "../../../../components/FormInput/FormInput";
 import Button from "../../../../components/Button/Button";
 import styled from "styled-components";
-import { navigate, Redirect } from "@reach/router";
+import { Link, navigate, Redirect } from "@reach/router";
 import AuthenticationService from "../../../../services/AuthenticationService/AuthenticationService";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
@@ -11,6 +11,10 @@ import { toast } from "react-toastify";
 const StyledButton = styled(Button)`
   width: 100%;
   margin: 0;
+`;
+
+const StyledLink = styled(Link)`
+  margin-top: "30px";
 `;
 
 const RegisterStep2 = () => {
@@ -129,6 +133,9 @@ const RegisterStep2 = () => {
               label="Create Password"
               disabled={isLoading}
             />
+            <div style={{ marginTop: "15px" }}>
+              <StyledLink to="/">Already have an account?</StyledLink>
+            </div>
           </form>
         </>
       )}

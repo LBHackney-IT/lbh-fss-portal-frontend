@@ -12,6 +12,7 @@ import AppLoading from "../../../AppLoading";
 
 const StyledButton = styled(Button)`
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 const Login = () => {
@@ -87,7 +88,10 @@ const Login = () => {
           required
         />
         <StyledButton type="submit" label="Login" disabled={isLoading} />
-        <Link to="/password">Forgot Password</Link>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Link to="/register/step-1">Create an account</Link>
+          <Link to="/password">Forgot Password</Link>
+        </div>
       </form>
     </>
   );

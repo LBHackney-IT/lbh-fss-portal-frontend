@@ -1,9 +1,9 @@
 var mockUsers = require("../mockUsers.json");
 var sample = require("lodash/sample");
 
-// module.exports = (req, res) => {
-//   res.status(401).json({});
-// };
+module.exports = (req, res) => {
+  res.status(401).json({});
+};
 
 // module.exports = (req, res) => {
 //   res
@@ -45,9 +45,9 @@ var sample = require("lodash/sample");
 //     .json(sample(mockUsers.filter((u) => u.name === "Melody Zieme")));
 // };
 
-// VCSO - WITH services but WITHOUT organisations
-module.exports = (req, res) => {
-  res
-    .status(200)
-    .json(sample(mockUsers.filter((u) => u.name === "Jaylin Rutherford Sr.")));
-};
+// // VCSO - WITH services but WITHOUT organisations
+// module.exports = (req, res) => {
+//   res
+//     .status(200)
+//     .json(sample(mockUsers.filter((u) => u.name === "Jaylin Rutherford Sr.")));
+// };
