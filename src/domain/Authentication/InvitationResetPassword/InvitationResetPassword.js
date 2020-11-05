@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
 import { toast } from "react-toastify";
-import { navigate } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import AppLoading from "../../../AppLoading";
 
 const StyledButton = styled(Button)`
@@ -102,6 +102,9 @@ function InvitationResetPassword() {
         />
 
         <StyledButton type="submit" label="Set password" />
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/">Go back to login</Link>
+        </div>
       </form>
     </>
   );

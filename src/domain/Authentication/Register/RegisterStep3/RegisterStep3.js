@@ -3,12 +3,10 @@ import { useForm } from "react-hook-form";
 import FormInput from "../../../../components/FormInput/FormInput";
 import Button from "../../../../components/Button/Button";
 import styled from "styled-components";
-import { navigate } from "@reach/router";
-import UserContext from "../../../../context/UserContext/UserContext";
+import { Link, navigate } from "@reach/router";
 import AuthenticationService from "../../../../services/AuthenticationService/AuthenticationService";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import ButtonAction from "../../../../components/ButtonAction/ButtonAction";
 import FormError from "../../../../components/FormError/FormError";
 
 const StyledButton = styled(Button)`
@@ -140,10 +138,18 @@ const RegisterStep3 = () => {
           error={errors.code}
         />
         <StyledButton type="submit" label="Submit" disabled={isLoading} />
-        <ButtonAction
-          onClick={(e) => doResendRegisterConfirmation(e, getValues().email)}
-          label={"Resend confirmation code"}
-        />
+        <div style={{ marginTop: "20px" }}>
+          <Link
+            to="/"
+            onClick={(e) => doResendRegisterConfirmation(e, getValues().email)}
+            style={{ textDecoration: "none", fontWeight: "bold" }}
+          >
+            Resend confirmation code
+          </Link>
+        </div>
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/">Go back to login</Link>
+        </div>
       </form>
     </>
   );

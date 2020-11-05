@@ -12,10 +12,6 @@ const StyledButton = styled(Button)`
   margin: 0;
 `;
 
-const StyledLink = styled(Link)`
-  margin-top: "30px";
-`;
-
 const RegisterStep1 = () => {
   let defaultValues = {
     name: "",
@@ -86,8 +82,8 @@ const RegisterStep1 = () => {
           error={errors.agreeToTerms}
         />
         <StyledButton type="submit" label="Create Account" />
-        <div style={{ marginTop: "15px" }}>
-          <StyledLink to="/">Already have an account?</StyledLink>
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/">Already have an account?</Link>
         </div>
       </form>
     </>
