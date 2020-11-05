@@ -22,9 +22,9 @@ const AuthenticationService = {
         }
       );
 
-      return response.data;
+      return { success: true, data: response.data };
     } catch (error) {
-      return false;
+      return { success: false, data: error.response.data };
     }
   },
   async registerConfirmation(email, code) {

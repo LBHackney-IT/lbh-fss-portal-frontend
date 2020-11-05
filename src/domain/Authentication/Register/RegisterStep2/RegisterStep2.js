@@ -54,7 +54,7 @@ const RegisterStep2 = () => {
 
     setIsLoading(true);
 
-    const user = await AuthenticationService.register(
+    const response = await AuthenticationService.register(
       registerStep1Values.name,
       registerStep1Values.email,
       password
@@ -65,15 +65,27 @@ const RegisterStep2 = () => {
     if (!registerStep1Values.agreeToTerms) {
       toast.error("Please agree to the service terms and conditions.");
       navigate("/register/step-1");
-    } else if (user) {
+      return;
+    }
+
+    if (response.success) {
       toast.success(
         `A confirmation code has been sent to ${registerStep1Values.email}.`
       );
       navigate("/register/step-3");
+      return;
+    }
+
+    if (
+      response.data.userErrorMessage ===
+      "The supplied email address already exists"
+    ) {
+      toast.error("Email already exists.");
     } else {
       toast.error("Registration failed.");
-      navigate("/register/step-1");
     }
+
+    navigate("/register/step-1");
   }
 
   return (
