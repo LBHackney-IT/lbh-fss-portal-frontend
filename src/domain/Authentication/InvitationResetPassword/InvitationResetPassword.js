@@ -98,6 +98,7 @@ function InvitationResetPassword() {
               );
             },
           }}
+          autoComplete="new-password"
           error={errors.newPassword}
         />
 

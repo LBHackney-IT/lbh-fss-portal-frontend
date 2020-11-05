@@ -128,6 +128,7 @@ const RegisterStep2 = () => {
                   );
                 },
               }}
+              autoComplete="new-password"
               error={errors.password}
             />
             <FormInput
@@ -142,6 +143,7 @@ const RegisterStep2 = () => {
                   );
                 },
               }}
+              autoComplete="new-password"
               error={errors.confirmPassword}
             />
             <StyledButton

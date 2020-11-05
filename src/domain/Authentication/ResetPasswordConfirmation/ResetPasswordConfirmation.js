@@ -119,6 +119,7 @@ const ResetPasswordConfirmation = () => {
               );
             },
           }}
+          autoComplete="new-password"
           error={errors.password}
         />
         <FormInput
@@ -133,6 +134,7 @@ const ResetPasswordConfirmation = () => {
               );
             },
           }}
+          autoComplete="new-password"
           error={errors.confirmPassword}
         />
         <StyledButton type="submit" label="Submit" />
