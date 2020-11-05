@@ -31,16 +31,14 @@ import InvitationResetPassword from "./domain/Authentication/InvitationResetPass
 
 const AppMain = ({ location }) => {
   const setUser = useContext(UserContext)[1];
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchMe() {
-      setIsLoading(true);
-
       const user = await AuthenticationService.me();
 
-      setIsLoading(false);
       setUser(user);
+      setIsLoading(false);
     }
 
     fetchMe();
