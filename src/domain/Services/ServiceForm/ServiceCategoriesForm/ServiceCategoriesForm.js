@@ -10,6 +10,7 @@ import { serviceCategoryFields } from "../../../../utils/data/data";
 import FormError from "../../../../components/FormError/FormError";
 import { objAllFalse } from "../../../../utils/functions/functions";
 import { serviceCategoryCheckboxOptions } from "../../../../utils/data/data";
+import { Link } from "@reach/router";
 
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
@@ -37,6 +38,7 @@ const ServiceCategoriesForm = ({
   showHiddenField,
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
+  goBackToPreviousStep,
 }) => {
   const [showError, setShowError] = useState(false);
 
@@ -289,7 +291,10 @@ const ServiceCategoriesForm = ({
         <FormError error="Please enter at least one category" />
       ) : null}
 
-      <Button type="submit" label="Continue ›" />
+      <Button type="submit" label="Continue ›" margin="0 0 20px 0" />
+      <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+        Go back to previous step
+      </Link>
     </form>
   );
 };

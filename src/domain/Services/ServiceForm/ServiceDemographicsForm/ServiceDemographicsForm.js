@@ -7,6 +7,7 @@ import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import { objAllFalse, objAllTrue } from "../../../../utils/functions/functions";
 import { serviceDemographicCheckboxOptions } from "../../../../utils/data/data";
+import { Link } from "@reach/router";
 
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
@@ -28,7 +29,11 @@ const StyledHelp = styled.p`
   margin-top: 40px;
 `;
 
-const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
+const ServiceDemographicsForm = ({
+  onSubmit,
+  defaultValues = {},
+  goBackToPreviousStep,
+}) => {
   const { register, handleSubmit, setValue, getValues, reset } = useForm({
     defaultValues,
   });
@@ -92,7 +97,10 @@ const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
           </div>
         );
       })}
-      <Button type="submit" label="Continue ›" margin="40px 0 30px 0" />
+      <Button type="submit" label="Continue ›" margin="40px 0 20px 0" />
+      <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+        Go back to previous step
+      </Link>
     </form>
   );
 };

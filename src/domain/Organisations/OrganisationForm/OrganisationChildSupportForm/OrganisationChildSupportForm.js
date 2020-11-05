@@ -9,6 +9,7 @@ import FormInput from "../../../../components/FormInput/FormInput";
 import FormError from "../../../../components/FormError/FormError";
 import FormDropDown from "../../../../components/FormDropDown/FormDropDown";
 import { getPreviousYears } from "../../../../utils/functions/functions";
+import { Link } from "@reach/router";
 
 const StyledLeadText = styled.p`
   color: ${grey[400]};
@@ -37,6 +38,7 @@ const OrganisationChildSupportForm = ({
   showHiddenField,
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
+  goBackToPreviousStep,
 }) => {
   const { register, handleSubmit, getValues, errors } = useForm({
     defaultValues,
@@ -208,7 +210,10 @@ const OrganisationChildSupportForm = ({
           </div>
         </>
       ) : null}
-      <Button type="submit" label="Continue ›" />
+      <Button type="submit" label="Continue ›" margin="0 0 20px 0" />
+      <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+        Go back to previous step
+      </Link>
     </form>
   );
 };

@@ -6,6 +6,7 @@ import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import Button from "../../../../components/Button/Button";
 import FormInput from "../../../../components/FormInput/FormInput";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
+import { Link } from "@reach/router";
 
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
@@ -34,6 +35,7 @@ const OrganisationCharityInformationForm = ({
   showHiddenField,
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
+  goBackToPreviousStep,
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
@@ -259,7 +261,10 @@ const OrganisationCharityInformationForm = ({
         }}
         error={errors.funding_other}
       />
-      <Button type="submit" label="Continue ›" />
+      <Button type="submit" label="Continue ›" margin="0 0 20px 0" />
+      <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+        Go back to previous step
+      </Link>
     </form>
   );
 };

@@ -8,6 +8,7 @@ import ImageUploader from "react-images-upload";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import { toast } from "react-toastify";
 import AppLoading from "../../../../AppLoading";
+import { Link } from "@reach/router";
 
 const StyledHelp = styled.p`
   color: ${grey[400]};
@@ -29,6 +30,7 @@ const ServiceCategoriesForm = ({
   onSubmit,
   defaultValues = {},
   submitLoading = false,
+  goBackToPreviousStep,
 }) => {
   if (defaultValues.image) {
     defaultValues.image.preview = defaultValues.image.medium;
@@ -120,7 +122,11 @@ const ServiceCategoriesForm = ({
         label="Submit service"
         disabled={submitLoading}
         padding="15px"
+        margin="0 0 20px 0"
       />
+      <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+        Go back to previous step
+      </Link>
     </form>
   );
 };

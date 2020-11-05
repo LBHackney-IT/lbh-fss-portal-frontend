@@ -11,6 +11,7 @@ import {
 } from "../../../../utils/functions/functions";
 import { addFormattedAddress } from "../../../../utils/functions/serviceFunctions";
 import Map from "../Map/Map";
+import { Link } from "@reach/router";
 
 function selectedAddressArrayIsEmpty(selectedAddressArray) {
   return (
@@ -21,7 +22,11 @@ function selectedAddressArrayIsEmpty(selectedAddressArray) {
   );
 }
 
-const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
+const ServiceLocationsForm = ({
+  onSubmit,
+  defaultValues = {},
+  goBackToPreviousStep,
+}) => {
   if (defaultValues.locations) {
     defaultValues.locations = addFormattedAddress(defaultValues.locations);
   }
@@ -123,6 +128,11 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
             <FormError error={errorMessage} marginBottom="10px" />
           ) : null}
           <Button type="submit" label="Continue ›" margin="0 0 0 0" />
+        </div>
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+            Go back to previous step
+          </Link>
         </div>
       </form>
     </>
