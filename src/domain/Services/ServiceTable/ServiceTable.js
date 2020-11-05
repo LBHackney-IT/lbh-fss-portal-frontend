@@ -81,6 +81,10 @@ const ServiceTable = ({
         },
       },
       {
+        Header: "Organisation",
+        accessor: "organisation_name",
+      },
+      {
         Header: "User",
         accessor: "user_name",
       },
