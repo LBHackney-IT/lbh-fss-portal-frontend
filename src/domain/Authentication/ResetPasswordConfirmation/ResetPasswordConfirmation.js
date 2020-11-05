@@ -20,6 +20,7 @@ const ResetPasswordConfirmation = () => {
     email: "",
     code: "",
     password: "",
+    confirmPassword: "",
   };
 
   if (Cookies.get("passwordReset")) {
