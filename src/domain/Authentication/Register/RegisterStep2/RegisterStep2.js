@@ -83,6 +83,10 @@ const RegisterStep2 = () => {
       ) : (
         <>
           <h1>Create your password</h1>
+          <p>
+            Your password must be at least 8 characters and include one upper
+            case, one number and one special character.
+          </p>
           <form onSubmit={handleSubmit(doRegister)}>
             <FormInput
               type="password"

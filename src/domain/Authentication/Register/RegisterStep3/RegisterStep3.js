@@ -104,6 +104,10 @@ const RegisterStep3 = () => {
   return (
     <>
       <h1>Enter confirmation code</h1>
+      <p>
+        Please check your email for confirmation code, including the Junk or
+        Spam folder.
+      </p>
       <form onSubmit={handleSubmit(doRegisterConfirmation)}>
         <FormInput
           label="Email"
