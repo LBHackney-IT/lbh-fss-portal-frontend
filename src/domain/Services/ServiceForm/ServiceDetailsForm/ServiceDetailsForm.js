@@ -13,8 +13,8 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormFieldset
-        label="Your service details"
-        help="What you enter here will appear on your public facing service listing."
+        label="Your details"
+        help="What you enter here will appear on your public-facing listing."
       >
         <FormInput
           name="name"
@@ -33,7 +33,7 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           maxLength={80}
           required
           error={errors.description}
-          help="Can you describe your service in 80 characters (e.g Expert services so no-one has to face a mental health problem alone)"
+          help="Please describe your organisation in 80 characters (e.g Expert services so no-one has to face a mental health problem alone)"
         />
       </FormFieldset>
       <FormFieldset

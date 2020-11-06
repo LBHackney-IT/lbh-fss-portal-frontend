@@ -138,14 +138,10 @@ const ServiceCategoriesForm = ({
         }
       })}
     >
-      <FormFieldset label="Services you provide">
+      <FormFieldset label="What you do">
         <p>
-          Please select what categories you would like your service listed
-          under.
-        </p>
-        <p>
-          For each category you select please provide a description of what it
-          is your service provides
+          Please select the relevant categories and give a description of what
+          you do for each.
         </p>
         <StyledUl>
           <li>Use first person, active voice (e.g. we provide...)</li>
@@ -166,7 +162,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.lonOrIsDetails && item.id === "lonOrIs" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"lonOrIsDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -177,7 +173,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.anxOrMHDetails && item.id === "anxOrMH" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"anxOrMHDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -188,7 +184,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.safeAndHBDetails && item.id === "safeAndHB" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"safeAndHBDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -199,7 +195,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.exAndWellDetails && item.id === "exAndWell" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"exAndWellDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -210,7 +206,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.artAndCrtvDetails && item.id === "artAndCrtv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"artAndCrtvDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -221,7 +217,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.foodOrShopDetails && item.id === "foodOrShop" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"foodOrShopDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -232,7 +228,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.faithActDetails && item.id === "faithAct" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"faithActDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -243,7 +239,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.monAdvDetails && item.id === "monAdv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"monAdvDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -254,7 +250,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.emplAdvDetails && item.id === "emplAdv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"emplAdvDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -265,7 +261,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.houseAdvDetails && item.id === "houseAdv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"houseAdvDetails"}
                     register={register}
                     spellCheck={"true"}
@@ -276,7 +272,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField.immAdvDetails && item.id === "immAdv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe the service you provide"}
+                    label={"Please describe what you do"}
                     name={"immAdvDetails"}
                     register={register}
                     spellCheck={"true"}

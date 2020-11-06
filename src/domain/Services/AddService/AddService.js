@@ -95,7 +95,7 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
   return (
     <>
       <ServiceForm
-        pageTitle={"Create your service listing"}
+        pageTitle={"Tell us what you do"}
         onFormCompletion={doAddService}
         defaultValues={
           localUser.organisation ? { name: localUser.organisation.name } : {}
