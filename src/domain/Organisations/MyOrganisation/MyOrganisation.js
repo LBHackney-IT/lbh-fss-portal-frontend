@@ -56,7 +56,6 @@ const MyOrganisation = () => {
   const [removeIsLoading, setRemoveIsLoading] = useState(false);
   const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
 
-  console.log("3. MyOrganisation");
   const {
     organisation,
     isLoading: organisationFetchIsLoading,

@@ -129,6 +129,10 @@ const ListUsers = ({ location }) => {
 
   const isInternalTeam = checkIsInternalTeam(roles);
 
+  if (!isInternalTeam) {
+    return <AccessDenied />;
+  }
+
   const headersForExport = [
     { label: "ID", key: "id" },
     { label: "Name", key: "name" },
@@ -142,7 +146,7 @@ const ListUsers = ({ location }) => {
 
   const dataForExport = cleanDataForExport(allUsers);
 
-  return isInternalTeam ? (
+  return (
     <>
       <div>
         <StyledActionDiv>
@@ -170,8 +174,6 @@ const ListUsers = ({ location }) => {
       </div>
       <UserTable data={data} isLoading={isLoading} search={search} />
     </>
-  ) : (
-    <AccessDenied />
   );
 };
 
