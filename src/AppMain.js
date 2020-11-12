@@ -37,8 +37,8 @@ const AppMain = ({ location }) => {
     async function fetchMe() {
       const user = await AuthenticationService.me();
 
-      setUser(user);
       setIsLoading(false);
+      setUser(user);
     }
 
     fetchMe();
