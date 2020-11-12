@@ -4,14 +4,17 @@ import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import FormInput from "../../../../components/FormInput/FormInput";
 import Button from "../../../../components/Button/Button";
 import FormTextbox from "../../../../components/FormTextbox/FormTextbox";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import EditorComponent from "./EditorComponent";
 
 const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(() => console.log(getValues()))}>
       <FormFieldset
         label="Your details"
         help="What you enter here will appear on your public-facing listing."
@@ -26,6 +29,8 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           required
           help="This is how you will be displayed on the website"
         />
+        <EditorComponent />
+
         <FormTextbox
           name="description"
           label="Organisation description"
