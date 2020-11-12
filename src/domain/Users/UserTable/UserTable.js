@@ -29,7 +29,14 @@ const UserTable = ({ data, isLoading, search }) => {
       },
       {
         Header: "Organisation",
-        accessor: "organisation.name",
+        accessor: "organisation",
+        Cell: (e) => {
+          return (
+            <Link to={`/organisations/${e.value.id}/edit`}>
+              <StyledEmailText>{e.value.name}</StyledEmailText>
+            </Link>
+          );
+        },
       },
       {
         Header: "Roles",

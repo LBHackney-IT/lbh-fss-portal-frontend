@@ -99,8 +99,6 @@ const OrganisationTable = ({
 
   const isInternalTeam = checkIsInternalTeam(user.roles);
 
-  // check if is internal member
-
   const columns = useMemo(
     () => [
       {
