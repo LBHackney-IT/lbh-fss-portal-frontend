@@ -68,7 +68,11 @@ const MyOrganisation = () => {
     let localOrganisationUser = {};
     const organisationId = user.organisation.id;
     const userName = user.name;
-    localOrganisationUser[organisationId] = userName;
+    const userId = user.id;
+    localOrganisationUser[organisationId] = {
+      name: userName,
+      id: userId,
+    };
 
     setOrganisationUser(localOrganisationUser);
   }, [user, setOrganisationUser]);

@@ -91,7 +91,11 @@ const ListOrganisations = ({ location }) => {
           if (users[key].organisation) {
             const organisationId = users[key].organisation.id;
             const userName = users[key].name;
-            organisationUserObject[organisationId] = userName;
+            const userId = users[key].id;
+            organisationUserObject[organisationId] = {
+              name: userName,
+              id: userId,
+            };
           }
         });
 

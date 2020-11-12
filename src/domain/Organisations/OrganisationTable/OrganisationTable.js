@@ -1,10 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Table from "../../../components/Table/Table";
 import TableActionDropDown from "../../../components/TableActionDropDown/TableActionDropDown";
 import { green, red, yellow } from "../../../settings";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import UserContext from "../../../context/UserContext/UserContext";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 const StyledStatus = styled.div`
   background-color: ${(props) => props.status.backgroundColor};
@@ -93,6 +95,12 @@ const OrganisationTable = ({
   showPagination,
   actionWidth,
 }) => {
+  const user = useContext(UserContext)[0];
+
+  const isInternalTeam = checkIsInternalTeam(user.roles);
+
+  // check if is internal member
+
   const columns = useMemo(
     () => [
       {
@@ -115,7 +123,19 @@ const OrganisationTable = ({
         Header: "User",
         accessor: "id",
         Cell: (e) => {
-          return <> {organisationUser[e.value] || "User not found"} </>;
+          if (!isInternalTeam) {
+            return organisationUser[e.value].name;
+          }
+
+          if (organisationUser[e.value]) {
+            return (
+              <Link to={`/users/${organisationUser[e.value].id}/edit`}>
+                {organisationUser[e.value].name}
+              </Link>
+            );
+          } else {
+            return "User not found";
+          }
         },
       },
       {
