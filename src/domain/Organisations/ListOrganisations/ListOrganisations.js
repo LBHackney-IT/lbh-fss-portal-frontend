@@ -15,13 +15,16 @@ import { toast } from "react-toastify";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 import AppLoading from "../../../AppLoading";
+import FormDropDown from "../../../components/FormDropDown/FormDropDown";
+import { useForm } from "react-hook-form";
+import { organisationStatus } from "../../../settings/organisationStatus";
 
 const StyledActionDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding: 20px;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     flex-direction: row;
     height: 80px;
     padding: 0 10px;
@@ -32,7 +35,32 @@ const StyledActionDiv = styled.div`
   background-color: ${grey[500]};
 `;
 
-async function fetchData(search, setData, setIsLoading) {
+const StyledDropDownDiv = styled.div`
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  ${breakpoint("md")`
+    align-items: center;
+    flex-direction: row;
+  `};
+`;
+
+const StyledDropDownTitle = styled.p`
+  font-weight: bold;
+  color: ${grey[800]};
+  margin: 20px 0 0 0;
+  ${breakpoint("md")`
+    font-weight: normal;
+    margin: 0 10px 0 0;
+  `};
+`;
+
+async function fetchDataAndFilter(
+  search,
+  setData,
+  organisationFilters,
+  setIsLoading
+) {
   let organisations = false;
 
   setIsLoading(true);
@@ -51,7 +79,15 @@ async function fetchData(search, setData, setIsLoading) {
 
   setIsLoading(false);
 
-  setData(organisations || []);
+  const filteredOrganisations = organisations.filter((organisation) => {
+    if (organisationFilters.status !== "all") {
+      return organisation.status === organisationFilters.status;
+    } else {
+      return organisation;
+    }
+  });
+
+  setData(filteredOrganisations || []);
 }
 
 const ListOrganisations = ({ location }) => {
@@ -77,6 +113,12 @@ const ListOrganisations = ({ location }) => {
   const [organisationUserIsLoading, setOrganisationUserIsLoading] = useState(
     true
   );
+
+  const [organisationFilters, setOrganisationFilters] = useState({
+    status: "all",
+  });
+
+  const { register, getValues } = useForm();
 
   useEffect(() => {
     async function fetchOrganisationUser() {
@@ -107,8 +149,8 @@ const ListOrganisations = ({ location }) => {
   }, [setOrganisationUser, setOrganisationUserIsLoading]);
 
   useEffect(() => {
-    fetchData(search, setData, setIsLoading);
-  }, [search, setData, setIsLoading]);
+    fetchDataAndFilter(search, setData, organisationFilters, setIsLoading);
+  }, [search, organisationFilters, setData, setIsLoading]);
 
   function toggleApproveModal() {
     if (approveIsLoading) return;
@@ -146,7 +188,7 @@ const ListOrganisations = ({ location }) => {
 
     if (organisation) {
       toast.success(`${selectedOrganisation.name} was approved.`);
-      fetchData(search, setData, setIsLoading);
+      fetchDataAndFilter(search, setData, organisationFilters, setIsLoading);
     } else {
       toast.error(`Unable to approve organisation.`);
     }
@@ -171,7 +213,7 @@ const ListOrganisations = ({ location }) => {
 
     if (organisation) {
       toast.success(`${selectedOrganisation.name} was declined.`);
-      fetchData(search, setData, setIsLoading);
+      fetchDataAndFilter(search, setData, organisationFilters, setIsLoading);
     } else {
       toast.error(`Unable to decline organisation.`);
     }
@@ -192,7 +234,7 @@ const ListOrganisations = ({ location }) => {
 
     if (organisationDeleted) {
       toast.success(`${selectedOrganisation.name} removed.`);
-      fetchData(search, setData, setIsLoading);
+      fetchDataAndFilter(search, setData, organisationFilters, setIsLoading);
     } else {
       toast.error(`Unable to remove organisation.`);
     }
@@ -218,6 +260,9 @@ const ListOrganisations = ({ location }) => {
     },
   ];
 
+  let organisationStatusArray = Object.values(organisationStatus);
+  organisationStatusArray.unshift("All");
+
   const isInternalTeam = checkIsInternalTeam(roles);
 
   if (isLoading || organisationUserIsLoading) {
@@ -238,6 +283,32 @@ const ListOrganisations = ({ location }) => {
       <div>
         <StyledActionDiv>
           <Search setSearch={setSearch} />
+          <StyledDropDownDiv>
+            <StyledDropDownTitle>Status</StyledDropDownTitle>
+            <FormDropDown
+              register={register}
+              name="status"
+              label={""}
+              includeBlankValue={false}
+              selectMarginMobile="0"
+              selectStyle={{
+                color: grey[700],
+                border: `1px solid ${grey[500]}`,
+                width: "100%",
+              }}
+              options={organisationStatusArray}
+              values={organisationStatusArray.map((status) =>
+                status.toLowerCase()
+              )}
+              value={organisationFilters.status}
+              onChange={() => {
+                setOrganisationFilters({
+                  ...organisationFilters,
+                  status: getValues().status,
+                });
+              }}
+            />
+          </StyledDropDownDiv>
         </StyledActionDiv>
       </div>
       <OrganisationTable
