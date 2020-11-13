@@ -1,10 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Table from "../../../components/Table/Table";
 import TableActionDropDown from "../../../components/TableActionDropDown/TableActionDropDown";
 import { green, red, yellow } from "../../../settings";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
+import UserContext from "../../../context/UserContext/UserContext";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 const StyledStatus = styled.div`
   background-color: ${(props) => props.status.backgroundColor};
@@ -67,6 +69,10 @@ const ServiceTable = ({
   actionWidth,
   marginTop,
 }) => {
+  const user = useContext(UserContext)[0];
+
+  const isInternalTeam = checkIsInternalTeam(user.roles);
+
   const columns = useMemo(
     () => [
       {
@@ -83,6 +89,21 @@ const ServiceTable = ({
       {
         Header: "User",
         accessor: "user_name",
+        Cell: (e) => {
+          if (!isInternalTeam) {
+            return e.value;
+          }
+
+          if (e.value) {
+            return (
+              <Link to={`/users/${e.row.original.user_id}/edit`}>
+                {e.value}
+              </Link>
+            );
+          } else {
+            return "User not found";
+          }
+        },
       },
       {
         Header: "Status",
