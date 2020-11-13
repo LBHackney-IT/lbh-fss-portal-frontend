@@ -42,6 +42,7 @@ const FormInput = ({
   help,
   placeholder,
   labelStyle,
+  autoComplete = "on",
   spellCheck = "false",
 }) => {
   return (
@@ -62,6 +63,7 @@ const FormInput = ({
         }}
         aria-invalid={error ? "true" : "false"}
         spellCheck={spellCheck}
+        autoComplete={autoComplete}
       />
       {error && error.type === "required" && (
         <FormError error={`${label} is required.`} />

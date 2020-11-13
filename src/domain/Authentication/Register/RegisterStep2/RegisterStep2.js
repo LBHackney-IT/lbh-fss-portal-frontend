@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import FormInput from "../../../../components/FormInput/FormInput";
 import Button from "../../../../components/Button/Button";
 import styled from "styled-components";
-import { navigate, Redirect } from "@reach/router";
+import { Link, navigate, Redirect } from "@reach/router";
 import AuthenticationService from "../../../../services/AuthenticationService/AuthenticationService";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
@@ -11,6 +11,10 @@ import { toast } from "react-toastify";
 const StyledButton = styled(Button)`
   width: 100%;
   margin: 0;
+`;
+
+const StyledLink = styled(Link)`
+  margin-top: "30px";
 `;
 
 const RegisterStep2 = () => {
@@ -50,7 +54,7 @@ const RegisterStep2 = () => {
 
     setIsLoading(true);
 
-    const user = await AuthenticationService.register(
+    const response = await AuthenticationService.register(
       registerStep1Values.name,
       registerStep1Values.email,
       password
@@ -61,15 +65,27 @@ const RegisterStep2 = () => {
     if (!registerStep1Values.agreeToTerms) {
       toast.error("Please agree to the service terms and conditions.");
       navigate("/register/step-1");
-    } else if (user) {
+      return;
+    }
+
+    if (response.success) {
       toast.success(
         `A confirmation code has been sent to ${registerStep1Values.email}.`
       );
       navigate("/register/step-3");
+      return;
+    }
+
+    if (
+      response.data.userErrorMessage ===
+      "The supplied email address already exists"
+    ) {
+      toast.error("Email already exists.");
     } else {
       toast.error("Registration failed.");
-      navigate("/register/step-1");
     }
+
+    navigate("/register/step-1");
   }
 
   return (
@@ -79,6 +95,10 @@ const RegisterStep2 = () => {
       ) : (
         <>
           <h1>Create your password</h1>
+          <p>
+            Your password must be at least 8 characters and include one upper
+            case, one number and one special character.
+          </p>
           <form onSubmit={handleSubmit(doRegister)}>
             <FormInput
               type="password"
@@ -108,6 +128,7 @@ const RegisterStep2 = () => {
                   );
                 },
               }}
+              autoComplete="new-password"
               error={errors.password}
             />
             <FormInput
@@ -122,6 +143,7 @@ const RegisterStep2 = () => {
                   );
                 },
               }}
+              autoComplete="new-password"
               error={errors.confirmPassword}
             />
             <StyledButton
@@ -129,6 +151,9 @@ const RegisterStep2 = () => {
               label="Create Password"
               disabled={isLoading}
             />
+            <div style={{ marginTop: "15px" }}>
+              <StyledLink to="/">Already have an account?</StyledLink>
+            </div>
           </form>
         </>
       )}

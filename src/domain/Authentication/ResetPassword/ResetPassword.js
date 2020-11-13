@@ -5,7 +5,7 @@ import FormInput from "../../../components/FormInput/FormInput";
 import Button from "../../../components/Button/Button";
 import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
 import { toast } from "react-toastify";
-import { navigate } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import Cookies from "js-cookie";
 
 const StyledButton = styled(Button)`
@@ -60,6 +60,9 @@ const ResetPassword = () => {
           error={errors.email}
         />
         <StyledButton type="submit" label="Submit" />
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/">Go back to login</Link>
+        </div>
       </form>
     </>
   );

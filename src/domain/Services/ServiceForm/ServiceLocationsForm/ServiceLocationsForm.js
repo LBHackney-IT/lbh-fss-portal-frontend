@@ -11,6 +11,7 @@ import {
 } from "../../../../utils/functions/functions";
 import { addFormattedAddress } from "../../../../utils/functions/serviceFunctions";
 import Map from "../Map/Map";
+import { Link } from "@reach/router";
 
 function selectedAddressArrayIsEmpty(selectedAddressArray) {
   return (
@@ -21,7 +22,11 @@ function selectedAddressArrayIsEmpty(selectedAddressArray) {
   );
 }
 
-const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
+const ServiceLocationsForm = ({
+  onSubmit,
+  defaultValues = {},
+  goBackToPreviousStep,
+}) => {
   if (defaultValues.locations) {
     defaultValues.locations = addFormattedAddress(defaultValues.locations);
   }
@@ -45,16 +50,9 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
   return (
     <>
       <FormFieldset
-        label="Service location(s)"
-        help={
-          <>
-            This will be where your service(s) are located on the map. If you
-            offer a remote service, or don't want to publicly display your
-            address, please put:
-            <br />
-            Hackney Town Hall, Mare St, Hackney, London E8 1EA.
-          </>
-        }
+        label="Location(s)"
+        help="This is where you will be located on the map. It may be your office address, 
+              or where you deliver your service."
       ></FormFieldset>
       {[...Array(addressCounter)].map(() => {
         i++;
@@ -123,6 +121,11 @@ const ServiceLocationsForm = ({ onSubmit, defaultValues = {} }) => {
             <FormError error={errorMessage} marginBottom="10px" />
           ) : null}
           <Button type="submit" label="Continue ›" margin="0 0 0 0" />
+        </div>
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+            Go back to previous step
+          </Link>
         </div>
       </form>
     </>

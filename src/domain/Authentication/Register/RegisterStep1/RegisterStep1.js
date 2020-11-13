@@ -4,7 +4,7 @@ import FormInput from "../../../../components/FormInput/FormInput";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import Button from "../../../../components/Button/Button";
 import styled from "styled-components";
-import { navigate } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import Cookies from "js-cookie";
 
 const StyledButton = styled(Button)`
@@ -82,6 +82,9 @@ const RegisterStep1 = () => {
           error={errors.agreeToTerms}
         />
         <StyledButton type="submit" label="Create Account" />
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/">Already have an account?</Link>
+        </div>
       </form>
     </>
   );

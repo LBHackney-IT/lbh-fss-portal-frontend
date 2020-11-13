@@ -119,6 +119,11 @@ const OrganisationForm = ({
     }
   };
 
+  const goBackToPreviousStep = (e) => {
+    e.preventDefault();
+    setStepNum(stepNum - 1);
+  };
+
   const renderStepSwitch = () => {
     switch (stepArray[stepNum].id) {
       case "organisation-name":
@@ -139,6 +144,7 @@ const OrganisationForm = ({
             showHiddenField={showHiddenField}
             setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
+            goBackToPreviousStep={goBackToPreviousStep}
           />
         );
       case "charity-information":
@@ -149,6 +155,7 @@ const OrganisationForm = ({
             showHiddenField={showHiddenField}
             setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
+            goBackToPreviousStep={goBackToPreviousStep}
           />
         );
       case "child-support":
@@ -159,6 +166,7 @@ const OrganisationForm = ({
             showHiddenField={showHiddenField}
             setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
+            goBackToPreviousStep={goBackToPreviousStep}
           />
         );
       case "adult-support":
@@ -170,6 +178,7 @@ const OrganisationForm = ({
             showHiddenField={showHiddenField}
             setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
+            goBackToPreviousStep={goBackToPreviousStep}
           />
         );
       default:

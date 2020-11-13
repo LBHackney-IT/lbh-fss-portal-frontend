@@ -7,6 +7,7 @@ import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import { objAllFalse, objAllTrue } from "../../../../utils/functions/functions";
 import { serviceDemographicCheckboxOptions } from "../../../../utils/data/data";
+import { Link } from "@reach/router";
 
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
@@ -28,7 +29,11 @@ const StyledHelp = styled.p`
   margin-top: 40px;
 `;
 
-const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
+const ServiceDemographicsForm = ({
+  onSubmit,
+  defaultValues = {},
+  goBackToPreviousStep,
+}) => {
   const { register, handleSubmit, setValue, getValues, reset } = useForm({
     defaultValues,
   });
@@ -69,8 +74,8 @@ const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormFieldset label="Who you work with">
         <p>
-          In order to make it easier for users of the website to find your
-          service, please select who your service is for.
+          To make it easier for people to find your listing, please select who
+          you support or work with.
         </p>
       </FormFieldset>
       {serviceDemographicCheckboxOptions.map((item) => {
@@ -85,14 +90,17 @@ const ServiceDemographicsForm = ({ onSubmit, defaultValues = {} }) => {
             />
             {item.id === "everyone" ? (
               <StyledHelp>
-                If your service is for a <strong>specific audience</strong>,{" "}
-                please select the the appropriate filters below.
+                If you support or work with a specific audience, please select
+                the appropriate filters below.
               </StyledHelp>
             ) : null}
           </div>
         );
       })}
-      <Button type="submit" label="Continue ›" margin="40px 0 30px 0" />
+      <Button type="submit" label="Continue ›" margin="40px 0 20px 0" />
+      <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+        Go back to previous step
+      </Link>
     </form>
   );
 };

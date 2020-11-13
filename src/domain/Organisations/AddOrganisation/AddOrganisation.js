@@ -91,8 +91,8 @@ const AddOrganisation = () => {
         `New organisation ${organisationAdded.name} has been submitted for review.`
       );
 
-      fetchMe(setLocalUser, setIsLoading);
-      navigate("/organisation");
+      await fetchMe(setLocalUser, setIsLoading);
+      navigate("/service");
     } else {
       toast.error("Unable to add organisation.");
     }

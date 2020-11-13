@@ -13,27 +13,27 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormFieldset
-        label="Your service details"
-        help="What you enter here will appear on your public facing service listing."
+        label="Your details"
+        help="What you enter here will appear on your public-facing listing."
       >
         <FormInput
           name="name"
           type="text"
-          label="Service name"
+          label="Organisation name"
           register={register}
           error={errors.name}
           maxLength={255}
           required
-          help="This is how your service will be displayed on the website"
+          help="This is how you will be displayed on the website"
         />
         <FormTextbox
           name="description"
-          label="Service description"
+          label="Organisation description"
           register={register}
           maxLength={80}
           required
           error={errors.description}
-          help="Can you describe your service in 80 characters (e.g Expert services so no-one has to face a mental health problem alone)"
+          help="Please describe your organisation in 80 characters (e.g Expert services so no-one has to face a mental health problem alone)"
         />
       </FormFieldset>
       <FormFieldset

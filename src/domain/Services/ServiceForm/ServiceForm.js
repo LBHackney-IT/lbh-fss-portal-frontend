@@ -116,6 +116,11 @@ const ServiceForm = ({
     handleStepChange(formValuesWithHiddenFields);
   };
 
+  const goBackToPreviousStep = (e) => {
+    e.preventDefault();
+    setStepNum(stepNum - 1);
+  };
+
   const renderStepSwitch = () => {
     switch (stepArray[stepNum].id) {
       case "details":
@@ -133,6 +138,7 @@ const ServiceForm = ({
             showHiddenField={showHiddenField}
             setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
+            goBackToPreviousStep={goBackToPreviousStep}
           />
         );
       case "categories":
@@ -143,6 +149,7 @@ const ServiceForm = ({
             showHiddenField={showHiddenField}
             setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
+            goBackToPreviousStep={goBackToPreviousStep}
           />
         );
       case "demographics":
@@ -150,6 +157,7 @@ const ServiceForm = ({
           <ServiceDemographicsForm
             defaultValues={draftService}
             onSubmit={moveToNextStep}
+            goBackToPreviousStep={goBackToPreviousStep}
           />
         );
       case "image":
@@ -158,6 +166,7 @@ const ServiceForm = ({
             defaultValues={draftService}
             onSubmit={moveToNextStep}
             submitLoading={submitLoading}
+            goBackToPreviousStep={goBackToPreviousStep}
           />
         );
       default:

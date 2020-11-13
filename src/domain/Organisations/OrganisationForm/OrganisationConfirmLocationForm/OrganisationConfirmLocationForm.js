@@ -6,6 +6,7 @@ import Button from "../../../../components/Button/Button";
 import styled from "styled-components";
 import { red } from "../../../../settings";
 import FormError from "../../../../components/FormError/FormError";
+import { Link } from "@reach/router";
 
 const StyledErrorContainer = styled.div`
   padding: 20px;
@@ -33,6 +34,7 @@ const OrganisationConfirmLocationForm = ({
   showHiddenField,
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
+  goBackToPreviousStep,
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
@@ -92,18 +94,21 @@ const OrganisationConfirmLocationForm = ({
           style={{ backgroundColor: "rgba(190, 58, 52, 0.05)" }}
         >
           <p>
-            Your organisation needs to offer services in Hackney or for City
-            residents to be listed in this directory
+            Your organisation needs to offer services to Hackney or City of
+            London residents to be listed in Find support services.
           </p>
 
           <p>
             Contact <a href="mailto:fss@hackney.gov.uk">fss@hackney.gov.uk</a>{" "}
-            if you wish to discuss further
+            if you wish to discuss further.
           </p>
         </StyledErrorContainer>
       ) : (
-        <Button type="submit" label="Continue ›" />
+        <Button type="submit" label="Continue ›" margin="0 0 20px 0" />
       )}
+      <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+        Go back to previous step
+      </Link>
     </form>
   );
 };

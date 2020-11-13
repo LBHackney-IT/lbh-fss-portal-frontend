@@ -167,6 +167,7 @@ const UserForm = ({
                 }
               },
             }}
+            autoComplete="new-password"
             error={errors.password}
           />
           <FormInput
@@ -181,6 +182,7 @@ const UserForm = ({
                 );
               },
             }}
+            autoComplete="new-password"
             error={errors.confirmPassword}
           />
         </>
