@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import styled from "styled-components";
 import DigitalGuideInfo from "../DigitalGuideInfo/DigitalGuideInfo";
 import ServiceDetailsForm from "./ServiceDetailsForm/ServiceDetailsForm";
@@ -9,9 +9,19 @@ import ServiceImageForm from "./ServiceImageForm/ServiceImageForm";
 import scrollToRef from "../../../utils/scrollToRef/scrollToRef";
 import { grey } from "../../../settings";
 import FormNav from "../../../components/FormNav/FormNav";
-import { convertStepNumToWord } from "../../../utils/functions/functions";
+import {
+  checkIsInternalTeam,
+  convertStepNumToWord,
+  calculateStepPercentage,
+} from "../../../utils/functions/functions";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
+import UserContext from "../../../context/UserContext/UserContext";
+
+const StyledStepTextContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const StyledStepText = styled.p`
   color: ${grey[400]};
@@ -60,11 +70,11 @@ const ServiceForm = ({
   submitLoading = false,
 }) => {
   const stepArray = [
-    { id: "details", label: "Your details" },
-    { id: "locations", label: "Your location(s)" },
-    { id: "categories", label: "What you do" },
-    { id: "demographics", label: "Who you work with" },
-    { id: "image", label: "Your image" },
+    { id: "details", label: "Your details", internalTeamOnly: false },
+    { id: "locations", label: "Your location(s)", internalTeamOnly: false },
+    { id: "categories", label: "What you do", internalTeamOnly: false },
+    { id: "demographics", label: "Who you work with", internalTeamOnly: false },
+    { id: "image", label: "Your image", internalTeamOnly: false },
   ];
 
   const [showHiddenFieldSnapshot, setShowHiddenFieldSnapshot] = useState(
@@ -76,6 +86,10 @@ const ServiceForm = ({
   );
 
   const [draftService, setDraftService] = useState(defaultValues);
+
+  const user = useContext(UserContext)[0];
+
+  const isInternalTeam = checkIsInternalTeam(user.roles);
 
   const mainRef = useRef(null);
 
@@ -176,7 +190,12 @@ const ServiceForm = ({
 
   return (
     <>
-      <StyledStepText>Step {convertStepNumToWord(stepNum)}</StyledStepText>
+      <StyledStepTextContainer>
+        <StyledStepText>Step {convertStepNumToWord(stepNum)}</StyledStepText>
+        <StyledStepText>
+          {calculateStepPercentage(stepNum, stepArray, isInternalTeam)}%
+        </StyledStepText>
+      </StyledStepTextContainer>
       <h1>{pageTitle}</h1>
       <StyledServiceForm>
         <StyledServiceFormAside>
