@@ -18,6 +18,23 @@ import AppLoading from "../../../AppLoading";
 import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 import { useForm } from "react-hook-form";
 import { organisationStatus } from "../../../settings/organisationStatus";
+import { Link } from "@reach/router";
+import Button from "../../../components/Button/Button";
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const StyledButton = styled(Button)`
+  padding: 10px 15px;
+  margin: -10px 5px 0 0;
+  ${breakpoint("sm")`
+    margin: 10px 0;
+  `};
+  ${breakpoint("md")`
+    margin: auto 0; 
+  `};
+`;
 
 const StyledActionDiv = styled.div`
   display: flex;
@@ -309,6 +326,9 @@ const ListOrganisations = ({ location }) => {
               }}
             />
           </StyledDropDownDiv>
+          <StyledLink to="/organisations/add">
+            <StyledButton label={"Add Organisation"} />
+          </StyledLink>
         </StyledActionDiv>
       </div>
       <OrganisationTable
