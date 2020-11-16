@@ -14,7 +14,7 @@ const checkIfIsInDateRange = (date, selectedWeek) => {
 
 const calcOrganisations = (organisations, selectedWeek) => {
   let organisationsValue = organisations.filter((organisation) => {
-    const createdAtDate = moment(organisation.createdAt).format("DD MMM YYYY");
+    const createdAtDate = moment(organisation.created_at).format("DD MMM YYYY");
 
     const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
 
@@ -26,7 +26,7 @@ const calcOrganisations = (organisations, selectedWeek) => {
 
 const calcApprovedOrganisations = (organisations, selectedWeek) => {
   let approvedOrganisationsValue = organisations.filter((organisation) => {
-    const createdAtDate = moment(organisation.createdAt).format("DD MMM YYYY");
+    const createdAtDate = moment(organisation.created_at).format("DD MMM YYYY");
 
     const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
 
@@ -52,7 +52,7 @@ const calcServices = (services, selectedWeek) => {
 
 const calcUnapprovedOrganisation = (organisations, selectedWeek) => {
   let unpprovedOrganisationsValue = organisations.filter((organisation) => {
-    const createdAtDate = moment(organisation.createdAt).format("DD MMM YYYY");
+    const createdAtDate = moment(organisation.created_at).format("DD MMM YYYY");
 
     const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
 
