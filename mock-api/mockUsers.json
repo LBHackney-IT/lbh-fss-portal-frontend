@@ -144,10 +144,7 @@
     "email": "Kaley_Smitham@yahoo.com",
     "status": "deleted",
     "roles": ["viewer", "vcso"],
-    "organisation": {
-      "id": 77040,
-      "name": "Wisozk Inc"
-    }
+    "organisation": null
   },
   {
     "id": 36210,

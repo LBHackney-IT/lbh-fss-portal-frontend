@@ -31,11 +31,15 @@ const UserTable = ({ data, isLoading, search }) => {
         Header: "Organisation",
         accessor: "organisation",
         Cell: (e) => {
-          return (
-            <Link to={`/organisations/${e.value.id}/edit`}>
-              <StyledEmailText>{e.value.name}</StyledEmailText>
-            </Link>
-          );
+          if (e.value) {
+            return (
+              <Link to={`/organisations/${e.value.id}/edit`}>
+                <StyledEmailText>{e.value.name}</StyledEmailText>
+              </Link>
+            );
+          } else {
+            return "No organisation";
+          }
         },
       },
       {
