@@ -33,6 +33,7 @@ const FormDropDown = ({
   name,
   options,
   values,
+  value,
   required,
   error,
   register,
@@ -47,6 +48,7 @@ const FormDropDown = ({
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
       <StyledSelect
         name={name}
+        value={!includeBlankValue ? value : null}
         ref={register({ required })}
         onChange={onChange}
         style={selectStyle}
