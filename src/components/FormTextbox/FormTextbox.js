@@ -14,8 +14,7 @@ const StyledLabel = styled.label`
 
 const StyledTextarea = styled.textarea`
   resize: none;
-  padding: 10px;
-  margin-bottom: 20px;
+  margin: 0 0 20px 0;
   max-width: 438px;
   width: 100%;
   border: 1px solid ${neutral[500]};
@@ -41,6 +40,7 @@ const FormTextbox = ({
   help,
   placeholder,
   labelStyle,
+  textAreaStyle,
   rows = "5",
   cols = "10",
   spellCheck = "true",
@@ -64,6 +64,7 @@ const FormTextbox = ({
         }}
         aria-invalid={error ? "true" : "false"}
         spellCheck={spellCheck}
+        style={textAreaStyle}
       />
       {error && error.type === "required" && (
         <FormError error={`${label} is required.`} />
@@ -89,6 +90,7 @@ FormTextbox.propTypes = {
   maxLength: PropTypes.number,
   minLength: PropTypes.number,
   error: PropTypes.object,
+  textAreaStyle: PropTypes.object,
 };
 
 export default FormTextbox;

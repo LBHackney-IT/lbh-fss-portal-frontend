@@ -4,6 +4,7 @@ import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import FormInput from "../../../../components/FormInput/FormInput";
 import Button from "../../../../components/Button/Button";
 import FormTextbox from "../../../../components/FormTextbox/FormTextbox";
+import FormHelpText from "../../../../components/FormHelpText/FormHelpText";
 
 const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
   const { register, handleSubmit, errors } = useForm({
@@ -34,7 +35,9 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
           required
           error={errors.description}
           help="Please describe your organisation in 80 characters (e.g Expert services so no-one has to face a mental health problem alone)"
+          textAreaStyle={{ margin: "0" }}
         />
+        <FormHelpText helpText="Please review underlined spellings." />
       </FormFieldset>
       <FormFieldset
         label="Contact details"

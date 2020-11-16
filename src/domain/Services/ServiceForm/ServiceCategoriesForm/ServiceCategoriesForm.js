@@ -11,6 +11,7 @@ import FormError from "../../../../components/FormError/FormError";
 import { objAllFalse } from "../../../../utils/functions/functions";
 import { serviceCategoryCheckboxOptions } from "../../../../utils/data/data";
 import { Link } from "@reach/router";
+import FormHelpText from "../../../../components/FormHelpText/FormHelpText";
 
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
@@ -282,6 +283,7 @@ const ServiceCategoriesForm = ({
             </div>
           );
         })}
+        <FormHelpText helpText="Please review underlined spellings." />
       </FormFieldset>
       {showError ? (
         <FormError error="Please enter at least one category" />

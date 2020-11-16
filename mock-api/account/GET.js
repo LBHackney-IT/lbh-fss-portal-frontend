@@ -17,19 +17,19 @@ var sample = require("lodash/sample");
 //     );
 // };
 
-// ADMIN;
-module.exports = (req, res) => {
-  res
-    .status(200)
-    .json(sample(mockUsers.filter((u) => u.name === "Reyna Simonis")));
-};  
-
-// // VCSO - NO services but WITH organisation
+// // ADMIN;
 // module.exports = (req, res) => {
 //   res
 //     .status(200)
-//     .json(sample(mockUsers.filter((u) => u.name === "Melody Zieme")));
+//     .json(sample(mockUsers.filter((u) => u.name === "Reyna Simonis")));
 // };
+
+// VCSO - NO services but WITH organisation
+module.exports = (req, res) => {
+  res
+    .status(200)
+    .json(sample(mockUsers.filter((u) => u.name === "Melody Zieme")));
+};
 
 // // VCSO - WITH services and WITH organisation
 // module.exports = (req, res) => {
