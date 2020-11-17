@@ -31,6 +31,11 @@ function convertStepNumToWord(stepNum) {
   return words[stepNum];
 }
 
+function calculateStepPercentage(stepNum, stepArray) {
+  const totalNumStep = stepArray.length;
+  return (100 * stepNum) / totalNumStep;
+}
+
 function arrayOfObjhasDuplicates(arrayOfObj) {
   const arrayOfObjCopy = [...arrayOfObj];
   Object.keys(arrayOfObjCopy).forEach((key) => {
@@ -89,6 +94,7 @@ export {
   convertCheckboxToBoolean,
   getPreviousYears,
   convertStepNumToWord,
+  calculateStepPercentage,
   arrayOfObjhasDuplicates,
   removeEmptyObjFromArrayObj,
   objAllFalse,
