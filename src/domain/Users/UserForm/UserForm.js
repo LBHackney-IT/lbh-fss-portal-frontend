@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import { red, green } from "../../../settings";
 import { darken } from "polished";
+import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 
 const StyledSaveButton = styled(Button)`
   background-color: ${green[400]};
@@ -64,6 +65,7 @@ const UserForm = ({
   defaultValues = {},
   onDelete = () => {},
   onResendAuth = () => {},
+  onRemoveOrganisation = () => {},
   showDeleteButton = false,
   submitLabel = "Save",
   submitLoading = false,
@@ -71,6 +73,8 @@ const UserForm = ({
   showRoles = true,
   showEmail = true,
   showResendAuth = true,
+  showRemoveOrganisation = false,
+  showAddOrganisation = false,
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
@@ -215,6 +219,36 @@ const UserForm = ({
           ""
         )}
       </div>
+
+      {showRemoveOrganisation ? (
+        <>
+          <StyledResendButton
+            label={`Unlink organisation ${defaultValues.organisation} from user
+            ${defaultValues.name}`}
+            onClick={(e) => onRemoveOrganisation(e)}
+            backgroundColor="white"
+            border={`1px sold ${green[400]}`}
+          />
+        </>
+      ) : null}
+
+      {showAddOrganisation ? (
+        <>
+          <FormDropDown
+            label={"Organisation"}
+            name={"organisation"}
+            register={register}
+            options={["Sully Corp.", "Organisation 2", "Organisation 3"]}
+            includeBlankValue={true}
+          />
+          <StyledResendButton
+            label={`Link organisation`}
+            onClick={onResendAuth}
+            backgroundColor="white"
+            border={`1px sold ${green[400]}`}
+          />
+        </>
+      ) : null}
     </form>
   );
 };
