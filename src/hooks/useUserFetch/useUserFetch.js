@@ -27,7 +27,9 @@ function useUserFetch(userId) {
 
   return {
     user,
+    setUser,
     isLoading,
+    setIsLoading,
   };
 }
 

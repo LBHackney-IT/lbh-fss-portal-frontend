@@ -17,10 +17,23 @@ import { doCleanFormValues } from "../../../utils/functions/userFunctions";
 import AppLoading from "../../../AppLoading";
 
 const EditUser = (props) => {
-  const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId);
+  const {
+    user,
+    setUser,
+    isLoading: fetchIsLoading,
+    setIsLoading: setFetchIsLoading,
+  } = useUserFetch(props.userId);
   const [editIsLoading, setEditIsLoading] = useState(false);
   const [deleteIsLoading, setDeleteIsLoading] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [
+    removeOrganisationIsLoading,
+    setRemoveOrganisationIsLoading,
+  ] = useState(false);
+  const [
+    removeOrganisationModalIsOpen,
+    setRemoveOrganisationModalIsOpen,
+  ] = useState(false);
   const [resendAuthIsLoading, setResendAuthIsLoading] = useState(false);
 
   const { roles } = useContext(UserContext)[0];
@@ -29,6 +42,12 @@ const EditUser = (props) => {
     if (deleteIsLoading) return;
 
     setDeleteModalIsOpen(!deleteModalIsOpen);
+  }
+
+  function toggleRemoveOrganisationModal() {
+    if (removeOrganisationIsLoading) return;
+
+    setRemoveOrganisationModalIsOpen(!removeOrganisationModalIsOpen);
   }
 
   const onSubmit = (formValues) => {
@@ -127,6 +146,33 @@ const EditUser = (props) => {
     }
   }
 
+  async function doRemoveOrganisation(e) {
+    e.preventDefault();
+    // make call to DELETE /user-links/{userId} endpoint
+    // fetchUser(setUser, setFetchIsLoading);
+
+    console.log("do unlink here");
+
+    setFetchIsLoading(true);
+
+    const updatedUser = await UserService.getUser(user.id);
+
+    setFetchIsLoading(false);
+
+    if (updatedUser) {
+      setUser(updatedUser);
+    } else {
+      toast.error("Unable to retrieve updated user.");
+    }
+    setRemoveOrganisationModalIsOpen(false);
+  }
+
+  const onRemoveOrganisation = (e) => {
+    e.preventDefault();
+
+    setRemoveOrganisationModalIsOpen(true);
+  };
+
   if (fetchIsLoading || resendAuthIsLoading) {
     return <AppLoading />;
   }
@@ -136,6 +182,12 @@ const EditUser = (props) => {
   user.roles = user.roles.map((role) => {
     return role.toLowerCase();
   });
+
+  let userHasOrganisation = false;
+
+  if (user.organisation) {
+    userHasOrganisation = true;
+  }
 
   return isInternalTeam ? (
     <>
@@ -147,6 +199,7 @@ const EditUser = (props) => {
             name: user.name || "",
             email: user.email || "",
             roles: user.roles || "",
+            organisation: userHasOrganisation ? user.organisation.name : "",
           }}
           submitLoading={editIsLoading}
           showDeleteButton={true}
@@ -155,6 +208,9 @@ const EditUser = (props) => {
           showPassword={user.status !== "invited"}
           showResendAuth={user.status === "invited"}
           onResendAuth={doResendAuthentication}
+          onRemoveOrganisation={onRemoveOrganisation}
+          showRemoveOrganisation={userHasOrganisation}
+          showAddOrganisation={!userHasOrganisation}
         />
       </RaisedCard>
       <ConfirmModal
@@ -169,6 +225,21 @@ const EditUser = (props) => {
         confirmButtonColor={red[400]}
         borderColor={red[400]}
         onConfirm={doDelete}
+      />
+      <ConfirmModal />
+      <ConfirmModal
+        isOpen={removeOrganisationModalIsOpen}
+        toggleModal={toggleRemoveOrganisationModal}
+        confirmMessage={
+          <>
+            Are you sure you want to unlink{" "}
+            <strong> {user.organisation.name}</strong>?
+          </>
+        }
+        confirmButtonLabel={"Unlink"}
+        confirmButtonColor={red[400]}
+        borderColor={red[400]}
+        onConfirm={doRemoveOrganisation}
       />
       <ConfirmModal />
     </>
