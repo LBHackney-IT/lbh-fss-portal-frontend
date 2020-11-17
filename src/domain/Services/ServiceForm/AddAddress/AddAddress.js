@@ -193,9 +193,6 @@ const ServiceLocationsForm = ({
         })}
         error={errors.address}
       />
-      {/* <a href="" target="_blank">
-        I can't find my address in the list
-      </a> */}
       If you have can't find your address in the list please contact{" "}
       <a href="mailto:fss@hackney.gov.uk">fss@hackney.gov.uk</a>
       {watch("address") && addresses[watch("address")] ? (

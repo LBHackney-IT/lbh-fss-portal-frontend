@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import styled from "styled-components";
 import OrganisationConfirmLocationForm from "./OrganisationConfirmLocationForm/OrganisationConfirmLocationForm";
 import OrganisationCharityInformationForm from "./OrganisationCharityInformationForm/OrganisationCharityInformationForm";
@@ -6,10 +6,15 @@ import OrganisationChildSupportForm from "./OrganisationChildSupportForm/Organis
 import OrganisationAdultSupportForm from "./OrganisationAdultSupportForm/OrganisationAdultSupportForm";
 import scrollToRef from "../../../utils/scrollToRef/scrollToRef";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
-import { convertStepNumToWord } from "../../../utils/functions/functions";
+import {
+  checkIsInternalTeam,
+  convertStepNumToWord,
+  calculateStepPercentage,
+} from "../../../utils/functions/functions";
 import { grey } from "../../../settings";
 import FormNav from "../../../components/FormNav/FormNav";
 import OrganisationName from "./OrganisationName/OrganisationName";
+import UserContext from "../../../context/UserContext/UserContext";
 
 const StyledOrganisationForm = styled.div`
   display: flex;
@@ -38,6 +43,11 @@ const StyledOrganisationFormMain = styled.div`
   `};
 `;
 
+const StyledStepTextContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const StyledStepText = styled.p`
   color: ${grey[400]};
 `;
@@ -61,26 +71,31 @@ const OrganisationForm = ({
   submitLoading = false,
   enableAllLinks = false,
 }) => {
-  const stepArray = [
+  let stepArray = [
     {
       id: "organisation-name",
       label: "Organisation name",
+      internalTeamOnly: false,
     },
     {
       id: "confirm-location",
       label: "Where do you provide support?",
+      internalTeamOnly: false,
     },
     {
       id: "charity-information",
       label: "Are you a registered charity or receive funding?",
+      internalTeamOnly: false,
     },
     {
       id: "child-support",
       label: "Do you provide services for under 16’s?",
+      internalTeamOnly: false,
     },
     {
       id: "adult-support",
       label: "Do you provide services for vulnerable adults?",
+      internalTeamOnly: false,
     },
   ];
 
@@ -92,7 +107,19 @@ const OrganisationForm = ({
 
   const [draftOrganisation, setDraftOrganisation] = useState(defaultValues);
 
+  const user = useContext(UserContext)[0];
+
+  const isInternalTeam = checkIsInternalTeam(user.roles);
+
   const mainRef = useRef(null);
+
+  stepArray = stepArray.filter((step) => {
+    if (isInternalTeam) {
+      return true;
+    } else {
+      return !step.internalTeamOnly;
+    }
+  });
 
   const moveToNextStep = (formValues, pageQuestionNames) => {
     const formValuesWithHiddenFields = doHandleHiddenFieldValues(
@@ -188,7 +215,12 @@ const OrganisationForm = ({
 
   return (
     <>
-      <StyledStepText>Step {convertStepNumToWord(stepNum)}</StyledStepText>
+      <StyledStepTextContainer>
+        <StyledStepText>Step {convertStepNumToWord(stepNum)}</StyledStepText>
+        <StyledStepText>
+          Completed {calculateStepPercentage(stepNum, stepArray)}%
+        </StyledStepText>
+      </StyledStepTextContainer>
       <h1>Tell us about your organisation</h1>
       <StyledOrganisationForm>
         <StyledOrganisationFormAside>
