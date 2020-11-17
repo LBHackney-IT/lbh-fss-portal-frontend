@@ -31,15 +31,8 @@ function convertStepNumToWord(stepNum) {
   return words[stepNum];
 }
 
-function calculateStepPercentage(stepNum, stepArray, isInternalTeam) {
-  const totalNumStep = stepArray.filter((step) => {
-    if (isInternalTeam) {
-      return true;
-    } else {
-      return !step.internalTeamOnly;
-    }
-  }).length;
-
+function calculateStepPercentage(stepNum, stepArray) {
+  const totalNumStep = stepArray.length;
   return (100 * stepNum) / totalNumStep;
 }
 

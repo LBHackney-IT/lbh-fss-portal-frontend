@@ -69,7 +69,7 @@ const ServiceForm = ({
   initialStepId = "details",
   submitLoading = false,
 }) => {
-  const stepArray = [
+  let stepArray = [
     { id: "details", label: "Your details", internalTeamOnly: false },
     { id: "locations", label: "Your location(s)", internalTeamOnly: false },
     { id: "categories", label: "What you do", internalTeamOnly: false },
@@ -92,6 +92,14 @@ const ServiceForm = ({
   const isInternalTeam = checkIsInternalTeam(user.roles);
 
   const mainRef = useRef(null);
+
+  stepArray = stepArray.filter((step) => {
+    if (isInternalTeam) {
+      return true;
+    } else {
+      return !step.internalTeamOnly;
+    }
+  });
 
   const handleStepChange = (values) => {
     if (stepNum === stepArray.length - 1) {
@@ -193,7 +201,7 @@ const ServiceForm = ({
       <StyledStepTextContainer>
         <StyledStepText>Step {convertStepNumToWord(stepNum)}</StyledStepText>
         <StyledStepText>
-          {calculateStepPercentage(stepNum, stepArray, isInternalTeam)}%
+          Completed {calculateStepPercentage(stepNum, stepArray)}%
         </StyledStepText>
       </StyledStepTextContainer>
       <h1>{pageTitle}</h1>

@@ -71,7 +71,7 @@ const OrganisationForm = ({
   submitLoading = false,
   enableAllLinks = false,
 }) => {
-  const stepArray = [
+  let stepArray = [
     {
       id: "organisation-name",
       label: "Organisation name",
@@ -112,6 +112,14 @@ const OrganisationForm = ({
   const isInternalTeam = checkIsInternalTeam(user.roles);
 
   const mainRef = useRef(null);
+
+  stepArray = stepArray.filter((step) => {
+    if (isInternalTeam) {
+      return true;
+    } else {
+      return !step.internalTeamOnly;
+    }
+  });
 
   const moveToNextStep = (formValues, pageQuestionNames) => {
     const formValuesWithHiddenFields = doHandleHiddenFieldValues(
@@ -210,7 +218,7 @@ const OrganisationForm = ({
       <StyledStepTextContainer>
         <StyledStepText>Step {convertStepNumToWord(stepNum)}</StyledStepText>
         <StyledStepText>
-          {calculateStepPercentage(stepNum, stepArray, isInternalTeam)}%
+          Completed {calculateStepPercentage(stepNum, stepArray)}%
         </StyledStepText>
       </StyledStepTextContainer>
       <h1>Tell us about your organisation</h1>
