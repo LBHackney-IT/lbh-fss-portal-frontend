@@ -6423,22 +6423,45 @@
     "created_at": "2020-01-08T17:27:53.630Z",
     "updated_at": "2020-02-23T14:05:41.398Z",
     "description": "Right-sized foreground conglomeration",
-    "website": "http://kaci.com",
-    "email": "Jaime_Carroll18@gmail.com",
-    "telephone": "066-525-5486 x99294",
-    "facebook": "Granite",
-    "twitter": "e-commerce",
-    "instagram": "Car",
-    "linkedin": "Practical",
+    "website": null,
+    "email": null,
+    "telephone": null,
+    "facebook": null,
+    "twitter": null,
+    "instagram": null,
+    "linkedin": null,
     "keywords": "mobile,SCSI,synthesizing,efficient,Tuna,innovate,virtual,magnetic",
-    "referral_link": "https://milan.net",
-    "referral_email": "Micaela.Quigley@hotmail.com",
+    "referral_link": null,
+    "referral_email": null,
     "image": {
       "id": 11475,
       "medium": "http://lorempixel.com/640/480",
       "original": "http://lorempixel.com/640/480"
     },
-    "locations": [],
+    "locations": [
+      {
+        "latitude": "51.595995",
+        "longitude": "-0.217020",
+        "uprn": 75294,
+        "address_1": "5437 Howell Flats",
+        "address_2": "Suite 108",
+        "city": "Lake Aricchester",
+        "state_province": "Bedfordshire",
+        "postal_code": "84056",
+        "country": "Denmark"
+      },
+      {
+        "latitude": "51.588946",
+        "longitude": "-0.169635",
+        "uprn": 91119,
+        "address_1": "04301 Deven Place",
+        "address_2": "Apt. 913",
+        "city": "Bulahland",
+        "state_province": "Berkshire",
+        "postal_code": "TW1 2JU",
+        "country": "Croatia"
+      }
+    ],
     "categories": [
       {
         "id": 59053,
