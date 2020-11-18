@@ -66,6 +66,8 @@ const UserForm = ({
   onDelete = () => {},
   onResendAuth = () => {},
   onRemoveOrganisation = () => {},
+  onAddOrganisation = () => {},
+  setSelectedOrganisation = () => {},
   showDeleteButton = false,
   submitLabel = "Save",
   submitLoading = false,
@@ -75,6 +77,7 @@ const UserForm = ({
   showResendAuth = true,
   showRemoveOrganisation = false,
   showAddOrganisation = false,
+  organisations = [],
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
@@ -238,14 +241,19 @@ const UserForm = ({
             label={"Organisation"}
             name={"organisation"}
             register={register}
-            options={["Sully Corp.", "Organisation 2", "Organisation 3"]}
+            options={organisations.map((organisation) => organisation.name)}
+            values={organisations.map((organisation) => organisation.id)}
             includeBlankValue={true}
+            onChange={() => {
+              setSelectedOrganisation(getValues().organisation);
+            }}
           />
           <StyledResendButton
             label={`Link organisation`}
             onClick={onResendAuth}
             backgroundColor="white"
             border={`1px sold ${green[400]}`}
+            onClick={(e) => onAddOrganisation(e)}
           />
         </>
       ) : null}

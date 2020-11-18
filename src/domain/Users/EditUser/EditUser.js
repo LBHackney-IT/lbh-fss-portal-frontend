@@ -8,21 +8,28 @@ import useUserFetch from "../../../hooks/useUserFetch/useUserFetch";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
-import { red } from "../../../settings";
+import { green, red } from "../../../settings";
 import {
   checkIsInternalTeam,
   arraysEqual,
 } from "../../../utils/functions/functions";
 import { doCleanFormValues } from "../../../utils/functions/userFunctions";
 import AppLoading from "../../../AppLoading";
+import useAllOrganisationFetch from "../../../hooks/useAllOrganisationFetch/useAllOrganisationFetch";
 
 const EditUser = (props) => {
+  // fetch user
   const {
     user,
     setUser,
     isLoading: fetchIsLoading,
     setIsLoading: setFetchIsLoading,
   } = useUserFetch(props.userId);
+
+  // fetch all organisations
+  const { organisations, organisationsIsLoading } = useAllOrganisationFetch();
+
+  const [selectedOrganisation, setSelectedOrganisation] = useState(false);
   const [editIsLoading, setEditIsLoading] = useState(false);
   const [deleteIsLoading, setDeleteIsLoading] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
@@ -34,6 +41,13 @@ const EditUser = (props) => {
     removeOrganisationModalIsOpen,
     setRemoveOrganisationModalIsOpen,
   ] = useState(false);
+  const [addOrganisationIsLoading, setAddOrganisationIsLoading] = useState(
+    false
+  );
+  const [addOrganisationModalIsOpen, setAddOrganisationModalIsOpen] = useState(
+    false
+  );
+
   const [resendAuthIsLoading, setResendAuthIsLoading] = useState(false);
 
   const { roles } = useContext(UserContext)[0];
@@ -50,7 +64,31 @@ const EditUser = (props) => {
     setRemoveOrganisationModalIsOpen(!removeOrganisationModalIsOpen);
   }
 
-  const onSubmit = (formValues) => {
+  function toggleAddOrganisationModal() {
+    if (addOrganisationIsLoading) return;
+
+    setAddOrganisationModalIsOpen(!addOrganisationModalIsOpen);
+  }
+
+  const onDelete = (e) => {
+    e.preventDefault();
+
+    setDeleteModalIsOpen(true);
+  };
+
+  const onRemoveOrganisation = (e) => {
+    e.preventDefault();
+
+    setRemoveOrganisationModalIsOpen(true);
+  };
+
+  const onAddOrganisation = (e) => {
+    e.preventDefault();
+
+    setAddOrganisationModalIsOpen(true);
+  };
+
+  const doSave = (formValues) => {
     async function doEditUser() {
       if (editIsLoading) return;
 
@@ -122,12 +160,6 @@ const EditUser = (props) => {
     }
   }
 
-  const onDelete = (e) => {
-    e.preventDefault();
-
-    setDeleteModalIsOpen(true);
-  };
-
   async function doResendAuthentication() {
     if (resendAuthIsLoading) return;
 
@@ -148,10 +180,16 @@ const EditUser = (props) => {
 
   async function doRemoveOrganisation(e) {
     e.preventDefault();
+
+    setRemoveOrganisationIsLoading(true);
+
     // make call to DELETE /user-links/{userId} endpoint
     // fetchUser(setUser, setFetchIsLoading);
 
-    console.log("do unlink here");
+    console.log("do unlink this user from their organisation:");
+    console.log(user.id);
+
+    setRemoveOrganisationIsLoading(false);
 
     setFetchIsLoading(true);
 
@@ -167,13 +205,21 @@ const EditUser = (props) => {
     setRemoveOrganisationModalIsOpen(false);
   }
 
-  const onRemoveOrganisation = (e) => {
+  const doAddOranisation = async (e) => {
     e.preventDefault();
 
-    setRemoveOrganisationModalIsOpen(true);
+    setAddOrganisationIsLoading(true);
+
+    // make call to POST /user-links endpoint
+    console.log("send this organisation id to POST /user-links endpoint");
+    console.log(selectedOrganisation);
+
+    setAddOrganisationIsLoading(false);
+
+    setAddOrganisationModalIsOpen(false);
   };
 
-  if (fetchIsLoading || resendAuthIsLoading) {
+  if (fetchIsLoading || resendAuthIsLoading || organisationsIsLoading) {
     return <AppLoading />;
   }
 
@@ -194,7 +240,7 @@ const EditUser = (props) => {
       <h1>Edit user</h1>
       <RaisedCard>
         <UserForm
-          onSubmit={onSubmit}
+          onSubmit={doSave}
           defaultValues={{
             name: user.name || "",
             email: user.email || "",
@@ -209,8 +255,11 @@ const EditUser = (props) => {
           showResendAuth={user.status === "invited"}
           onResendAuth={doResendAuthentication}
           onRemoveOrganisation={onRemoveOrganisation}
+          onAddOrganisation={onAddOrganisation}
           showRemoveOrganisation={userHasOrganisation}
           showAddOrganisation={!userHasOrganisation}
+          organisations={organisations}
+          setSelectedOrganisation={setSelectedOrganisation}
         />
       </RaisedCard>
       <ConfirmModal
@@ -240,6 +289,21 @@ const EditUser = (props) => {
         confirmButtonColor={red[400]}
         borderColor={red[400]}
         onConfirm={doRemoveOrganisation}
+      />
+      <ConfirmModal />
+      <ConfirmModal
+        isOpen={addOrganisationModalIsOpen}
+        toggleModal={toggleAddOrganisationModal}
+        confirmMessage={
+          <>
+            Are you sure you want to link{" "}
+            <strong> {user.organisation.name}</strong>?
+          </>
+        }
+        confirmButtonLabel={"Link"}
+        confirmButtonColor={green[400]}
+        borderColor={green[400]}
+        onConfirm={doAddOranisation}
       />
       <ConfirmModal />
     </>
