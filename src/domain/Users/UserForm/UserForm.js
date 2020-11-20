@@ -54,7 +54,7 @@ const StyledUnlinkButton = styled(StyledActionButton)`
   width: 200px;
   margin: 0;
   padding: 0 !important;
-  height: 40px;
+  height: 60px;
 `;
 
 const StyledLinkButton = styled(StyledActionButton)`
