@@ -5,9 +5,6 @@ module.exports = (req, res) => {
 
   const user = mockUsers.find((user) => user.id === parseInt(userId));
 
-  if (user) {
-    res.status(200).json(user);
-  } else {
-    res.status(404).json({});
-  }
+  res.status(200).json(user);
+  // res.status(404).json({});
 };

@@ -48,9 +48,17 @@ const EditUser = (props) => {
     false
   );
 
+  const [refreshComponent, setRefreshComponent] = useState(false);
+
   const [resendAuthIsLoading, setResendAuthIsLoading] = useState(false);
 
   const { roles } = useContext(UserContext)[0];
+
+  function doRefreshComponent() {
+    setRefreshComponent(!refreshComponent);
+  }
+
+  console.log(refreshComponent);
 
   function toggleDeleteModal() {
     if (deleteIsLoading) return;
@@ -183,25 +191,23 @@ const EditUser = (props) => {
 
     setRemoveOrganisationIsLoading(true);
 
-    // make call to DELETE /user-links/{userId} endpoint
-    // fetchUser(setUser, setFetchIsLoading);
-
-    console.log("do unlink this user from their organisation:");
-    console.log(user.id);
+    const unlinkOrganisationSuccess = await UserService.unlinkOrganisation(
+      user.id
+    );
 
     setRemoveOrganisationIsLoading(false);
 
-    setFetchIsLoading(true);
-
-    const updatedUser = await UserService.getUser(user.id);
-
-    setFetchIsLoading(false);
-
-    if (updatedUser) {
-      setUser(updatedUser);
+    if (unlinkOrganisationSuccess) {
+      doRefreshComponent();
+      toast.success(
+        `Successfully unlinked ${user.organisation.name} from ${user.name}`
+      );
     } else {
-      toast.error("Unable to retrieve updated user.");
+      toast.error(
+        `Failed to unlink ${selectedOrganisation.name} from ${user.name}`
+      );
     }
+
     setRemoveOrganisationModalIsOpen(false);
   }
 
@@ -210,11 +216,23 @@ const EditUser = (props) => {
 
     setAddOrganisationIsLoading(true);
 
-    // make call to POST /user-links endpoint
-    console.log("send this organisation id to POST /user-links endpoint");
-    console.log(selectedOrganisation);
+    const linkOrganisationSuccess = await UserService.unlinkOrganisation({
+      organisation_id: selectedOrganisation.id,
+      user_id: user.id,
+    });
 
     setAddOrganisationIsLoading(false);
+
+    if (linkOrganisationSuccess) {
+      doRefreshComponent();
+      toast.success(
+        `Successfully linked ${selectedOrganisation.name} to ${user.name}`
+      );
+    } else {
+      toast.error(
+        `Failed to link ${selectedOrganisation.name} to ${user.name}`
+      );
+    }
 
     setAddOrganisationModalIsOpen(false);
   };
@@ -297,7 +315,7 @@ const EditUser = (props) => {
         confirmMessage={
           <>
             Are you sure you want to link{" "}
-            <strong> {user.organisation.name}</strong>?
+            <strong> {selectedOrganisation.name}</strong>?
           </>
         }
         confirmButtonLabel={"Link"}
@@ -313,3 +331,19 @@ const EditUser = (props) => {
 };
 
 export default EditUser;
+
+// refresh component
+// setFetchIsLoading(true);
+// const updatedUser = await UserService.getUser(user.id);
+// setFetchIsLoading(false);
+// if (updatedUser) {
+//   setUser(updatedUser);
+//   toast.success(
+//     `Successfully unlinked ${user.organisation.name} from ${user.name}`
+//   );
+// } else {
+//   toast.success(
+//     `Successfully unlinked ${user.organisation.name} from ${user.name}`
+//   );
+//   navigate("/users");
+// }

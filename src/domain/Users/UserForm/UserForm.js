@@ -242,10 +242,11 @@ const UserForm = ({
             name={"organisation"}
             register={register}
             options={organisations.map((organisation) => organisation.name)}
-            values={organisations.map((organisation) => organisation.id)}
+            values={organisations.map((organisation, index) => index)}
             includeBlankValue={true}
             onChange={() => {
-              setSelectedOrganisation(getValues().organisation);
+              const organisationIndex = getValues().organisation;
+              setSelectedOrganisation(organisations[organisationIndex]);
             }}
           />
           <StyledResendButton
