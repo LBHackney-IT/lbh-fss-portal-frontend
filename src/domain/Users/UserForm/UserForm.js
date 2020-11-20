@@ -240,15 +240,17 @@ const UserForm = ({
 
       {showRemoveOrganisation ? (
         <>
-          <p style={{ fontSize: "20px", margin: "15px 0" }}>
-            <strong>Organisation:</strong> {defaultValues.organisation}
-          </p>
-          <StyledUnlinkButton
-            label={"Unlink organisation"}
-            onClick={(e) => onRemoveOrganisation(e)}
-            backgroundColor="white"
-            border={`1px sold ${red[400]}`}
-          />
+          <div style={{ marginBottom: "30px" }}>
+            <p style={{ fontSize: "20px", margin: "15px 0" }}>
+              <strong>Organisation:</strong> {defaultValues.organisation}
+            </p>
+            <StyledUnlinkButton
+              label={"Unlink organisation"}
+              onClick={(e) => onRemoveOrganisation(e)}
+              backgroundColor="white"
+              border={`1px sold ${red[400]}`}
+            />
+          </div>
         </>
       ) : null}
 
