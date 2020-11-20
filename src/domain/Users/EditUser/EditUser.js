@@ -18,13 +18,12 @@ import AppLoading from "../../../AppLoading";
 import useAllOrganisationFetch from "../../../hooks/useAllOrganisationFetch/useAllOrganisationFetch";
 
 const EditUser = (props) => {
+  const [refreshUser, setRefreshUser] = useState(false);
+
   // fetch user
-  const {
-    user,
-    setUser,
-    isLoading: fetchIsLoading,
-    setIsLoading: setFetchIsLoading,
-  } = useUserFetch(props.userId);
+  const { user, isLoading: fetchIsLoading } = useUserFetch(props.userId, [
+    refreshUser,
+  ]);
 
   // fetch all organisations
   const { organisations, organisationsIsLoading } = useAllOrganisationFetch();
@@ -48,17 +47,13 @@ const EditUser = (props) => {
     false
   );
 
-  const [refreshComponent, setRefreshComponent] = useState(false);
-
   const [resendAuthIsLoading, setResendAuthIsLoading] = useState(false);
 
   const { roles } = useContext(UserContext)[0];
 
-  function doRefreshComponent() {
-    setRefreshComponent(!refreshComponent);
+  function doRefreshUser() {
+    setRefreshUser(!refreshUser);
   }
-
-  console.log(refreshComponent);
 
   function toggleDeleteModal() {
     if (deleteIsLoading) return;
@@ -198,7 +193,7 @@ const EditUser = (props) => {
     setRemoveOrganisationIsLoading(false);
 
     if (unlinkOrganisationSuccess) {
-      doRefreshComponent();
+      doRefreshUser();
       toast.success(
         `Successfully unlinked ${user.organisation.name} from ${user.name}`
       );
@@ -216,7 +211,7 @@ const EditUser = (props) => {
 
     setAddOrganisationIsLoading(true);
 
-    const linkOrganisationSuccess = await UserService.unlinkOrganisation({
+    const linkOrganisationSuccess = await UserService.linkOrganisation({
       organisation_id: selectedOrganisation.id,
       user_id: user.id,
     });
@@ -224,7 +219,7 @@ const EditUser = (props) => {
     setAddOrganisationIsLoading(false);
 
     if (linkOrganisationSuccess) {
-      doRefreshComponent();
+      doRefreshUser();
       toast.success(
         `Successfully linked ${selectedOrganisation.name} to ${user.name}`
       );
@@ -331,19 +326,3 @@ const EditUser = (props) => {
 };
 
 export default EditUser;
-
-// refresh component
-// setFetchIsLoading(true);
-// const updatedUser = await UserService.getUser(user.id);
-// setFetchIsLoading(false);
-// if (updatedUser) {
-//   setUser(updatedUser);
-//   toast.success(
-//     `Successfully unlinked ${user.organisation.name} from ${user.name}`
-//   );
-// } else {
-//   toast.success(
-//     `Successfully unlinked ${user.organisation.name} from ${user.name}`
-//   );
-//   navigate("/users");
-// }
