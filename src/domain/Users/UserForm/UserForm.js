@@ -38,12 +38,27 @@ const StyledDeleteButton = styled(Button)`
   `}
 `;
 
-const StyledResendButton = styled(Button)`
-  color: ${green[400]};
+const StyledActionButton = styled(Button)`
   padding: 20px 0 !important;
   width: 100%;
   max-width: 438px;
   margin-bottom: 20px;
+`;
+
+const StyledResendButton = styled(StyledActionButton)`
+  color: ${green[400]};
+`;
+
+const StyledUnlinkButton = styled(StyledActionButton)`
+  color: ${red[400]};
+  width: 200px;
+  margin: 0;
+  padding: 0 !important;
+  height: 40px;
+`;
+
+const StyledLinkButton = styled(StyledActionButton)`
+  color: ${green[400]};
 `;
 
 const StyledActionDiv = styled.div`
@@ -225,37 +240,46 @@ const UserForm = ({
 
       {showRemoveOrganisation ? (
         <>
-          <StyledResendButton
-            label={`Unlink organisation ${defaultValues.organisation} from user
-            ${defaultValues.name}`}
+          <p style={{ fontSize: "20px", margin: "15px 0" }}>
+            <strong>Organisation:</strong> {defaultValues.organisation}
+          </p>
+          <StyledUnlinkButton
+            label={"Unlink organisation"}
             onClick={(e) => onRemoveOrganisation(e)}
             backgroundColor="white"
-            border={`1px sold ${green[400]}`}
+            border={`1px sold ${red[400]}`}
           />
         </>
       ) : null}
 
       {showAddOrganisation ? (
         <>
-          <FormDropDown
-            label={"Organisation"}
-            name={"organisation"}
-            register={register}
-            options={organisations.map((organisation) => organisation.name)}
-            values={organisations.map((organisation, index) => index)}
-            includeBlankValue={true}
-            onChange={() => {
-              const organisationIndex = getValues().organisation;
-              setSelectedOrganisation(organisations[organisationIndex]);
-            }}
-          />
-          <StyledResendButton
-            label={`Link organisation`}
-            onClick={onResendAuth}
-            backgroundColor="white"
-            border={`1px sold ${green[400]}`}
-            onClick={(e) => onAddOrganisation(e)}
-          />
+          <div style={{ marginTop: "20px" }}>
+            <FormDropDown
+              label={
+                <>
+                  <strong>Organisation</strong>
+                </>
+              }
+              name={"organisation"}
+              register={register}
+              options={organisations.map((organisation) => organisation.name)}
+              values={organisations.map((organisation, index) => index)}
+              includeBlankValue={true}
+              onChange={() => {
+                const organisationIndex = getValues().organisation;
+                setSelectedOrganisation(organisations[organisationIndex]);
+              }}
+              selectStyle={{ margin: "10px 0" }}
+            />
+            <StyledLinkButton
+              label={`Link organisation`}
+              onClick={onResendAuth}
+              backgroundColor="white"
+              border={`1px sold ${green[400]}`}
+              onClick={(e) => onAddOrganisation(e)}
+            />
+          </div>
         </>
       ) : null}
     </form>
