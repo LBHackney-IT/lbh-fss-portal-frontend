@@ -528,10 +528,7 @@
     "email": "Lorna.Lesch64@yahoo.com",
     "status": "suspended",
     "roles": ["admin"],
-    "organisation": {
-      "id": 60212,
-      "name": "Gottlieb - Schneider"
-    }
+    "organisation": null
   },
   {
     "id": 38749,

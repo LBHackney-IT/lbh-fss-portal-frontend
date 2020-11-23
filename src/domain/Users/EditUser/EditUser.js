@@ -232,15 +232,22 @@ const EditUser = (props) => {
     setAddOrganisationModalIsOpen(false);
   };
 
-  if (fetchIsLoading || resendAuthIsLoading || organisationsIsLoading) {
+  if (
+    !user ||
+    fetchIsLoading ||
+    resendAuthIsLoading ||
+    organisationsIsLoading
+  ) {
     return <AppLoading />;
   }
 
   const isInternalTeam = checkIsInternalTeam(roles);
 
-  user.roles = user.roles.map((role) => {
-    return role.toLowerCase();
-  });
+  if (user.roles) {
+    user.roles = user.roles.map((role) => {
+      return role.toLowerCase();
+    });
+  }
 
   let userHasOrganisation = false;
 
@@ -289,20 +296,22 @@ const EditUser = (props) => {
         onConfirm={doDelete}
       />
       <ConfirmModal />
-      <ConfirmModal
-        isOpen={removeOrganisationModalIsOpen}
-        toggleModal={toggleRemoveOrganisationModal}
-        confirmMessage={
-          <>
-            Are you sure you want to unlink{" "}
-            <strong> {user.organisation.name}</strong>?
-          </>
-        }
-        confirmButtonLabel={"Unlink"}
-        confirmButtonColor={red[400]}
-        borderColor={red[400]}
-        onConfirm={doRemoveOrganisation}
-      />
+      {user.organisation ? (
+        <ConfirmModal
+          isOpen={removeOrganisationModalIsOpen}
+          toggleModal={toggleRemoveOrganisationModal}
+          confirmMessage={
+            <>
+              Are you sure you want to unlink{" "}
+              <strong> {user.organisation.name}</strong>?
+            </>
+          }
+          confirmButtonLabel={"Unlink"}
+          confirmButtonColor={red[400]}
+          borderColor={red[400]}
+          onConfirm={doRemoveOrganisation}
+        />
+      ) : null}
       <ConfirmModal />
       <ConfirmModal
         isOpen={addOrganisationModalIsOpen}
