@@ -11,6 +11,7 @@ import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import { red, green } from "../../../settings";
 import { darken } from "polished";
 import FormDropDown from "../../../components/FormDropDown/FormDropDown";
+import autocomplete from "autocompleter";
 
 const StyledSaveButton = styled(Button)`
   background-color: ${green[400]};
@@ -75,6 +76,23 @@ const StyledActionDiv = styled.div`
   }
 `;
 
+const StyledOrganisationAutocomplete = styled.input`
+  background: white;
+  z-index: 1000;
+  overflow: auto;
+  box-sizing: border-box;
+  border: 1px solid rgba(50, 50, 50, 0.6);
+
+  & > div {
+    padding: 0 4px;
+  }
+
+  & > div.selected {
+    background: #81ca91;
+    cursor: pointer;
+  }
+`;
+
 const UserForm = ({
   onSubmit,
   defaultValues = {},
@@ -93,12 +111,51 @@ const UserForm = ({
   showRemoveOrganisation = false,
   showAddOrganisation = false,
   organisations = [],
+  selectedOrganisation = [],
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
   });
 
   let loopIteration = 0;
+
+  // var countries = [
+  //   { label: "United Kingdom", value: "UK", group: "North America" },
+  //   { label: "United States", value: "US", group: "North America" },
+  //   { label: "Uzbekistan", value: "UZ", group: "Asia" },
+  // ];
+
+  if (organisations && document.getElementById("country")) {
+    // console.log(organisations[0]);
+    const countries = [
+      { label: organisations[0].name, value: organisations[0].id },
+      { label: organisations[1].name, value: organisations[1].id },
+    ];
+
+    organisations.forEach((organisation) => {
+      organisation.label = organisation.name;
+      organisation.value = organisation.id;
+    });
+
+    autocomplete({
+      minLength: 1,
+      input: document.getElementById("country"),
+      fetch: function (text, update) {
+        text = text.toLowerCase();
+
+        var suggestions = organisations.filter((n) =>
+          n.label.toLowerCase().startsWith(text)
+        );
+        console.log("suggestions");
+        console.log(suggestions);
+
+        update(suggestions);
+      },
+      onSelect: function (item) {
+        setSelectedOrganisation(item.label);
+      },
+    });
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -211,7 +268,6 @@ const UserForm = ({
       ) : (
         ""
       )}
-
       <div>
         <StyledActionDiv>
           <StyledSaveButton
@@ -237,7 +293,6 @@ const UserForm = ({
           ""
         )}
       </div>
-
       {showRemoveOrganisation ? (
         <>
           <div style={{ marginBottom: "30px" }}>
@@ -253,7 +308,6 @@ const UserForm = ({
           </div>
         </>
       ) : null}
-
       {showAddOrganisation ? (
         <>
           <div style={{ marginTop: "20px" }}>
@@ -284,6 +338,15 @@ const UserForm = ({
           </div>
         </>
       ) : null}
+      {/* {/* {showAddOrganisation ? <input id="hello" /> : null} */}
+      <StyledOrganisationAutocomplete
+        id="country"
+        type="text"
+        onChange={(e) => {
+          setSelectedOrganisation(e.target.value);
+        }}
+        value={selectedOrganisation}
+      />
     </form>
   );
 };

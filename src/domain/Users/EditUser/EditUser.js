@@ -28,7 +28,7 @@ const EditUser = (props) => {
   // fetch all organisations
   const { organisations, organisationsIsLoading } = useAllOrganisationFetch();
 
-  const [selectedOrganisation, setSelectedOrganisation] = useState(false);
+  const [selectedOrganisation, setSelectedOrganisation] = useState("");
   const [editIsLoading, setEditIsLoading] = useState(false);
   const [deleteIsLoading, setDeleteIsLoading] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
@@ -279,6 +279,7 @@ const EditUser = (props) => {
           showRemoveOrganisation={userHasOrganisation}
           showAddOrganisation={!userHasOrganisation}
           organisations={organisations}
+          selectedOrganisation={selectedOrganisation}
           setSelectedOrganisation={setSelectedOrganisation}
         />
       </RaisedCard>
