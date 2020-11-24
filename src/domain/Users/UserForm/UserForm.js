@@ -86,15 +86,6 @@ const StyledOrganisationAutocomplete = styled.input`
   padding: 10px;
   width: 100%;
   max-width: 438px;
-
-  & > div {
-    padding: 0 4px;
-  }
-
-  & > div.selected {
-    background: #81ca91;
-    cursor: pointer;
-  }
 `;
 
 const UserForm = ({
