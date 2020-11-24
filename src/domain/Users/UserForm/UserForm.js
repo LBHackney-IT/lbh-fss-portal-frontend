@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import FormInput from "../../../components/FormInput/FormInput";
@@ -10,9 +10,9 @@ import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import { red, green } from "../../../settings";
 import { darken } from "polished";
-import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 import autocomplete from "autocompleter";
 import "./UserForm.css";
+import FormError from "../../../components/FormError/FormError";
 
 const StyledSaveButton = styled(Button)`
   background-color: ${green[400]};
@@ -117,6 +117,9 @@ const UserForm = ({
   organisations = [],
   selectedOrganisation = [],
 }) => {
+  const [organisationFieldValue, setOrganisationFieldValue] = useState("");
+  const [organisationNotFound, setOrganisationNotFound] = useState(false);
+
   const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues,
   });
@@ -142,7 +145,7 @@ const UserForm = ({
         update(suggestions);
       },
       onSelect: function (item) {
-        setSelectedOrganisation(item.label);
+        setOrganisationFieldValue(item.label);
       },
     });
   }
@@ -299,60 +302,51 @@ const UserForm = ({
             </div>
           </>
         ) : null}
-
-        {/* {showAddOrganisation ? (
-        <>
-          <div style={{ marginTop: "20px" }}>
-            <FormDropDown
-              label={
-                <>
-                  <strong>Organisation</strong>
-                </>
-              }
-              name={"organisation"}
-              register={register}
-              options={organisations.map((organisation) => organisation.name)}
-              values={organisations.map((organisation, index) => index)}
-              includeBlankValue={true}
-              onChange={() => {
-                const organisationIndex = getValues().organisation;
-                console.log(organisations[organisationIndex]);
-                setSelectedOrganisation(organisations[organisationIndex]);
-              }}
-              selectStyle={{ margin: "10px 0" }}
-            />
-            <StyledLinkButton
-              label={`Link organisation`}
-              onClick={onResendAuth}
-              backgroundColor="white"
-              border={`1px sold ${green[400]}`}
-              onClick={(e) => onAddOrganisation(e)}
-            />
-          </div>
-        </>
-      ) : null} */}
-
-        {/* {/* {showAddOrganisation ? <input id="hello" /> : null} */}
       </form>
-      <h4 style={{ margin: "5px 0" }}>Search Organisations</h4>
-      <StyledOrganisationAutocomplete
-        id="organisations"
-        type="text"
-        onChange={(e) => {
-          setSelectedOrganisation(e.target.value);
-        }}
-        value={selectedOrganisation}
-      />
-      <StyledLinkButton
-        label={`Link organisation`}
-        backgroundColor="white"
-        border={`1px sold ${green[400]}`}
-        onClick={(e) => {
-          // check if selected organisation is in list of organisations
-          onAddOrganisation(e);
-        }}
-        margin={"15px 0 0 0"}
-      />
+      {showAddOrganisation ? (
+        <>
+          <h4
+            style={{ margin: "5px 0", fontSize: "19px", fontWeight: "normal" }}
+          >
+            Search Organisations
+          </h4>
+          <StyledOrganisationAutocomplete
+            id="organisations"
+            type="text"
+            onChange={(e) => {
+              setOrganisationNotFound(false);
+              setOrganisationFieldValue(e.target.value);
+            }}
+            value={organisationFieldValue}
+          />
+          {organisationNotFound ? (
+            <FormError
+              error={`Organisation '${organisationFieldValue}' not found`}
+              marginTop={"10px"}
+            />
+          ) : null}
+          <StyledLinkButton
+            label={`Link organisation`}
+            backgroundColor="white"
+            border={`1px sold ${green[400]}`}
+            onClick={(e) => {
+              const organisationToLink = organisations.filter(
+                (organisation) => organisation.name === organisationFieldValue
+              )[0];
+
+              if (organisationToLink) {
+                setOrganisationNotFound(false);
+                setSelectedOrganisation(organisationToLink);
+
+                onAddOrganisation(e);
+              } else {
+                setOrganisationNotFound(true);
+              }
+            }}
+            margin={"15px 0 0 0"}
+          />
+        </>
+      ) : null}
     </>
   );
 };
