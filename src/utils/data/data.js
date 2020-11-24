@@ -1,3 +1,5 @@
+import { camelCase } from "lodash";
+
 const organisationFormFields = [
   "name",
   "is_hackney_based",
@@ -150,53 +152,88 @@ const serviceCategoryCheckboxOptions = [
   },
 ];
 
-const serviceDemographicCheckboxOptions = [
+// const serviceDemographicCheckboxOptions = [
+//   {
+//     id: "everyone",
+//     value: 999,
+//     label: "Everyone",
+//   },
+//   {
+//     id: "disbOrAut",
+//     value: 12,
+//     label: "Disabilities or autism",
+//   },
+//   {
+//     id: "men",
+//     value: 13,
+//     label: "Men",
+//   },
+//   {
+//     id: "women",
+//     value: 14,
+//     label: "Women",
+//   },
+//   {
+//     id: "lgbtqi",
+//     value: 15,
+//     label: "LGBTQI+",
+//   },
+//   {
+//     id: "chilYoungFam",
+//     value: 16,
+//     label: "Children, young people or families",
+//   },
+//   {
+//     id: "oldPe",
+//     value: 17,
+//     label: "Older people",
+//   },
+//   {
+//     id: "carers",
+//     value: 18,
+//     label: "Carers",
+//   },
+//   {
+//     id: "cultural",
+//     value: 19,
+//     label: "Cultural",
+//   },
+// ];
+
+const incomingDemographicsFromNewEndpoint = [
   {
-    id: "everyone",
-    value: 999,
-    label: "Everyone",
-  },
-  {
-    id: "disbOrAut",
-    value: 12,
+    id: 12,
     label: "Disabilities or autism",
   },
   {
-    id: "men",
-    value: 13,
+    id: 13,
     label: "Men",
   },
   {
-    id: "women",
-    value: 14,
+    id: 14,
     label: "Women",
   },
   {
-    id: "lgbtqi",
-    value: 15,
+    id: 15,
     label: "LGBTQI+",
   },
-  {
-    id: "chilYoungFam",
-    value: 16,
-    label: "Children, young people or families",
-  },
-  {
-    id: "oldPe",
-    value: 17,
-    label: "Older people",
-  },
-  {
-    id: "carers",
-    value: 18,
-    label: "Carers",
-  },
-  {
-    id: "cultural",
-    value: 19,
-    label: "Cultural",
-  },
 ];
+
+// TODO: tidy this up
+
+let serviceDemographicCheckboxOptions = incomingDemographicsFromNewEndpoint.map(
+  (demographicOption) => {
+    demographicOption.value = demographicOption.id;
+    demographicOption.id = camelCase(demographicOption.label);
+    return demographicOption;
+  }
+);
+
+serviceDemographicCheckboxOptions.unshift({
+  id: "everyone",
+  value: 999,
+  label: "Everyone",
+});
 
 export {
   organisationFormFields,
