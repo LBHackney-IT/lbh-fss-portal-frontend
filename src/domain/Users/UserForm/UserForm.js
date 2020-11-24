@@ -146,6 +146,9 @@ const UserForm = ({
       },
       onSelect: function (item) {
         setOrganisationFieldValue(item.label);
+        document.querySelectorAll(".autocomplete").forEach((element) => {
+          element.style.display = "none";
+        });
       },
     });
   }
