@@ -12,6 +12,7 @@ import { red, green } from "../../../settings";
 import { darken } from "polished";
 import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 import autocomplete from "autocompleter";
+import "./UserForm.css";
 
 const StyledSaveButton = styled(Button)`
   background-color: ${green[400]};
@@ -82,6 +83,9 @@ const StyledOrganisationAutocomplete = styled.input`
   overflow: auto;
   box-sizing: border-box;
   border: 1px solid rgba(50, 50, 50, 0.6);
+  padding: 10px;
+  width: 100%;
+  max-width: 438px;
 
   & > div {
     padding: 0 4px;
@@ -119,19 +123,7 @@ const UserForm = ({
 
   let loopIteration = 0;
 
-  // var countries = [
-  //   { label: "United Kingdom", value: "UK", group: "North America" },
-  //   { label: "United States", value: "US", group: "North America" },
-  //   { label: "Uzbekistan", value: "UZ", group: "Asia" },
-  // ];
-
-  if (organisations && document.getElementById("country")) {
-    // console.log(organisations[0]);
-    const countries = [
-      { label: organisations[0].name, value: organisations[0].id },
-      { label: organisations[1].name, value: organisations[1].id },
-    ];
-
+  if (organisations && document.getElementById("organisations")) {
     organisations.forEach((organisation) => {
       organisation.label = organisation.name;
       organisation.value = organisation.id;
@@ -139,15 +131,13 @@ const UserForm = ({
 
     autocomplete({
       minLength: 1,
-      input: document.getElementById("country"),
+      input: document.getElementById("organisations"),
       fetch: function (text, update) {
         text = text.toLowerCase();
 
         var suggestions = organisations.filter((n) =>
           n.label.toLowerCase().startsWith(text)
         );
-        console.log("suggestions");
-        console.log(suggestions);
 
         update(suggestions);
       },
@@ -158,157 +148,159 @@ const UserForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {showEmail ? (
-        <FormInput
-          name="email"
-          label="Email"
-          register={register}
-          error={errors.email}
-          required
-          maxLength={255}
-          validate={{
-            pattern: (value) => {
-              return (
-                value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
-                "Enter a valid e-mail address"
-              );
-            },
-          }}
-        />
-      ) : null}
-      <FormInput
-        name="name"
-        type="text"
-        label="Name"
-        register={register}
-        error={errors.name}
-        required
-        maxLength={255}
-      />
-      {showRoles ? (
-        <FormFieldset label="Roles">
-          {Object.keys(roles).map((item) => {
-            loopIteration++;
-            return (
-              <FormCheckbox
-                key={item}
-                name="roles"
-                label={roles[item]}
-                value={item}
-                register={register}
-                dataTestid={`checkbox-${loopIteration}`}
-              />
-            );
-          })}
-        </FormFieldset>
-      ) : (
-        ""
-      )}
-      {showPassword ? (
-        <>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {showEmail ? (
           <FormInput
-            type="password"
-            label="Password"
-            name="password"
+            name="email"
+            label="Email"
             register={register}
+            error={errors.email}
+            required
             maxLength={255}
-            minLength={8}
             validate={{
-              oneCapital: (value) => {
-                if (value.length === 0) {
-                  return true;
-                } else {
-                  return (
-                    value.match(/[[A-Z]/) ||
-                    "Password must contain at least one capital letter"
-                  );
-                }
-              },
-              oneNumber: (value) => {
-                if (value.length === 0) {
-                  return true;
-                } else {
-                  return (
-                    value.match(/[[0-9]/) ||
-                    "Password must contain at least one number"
-                  );
-                }
-              },
-              oneSpecialCharacter: (value) => {
-                if (value.length === 0) {
-                  return true;
-                } else {
-                  return (
-                    value.match(/[@#$%^&+='!£*(/`~)]/) ||
-                    "Password must contain at least one special character"
-                  );
-                }
-              },
-            }}
-            autoComplete="new-password"
-            error={errors.password}
-          />
-          <FormInput
-            type="password"
-            label="Confirm password"
-            name="confirmPassword"
-            register={register}
-            validate={{
-              passwordMatch: (value) => {
+              pattern: (value) => {
                 return (
-                  value === getValues().password || "Passwords should match."
+                  value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
+                  "Enter a valid e-mail address"
                 );
               },
             }}
-            autoComplete="new-password"
-            error={errors.confirmPassword}
           />
-        </>
-      ) : (
-        ""
-      )}
-      <div>
-        <StyledActionDiv>
-          <StyledSaveButton
-            type="submit"
-            label={submitLabel}
-            disabled={submitLoading}
-          />
-          {showDeleteButton ? (
-            <StyledDeleteButton label={"Delete account"} onClick={onDelete} />
-          ) : (
-            ""
-          )}
-        </StyledActionDiv>
-
-        {showResendAuth ? (
-          <StyledResendButton
-            label={"Resend authentication details"}
-            onClick={onResendAuth}
-            backgroundColor="white"
-            border={`1px sold ${green[400]}`}
-          />
+        ) : null}
+        <FormInput
+          name="name"
+          type="text"
+          label="Name"
+          register={register}
+          error={errors.name}
+          required
+          maxLength={255}
+        />
+        {showRoles ? (
+          <FormFieldset label="Roles">
+            {Object.keys(roles).map((item) => {
+              loopIteration++;
+              return (
+                <FormCheckbox
+                  key={item}
+                  name="roles"
+                  label={roles[item]}
+                  value={item}
+                  register={register}
+                  dataTestid={`checkbox-${loopIteration}`}
+                />
+              );
+            })}
+          </FormFieldset>
         ) : (
           ""
         )}
-      </div>
-      {showRemoveOrganisation ? (
-        <>
-          <div style={{ marginBottom: "30px" }}>
-            <p style={{ fontSize: "20px", margin: "15px 0" }}>
-              <strong>Organisation:</strong> {defaultValues.organisation}
-            </p>
-            <StyledUnlinkButton
-              label={"Unlink organisation"}
-              onClick={(e) => onRemoveOrganisation(e)}
-              backgroundColor="white"
-              border={`1px sold ${red[400]}`}
+        {showPassword ? (
+          <>
+            <FormInput
+              type="password"
+              label="Password"
+              name="password"
+              register={register}
+              maxLength={255}
+              minLength={8}
+              validate={{
+                oneCapital: (value) => {
+                  if (value.length === 0) {
+                    return true;
+                  } else {
+                    return (
+                      value.match(/[[A-Z]/) ||
+                      "Password must contain at least one capital letter"
+                    );
+                  }
+                },
+                oneNumber: (value) => {
+                  if (value.length === 0) {
+                    return true;
+                  } else {
+                    return (
+                      value.match(/[[0-9]/) ||
+                      "Password must contain at least one number"
+                    );
+                  }
+                },
+                oneSpecialCharacter: (value) => {
+                  if (value.length === 0) {
+                    return true;
+                  } else {
+                    return (
+                      value.match(/[@#$%^&+='!£*(/`~)]/) ||
+                      "Password must contain at least one special character"
+                    );
+                  }
+                },
+              }}
+              autoComplete="new-password"
+              error={errors.password}
             />
-          </div>
-        </>
-      ) : null}
-      {showAddOrganisation ? (
+            <FormInput
+              type="password"
+              label="Confirm password"
+              name="confirmPassword"
+              register={register}
+              validate={{
+                passwordMatch: (value) => {
+                  return (
+                    value === getValues().password || "Passwords should match."
+                  );
+                },
+              }}
+              autoComplete="new-password"
+              error={errors.confirmPassword}
+            />
+          </>
+        ) : (
+          ""
+        )}
+        <div>
+          <StyledActionDiv>
+            <StyledSaveButton
+              type="submit"
+              label={submitLabel}
+              disabled={submitLoading}
+            />
+            {showDeleteButton ? (
+              <StyledDeleteButton label={"Delete account"} onClick={onDelete} />
+            ) : (
+              ""
+            )}
+          </StyledActionDiv>
+
+          {showResendAuth ? (
+            <StyledResendButton
+              label={"Resend authentication details"}
+              onClick={onResendAuth}
+              backgroundColor="white"
+              border={`1px sold ${green[400]}`}
+            />
+          ) : (
+            ""
+          )}
+        </div>
+        {showRemoveOrganisation ? (
+          <>
+            <div style={{ marginBottom: "30px" }}>
+              <p style={{ fontSize: "20px", margin: "15px 0" }}>
+                <strong>Organisation:</strong> {defaultValues.organisation}
+              </p>
+              <StyledUnlinkButton
+                label={"Unlink organisation"}
+                onClick={(e) => onRemoveOrganisation(e)}
+                backgroundColor="white"
+                border={`1px sold ${red[400]}`}
+              />
+            </div>
+          </>
+        ) : null}
+
+        {/* {showAddOrganisation ? (
         <>
           <div style={{ marginTop: "20px" }}>
             <FormDropDown
@@ -324,6 +316,7 @@ const UserForm = ({
               includeBlankValue={true}
               onChange={() => {
                 const organisationIndex = getValues().organisation;
+                console.log(organisations[organisationIndex]);
                 setSelectedOrganisation(organisations[organisationIndex]);
               }}
               selectStyle={{ margin: "10px 0" }}
@@ -337,17 +330,30 @@ const UserForm = ({
             />
           </div>
         </>
-      ) : null}
-      {/* {/* {showAddOrganisation ? <input id="hello" /> : null} */}
+      ) : null} */}
+
+        {/* {/* {showAddOrganisation ? <input id="hello" /> : null} */}
+      </form>
+      <h4 style={{ margin: "5px 0" }}>Search Organisations</h4>
       <StyledOrganisationAutocomplete
-        id="country"
+        id="organisations"
         type="text"
         onChange={(e) => {
           setSelectedOrganisation(e.target.value);
         }}
         value={selectedOrganisation}
       />
-    </form>
+      <StyledLinkButton
+        label={`Link organisation`}
+        backgroundColor="white"
+        border={`1px sold ${green[400]}`}
+        onClick={(e) => {
+          // check if selected organisation is in list of organisations
+          onAddOrganisation(e);
+        }}
+        margin={"15px 0 0 0"}
+      />
+    </>
   );
 };
 
