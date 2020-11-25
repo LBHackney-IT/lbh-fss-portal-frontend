@@ -118,6 +118,37 @@ const UserService = {
       return false;
     }
   },
+  async unlinkOrganisation(id) {
+    try {
+      await axios.delete(`${BASE_API_URL}/user-links/${id}`, {
+        headers: {
+          "x-api-key": API_KEY,
+        },
+      });
+
+      return true;
+    } catch (error) {
+      console.error(error);
+
+      return false;
+    }
+  },
+  async linkOrganisation(values) {
+    try {
+      const response = await axios.post(`${BASE_API_URL}/user-links`, values, {
+        headers: {
+          "x-api-key": API_KEY,
+          "Content-Type": "application/json",
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+
+      return false;
+    }
+  },
 };
 
 export default UserService;

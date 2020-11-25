@@ -12,7 +12,7 @@ const StyledForm = styled.form`
     max-width: 80%;
   `};
   ${breakpoint("md")`
-    max-width: 40%;
+    max-width: 35%;
   `};
 `;
 

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import {
   convertYesNoToBoolean,
   convertCheckboxToBoolean,
+  checkIsInternalTeam,
 } from "../../../utils/functions/functions";
 import {
   organisationFormFields as allFields,
@@ -15,6 +16,7 @@ import {
 import AuthenticationService from "../../../services/AuthenticationService/AuthenticationService";
 import UserContext from "../../../context/UserContext/UserContext";
 import AppLoading from "../../../AppLoading";
+import UserService from "../../../services/UserService/UserService";
 
 async function fetchMe(setUser, setIsLoading) {
   setIsLoading(true);
@@ -28,7 +30,7 @@ async function fetchMe(setUser, setIsLoading) {
 
 const AddOrganisation = () => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
-  const setLocalUser = useContext(UserContext)[1];
+  const [localUser, setLocalUser] = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const [showHiddenField, setShowHiddenField] = useState({
@@ -42,6 +44,8 @@ const AddOrganisation = () => {
     adultSafeguardLead: false,
     adultSafeguardLeadDetails: false,
   });
+
+  const isInternalTeam = checkIsInternalTeam(localUser.roles);
 
   function doCleanFormValues(values) {
     allFields.forEach((field) => {
@@ -80,19 +84,41 @@ const AddOrganisation = () => {
 
     setSubmitIsLoading(true);
 
-    const organisationAdded = await OrganisationService.createOrganisation(
+    const createdOrganisation = await OrganisationService.createOrganisation(
       cleanedFormValues
     );
 
     setSubmitIsLoading(false);
 
-    if (organisationAdded) {
-      toast.success(
-        `New organisation ${organisationAdded.name} has been submitted for review.`
-      );
+    if (createdOrganisation) {
+      if (isInternalTeam) {
+        toast.success(
+          `New organisation ${createdOrganisation.name} has been submitted for review.`
+        );
+        navigate("/organisations");
+      } else {
+        setSubmitIsLoading(true);
 
-      await fetchMe(setLocalUser, setIsLoading);
-      navigate("/service");
+        const linkOrganisationSuccessful = await UserService.linkOrganisation({
+          organisation_id: createdOrganisation.id,
+          user_id: localUser.id,
+        });
+
+        setSubmitIsLoading(false);
+
+        if (linkOrganisationSuccessful) {
+          toast.success(
+            `New organisation ${createdOrganisation.name} has been submitted for review.`
+          );
+
+          await fetchMe(setLocalUser, setIsLoading);
+          navigate("/service");
+        } else {
+          toast.warning(
+            `New organisation ${createdOrganisation.name} failed to submit, please try again.`
+          );
+        }
+      }
     } else {
       toast.error("Unable to add organisation.");
     }
