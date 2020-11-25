@@ -200,6 +200,42 @@ const serviceCategoryCheckboxOptions = [
 //   },
 // ];
 
+const incomingCategoriesFromNewEndpoint = [
+  {
+    id: 1,
+    label: "Loneliness or isolation",
+  },
+  {
+    id: 2,
+    label: "Anxiety or mental health",
+  },
+];
+
+// const serviceCategoryCheckboxOptions = [
+//   {
+//     id: "lonOrIs",
+//     value: 1,
+//     label: "Loneliness or isolation",
+//     help: "For a friendly chat or advice on everyday living.",
+//   },
+//   {
+//     id: "anxOrMH",
+//     value: 2,
+//     label: "Anxiety or mental health",
+//     help: "For any mental health issues you or your loved ones are facing.",
+//   },
+// ];
+
+// let serviceCategoryCheckboxOptions = incomingCategoriesFromNewEndpoint.map(
+//   (categoryOption) => {
+//     categoryOption.name = camelCase(demographicOption.label);
+//     return categoryOption;
+//   }
+// );
+
+// console.log("serviceCategoryCheckboxOptions");
+// console.log(serviceCategoryCheckboxOptions);
+
 const incomingDemographicsFromNewEndpoint = [
   {
     id: 12,
@@ -221,19 +257,17 @@ const incomingDemographicsFromNewEndpoint = [
 
 // TODO: tidy this up
 
+incomingDemographicsFromNewEndpoint.unshift({
+  id: 999,
+  label: "Everyone",
+});
+
 let serviceDemographicCheckboxOptions = incomingDemographicsFromNewEndpoint.map(
   (demographicOption) => {
-    demographicOption.value = demographicOption.id;
-    demographicOption.id = camelCase(demographicOption.label);
+    demographicOption.name = camelCase(demographicOption.label);
     return demographicOption;
   }
 );
-
-serviceDemographicCheckboxOptions.unshift({
-  id: "everyone",
-  value: 999,
-  label: "Everyone",
-});
 
 export {
   organisationFormFields,

@@ -5,18 +5,18 @@ function doFormatServiceDemographicFormValues(
   let newValues = values;
   let demographicsArray = [];
   serviceDemographicCheckboxOptions.forEach((item) => {
-    const demographicOptionSelected = Boolean(values[item.id]);
+    const demographicOptionSelected = Boolean(values[item.name]);
 
     if (demographicOptionSelected) {
-      demographicsArray.push(item.value);
+      demographicsArray.push(item.id);
     }
-    delete newValues[item.id];
+    delete newValues[item.name];
   });
 
   if (demographicsArray.includes(999)) {
     newValues.demographics = serviceDemographicCheckboxOptions
-      .filter((item) => item.value !== 999)
-      .map((item) => item.value);
+      .filter((item) => item.id !== 999)
+      .map((item) => item.id);
   } else {
     newValues.demographics = demographicsArray;
   }

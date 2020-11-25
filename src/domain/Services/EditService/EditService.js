@@ -55,8 +55,8 @@ function doFormatDemographicDefaultValues(values) {
   }
 
   serviceDemographicCheckboxOptions.forEach((item) => {
-    const demographicId = item.value;
-    const demographicName = item.id;
+    const demographicId = item.id;
+    const demographicName = item.name;
 
     if (demographicIdArray.includes(demographicId)) {
       newValues[demographicName] = true;
@@ -177,6 +177,8 @@ const EditService = (props) => {
     delete cleanFormValues.image;
 
     setSubmitIsLoading(true);
+
+    console.log(cleanFormValues);
 
     const updatedService = await ServiceService.updateService(
       props.serviceId,

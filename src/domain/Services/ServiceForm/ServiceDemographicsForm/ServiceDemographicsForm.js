@@ -42,7 +42,7 @@ const ServiceDemographicsForm = ({
     let resetValues = {};
 
     serviceDemographicCheckboxOptions.forEach((demographic) => {
-      resetValues[demographic.id] = false;
+      resetValues[demographic.name] = false;
     });
 
     resetValues.everyone = true;
@@ -80,15 +80,15 @@ const ServiceDemographicsForm = ({
       </FormFieldset>
       {serviceDemographicCheckboxOptions.map((item) => {
         return (
-          <div key={item.id}>
+          <div key={item.name}>
             <FormCheckbox
-              name={item.id}
+              name={item.name}
               label={item.label}
-              value={item.value}
+              value={item.id}
               register={register}
               onClick={() => handleCheckBoxClick(item)}
             />
-            {item.id === "everyone" ? (
+            {item.name === "everyone" ? (
               <StyledHelp>
                 If you support or work with a specific audience, please select
                 the appropriate filters below.
