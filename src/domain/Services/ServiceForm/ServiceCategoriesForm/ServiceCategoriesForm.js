@@ -6,7 +6,6 @@ import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import FormInput from "../../../../components/FormInput/FormInput";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
-import { serviceCategoryFields } from "../../../../utils/data/data";
 import FormError from "../../../../components/FormError/FormError";
 import { objAllFalse } from "../../../../utils/functions/functions";
 import { serviceCategoryCheckboxOptions } from "../../../../utils/data/data";
@@ -33,6 +32,17 @@ const StyledUl = styled.ul`
   padding-left: 18px;
 `;
 
+function getPageQuestionNames(serviceCategoryCheckboxOptions) {
+  let pageQuestionNames = [];
+
+  serviceCategoryCheckboxOptions.forEach((category) => {
+    pageQuestionNames.push(category.name);
+    pageQuestionNames.push(category.details);
+  });
+
+  return pageQuestionNames;
+}
+
 const ServiceCategoriesForm = ({
   onSubmit,
   defaultValues = {},
@@ -43,7 +53,7 @@ const ServiceCategoriesForm = ({
 }) => {
   const [showError, setShowError] = useState(false);
 
-  const { register, handleSubmit, errors, getValues } = useForm({
+  const { register, handleSubmit, getValues } = useForm({
     defaultValues,
   });
 
@@ -51,82 +61,18 @@ const ServiceCategoriesForm = ({
     setShowHiddenFieldSnapshot(showHiddenField);
   }, []);
 
-  function handleHiddenField(id) {
+  function handleHiddenField(item) {
     setShowError(false);
-    switch (id) {
-      case "lonOrIs":
-        setShowHiddenField({
-          ...showHiddenField,
-          lonOrIsDetails: !showHiddenField.lonOrIsDetails,
-        });
-        break;
-      case "anxOrMH":
-        setShowHiddenField({
-          ...showHiddenField,
-          anxOrMHDetails: !showHiddenField.anxOrMHDetails,
-        });
-        break;
-      case "safeAndHB":
-        setShowHiddenField({
-          ...showHiddenField,
-          safeAndHBDetails: !showHiddenField.safeAndHBDetails,
-        });
-        break;
-      case "exAndWell":
-        setShowHiddenField({
-          ...showHiddenField,
-          exAndWellDetails: !showHiddenField.exAndWellDetails,
-        });
-        break;
-      case "artAndCrtv":
-        setShowHiddenField({
-          ...showHiddenField,
-          artAndCrtvDetails: !showHiddenField.artAndCrtvDetails,
-        });
-        break;
-      case "foodOrShop":
-        setShowHiddenField({
-          ...showHiddenField,
-          foodOrShopDetails: !showHiddenField.foodOrShopDetails,
-        });
-        break;
-      case "faithAct":
-        setShowHiddenField({
-          ...showHiddenField,
-          faithActDetails: !showHiddenField.faithActDetails,
-        });
-        break;
-      case "monAdv":
-        setShowHiddenField({
-          ...showHiddenField,
-          monAdvDetails: !showHiddenField.monAdvDetails,
-        });
-        break;
 
-      case "emplAdv":
-        setShowHiddenField({
-          ...showHiddenField,
-          emplAdvDetails: !showHiddenField.emplAdvDetails,
-        });
-        break;
-      case "houseAdv":
-        setShowHiddenField({
-          ...showHiddenField,
-          houseAdvDetails: !showHiddenField.houseAdvDetails,
-        });
-        break;
-      case "immAdv":
-        setShowHiddenField({
-          ...showHiddenField,
-          immAdvDetails: !showHiddenField.immAdvDetails,
-        });
-        break;
-      default:
-        return false;
-    }
+    setShowHiddenField({
+      ...showHiddenField,
+      [item.details]: !showHiddenField[item.details],
+    });
   }
 
-  const pageQuestionNames = serviceCategoryFields;
+  const pageQuestionNames = getPageQuestionNames(
+    serviceCategoryCheckboxOptions
+  );
 
   return (
     <form
@@ -151,130 +97,20 @@ const ServiceCategoriesForm = ({
         </StyledUl>
         {serviceCategoryCheckboxOptions.map((item) => {
           return (
-            <div key={item.id}>
+            <div key={item.name}>
               <FormCheckbox
-                name={item.id}
+                name={item.name}
                 label={item.label}
-                value={item.value}
+                value={item.id}
                 register={register}
-                onClick={() => handleHiddenField(item.id)}
+                onClick={() => handleHiddenField(item)}
               />
 
-              {showHiddenField.lonOrIsDetails && item.id === "lonOrIs" ? (
+              {showHiddenField[item.details] ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"lonOrIsDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.anxOrMHDetails && item.id === "anxOrMH" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"anxOrMHDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.safeAndHBDetails && item.id === "safeAndHB" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"safeAndHBDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.exAndWellDetails && item.id === "exAndWell" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"exAndWellDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.artAndCrtvDetails && item.id === "artAndCrtv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"artAndCrtvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.foodOrShopDetails && item.id === "foodOrShop" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"foodOrShopDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.faithActDetails && item.id === "faithAct" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"faithActDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.monAdvDetails && item.id === "monAdv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"monAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.emplAdvDetails && item.id === "emplAdv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"emplAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.houseAdvDetails && item.id === "houseAdv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"houseAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.immAdvDetails && item.id === "immAdv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"immAdvDetails"}
+                    label={item.label}
+                    name={item.details}
                     register={register}
                     spellCheck={"true"}
                   />

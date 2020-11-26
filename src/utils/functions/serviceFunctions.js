@@ -31,14 +31,14 @@ function doFormatServiceCategoryFormValues(
   let newValues = values;
   let categoriesArray = [];
   serviceCategoryCheckboxOptions.forEach((item) => {
-    if (values[item.id]) {
+    if (values[item.name]) {
       categoriesArray.push({
-        id: item.value,
-        description: values[item.id.concat("Details")],
+        id: item.id,
+        description: values[item.details],
       });
     }
-    delete newValues[item.id];
-    delete newValues[item.id.concat("Details")];
+    delete newValues[item.name];
+    delete newValues[item.details];
   });
 
   newValues.categories = categoriesArray;

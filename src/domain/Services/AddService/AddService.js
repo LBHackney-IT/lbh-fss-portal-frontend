@@ -12,26 +12,26 @@ import {
   doCleanServiceFormValues,
   doCleanServiceImage,
 } from "../../../utils/functions/serviceFunctions";
-import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
+
+function generateInitialShowHiddenField(serviceCategoryCheckboxOptions) {
+  let initialShowHiddenField = {};
+
+  // loop through each service category, and set show status to false for each additional information ('details') fields
+  serviceCategoryCheckboxOptions.forEach((category) => {
+    initialShowHiddenField[category.details] = false;
+  });
+
+  return initialShowHiddenField;
+}
 
 const AddService = ({ doRetrieveServices = () => {} }) => {
   const localUser = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
 
-  const [showHiddenField, setShowHiddenField] = useState({
-    lonOrIsDetails: false,
-    anxOrMHDetails: false,
-    safeAndHBDetails: false,
-    exAndWellDetails: false,
-    artAndCrtvDetails: false,
-    foodOrShopDetails: false,
-    faithActDetails: false,
-    monAdvDetails: false,
-    emplAdvDetails: false,
-    houseAdvDetails: false,
-    immAdvDetails: false,
-  });
+  const [showHiddenField, setShowHiddenField] = useState(
+    generateInitialShowHiddenField(serviceCategoryCheckboxOptions)
+  );
 
   async function doAddService(formValues) {
     if (submitIsLoading) return;

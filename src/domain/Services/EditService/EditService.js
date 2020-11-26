@@ -22,14 +22,13 @@ function doFormatCategoryDefaultValues(values) {
   let newValues = values;
 
   serviceCategoryCheckboxOptions.forEach((item) => {
-    if (categoryIdArray.includes(item.value)) {
+    if (categoryIdArray.includes(item.id)) {
       const categoryInfo = values.categories.filter((category) => {
-        return category.id === item.value;
+        return category.id === item.id;
       });
 
-      newValues[item.id] = true;
-      newValues[item.id.concat("Details")] =
-        categoryInfo[0].service_description;
+      newValues[item.name] = true;
+      newValues[item.details] = categoryInfo[0].service_description;
     }
   });
 
@@ -79,48 +78,27 @@ function doCleanDefaultValues(values) {
 function doHandleHiddenFieldVisibility(
   cleanDefaultValues,
   showHiddenField,
-  setShowHiddenField
+  setShowHiddenField,
+  serviceCategoryCheckboxOptions
 ) {
-  if (cleanDefaultValues.lonOrIs) {
-    showHiddenField.lonOrIsDetails = true;
-  }
-
-  if (cleanDefaultValues.anxOrMH) {
-    showHiddenField.anxOrMHDetails = true;
-  }
-
-  if (cleanDefaultValues.safeAndHB) {
-    showHiddenField.safeAndHBDetails = true;
-  }
-
-  if (cleanDefaultValues.exAndWell) {
-    showHiddenField.exAndWellDetails = true;
-  }
-
-  if (cleanDefaultValues.artAndCrtv) {
-    showHiddenField.artAndCrtvDetails = true;
-  }
-
-  if (cleanDefaultValues.foodOrShop) {
-    showHiddenField.foodOrShopDetails = true;
-  }
-  if (cleanDefaultValues.faithAct) {
-    showHiddenField.faithActDetails = true;
-  }
-  if (cleanDefaultValues.monAdv) {
-    showHiddenField.monAdvDetails = true;
-  }
-  if (cleanDefaultValues.emplAdv) {
-    showHiddenField.emplAdvDetails = true;
-  }
-  if (cleanDefaultValues.houseAdv) {
-    showHiddenField.houseAdvDetails = true;
-  }
-  if (cleanDefaultValues.immAdv) {
-    showHiddenField.immAdvDetails = true;
-  }
+  serviceCategoryCheckboxOptions.forEach((category) => {
+    if (cleanDefaultValues[category.name]) {
+      showHiddenField[category.details] = true;
+    }
+  });
 
   setShowHiddenField(showHiddenField);
+}
+
+function generateInitialShowHiddenField(serviceCategoryCheckboxOptions) {
+  let initialShowHiddenField = {};
+
+  // loop through each service category, and set show to false for each of the additional information ('details') fields
+  serviceCategoryCheckboxOptions.forEach((category) => {
+    initialShowHiddenField[category.details] = false;
+  });
+
+  return initialShowHiddenField;
 }
 
 const EditService = (props) => {
@@ -133,19 +111,9 @@ const EditService = (props) => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [serviceImageIsLoading, setServiceImageIsLoading] = useState(false);
 
-  const [showHiddenField, setShowHiddenField] = useState({
-    lonOrIsDetails: false,
-    anxOrMHDetails: false,
-    safeAndHBDetails: false,
-    exAndWellDetails: false,
-    artAndCrtvDetails: false,
-    foodOrShopDetails: false,
-    faithActDetails: false,
-    monAdvDetails: false,
-    emplAdvDetails: false,
-    houseAdvDetails: false,
-    immAdvDetails: false,
-  });
+  const [showHiddenField, setShowHiddenField] = useState(
+    generateInitialShowHiddenField(serviceCategoryCheckboxOptions)
+  );
 
   useEffect(() => {
     if (fetchIsLoading) return;
@@ -155,7 +123,8 @@ const EditService = (props) => {
     doHandleHiddenFieldVisibility(
       cleanDefaultValues,
       showHiddenField,
-      setShowHiddenField
+      setShowHiddenField,
+      serviceCategoryCheckboxOptions
     );
 
     setDefaultValues(cleanDefaultValues);

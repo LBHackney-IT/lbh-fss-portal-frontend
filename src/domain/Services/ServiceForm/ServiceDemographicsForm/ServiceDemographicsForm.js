@@ -51,10 +51,10 @@ const ServiceDemographicsForm = ({
   }
 
   function handleCheckBoxClick(item) {
-    if (item.id === "everyone") {
+    if (item.name === "everyone") {
       setEveryoneTrueAllElseFalse();
     }
-    if (item.id !== "everyone") {
+    if (item.name !== "everyone") {
       setValue("everyone", false);
     }
     if (objAllFalse(getValues())) {
