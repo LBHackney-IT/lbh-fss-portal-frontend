@@ -6,7 +6,7 @@ import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import { objAllFalse, objAllTrue } from "../../../../utils/functions/functions";
-import { serviceDemographicCheckboxOptions } from "../../../../utils/data/data";
+import { serviceDemographics } from "../../../../utils/data/data";
 import { Link } from "@reach/router";
 
 const StyledSubTextContainer = styled.div`
@@ -41,7 +41,7 @@ const ServiceDemographicsForm = ({
   function setEveryoneTrueAllElseFalse() {
     let resetValues = {};
 
-    serviceDemographicCheckboxOptions.forEach((demographic) => {
+    serviceDemographics.forEach((demographic) => {
       resetValues[demographic.name] = false;
     });
 
@@ -78,7 +78,7 @@ const ServiceDemographicsForm = ({
           you support or work with.
         </p>
       </FormFieldset>
-      {serviceDemographicCheckboxOptions.map((item) => {
+      {serviceDemographics.map((item) => {
         return (
           <div key={item.name}>
             <FormCheckbox

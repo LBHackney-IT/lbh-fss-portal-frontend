@@ -5,8 +5,8 @@ import { navigate, Redirect } from "@reach/router";
 import { toast } from "react-toastify";
 import UserContext from "../../../context/UserContext/UserContext";
 import {
-  serviceCategoryCheckboxOptions,
-  serviceDemographicCheckboxOptions,
+  serviceCategories,
+  serviceDemographics,
 } from "../../../utils/data/data";
 import {
   doCleanServiceFormValues,
@@ -14,11 +14,11 @@ import {
 } from "../../../utils/functions/serviceFunctions";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
-function generateInitialShowHiddenField(serviceCategoryCheckboxOptions) {
+function generateInitialShowHiddenField(serviceCategories) {
   let initialShowHiddenField = {};
 
   // loop through each service category, and set show status to false for each additional information ('details') fields
-  serviceCategoryCheckboxOptions.forEach((category) => {
+  serviceCategories.forEach((category) => {
     initialShowHiddenField[category.details] = false;
   });
 
@@ -30,7 +30,7 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
 
   const [showHiddenField, setShowHiddenField] = useState(
-    generateInitialShowHiddenField(serviceCategoryCheckboxOptions)
+    generateInitialShowHiddenField(serviceCategories)
   );
 
   async function doAddService(formValues) {
@@ -38,8 +38,8 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
 
     const cleanFormValues = doCleanServiceFormValues(
       formValues,
-      serviceCategoryCheckboxOptions,
-      serviceDemographicCheckboxOptions
+      serviceCategories,
+      serviceDemographics
     );
 
     cleanFormValues.user_id = localUser.id;

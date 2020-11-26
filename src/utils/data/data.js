@@ -130,7 +130,7 @@ const incomingDemographicsFromNewEndpoint = [
 
 // TODO: tidy this up
 
-let serviceCategoryCheckboxOptions = incomingCategoriesFromNewEndpoint.map(
+let serviceCategories = incomingCategoriesFromNewEndpoint.map(
   (category) => {
     category.name = camelCase(category.label);
     category.details = category.name.concat("Details");
@@ -143,7 +143,7 @@ incomingDemographicsFromNewEndpoint.unshift({
   label: "Everyone",
 });
 
-let serviceDemographicCheckboxOptions = incomingDemographicsFromNewEndpoint.map(
+let serviceDemographics = incomingDemographicsFromNewEndpoint.map(
   (demographic) => {
     demographic.name = camelCase(demographic.label);
     return demographic;
@@ -154,6 +154,6 @@ export {
   organisationFormFields,
   organisationFormYesNoRadioFields,
   organisationFormCheckboxFields,
-  serviceCategoryCheckboxOptions,
-  serviceDemographicCheckboxOptions,
+  serviceCategories,
+  serviceDemographics,
 };

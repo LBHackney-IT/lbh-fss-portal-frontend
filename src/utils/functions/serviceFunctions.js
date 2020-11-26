@@ -1,10 +1,10 @@
 function doFormatServiceDemographicFormValues(
   values,
-  serviceDemographicCheckboxOptions
+  serviceDemographics
 ) {
   let newValues = values;
   let demographicsArray = [];
-  serviceDemographicCheckboxOptions.forEach((item) => {
+  serviceDemographics.forEach((item) => {
     const demographicOptionSelected = Boolean(values[item.name]);
 
     if (demographicOptionSelected) {
@@ -14,7 +14,7 @@ function doFormatServiceDemographicFormValues(
   });
 
   if (demographicsArray.includes(999)) {
-    newValues.demographics = serviceDemographicCheckboxOptions
+    newValues.demographics = serviceDemographics
       .filter((item) => item.id !== 999)
       .map((item) => item.id);
   } else {
@@ -26,11 +26,11 @@ function doFormatServiceDemographicFormValues(
 
 function doFormatServiceCategoryFormValues(
   values,
-  serviceCategoryCheckboxOptions
+  serviceCategories
 ) {
   let newValues = values;
   let categoriesArray = [];
-  serviceCategoryCheckboxOptions.forEach((item) => {
+  serviceCategories.forEach((item) => {
     if (values[item.name]) {
       categoriesArray.push({
         id: item.id,
@@ -58,17 +58,17 @@ function doFormatLocationFormValues(values) {
 
 function doCleanServiceFormValues(
   values,
-  serviceCategoryCheckboxOptions,
-  serviceDemographicCheckboxOptions
+  serviceCategories,
+  serviceDemographics
 ) {
   let cleanFormValues = {};
   cleanFormValues = doFormatServiceDemographicFormValues(
     values,
-    serviceDemographicCheckboxOptions
+    serviceDemographics
   );
   cleanFormValues = doFormatServiceCategoryFormValues(
     cleanFormValues,
-    serviceCategoryCheckboxOptions
+    serviceCategories
   );
   cleanFormValues = doFormatLocationFormValues(cleanFormValues);
 

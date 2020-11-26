@@ -5,8 +5,8 @@ import ServiceService from "../../../services/ServiceService/ServiceService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
 import {
-  serviceCategoryCheckboxOptions,
-  serviceDemographicCheckboxOptions,
+  serviceCategories,
+  serviceDemographics,
 } from "../../../utils/data/data";
 import {
   doCleanServiceFormValues,
@@ -21,7 +21,7 @@ function doFormatCategoryDefaultValues(values) {
 
   let newValues = values;
 
-  serviceCategoryCheckboxOptions.forEach((item) => {
+  serviceCategories.forEach((item) => {
     if (categoryIdArray.includes(item.id)) {
       const categoryInfo = values.categories.filter((category) => {
         return category.id === item.id;
@@ -46,14 +46,14 @@ function doFormatDemographicDefaultValues(values) {
 
   if (
     demographicIdArray.length ===
-    serviceDemographicCheckboxOptions.length - 1
+    serviceDemographics.length - 1
   ) {
     newValues.everyone = true;
     delete newValues.demographics;
     return newValues;
   }
 
-  serviceDemographicCheckboxOptions.forEach((item) => {
+  serviceDemographics.forEach((item) => {
     const demographicId = item.id;
     const demographicName = item.name;
 
@@ -79,9 +79,9 @@ function doHandleHiddenFieldVisibility(
   cleanDefaultValues,
   showHiddenField,
   setShowHiddenField,
-  serviceCategoryCheckboxOptions
+  serviceCategories
 ) {
-  serviceCategoryCheckboxOptions.forEach((category) => {
+  serviceCategories.forEach((category) => {
     if (cleanDefaultValues[category.name]) {
       showHiddenField[category.details] = true;
     }
@@ -90,11 +90,11 @@ function doHandleHiddenFieldVisibility(
   setShowHiddenField(showHiddenField);
 }
 
-function generateInitialShowHiddenField(serviceCategoryCheckboxOptions) {
+function generateInitialShowHiddenField(serviceCategories) {
   let initialShowHiddenField = {};
 
   // loop through each service category, and set show to false for each of the additional information ('details') fields
-  serviceCategoryCheckboxOptions.forEach((category) => {
+  serviceCategories.forEach((category) => {
     initialShowHiddenField[category.details] = false;
   });
 
@@ -112,7 +112,7 @@ const EditService = (props) => {
   const [serviceImageIsLoading, setServiceImageIsLoading] = useState(false);
 
   const [showHiddenField, setShowHiddenField] = useState(
-    generateInitialShowHiddenField(serviceCategoryCheckboxOptions)
+    generateInitialShowHiddenField(serviceCategories)
   );
 
   useEffect(() => {
@@ -124,7 +124,7 @@ const EditService = (props) => {
       cleanDefaultValues,
       showHiddenField,
       setShowHiddenField,
-      serviceCategoryCheckboxOptions
+      serviceCategories
     );
 
     setDefaultValues(cleanDefaultValues);
@@ -135,8 +135,8 @@ const EditService = (props) => {
 
     const cleanFormValues = doCleanServiceFormValues(
       formValues,
-      serviceCategoryCheckboxOptions,
-      serviceDemographicCheckboxOptions
+      serviceCategories,
+      serviceDemographics
     );
 
     cleanFormValues.updated_at = new Date();

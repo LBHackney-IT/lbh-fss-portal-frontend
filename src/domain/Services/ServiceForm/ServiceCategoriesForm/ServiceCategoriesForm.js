@@ -8,7 +8,7 @@ import FormInput from "../../../../components/FormInput/FormInput";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import FormError from "../../../../components/FormError/FormError";
 import { objAllFalse } from "../../../../utils/functions/functions";
-import { serviceCategoryCheckboxOptions } from "../../../../utils/data/data";
+import { serviceCategories } from "../../../../utils/data/data";
 import { Link } from "@reach/router";
 import FormHelpText from "../../../../components/FormHelpText/FormHelpText";
 
@@ -32,10 +32,10 @@ const StyledUl = styled.ul`
   padding-left: 18px;
 `;
 
-function getPageQuestionNames(serviceCategoryCheckboxOptions) {
+function getPageQuestionNames(serviceCategories) {
   let pageQuestionNames = [];
 
-  serviceCategoryCheckboxOptions.forEach((category) => {
+  serviceCategories.forEach((category) => {
     pageQuestionNames.push(category.name);
     pageQuestionNames.push(category.details);
   });
@@ -71,7 +71,7 @@ const ServiceCategoriesForm = ({
   }
 
   const pageQuestionNames = getPageQuestionNames(
-    serviceCategoryCheckboxOptions
+    serviceCategories
   );
 
   return (
@@ -95,7 +95,7 @@ const ServiceCategoriesForm = ({
           <li>Be concise, factual, avoid acronyms and jargon.</li>
           <li>Around 25 words (150 characters) would be great please!</li>
         </StyledUl>
-        {serviceCategoryCheckboxOptions.map((item) => {
+        {serviceCategories.map((item) => {
           return (
             <div key={item.name}>
               <FormCheckbox
