@@ -84,7 +84,7 @@ function doFormatCategoryDefaultValues(values, serviceCategories) {
     return category.id;
   });
 
-  let newValues = values;
+  let newValues = { ...values };
 
   serviceCategories.forEach((item) => {
     if (categoryIdArray.includes(item.id)) {
@@ -121,7 +121,7 @@ function doFormatDemographicDefaultValues(values, serviceDemographics) {
     return demographic.id;
   });
 
-  let newValues = values;
+  let newValues = { ...values };
 
   if (demographicIdArray.length === serviceDemographics.length - 1) {
     newValues.everyone = true;

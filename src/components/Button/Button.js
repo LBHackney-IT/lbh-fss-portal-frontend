@@ -34,6 +34,7 @@ const Button = ({
   border,
   margin,
   padding,
+  buttonStyle,
 }) => {
   return (
     <>
@@ -47,6 +48,7 @@ const Button = ({
         border={border}
         margin={margin}
         padding={padding}
+        style={buttonStyle}
       >
         {label}
       </StyledButton>

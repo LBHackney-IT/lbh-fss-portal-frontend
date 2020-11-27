@@ -28,6 +28,7 @@ import AddOrganisation from "./domain/Organisations/AddOrganisation/AddOrganisat
 import EditOrganisation from "./domain/Organisations/EditOrganisation/EditOrganisation";
 import HandleMyService from "./domain/Services/HanldeMyService/HandleMyService";
 import InvitationResetPassword from "./domain/Authentication/InvitationResetPassword/InvitationResetPassword";
+import TaxonomiesDashboard from "./domain/Taxonomies/TaxonomiesDashboard/TaxonomiesDashboard";
 
 const AppMain = ({ location }) => {
   const setUser = useContext(UserContext)[1];
@@ -62,6 +63,7 @@ const AppMain = ({ location }) => {
       <ProtectedRoute as={EditUser} path="/users/:userId/edit" />
       <ProtectedRoute as={MyAccount} path="/account" />
       <ProtectedRoute as={AnalyticsDashboard} path="/analytics" />
+      <ProtectedRoute as={TaxonomiesDashboard} path="/taxonomies" />
       <ProtectedRoute as={Logout} path="/logout" withLayout={false} />
       <ProtectedRoute as={HandleMyService} path="/service" />
       <ProtectedRoute as={AddService} path="/services/add/" />
