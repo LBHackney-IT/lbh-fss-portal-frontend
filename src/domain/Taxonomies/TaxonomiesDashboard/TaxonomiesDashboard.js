@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ServiceDemographicsTaxonomy from "../ServiceDemographicsTaxonomy/ServiceDemographicsTaxonomy";
-import ServiceCategoriesTaxonomy from "../ServiceCategoriesTaxonomy/ServiceCategoriesTaxonomy";
 import AppLoading from "../../../AppLoading";
 import TaxonomiesService from "../../../services/TaxonomiesService/TaxonomiesService";
 import {
@@ -12,6 +10,30 @@ import { navigate } from "@reach/router";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import TaxonomyPanel from "../TaxonomyPanel/TaxonomyPanel";
 import { grey } from "../../../settings/colors";
+
+function giveUserFeedback({ term, updateStatus, action }) {
+  if (updateStatus) {
+    toast.success(
+      `Successfully ${
+        action === "add" ? "added" : "removed"
+      } '${term}' taxonomy term.`
+    );
+  } else {
+    toast.error(
+      `Failed to ${
+        action === "add" ? "add" : "remove"
+      } '${term}' taxonomy term.`
+    );
+  }
+}
+
+function giveUserFeedbackAfterRemovingTerm(term, updatedTerm) {
+  if (updatedTerm) {
+    toast.success(`Successfully added '${term}' taxonomy term.`);
+  } else {
+    toast.error(`Failed to add '${term}' taxonomy term.`);
+  }
+}
 
 const TaxonomiesDashboard = () => {
   const [taxonomiesIsLoading, setTaxonomiesIsLoading] = useState(true);
@@ -53,56 +75,52 @@ const TaxonomiesDashboard = () => {
     fetchTaxonomies();
   }, [setServiceCategories, setServiceDemographics]);
 
-  function doAddDemographic(values) {
+  function doAddDemographic({ term }) {
     setServiceDemographicsIsLoading(true);
 
     // make call to POST /taxonomies
-    // values.demographic
-    const updatedDemographics = [];
+    // const termSuccessfullyAdded = false;
+    const termSuccessfullyAdded = [];
 
     setServiceDemographicsIsLoading(false);
 
-    if (updatedDemographics) {
-      toast.success(
-        `Successfully added '${values.demographic}' taxonomy term.`
-      );
-    } else {
-      toast.error(`Failed to add '${values.demographic}' taxonomy term.`);
-    }
+    giveUserFeedback({
+      term,
+      updateStatus: termSuccessfullyAdded,
+      action: "add",
+    });
   }
 
   function doRemoveDemographic(demographic) {
     setServiceDemographicsIsLoading(true);
 
     // make call to DELETE /taxonomies/{id}
-    // const demographicRemoved = false;
-    const demographicRemoved = [];
+    // const termSuccessfullyRemoved = false;
+    const termSuccessfullyRemoved = [];
 
     setServiceDemographicsIsLoading(false);
 
-    if (demographicRemoved) {
-      toast.success(
-        `Successfully removed '${demographic.label}' taxonomy term.`
-      );
-    } else {
-      toast.error(`Failed to remove '${demographic.label}' taxonomy term.`);
-    }
+    giveUserFeedback({
+      term: demographic.label,
+      updateStatus: termSuccessfullyRemoved,
+      action: "remove",
+    });
   }
 
-  function doAddCategory(values) {
+  function doAddCategory({ term }) {
     setServiceCategoriesIsLoading(true);
 
     // make call to POST /taxonomies
-    // values.demographic
-    const updatedCategory = [];
+    // const termSuccessfullyAdded = false;
+    const termSuccessfullyAdded = [];
 
     setServiceCategoriesIsLoading(false);
 
-    if (updatedCategory) {
-      toast.success(`Successfully added '${values.category}' taxonomy term.`);
-    } else {
-      toast.error(`Failed to add '${values.category}' taxonomy term.`);
-    }
+    giveUserFeedback({
+      term,
+      updateStatus: termSuccessfullyAdded,
+      action: "add",
+    });
   }
 
   function doRemoveCategory(category) {
@@ -110,15 +128,15 @@ const TaxonomiesDashboard = () => {
 
     // make call to DELETE /taxonomies/{id}
     // demographic.id
-    const categoryRemoved = [];
+    const termSuccessfullyRemoved = [];
 
     setServiceCategoriesIsLoading(false);
 
-    if (categoryRemoved) {
-      toast.success(`Successfully removed '${category.label}' taxonomy term.`);
-    } else {
-      toast.error(`Failed to remove '${category.label}' taxonomy term.`);
-    }
+    giveUserFeedback({
+      term: category.label,
+      updateStatus: termSuccessfullyRemoved,
+      action: "remove",
+    });
   }
 
   if (taxonomiesIsLoading) {

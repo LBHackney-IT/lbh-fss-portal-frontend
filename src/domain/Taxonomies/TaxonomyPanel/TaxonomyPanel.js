@@ -75,7 +75,7 @@ const TaxonomyPanel = ({
 
       <form onSubmit={handleSubmit(addTerm)}>
         <FormInput
-          name="demographic"
+          name="term"
           label={`Add term to ${taxonomyName.toLowerCase()} taxonomy`}
           register={register}
           error={errors.demographic}
