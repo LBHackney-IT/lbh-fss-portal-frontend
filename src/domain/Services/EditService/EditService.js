@@ -5,101 +5,15 @@ import ServiceService from "../../../services/ServiceService/ServiceService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
 import {
-  serviceCategories,
-  serviceDemographics,
-} from "../../../utils/data/data";
-import {
   doCleanServiceFormValues,
   doCleanServiceImage,
+  doCleanDefaultValues,
+  doHandleHiddenFieldVisibility,
+  formatServiceCategories,
+  formatServiceDemographics,
+  generateInitialShowHiddenField,
 } from "../../../utils/functions/serviceFunctions";
 import AppLoading from "../../../AppLoading";
-
-function doFormatCategoryDefaultValues(values) {
-  const categoryIdArray = values.categories.map((category) => {
-    return category.id;
-  });
-
-  let newValues = values;
-
-  serviceCategories.forEach((item) => {
-    if (categoryIdArray.includes(item.id)) {
-      const categoryInfo = values.categories.filter((category) => {
-        return category.id === item.id;
-      });
-
-      newValues[item.name] = true;
-      newValues[item.details] = categoryInfo[0].service_description;
-    }
-  });
-
-  delete newValues.categories;
-
-  return newValues;
-}
-
-function doFormatDemographicDefaultValues(values) {
-  const demographicIdArray = values.demographics.map((demographic) => {
-    return demographic.id;
-  });
-
-  let newValues = values;
-
-  if (
-    demographicIdArray.length ===
-    serviceDemographics.length - 1
-  ) {
-    newValues.everyone = true;
-    delete newValues.demographics;
-    return newValues;
-  }
-
-  serviceDemographics.forEach((item) => {
-    const demographicId = item.id;
-    const demographicName = item.name;
-
-    if (demographicIdArray.includes(demographicId)) {
-      newValues[demographicName] = true;
-    }
-  });
-
-  delete newValues.demographics;
-
-  return newValues;
-}
-
-function doCleanDefaultValues(values) {
-  let cleanDefaultValues = {};
-  cleanDefaultValues = doFormatCategoryDefaultValues(values);
-  cleanDefaultValues = doFormatDemographicDefaultValues(cleanDefaultValues);
-
-  return cleanDefaultValues;
-}
-
-function doHandleHiddenFieldVisibility(
-  cleanDefaultValues,
-  showHiddenField,
-  setShowHiddenField,
-  serviceCategories
-) {
-  serviceCategories.forEach((category) => {
-    if (cleanDefaultValues[category.name]) {
-      showHiddenField[category.details] = true;
-    }
-  });
-
-  setShowHiddenField(showHiddenField);
-}
-
-function generateInitialShowHiddenField(serviceCategories) {
-  let initialShowHiddenField = {};
-
-  // loop through each service category, and set show to false for each of the additional information ('details') fields
-  serviceCategories.forEach((category) => {
-    initialShowHiddenField[category.details] = false;
-  });
-
-  return initialShowHiddenField;
-}
 
 const EditService = (props) => {
   const { service, isLoading: fetchIsLoading } = useServiceFetch(
@@ -111,14 +25,61 @@ const EditService = (props) => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [serviceImageIsLoading, setServiceImageIsLoading] = useState(false);
 
-  const [showHiddenField, setShowHiddenField] = useState(
-    generateInitialShowHiddenField(serviceCategories)
-  );
+  const [taxonomiesIsLoading, setTaxonomiesIsLoading] = useState(true);
+  const [serviceCategories, setServiceCategories] = useState([]);
+  const [serviceDemographics, setServiceDemographics] = useState([]);
+
+  const [showHiddenField, setShowHiddenField] = useState([]);
+
+  useEffect(() => {
+    async function fetchTaxonomies() {
+      // TODO: replace this with API call
+      // const taxonomies = TaxonomiesService.retrieveTaxonomies();
+      const taxonomies = {
+        serviceCategories: [
+          { id: 1, label: "Category A - yes" },
+          { id: 2, label: "Category B - no" },
+        ],
+        serviceDemographics: [
+          { id: 3, label: "M-health" },
+          { id: 4, label: "Homeless" },
+          { id: 9, label: "Men" },
+        ],
+      };
+
+      setTaxonomiesIsLoading(false);
+
+      if (taxonomies) {
+        const formattedServiceCategories = formatServiceCategories(
+          taxonomies.serviceCategories
+        );
+
+        const formattedServiceDemographics = formatServiceDemographics(
+          taxonomies.serviceDemographics
+        );
+
+        setServiceCategories(formattedServiceCategories);
+        setServiceDemographics(formattedServiceDemographics);
+        setShowHiddenField(
+          generateInitialShowHiddenField(formattedServiceCategories)
+        );
+      } else {
+        toast.error("An error occured, please try again.");
+        navigate("/service");
+      }
+    }
+
+    fetchTaxonomies();
+  }, [setServiceCategories, setServiceDemographics, setShowHiddenField]);
 
   useEffect(() => {
     if (fetchIsLoading) return;
 
-    const cleanDefaultValues = doCleanDefaultValues(service);
+    const cleanDefaultValues = doCleanDefaultValues(
+      service,
+      serviceCategories,
+      serviceDemographics
+    );
 
     doHandleHiddenFieldVisibility(
       cleanDefaultValues,
@@ -128,7 +89,15 @@ const EditService = (props) => {
     );
 
     setDefaultValues(cleanDefaultValues);
-  }, [service, fetchIsLoading, setDefaultValues]);
+  }, [
+    service,
+    serviceCategories,
+    serviceDemographics,
+    showHiddenField,
+    fetchIsLoading,
+    setDefaultValues,
+    setShowHiddenField,
+  ]);
 
   async function doEditService(formValues) {
     if (submitIsLoading) return;
@@ -179,7 +148,8 @@ const EditService = (props) => {
   if (
     fetchIsLoading ||
     Object.keys(defaultValues).length === 0 ||
-    serviceImageIsLoading
+    serviceImageIsLoading ||
+    taxonomiesIsLoading
   ) {
     return <AppLoading />;
   }
@@ -193,6 +163,8 @@ const EditService = (props) => {
         showHiddenField={showHiddenField}
         setShowHiddenField={setShowHiddenField}
         submitLoading={submitIsLoading}
+        serviceCategories={serviceCategories}
+        serviceDemographics={serviceDemographics}
       />
     </>
   );

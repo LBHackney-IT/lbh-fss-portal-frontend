@@ -6,7 +6,7 @@ import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import { objAllFalse, objAllTrue } from "../../../../utils/functions/functions";
-import { serviceDemographics } from "../../../../utils/data/data";
+// import { serviceDemographics } from "../../../../utils/data/data";
 import { Link } from "@reach/router";
 
 const StyledSubTextContainer = styled.div`
@@ -33,6 +33,7 @@ const ServiceDemographicsForm = ({
   onSubmit,
   defaultValues = {},
   goBackToPreviousStep,
+  serviceDemographics,
 }) => {
   const { register, handleSubmit, setValue, getValues, reset } = useForm({
     defaultValues,
@@ -79,8 +80,9 @@ const ServiceDemographicsForm = ({
         </p>
       </FormFieldset>
       {serviceDemographics.map((item) => {
+        console.log(item);
         return (
-          <div key={item.name}>
+          <div key={item.id}>
             <FormCheckbox
               name={item.name}
               label={item.label}

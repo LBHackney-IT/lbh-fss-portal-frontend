@@ -1,37 +1,67 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ServiceForm from "../ServiceForm/ServiceForm";
 import ServiceService from "../../../services/ServiceService/ServiceService";
 import { navigate, Redirect } from "@reach/router";
 import { toast } from "react-toastify";
 import UserContext from "../../../context/UserContext/UserContext";
 import {
-  serviceCategories,
-  serviceDemographics,
-} from "../../../utils/data/data";
-import {
   doCleanServiceFormValues,
   doCleanServiceImage,
+  formatServiceCategories,
+  formatServiceDemographics,
+  generateInitialShowHiddenField,
 } from "../../../utils/functions/serviceFunctions";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
-
-function generateInitialShowHiddenField(serviceCategories) {
-  let initialShowHiddenField = {};
-
-  // loop through each service category, and set show status to false for each additional information ('details') fields
-  serviceCategories.forEach((category) => {
-    initialShowHiddenField[category.details] = false;
-  });
-
-  return initialShowHiddenField;
-}
+import AppLoading from "../../../AppLoading";
 
 const AddService = ({ doRetrieveServices = () => {} }) => {
   const localUser = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
+  const [taxonomiesIsLoading, setTaxonomiesIsLoading] = useState(true);
+  const [serviceCategories, setServiceCategories] = useState([]);
+  const [serviceDemographics, setServiceDemographics] = useState([]);
 
-  const [showHiddenField, setShowHiddenField] = useState(
-    generateInitialShowHiddenField(serviceCategories)
-  );
+  const [showHiddenField, setShowHiddenField] = useState([]);
+
+  useEffect(() => {
+    async function fetchTaxonomies() {
+      // TODO: replace this with API call
+      // const taxonomies = TaxonomiesService.retrieveTaxonomies();
+      const taxonomies = {
+        serviceCategories: [
+          { id: 1, label: "Category A - yes" },
+          { id: 2, label: "Category B - no" },
+        ],
+        serviceDemographics: [
+          { id: 3, label: "text text text" },
+          { id: 4, label: "text text text" },
+        ],
+      };
+
+      setTaxonomiesIsLoading(false);
+
+      if (taxonomies) {
+        const formattedServiceCategories = formatServiceCategories(
+          taxonomies.serviceCategories
+        );
+
+        const formattedServiceDemographics = formatServiceDemographics(
+          taxonomies.serviceDemographics
+        );
+
+        setServiceCategories(formattedServiceCategories);
+        setServiceDemographics(formattedServiceDemographics);
+        setShowHiddenField(
+          generateInitialShowHiddenField(formattedServiceCategories)
+        );
+      } else {
+        toast.error("An error occured, please try again.");
+        navigate("/service");
+      }
+    }
+
+    fetchTaxonomies();
+  }, [setServiceCategories, setServiceDemographics, setShowHiddenField]);
 
   async function doAddService(formValues) {
     if (submitIsLoading) return;
@@ -92,6 +122,10 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
     return <Redirect to="/services" noThrow />;
   }
 
+  if (taxonomiesIsLoading) {
+    return <AppLoading />;
+  }
+
   return (
     <>
       <ServiceForm
@@ -103,6 +137,8 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
         submitLoading={submitIsLoading}
         showHiddenField={showHiddenField}
         setShowHiddenField={setShowHiddenField}
+        serviceCategories={serviceCategories}
+        serviceDemographics={serviceDemographics}
       />
     </>
   );

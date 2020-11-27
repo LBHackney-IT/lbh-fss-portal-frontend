@@ -128,15 +128,13 @@ const incomingDemographicsFromNewEndpoint = [
   },
 ];
 
-// TODO: tidy this up
+// TODO: tidy this up - remove once replaced with alternative formatting code in serviceFunctions file
 
-let serviceCategories = incomingCategoriesFromNewEndpoint.map(
-  (category) => {
-    category.name = camelCase(category.label);
-    category.details = category.name.concat("Details");
-    return category;
-  }
-);
+let serviceCategories = incomingCategoriesFromNewEndpoint.map((category) => {
+  category.name = camelCase(category.label).concat(category.id);
+  category.details = category.name.concat("Details");
+  return category;
+});
 
 incomingDemographicsFromNewEndpoint.unshift({
   id: 999,
@@ -145,7 +143,7 @@ incomingDemographicsFromNewEndpoint.unshift({
 
 let serviceDemographics = incomingDemographicsFromNewEndpoint.map(
   (demographic) => {
-    demographic.name = camelCase(demographic.label);
+    demographic.name = camelCase(demographic.label).concat(demographic.id);
     return demographic;
   }
 );

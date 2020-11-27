@@ -8,7 +8,7 @@ import FormInput from "../../../../components/FormInput/FormInput";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import FormError from "../../../../components/FormError/FormError";
 import { objAllFalse } from "../../../../utils/functions/functions";
-import { serviceCategories } from "../../../../utils/data/data";
+// import { serviceCategories } from "../../../../utils/data/data";
 import { Link } from "@reach/router";
 import FormHelpText from "../../../../components/FormHelpText/FormHelpText";
 
@@ -50,6 +50,7 @@ const ServiceCategoriesForm = ({
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
   goBackToPreviousStep,
+  serviceCategories,
 }) => {
   const [showError, setShowError] = useState(false);
 
@@ -70,9 +71,7 @@ const ServiceCategoriesForm = ({
     });
   }
 
-  const pageQuestionNames = getPageQuestionNames(
-    serviceCategories
-  );
+  const pageQuestionNames = getPageQuestionNames(serviceCategories);
 
   return (
     <form
@@ -97,7 +96,7 @@ const ServiceCategoriesForm = ({
         </StyledUl>
         {serviceCategories.map((item) => {
           return (
-            <div key={item.name}>
+            <div key={item.id}>
               <FormCheckbox
                 name={item.name}
                 label={item.label}
@@ -109,7 +108,7 @@ const ServiceCategoriesForm = ({
               {showHiddenField[item.details] ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={item.label}
+                    label={"Please describe what you do"}
                     name={item.details}
                     register={register}
                     spellCheck={"true"}

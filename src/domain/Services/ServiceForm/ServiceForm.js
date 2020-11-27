@@ -68,6 +68,8 @@ const ServiceForm = ({
   setShowHiddenField,
   initialStepId = "details",
   submitLoading = false,
+  serviceCategories,
+  serviceDemographics,
 }) => {
   let stepArray = [
     { id: "details", label: "Your details", internalTeamOnly: false },
@@ -172,6 +174,7 @@ const ServiceForm = ({
             setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
             goBackToPreviousStep={goBackToPreviousStep}
+            serviceCategories={serviceCategories}
           />
         );
       case "demographics":
@@ -180,6 +183,7 @@ const ServiceForm = ({
             defaultValues={draftService}
             onSubmit={moveToNextStep}
             goBackToPreviousStep={goBackToPreviousStep}
+            serviceDemographics={serviceDemographics}
           />
         );
       case "image":
