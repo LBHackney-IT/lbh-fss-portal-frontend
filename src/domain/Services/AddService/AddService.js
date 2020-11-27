@@ -13,6 +13,7 @@ import {
 } from "../../../utils/functions/serviceFunctions";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 import AppLoading from "../../../AppLoading";
+import TaxonomiesService from "../../../services/TaxonomiesService/TaxonomiesService";
 
 const AddService = ({ doRetrieveServices = () => {} }) => {
   const localUser = useContext(UserContext)[0];
@@ -25,18 +26,7 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
 
   useEffect(() => {
     async function fetchTaxonomies() {
-      // TODO: replace this with API call
-      // const taxonomies = TaxonomiesService.retrieveTaxonomies();
-      const taxonomies = {
-        serviceCategories: [
-          { id: 1, label: "Category A - yes" },
-          { id: 2, label: "Category B - no" },
-        ],
-        serviceDemographics: [
-          { id: 3, label: "text text text" },
-          { id: 4, label: "text text text" },
-        ],
-      };
+      const taxonomies = await TaxonomiesService.retrieveTaxonomies();
 
       setTaxonomiesIsLoading(false);
 

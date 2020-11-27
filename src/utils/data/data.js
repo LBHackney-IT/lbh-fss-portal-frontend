@@ -1,5 +1,3 @@
-import { camelCase } from "lodash";
-
 const organisationFormFields = [
   "name",
   "is_hackney_based",
@@ -46,112 +44,8 @@ const organisationFormCheckboxFields = [
   "is_local_offer_listed",
 ];
 
-const incomingCategoriesFromNewEndpoint = [
-  {
-    id: 1,
-    label: "Loneliness or isolation",
-  },
-  {
-    id: 2,
-    label: "Anxiety or mental health",
-  },
-  {
-    id: 3,
-    label: "Safe and healthy body ",
-  },
-  {
-    id: 4,
-    label: "Exercise and wellbeing",
-  },
-  {
-    id: 5,
-    label: "Arts and creativity ",
-  },
-  {
-    id: 6,
-    label: "Food or shopping",
-  },
-  {
-    id: 7,
-    label: "Faith-led activities",
-  },
-  {
-    id: 8,
-    label: "Money advice",
-  },
-  {
-    id: 9,
-    label: "Employment advice",
-  },
-  {
-    id: 10,
-    label: "Housing advice",
-  },
-  {
-    id: 11,
-    label: "Immigration advice",
-  },
-];
-
-const incomingDemographicsFromNewEndpoint = [
-  {
-    id: 12,
-    label: "Disabilities or autism",
-  },
-  {
-    id: 13,
-    label: "Men",
-  },
-  {
-    id: 14,
-    label: "Women",
-  },
-  {
-    id: 15,
-    label: "LGBTQI+",
-  },
-  {
-    id: 16,
-    label: "Children, young people or families",
-  },
-  {
-    id: 17,
-    label: "Older people",
-  },
-  {
-    id: 18,
-    label: "Carers",
-  },
-  {
-    id: 19,
-    label: "Cultural",
-  },
-];
-
-// TODO: tidy this up - remove once replaced with alternative formatting code in serviceFunctions file
-
-let serviceCategories = incomingCategoriesFromNewEndpoint.map((category) => {
-  category.name = camelCase(category.label).concat(category.id);
-  category.details = category.name.concat("Details");
-  return category;
-});
-
-incomingDemographicsFromNewEndpoint.unshift({
-  id: 999,
-  label: "Everyone",
-});
-
-let serviceDemographics = incomingDemographicsFromNewEndpoint.map(
-  (demographic) => {
-    demographic.name = camelCase(demographic.label).concat(demographic.id);
-    return demographic;
-  }
-);
-
 export {
   organisationFormFields,
   organisationFormYesNoRadioFields,
   organisationFormCheckboxFields,
-  serviceCategories,
-  serviceDemographics,
 };

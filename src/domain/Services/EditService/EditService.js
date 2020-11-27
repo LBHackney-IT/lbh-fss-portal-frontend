@@ -14,6 +14,7 @@ import {
   generateInitialShowHiddenField,
 } from "../../../utils/functions/serviceFunctions";
 import AppLoading from "../../../AppLoading";
+import TaxonomiesService from "../../../services/TaxonomiesService/TaxonomiesService";
 
 const EditService = (props) => {
   const { service, isLoading: fetchIsLoading } = useServiceFetch(
@@ -33,19 +34,7 @@ const EditService = (props) => {
 
   useEffect(() => {
     async function fetchTaxonomies() {
-      // TODO: replace this with API call
-      // const taxonomies = TaxonomiesService.retrieveTaxonomies();
-      const taxonomies = {
-        serviceCategories: [
-          { id: 1, label: "Category A - yes" },
-          { id: 2, label: "Category B - no" },
-        ],
-        serviceDemographics: [
-          { id: 3, label: "M-health" },
-          { id: 4, label: "Homeless" },
-          { id: 9, label: "Men" },
-        ],
-      };
+      const taxonomies = await TaxonomiesService.retrieveTaxonomies();
 
       setTaxonomiesIsLoading(false);
 

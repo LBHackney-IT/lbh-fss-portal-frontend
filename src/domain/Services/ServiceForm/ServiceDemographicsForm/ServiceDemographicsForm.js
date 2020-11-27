@@ -80,7 +80,6 @@ const ServiceDemographicsForm = ({
         </p>
       </FormFieldset>
       {serviceDemographics.map((item) => {
-        console.log(item);
         return (
           <div key={item.id}>
             <FormCheckbox
