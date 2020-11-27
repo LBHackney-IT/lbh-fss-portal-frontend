@@ -189,17 +189,22 @@ function formatServiceCategories(serviceCategories) {
   return formattedServiceCategories;
 }
 
-function formatServiceDemographics(serviceDemographics) {
+function formatServiceDemographics({
+  serviceDemographics,
+  addEveryoneTerm = true,
+}) {
   let formattedServiceDemographics = serviceDemographics.map((demographic) => {
     demographic.name = camelCase(demographic.label).concat(demographic.id);
     return demographic;
   });
 
-  formattedServiceDemographics.unshift({
-    id: 999,
-    label: "Everyone",
-    name: "everyone",
-  });
+  if (addEveryoneTerm) {
+    formattedServiceDemographics.unshift({
+      id: 999,
+      label: "Everyone",
+      name: "everyone",
+    });
+  }
 
   return formattedServiceDemographics;
 }

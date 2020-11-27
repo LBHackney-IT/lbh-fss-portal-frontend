@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import FormInput from "../../../components/FormInput/FormInput";
 import Button from "../../../components/Button/Button";
 import { red } from "../../../settings/colors";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import AppLoading from "../../../AppLoading";
-import { toast } from "react-toastify";
 
 const StyledTaxonomyItemContainer = styled.div`
   display: flex;
@@ -24,54 +23,20 @@ const StyledDeleteTaxonomyItem = styled.p`
   margin: 8px 0 8px 10px;
 `;
 
-const ServiceDemographicsTaxonomy = ({
-  serviceDemographics,
-  setServiceDemographics,
+const TaxonomyPanel = ({
+  taxonomyName,
+  taxonomyTerms,
+  isLoading,
+  addTerm,
+  removeTerm,
+  titleStyle,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const { register, handleSubmit, errors, getValues } = useForm();
-
-  function doAddDemographic(values) {
-    console.log(values);
-    setIsLoading(true);
-
-    // make call to POST /taxonomies
-    const updatedDemographics = [];
-
-    setIsLoading(false);
-
-    if (updatedDemographics) {
-      toast.success(
-        `Successfully added '${values.demographic}' taxonomy term.`
-      );
-    } else {
-      toast.error(`Failed to add '${values.demographic}' taxonomy term.`);
-    }
-  }
-
-  function doRemoveDemographic(demographic) {
-    setIsLoading(true);
-
-    // make call to DELETE /taxonomies/{id}
-    // demographic.id
-    const demographicRemoved = [];
-
-    setIsLoading(false);
-
-    if (demographicRemoved) {
-      toast.success(
-        `Successfully removed '${demographic.label}' taxonomy term.`
-      );
-    } else {
-      toast.error(`Failed to remove '${demographic.label}' taxonomy term.`);
-    }
-  }
 
   if (isLoading) {
     return (
       <>
-        <h2 style={{ margin: "0" }}>Demographics</h2>{" "}
+        <h2 style={titleStyle}>{taxonomyName}</h2>
         <AppLoading margin={"0 30px"} />
       </>
     );
@@ -79,27 +44,27 @@ const ServiceDemographicsTaxonomy = ({
 
   return (
     <>
-      <h2 style={{ margin: "0" }}>Demographics</h2>
-
+      <h2 style={titleStyle}>{taxonomyName}</h2>
       <div style={{ margin: "20px 0 40px 0" }}>
-        {serviceDemographics.map((demographic, index) => {
+        {taxonomyTerms.map((term, index) => {
           return (
             <div key={index}>
               <StyledTaxonomyItemContainer>
-                <StyledTaxonomyItem>{demographic.label}</StyledTaxonomyItem>
+                <StyledTaxonomyItem>{term.label}</StyledTaxonomyItem>
 
                 <StyledDeleteTaxonomyItem>
                   <Button
                     label="X"
                     backgroundColor={red[400]}
                     buttonStyle={{
-                      padding: "5px",
+                      padding: "0",
                       margin: "0",
-                      height: "22px",
-                      fontSize: "11px",
+                      height: "26px",
+                      width: "25px",
+                      fontSize: "13px",
                       fontWeight: "bold",
                     }}
-                    onClick={() => doRemoveDemographic(demographic)}
+                    onClick={() => removeTerm(term)}
                   />
                 </StyledDeleteTaxonomyItem>
               </StyledTaxonomyItemContainer>
@@ -108,10 +73,10 @@ const ServiceDemographicsTaxonomy = ({
         })}
       </div>
 
-      <form onSubmit={handleSubmit(doAddDemographic)}>
+      <form onSubmit={handleSubmit(addTerm)}>
         <FormInput
           name="demographic"
-          label="Add demographic"
+          label={`Add term to ${taxonomyName.toLowerCase()} taxonomy`}
           register={register}
           error={errors.demographic}
           required
@@ -123,4 +88,4 @@ const ServiceDemographicsTaxonomy = ({
   );
 };
 
-export default ServiceDemographicsTaxonomy;
+export default TaxonomyPanel;
