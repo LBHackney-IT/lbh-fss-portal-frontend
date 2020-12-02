@@ -137,6 +137,8 @@ const EditService = (props) => {
   if (
     fetchIsLoading ||
     Object.keys(defaultValues).length === 0 ||
+    serviceCategories.length === 0 ||
+    serviceDemographics.length === 0 ||
     serviceImageIsLoading ||
     taxonomiesIsLoading
   ) {
