@@ -26,19 +26,17 @@ const StyledDeleteTaxonomyItem = styled.p`
 const TaxonomyPanel = ({
   vocabularyName,
   taxonomy,
-  isLoading,
-  removeTerm,
+  toggleRemoveModal,
+  setSelectedTerm,
   titleStyle,
 }) => {
-  const { register, handleSubmit, errors, getValues } = useForm();
-
   let vocabularyId = "";
 
   if (taxonomy[0]) {
     vocabularyId = taxonomy[0].vocabulary_id;
   }
 
-  if (isLoading || taxonomy.length === 0) {
+  if (taxonomy.length === 0) {
     return (
       <>
         <h2 style={titleStyle}>{vocabularyName}</h2>
@@ -75,7 +73,10 @@ const TaxonomyPanel = ({
                       fontSize: "13px",
                       fontWeight: "bold",
                     }}
-                    onClick={() => removeTerm(term)}
+                    onClick={() => {
+                      toggleRemoveModal();
+                      setSelectedTerm(term);
+                    }}
                   />
                 </StyledDeleteTaxonomyItem>
               </StyledTaxonomyItemContainer>

@@ -9,23 +9,22 @@ import { toast } from "react-toastify";
 import { navigate } from "@reach/router";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import TaxonomyPanel from "../TaxonomyPanel/TaxonomyPanel";
-import { grey } from "../../../settings/colors";
+import { red, grey } from "../../../settings/colors";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import UserContext from "../../../context/UserContext/UserContext";
+import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 
 const TaxonomiesDashboard = () => {
   const [taxonomiesIsLoading, setTaxonomiesIsLoading] = useState(true);
-  const [serviceCategoriesIsLoading, setServiceCategoriesIsLoading] = useState(
-    false
-  );
-  const [
-    serviceDemographicsIsLoading,
-    setServiceDemographicsIsLoading,
-  ] = useState(false);
+
+  const [selectedTerm, setSelectedTerm] = useState({});
 
   const [serviceCategories, setServiceCategories] = useState([]);
   const [serviceDemographics, setServiceDemographics] = useState([]);
+
+  const [removeIsLoading, setRemoveIsLoading] = useState(false);
+  const [removeModalIsOpen, setRemoveModalIsOpen] = useState(false);
 
   const user = useContext(UserContext)[0];
 
@@ -58,39 +57,33 @@ const TaxonomiesDashboard = () => {
     fetchTaxonomies();
   }, [setServiceCategories, setServiceDemographics]);
 
-  function doRemoveCategory(term) {
-    setServiceDemographicsIsLoading(true);
+  function toggleRemoveModal() {
+    if (removeIsLoading) return;
 
-    const termSuccessfullyRemoved = TaxonomiesService.deleteTaxonomyTerm(
-      term.id
-    );
-
-    setServiceDemographicsIsLoading(false);
-
-    if (termSuccessfullyRemoved) {
-      toast.success(`Successfully removed '${term.label}' taxonomy term.`);
-    } else {
-      toast.error(`Failed to remove '${term.label}' taxonomy term.`);
-    }
+    setRemoveModalIsOpen(!removeModalIsOpen);
   }
 
-  function doRemoveDemographic(term) {
-    setServiceDemographicsIsLoading(true);
+  function doRemoveTaxonomyTerm() {
+    setRemoveIsLoading(true);
 
     const termSuccessfullyRemoved = TaxonomiesService.deleteTaxonomyTerm(
-      term.id
+      selectedTerm.id
     );
 
-    setServiceDemographicsIsLoading(false);
+    setRemoveIsLoading(false);
 
     if (termSuccessfullyRemoved) {
-      toast.success(`Successfully removed '${term.label}' taxonomy term.`);
+      toast.success(
+        `Successfully removed '${selectedTerm.label}' taxonomy term.`
+      );
     } else {
-      toast.error(`Failed to remove '${term.label}' taxonomy term.`);
+      toast.error(`Failed to remove '${selectedTerm.label}' taxonomy term.`);
     }
+
+    setRemoveModalIsOpen(false);
   }
 
-  if (taxonomiesIsLoading) {
+  if (taxonomiesIsLoading || removeIsLoading) {
     return <AppLoading />;
   }
 
@@ -101,14 +94,14 @@ const TaxonomiesDashboard = () => {
         <TaxonomyPanel
           vocabularyName={"Categories"}
           taxonomy={serviceCategories}
-          isLoading={serviceCategoriesIsLoading}
-          removeTerm={doRemoveCategory}
+          toggleRemoveModal={toggleRemoveModal}
+          setSelectedTerm={setSelectedTerm}
         />
         <TaxonomyPanel
           vocabularyName={"Demographics"}
           taxonomy={serviceDemographics}
-          isLoading={serviceDemographicsIsLoading}
-          removeTerm={doRemoveDemographic}
+          toggleRemoveModal={toggleRemoveModal}
+          setSelectedTerm={setSelectedTerm}
           titleStyle={{
             margin: "60px 0 0 0",
             borderTop: `1px solid ${grey[350]}`,
@@ -116,6 +109,21 @@ const TaxonomiesDashboard = () => {
           }}
         />
       </RaisedCard>
+      <ConfirmModal
+        isOpen={removeModalIsOpen}
+        toggleModal={toggleRemoveModal}
+        confirmMessage={
+          <>
+            Are you sure you want to remove{" "}
+            <strong>{selectedTerm.label}</strong>?
+          </>
+        }
+        confirmButtonLabel={"Remove"}
+        confirmButtonColor={red[400]}
+        borderColor={red[400]}
+        onConfirm={doRemoveTaxonomyTerm}
+        includeReviewerMessage={false}
+      />
     </>
   ) : (
     <AccessDenied />
