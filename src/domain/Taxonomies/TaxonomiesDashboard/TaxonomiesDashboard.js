@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppLoading from "../../../AppLoading";
 import TaxonomiesService from "../../../services/TaxonomiesService/TaxonomiesService";
 import {
@@ -10,22 +10,9 @@ import { navigate } from "@reach/router";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 import TaxonomyPanel from "../TaxonomyPanel/TaxonomyPanel";
 import { grey } from "../../../settings/colors";
-
-function giveUserFeedback({ term, updateStatus, action }) {
-  if (updateStatus) {
-    toast.success(
-      `Successfully ${
-        action === "add" ? "added" : "removed"
-      } '${term}' taxonomy term.`
-    );
-  } else {
-    toast.error(
-      `Failed to ${
-        action === "add" ? "add" : "remove"
-      } '${term}' taxonomy term.`
-    );
-  }
-}
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
+import AccessDenied from "../../Error/AccessDenied/AccessDenied";
+import UserContext from "../../../context/UserContext/UserContext";
 
 const TaxonomiesDashboard = () => {
   const [taxonomiesIsLoading, setTaxonomiesIsLoading] = useState(true);
@@ -39,6 +26,10 @@ const TaxonomiesDashboard = () => {
 
   const [serviceCategories, setServiceCategories] = useState([]);
   const [serviceDemographics, setServiceDemographics] = useState([]);
+
+  const user = useContext(UserContext)[0];
+
+  const isInternalTeam = checkIsInternalTeam(user.roles);
 
   useEffect(() => {
     async function fetchTaxonomies() {
@@ -67,75 +58,43 @@ const TaxonomiesDashboard = () => {
     fetchTaxonomies();
   }, [setServiceCategories, setServiceDemographics]);
 
-  function doAddDemographic({ term }) {
+  function doRemoveCategory(term) {
     setServiceDemographicsIsLoading(true);
 
-    // make call to POST /taxonomies
-    // const termSuccessfullyAdded = false;
-    const termSuccessfullyAdded = [];
+    const termSuccessfullyRemoved = TaxonomiesService.deleteTaxonomyTerm(
+      term.id
+    );
 
     setServiceDemographicsIsLoading(false);
 
-    giveUserFeedback({
-      term,
-      updateStatus: termSuccessfullyAdded,
-      action: "add",
-    });
+    if (termSuccessfullyRemoved) {
+      toast.success(`Successfully removed '${term.label}' taxonomy term.`);
+    } else {
+      toast.error(`Failed to remove '${term.label}' taxonomy term.`);
+    }
   }
 
-  function doRemoveDemographic(demographic) {
+  function doRemoveDemographic(term) {
     setServiceDemographicsIsLoading(true);
 
-    // make call to DELETE /taxonomies/{id}
-    // const termSuccessfullyRemoved = false;
-    const termSuccessfullyRemoved = [];
+    const termSuccessfullyRemoved = TaxonomiesService.deleteTaxonomyTerm(
+      term.id
+    );
 
     setServiceDemographicsIsLoading(false);
 
-    giveUserFeedback({
-      term: demographic.label,
-      updateStatus: termSuccessfullyRemoved,
-      action: "remove",
-    });
-  }
-
-  function doAddCategory({ term }) {
-    setServiceCategoriesIsLoading(true);
-
-    // make call to POST /taxonomies
-    // const termSuccessfullyAdded = false;
-    const termSuccessfullyAdded = [];
-
-    setServiceCategoriesIsLoading(false);
-
-    giveUserFeedback({
-      term,
-      updateStatus: termSuccessfullyAdded,
-      action: "add",
-    });
-  }
-
-  function doRemoveCategory(category) {
-    setServiceCategoriesIsLoading(true);
-
-    // make call to DELETE /taxonomies/{id}
-    // demographic.id
-    const termSuccessfullyRemoved = [];
-
-    setServiceCategoriesIsLoading(false);
-
-    giveUserFeedback({
-      term: category.label,
-      updateStatus: termSuccessfullyRemoved,
-      action: "remove",
-    });
+    if (termSuccessfullyRemoved) {
+      toast.success(`Successfully removed '${term.label}' taxonomy term.`);
+    } else {
+      toast.error(`Failed to remove '${term.label}' taxonomy term.`);
+    }
   }
 
   if (taxonomiesIsLoading) {
     return <AppLoading />;
   }
 
-  return (
+  return isInternalTeam ? (
     <>
       <h1>Taxonomies</h1>
       <RaisedCard>
@@ -143,14 +102,12 @@ const TaxonomiesDashboard = () => {
           vocabularyName={"Categories"}
           taxonomy={serviceCategories}
           isLoading={serviceCategoriesIsLoading}
-          addTerm={doAddCategory}
           removeTerm={doRemoveCategory}
         />
         <TaxonomyPanel
           vocabularyName={"Demographics"}
           taxonomy={serviceDemographics}
           isLoading={serviceDemographicsIsLoading}
-          addTerm={doAddDemographic}
           removeTerm={doRemoveDemographic}
           titleStyle={{
             margin: "60px 0 0 0",
@@ -160,6 +117,8 @@ const TaxonomiesDashboard = () => {
         />
       </RaisedCard>
     </>
+  ) : (
+    <AccessDenied />
   );
 };
 

@@ -14,7 +14,6 @@ const TaxonomiesService = {
       return false;
     }
   },
-  // TODO: update function once swagger updated
   async createTaxonomyTerm(term) {
     try {
       const response = await axios.post(`${BASE_API_URL}/taxonomies`, term, {

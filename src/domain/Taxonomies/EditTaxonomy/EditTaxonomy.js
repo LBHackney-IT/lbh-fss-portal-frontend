@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import FormInput from "../../../components/FormInput/FormInput";
 import Button from "../../../components/Button/Button";
 import FormHelpText from "../../../components/FormHelpText/FormHelpText";
-import { red } from "../../../settings/colors";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import AppLoading from "../../../AppLoading";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
+import TaxonomiesService from "../../../services/TaxonomiesService/TaxonomiesService";
+import { toast } from "react-toastify";
+import { navigate } from "@reach/router";
 
 const EditTaxonomy = ({ vocabularyName, vocabularyId, termId }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [term, setTerm] = useState({
+  const [taxonomyTerm, setTaxonomyTerm] = useState({
     id: 11,
     label: "Immigration advice",
     description_short: "A short description of the taxonomy item",
@@ -22,63 +23,84 @@ const EditTaxonomy = ({ vocabularyName, vocabularyId, termId }) => {
   });
 
   const { register, handleSubmit, errors, getValues } = useForm({
-    defaultValues: term,
+    defaultValues: taxonomyTerm,
   });
 
   useEffect(() => {
-    // fetch taxonomy term
+    async function fetchTaxonomyTerm() {
+      const retrievedTaxonomyTerm = await TaxonomiesService.getTaxonomyTerm(
+        vocabularyId
+      );
+
+      setIsLoading(false);
+
+      if (retrievedTaxonomyTerm) {
+        setTaxonomyTerm(retrievedTaxonomyTerm);
+      } else {
+        toast.error("Could not retrieve taxonomy term.");
+        navigate("/taxonomies");
+      }
+    }
+
+    fetchTaxonomyTerm();
   }, []);
 
-  if (isLoading) {
-    return (
-      <>
-        <AppLoading />
-      </>
+  function doEditTaxonomyTerm(values) {
+    values.vocabulary_id = vocabularyId;
+    values.weight = 1;
+
+    setIsLoading(true);
+
+    const termSuccessfullyAdded = TaxonomiesService.updateTaxonomyTerm(
+      vocabularyId,
+      values
     );
+
+    setIsLoading(false);
+
+    if (termSuccessfullyAdded) {
+      toast.success(`Successfully updated '${values.label}' taxonomy term.`);
+      navigate("/taxonomies");
+    } else {
+      toast.error(`Failed to updated '${values.label}' taxonomy term.`);
+    }
+  }
+
+  if (isLoading) {
+    return <AppLoading />;
   }
 
   return (
     <RaisedCard>
       <h1 style={{ margin: "20px 0 30px 0" }}>Taxonomy: {vocabularyName}</h1>
-      <FormInput
-        name="label"
-        label={`Label`}
-        register={register}
-        error={errors.label}
-        required
-        maxLength={255}
-      />
+      <form onSubmit={handleSubmit(doEditTaxonomyTerm)}>
+        <FormInput
+          name="label"
+          label={`Label`}
+          register={register}
+          error={errors.label}
+          required
+          maxLength={255}
+        />
 
-      <FormInput
-        name="description_short"
-        label={`Description`}
-        register={register}
-        error={errors.description_short}
-        required
-        maxLength={255}
-      />
-      <FormHelpText helpText="A short description of the taxonomy term" />
+        <FormInput
+          name="description_short"
+          label={`Description`}
+          register={register}
+          error={errors.description}
+          required
+          maxLength={255}
+        />
+        <FormHelpText helpText="A short description of the taxonomy term" />
 
-      <Button buttonStyle={{ margin: "40px 0" }} type="submit" label={"Save"} />
+        <Button
+          buttonStyle={{ margin: "40px 0" }}
+          type="submit"
+          label={"Submit"}
+        />
+      </form>
     </RaisedCard>
   );
-
-  //   return (
-  //     <>
-  //       <h2>{taxonomyName}</h2>
-  //       <form onSubmit={handleSubmit(editTerm)}>
-  //         <FormInput
-  //           name="term"
-  //           label={`Add term to ${taxonomyName.toLowerCase()} taxonomy`}
-  //           register={register}
-  //           error={errors.demographic}
-  //           required
-  //           maxLength={255}
-  //         />
-  //         <Button type="submit" label={"Submit"} />
-  //       </form>
-  //     </>
-  //   );
 };
 
 export default EditTaxonomy;

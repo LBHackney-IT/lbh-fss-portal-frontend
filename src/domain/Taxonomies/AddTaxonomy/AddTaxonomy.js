@@ -1,55 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FormInput from "../../../components/FormInput/FormInput";
 import Button from "../../../components/Button/Button";
 import FormHelpText from "../../../components/FormHelpText/FormHelpText";
-import { red } from "../../../settings/colors";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import AppLoading from "../../../AppLoading";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
-import { giveUserFeedback } from "../../../utils/functions/taxonomyFunctions";
-
-function formatVocabulary(taxonomy) {
-  const TaxonomyName = taxonomy.replace(/-/g, " ");
-  return TaxonomyName.charAt(0).toUpperCase() + TaxonomyName.slice(1);
-}
+import { navigate } from "@reach/router";
+import { toast } from "react-toastify";
+import TaxonomiesService from "../../../services/TaxonomiesService/TaxonomiesService";
 
 const AddTaxonomy = ({ vocabularyName, vocabularyId }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { register, handleSubmit, errors, getValues } = useForm();
-
-  const formattedVocabulary = formatVocabulary(vocabularyName);
+  const { register, handleSubmit, errors } = useForm();
 
   function doAddTaxonomyTerm(values) {
+    values.vocabulary_id = vocabularyId;
+    values.weight = 1;
+
     setIsLoading(true);
 
-    // make call to POST /taxonomies
-    // const termSuccessfullyAdded = false;
-    const termSuccessfullyAdded = [];
+    const termSuccessfullyAdded = TaxonomiesService.createTaxonomyTerm(values);
 
     setIsLoading(false);
 
-    giveUserFeedback({
-      term: values.label,
-      updateStatus: termSuccessfullyAdded,
-      action: "add",
-    });
+    if (termSuccessfullyAdded) {
+      toast.success(`Successfully added '${values.label}' taxonomy term.`);
+      navigate("/taxonomies");
+    } else {
+      toast.error(`Failed to add '${values.label}' taxonomy term.`);
+    }
   }
 
   if (isLoading) {
-    return (
-      <>
-        <AppLoading />
-      </>
-    );
+    return <AppLoading />;
   }
 
   return (
     <RaisedCard>
-      <h1 style={{ margin: "20px 0 30px 0" }}>
-        Taxonomy: {formattedVocabulary}
-      </h1>
+      <h1 style={{ margin: "20px 0 30px 0" }}>Taxonomy: {vocabularyName}</h1>
 
       <form onSubmit={handleSubmit(doAddTaxonomyTerm)}>
         <FormInput
@@ -62,10 +51,10 @@ const AddTaxonomy = ({ vocabularyName, vocabularyId }) => {
         />
 
         <FormInput
-          name="description_short"
+          name="description"
           label={`Description`}
           register={register}
-          error={errors.description_short}
+          error={errors.description}
           required
           maxLength={255}
         />
@@ -74,28 +63,11 @@ const AddTaxonomy = ({ vocabularyName, vocabularyId }) => {
         <Button
           buttonStyle={{ margin: "40px 0" }}
           type="submit"
-          label={"Save"}
+          label={"Submit"}
         />
       </form>
     </RaisedCard>
   );
-
-  //   return (
-  //     <>
-  //       <h2>{taxonomyName}</h2>
-  //       <form onSubmit={handleSubmit(editTerm)}>
-  //         <FormInput
-  //           name="term"
-  //           label={`Add term to ${taxonomyName.toLowerCase()} taxonomy`}
-  //           register={register}
-  //           error={errors.demographic}
-  //           required
-  //           maxLength={255}
-  //         />
-  //         <Button type="submit" label={"Submit"} />
-  //       </form>
-  //     </>
-  //   );
 };
 
 export default AddTaxonomy;

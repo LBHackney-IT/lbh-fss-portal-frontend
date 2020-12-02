@@ -1,5 +1,4 @@
 import React from "react";
-import FormInput from "../../../components/FormInput/FormInput";
 import Button from "../../../components/Button/Button";
 import { red } from "../../../settings/colors";
 import { useForm } from "react-hook-form";
@@ -28,7 +27,6 @@ const TaxonomyPanel = ({
   vocabularyName,
   taxonomy,
   isLoading,
-  addTerm,
   removeTerm,
   titleStyle,
 }) => {
@@ -92,18 +90,6 @@ const TaxonomyPanel = ({
           navigate(`/taxonomies/${vocabularyName}/${vocabularyId}/add`)
         }
       />
-
-      {/* <form onSubmit={handleSubmit(addTerm)}>
-        <FormInput
-          name="term"
-          label={`Add term to ${taxonomyName.toLowerCase()} taxonomy`}
-          register={register}
-          error={errors.demographic}
-          required
-          maxLength={255}
-        />
-        <Button type="submit" label={"Submit"} />
-      </form> */}
     </>
   );
 };
