@@ -2,81 +2,175 @@
     "serviceCategories": [
       {
         "id": 1,
-        "label": "Loneliness or isolation"
+        "label": "Loneliness or isolation",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1
       },
       {
         "id": 2,
-        "label": "Anxiety or mental health"
+        "label": "Anxiety or mental health",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 2
       },
       {
         "id": 3,
-        "label": "Safe and healthy body "
+        "label": "Safe and healthy body",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 3
       },
       {
         "id": 4,
-        "label": "Exercise and wellbeing"
+        "label": "Exercise and wellbeing",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 4
       },
       {
         "id": 5,
-        "label": "Arts and creativity "
+        "label": "Arts and creativity ",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 5
       },
       {
         "id": 6,
-        "label": "Food or shopping"
+        "label": "Food or shopping",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 6
       },
       {
         "id": 7,
-        "label": "Faith-led activities"
+        "label": "Faith-led activities",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 7
       },
       {
         "id": 8,
-        "label": "Money advice"
+        "label": "Money advice",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 8
       },
       {
         "id": 9,
-        "label": "Employment advice"
+        "label": "Employment advice",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 9
       },
       {
         "id": 10,
-        "label": "Housing advice"
+        "label": "Housing advice",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 10
       },
       {
         "id": 11,
-        "label": "Immigration advice"
+        "label": "Immigration advice",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 11
       }
     ],
     "serviceDemographics": [
       {
         "id": 12,
-        "label": "Disabilities or autism"
+        "label": "Disabilities or autism",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "serviceDemographics",
+        "vocabulary_id": 2,
+        "weight": 1
       },
       {
         "id": 13,
-        "label": "Men"
+        "label": "Men",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "serviceDemographics",
+        "vocabulary_id": 2,
+        "weight": 2
       },
       {
         "id": 14,
-        "label": "Women"
+        "label": "Women",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "serviceDemographics",
+        "vocabulary_id": 2,
+        "weight": 3
       },
       {
         "id": 15,
-        "label": "LGBTQI+"
+        "label": "LGBTQI+",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "serviceDemographics",
+        "vocabulary_id": 2,
+        "weight": 4
       },
       {
         "id": 16,
-        "label": "Children, young people or families"
+        "label": "Children, young people or families",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "serviceDemographics",
+        "vocabulary_id": 2,
+        "weight": 5
       },
       {
         "id": 17,
-        "label": "Older people"
+        "label": "Older people",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "serviceDemographics",
+        "vocabulary_id": 2,
+        "weight": 6
       },
       {
         "id": 18,
-        "label": "Carers"
+        "label": "Carers",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "serviceDemographics",
+        "vocabulary_id": 2,
+        "weight": 7
       },
       {
         "id": 19,
-        "label": "Cultural"
+        "label": "Cultural",
+        "description_short": "A longer description of the taxonomy item",
+        "description_long": "A custom description for this service",
+        "vocabulary": "serviceDemographics",
+        "vocabulary_id": 2,
+        "weight": 8
       }
     ]
 }

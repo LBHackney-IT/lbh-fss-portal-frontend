@@ -29,6 +29,8 @@ import EditOrganisation from "./domain/Organisations/EditOrganisation/EditOrgani
 import HandleMyService from "./domain/Services/HanldeMyService/HandleMyService";
 import InvitationResetPassword from "./domain/Authentication/InvitationResetPassword/InvitationResetPassword";
 import TaxonomiesDashboard from "./domain/Taxonomies/TaxonomiesDashboard/TaxonomiesDashboard";
+import EditTaxonomy from "./domain/Taxonomies/EditTaxonomy/EditTaxonomy";
+import AddTaxonomy from "./domain/Taxonomies/AddTaxonomy/AddTaxonomy";
 
 const AppMain = ({ location }) => {
   const setUser = useContext(UserContext)[1];
@@ -64,6 +66,14 @@ const AppMain = ({ location }) => {
       <ProtectedRoute as={MyAccount} path="/account" />
       <ProtectedRoute as={AnalyticsDashboard} path="/analytics" />
       <ProtectedRoute as={TaxonomiesDashboard} path="/taxonomies" />
+      <ProtectedRoute
+        as={EditTaxonomy}
+        path="/taxonomies/:vocabularyName/:vocabularyId/:termId/edit"
+      />
+      <ProtectedRoute
+        as={AddTaxonomy}
+        path="/taxonomies/:vocabularyName/:vocabularyId/add"
+      />
       <ProtectedRoute as={Logout} path="/logout" withLayout={false} />
       <ProtectedRoute as={HandleMyService} path="/service" />
       <ProtectedRoute as={AddService} path="/services/add/" />

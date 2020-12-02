@@ -5,6 +5,7 @@ import { red } from "../../../settings/colors";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import AppLoading from "../../../AppLoading";
+import { Link, navigate } from "@reach/router";
 
 const StyledTaxonomyItemContainer = styled.div`
   display: flex;
@@ -24,8 +25,8 @@ const StyledDeleteTaxonomyItem = styled.p`
 `;
 
 const TaxonomyPanel = ({
-  taxonomyName,
-  taxonomyTerms,
+  vocabularyName,
+  taxonomy,
   isLoading,
   addTerm,
   removeTerm,
@@ -33,10 +34,16 @@ const TaxonomyPanel = ({
 }) => {
   const { register, handleSubmit, errors, getValues } = useForm();
 
-  if (isLoading) {
+  let vocabularyId = "";
+
+  if (taxonomy[0]) {
+    vocabularyId = taxonomy[0].vocabulary_id;
+  }
+
+  if (isLoading || taxonomy.length === 0) {
     return (
       <>
-        <h2 style={titleStyle}>{taxonomyName}</h2>
+        <h2 style={titleStyle}>{vocabularyName}</h2>
         <AppLoading margin={"0 30px"} />
       </>
     );
@@ -44,13 +51,19 @@ const TaxonomyPanel = ({
 
   return (
     <>
-      <h2 style={titleStyle}>{taxonomyName}</h2>
+      <h2 style={titleStyle}>{vocabularyName}</h2>
       <div style={{ margin: "20px 0 40px 0" }}>
-        {taxonomyTerms.map((term, index) => {
+        {taxonomy.map((term, index) => {
           return (
             <div key={index}>
               <StyledTaxonomyItemContainer>
-                <StyledTaxonomyItem>{term.label}</StyledTaxonomyItem>
+                <StyledTaxonomyItem>
+                  <Link
+                    to={`/taxonomies/${vocabularyName}/${vocabularyId}/${term.id}/edit`}
+                  >
+                    {term.label}
+                  </Link>
+                </StyledTaxonomyItem>
 
                 <StyledDeleteTaxonomyItem>
                   <Button
@@ -73,7 +86,14 @@ const TaxonomyPanel = ({
         })}
       </div>
 
-      <form onSubmit={handleSubmit(addTerm)}>
+      <Button
+        label={"Add term"}
+        onClick={() =>
+          navigate(`/taxonomies/${vocabularyName}/${vocabularyId}/add`)
+        }
+      />
+
+      {/* <form onSubmit={handleSubmit(addTerm)}>
         <FormInput
           name="term"
           label={`Add term to ${taxonomyName.toLowerCase()} taxonomy`}
@@ -83,7 +103,7 @@ const TaxonomyPanel = ({
           maxLength={255}
         />
         <Button type="submit" label={"Submit"} />
-      </form>
+      </form> */}
     </>
   );
 };

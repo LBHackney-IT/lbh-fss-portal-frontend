@@ -27,14 +27,6 @@ function giveUserFeedback({ term, updateStatus, action }) {
   }
 }
 
-function giveUserFeedbackAfterRemovingTerm(term, updatedTerm) {
-  if (updatedTerm) {
-    toast.success(`Successfully added '${term}' taxonomy term.`);
-  } else {
-    toast.error(`Failed to add '${term}' taxonomy term.`);
-  }
-}
-
 const TaxonomiesDashboard = () => {
   const [taxonomiesIsLoading, setTaxonomiesIsLoading] = useState(true);
   const [serviceCategoriesIsLoading, setServiceCategoriesIsLoading] = useState(
@@ -55,9 +47,9 @@ const TaxonomiesDashboard = () => {
       setTaxonomiesIsLoading(false);
 
       if (taxonomies) {
-        const formattedServiceCategories = formatServiceCategories(
-          taxonomies.serviceCategories
-        );
+        const formattedServiceCategories = formatServiceCategories({
+          serviceCategories: taxonomies.serviceCategories,
+        });
 
         const formattedServiceDemographics = formatServiceDemographics({
           serviceDemographics: taxonomies.serviceDemographics,
@@ -148,15 +140,15 @@ const TaxonomiesDashboard = () => {
       <h1>Taxonomies</h1>
       <RaisedCard>
         <TaxonomyPanel
-          taxonomyName={"Categories"}
-          taxonomyTerms={serviceCategories}
+          vocabularyName={"Categories"}
+          taxonomy={serviceCategories}
           isLoading={serviceCategoriesIsLoading}
           addTerm={doAddCategory}
           removeTerm={doRemoveCategory}
         />
         <TaxonomyPanel
-          taxonomyName={"Demographics"}
-          taxonomyTerms={serviceDemographics}
+          vocabularyName={"Demographics"}
+          taxonomy={serviceDemographics}
           isLoading={serviceDemographicsIsLoading}
           addTerm={doAddDemographic}
           removeTerm={doRemoveDemographic}

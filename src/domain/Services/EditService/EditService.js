@@ -39,13 +39,13 @@ const EditService = (props) => {
       setTaxonomiesIsLoading(false);
 
       if (taxonomies) {
-        const formattedServiceCategories = formatServiceCategories(
-          taxonomies.serviceCategories
-        );
+        const formattedServiceCategories = formatServiceCategories({
+          serviceCategories: taxonomies.serviceCategories,
+        });
 
-        const formattedServiceDemographics = formatServiceDemographics(
-          taxonomies.serviceDemographics
-        );
+        const formattedServiceDemographics = formatServiceDemographics({
+          serviceDemographics: taxonomies.serviceDemographics,
+        });
 
         setServiceCategories(formattedServiceCategories);
         setServiceDemographics(formattedServiceDemographics);

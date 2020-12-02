@@ -180,7 +180,7 @@ function generateInitialShowHiddenField(serviceCategories) {
   return initialShowHiddenField;
 }
 
-function formatServiceCategories(serviceCategories) {
+function formatServiceCategories({ serviceCategories }) {
   const formattedServiceCategories = serviceCategories.map((category) => {
     category.name = camelCase(category.label).concat(category.id);
     category.details = category.name.concat("Details");
