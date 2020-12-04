@@ -63,10 +63,10 @@ const TaxonomiesDashboard = () => {
     setRemoveModalIsOpen(!removeModalIsOpen);
   }
 
-  function doRemoveTaxonomyTerm() {
+  async function doRemoveTaxonomyTerm() {
     setRemoveIsLoading(true);
 
-    const termSuccessfullyRemoved = TaxonomiesService.deleteTaxonomyTerm(
+    const termSuccessfullyRemoved = await TaxonomiesService.deleteTaxonomyTerm(
       selectedTerm.id
     );
 

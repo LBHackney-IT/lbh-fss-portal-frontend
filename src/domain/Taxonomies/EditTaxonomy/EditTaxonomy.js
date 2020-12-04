@@ -29,7 +29,7 @@ const EditTaxonomy = ({ vocabularyName, vocabularyId, termId }) => {
     fetchTaxonomyTerm();
   }, []);
 
-  function doEditTaxonomyTerm(values) {
+  async function doEditTaxonomyTerm(values) {
     values.name = values.label;
     values.vocabulary_id = vocabularyId;
     values.weight = 1;
@@ -38,7 +38,7 @@ const EditTaxonomy = ({ vocabularyName, vocabularyId, termId }) => {
 
     setIsLoading(true);
 
-    const termSuccessfullyAdded = TaxonomiesService.updateTaxonomyTerm(
+    const termSuccessfullyAdded = await TaxonomiesService.updateTaxonomyTerm(
       vocabularyId,
       values
     );
@@ -46,10 +46,10 @@ const EditTaxonomy = ({ vocabularyName, vocabularyId, termId }) => {
     setIsLoading(false);
 
     if (termSuccessfullyAdded) {
-      toast.success(`Successfully updated '${values.label}' taxonomy term.`);
+      toast.success(`Successfully updated '${values.name}' taxonomy term.`);
       navigate("/taxonomies");
     } else {
-      toast.error(`Failed to updated '${values.label}' taxonomy term.`);
+      toast.error(`Failed to update '${values.name}' taxonomy term.`);
     }
   }
 
