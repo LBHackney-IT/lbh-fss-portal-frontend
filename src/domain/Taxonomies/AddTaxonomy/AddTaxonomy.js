@@ -15,8 +15,11 @@ const AddTaxonomy = ({ vocabularyName, vocabularyId }) => {
   const { register, handleSubmit, errors } = useForm();
 
   function doAddTaxonomyTerm(values) {
+    values.name = values.label;
     values.vocabulary_id = vocabularyId;
     values.weight = 1;
+
+    delete values.label;
 
     setIsLoading(true);
 

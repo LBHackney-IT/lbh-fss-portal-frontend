@@ -32,11 +32,11 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
 
       if (taxonomies) {
         const formattedServiceCategories = formatServiceCategories({
-          serviceCategories: taxonomies.serviceCategories,
+          serviceCategories: taxonomies.categories,
         });
 
         const formattedServiceDemographics = formatServiceDemographics({
-          serviceDemographics: taxonomies.serviceDemographics,
+          serviceDemographics: taxonomies.demographics,
         });
 
         setServiceCategories(formattedServiceCategories);

@@ -1,5 +1,6 @@
 {
-    "serviceCategories": [
+  "taxonomies": {
+    "categories": [
       {
         "id": 1,
         "label": "Loneliness or isolation",
@@ -99,7 +100,7 @@
         "weight": 11
       }
     ],
-    "serviceDemographics": [
+    "demographics": [
       {
         "id": 12,
         "label": "Disabilities or autism",
@@ -173,4 +174,5 @@
         "weight": 8
       }
     ]
+  }
 }

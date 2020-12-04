@@ -7,7 +7,7 @@ const TaxonomiesService = {
     try {
       const response = await axios.get(`${BASE_API_URL}/taxonomies`);
 
-      return response.data;
+      return response.data.taxonomies;
     } catch (error) {
       console.error(error);
 
