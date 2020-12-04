@@ -70,14 +70,16 @@ const EditService = (props) => {
       serviceDemographics
     );
 
-    doHandleHiddenFieldVisibility(
-      cleanDefaultValues,
-      showHiddenField,
-      setShowHiddenField,
-      serviceCategories
-    );
+    if (serviceCategories.length > 0 && serviceDemographics.length > 0) {
+      doHandleHiddenFieldVisibility(
+        cleanDefaultValues,
+        showHiddenField,
+        setShowHiddenField,
+        serviceCategories
+      );
 
-    setDefaultValues(cleanDefaultValues);
+      setDefaultValues(cleanDefaultValues);
+    }
   }, [
     service,
     serviceCategories,
@@ -137,8 +139,6 @@ const EditService = (props) => {
   if (
     fetchIsLoading ||
     Object.keys(defaultValues).length === 0 ||
-    serviceCategories.length === 0 ||
-    serviceDemographics.length === 0 ||
     serviceImageIsLoading ||
     taxonomiesIsLoading
   ) {

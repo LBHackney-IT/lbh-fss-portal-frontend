@@ -22,7 +22,7 @@ const EditTaxonomy = ({ vocabularyName, vocabularyId, termId }) => {
     weight: 11,
   });
 
-  const { register, handleSubmit, errors, getValues } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     defaultValues: taxonomyTerm,
   });
 
@@ -46,8 +46,11 @@ const EditTaxonomy = ({ vocabularyName, vocabularyId, termId }) => {
   }, []);
 
   function doEditTaxonomyTerm(values) {
+    values.name = values.label;
     values.vocabulary_id = vocabularyId;
     values.weight = 1;
+
+    delete values.label;
 
     setIsLoading(true);
 
