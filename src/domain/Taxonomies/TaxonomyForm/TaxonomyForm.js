@@ -24,7 +24,7 @@ const TaxonomyForm = ({ onSubmit, vocabularyName, defaultValues = {} }) => {
         />
 
         <FormInput
-          name="description_short"
+          name="description"
           label={`Description`}
           register={register}
           error={errors.description}

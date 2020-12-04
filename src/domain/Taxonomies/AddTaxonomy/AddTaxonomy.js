@@ -8,7 +8,7 @@ import TaxonomyForm from "../TaxonomyForm/TaxonomyForm";
 const AddTaxonomy = ({ vocabularyName, vocabularyId }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  function doAddTaxonomyTerm(values) {
+  async function doAddTaxonomyTerm(values) {
     values.name = values.label;
     values.vocabulary_id = vocabularyId;
     values.weight = 1;
@@ -17,16 +17,19 @@ const AddTaxonomy = ({ vocabularyName, vocabularyId }) => {
 
     setIsLoading(true);
 
-    const termSuccessfullyAdded = TaxonomiesService.createTaxonomyTerm(values);
+    const termSuccessfullyAdded = await TaxonomiesService.createTaxonomyTerm(
+      values
+    );
 
     setIsLoading(false);
 
     if (termSuccessfullyAdded) {
-      toast.success(`Successfully added '${values.label}' taxonomy term.`);
-      navigate("/taxonomies");
+      toast.success(`Successfully added '${values.name}' taxonomy term.`);
     } else {
-      toast.error(`Failed to add '${values.label}' taxonomy term.`);
+      toast.error(`Failed to add '${values.name}' taxonomy term.`);
     }
+
+    navigate("/taxonomies");
   }
 
   if (isLoading) {
