@@ -5,14 +5,14 @@ import FormHelpText from "../../../components/FormHelpText/FormHelpText";
 import { useForm } from "react-hook-form";
 import RaisedCard from "../../../components/RaisedCard/RaisedCard";
 
-const TaxonomyForm = ({ onSubmit, title, defaultValues }) => {
+const TaxonomyForm = ({ onSubmit, vocabularyName, defaultValues = {} }) => {
   const { register, handleSubmit, errors } = useForm({
-    defaultValues,
+    defaultValues: defaultValues,
   });
 
   return (
     <RaisedCard>
-      <h1 style={{ margin: "20px 0 30px 0" }}>{title}</h1>
+      <h1 style={{ margin: "20px 0 30px 0" }}>Taxonomy: {vocabularyName}</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           name="label"
