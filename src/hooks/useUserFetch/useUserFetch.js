@@ -31,6 +31,8 @@ function useUserFetch(userId, dependencies = []) {
 
         navigate("/organisation");
       }
+
+      setIsLoading(false);
     }
 
     fetchUser();
