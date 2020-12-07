@@ -43,7 +43,8 @@
     "mock-gen:users": "node ./scripts/generateMockUsers.js",
     "mock-gen:services": "node ./scripts/generateMockServices.js",
     "mock-gen:orgs": "node ./scripts/generateMockOrganisations.js",
-    "mock-gen:address": "node ./scripts/generateMockAddresses.js"
+    "mock-gen:address": "node ./scripts/generateMockAddresses.js",
+    "mock-gen:analytics": "node ./scripts/generateAnalytics.js"
   },
   "eslintConfig": {
     "extends": "react-app"
