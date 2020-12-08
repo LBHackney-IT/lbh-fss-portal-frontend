@@ -5,7 +5,7 @@ import BASE_API_URL from "../../settings/baseApiUrl";
 axios.defaults.withCredentials = true;
 
 const AnalyticsService = {
-  async retrieveAnalytics(id, from_date, to_date) {
+  async retrieveAnalytics({ id, from_date, to_date }) {
     try {
       const response = await axios.get(`${BASE_API_URL}/analytics-event`, {
         params: {
