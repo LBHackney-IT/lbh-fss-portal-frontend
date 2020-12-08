@@ -1,3 +1,10 @@
+function formatLabel(name, id) {
+  if (name && id) {
+    return name.concat(" [", id, "]");
+  } else {
+    return "";
+  }
+}
 function doFormatServiceDemographicFormValues(
   values,
   serviceDemographicCheckboxOptions
@@ -97,4 +104,9 @@ function addFormattedAddress(locationsArray) {
   return locationsArray;
 }
 
-export { doCleanServiceFormValues, addFormattedAddress, doCleanServiceImage };
+export {
+  doCleanServiceFormValues,
+  addFormattedAddress,
+  doCleanServiceImage,
+  formatLabel,
+};

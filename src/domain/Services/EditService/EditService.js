@@ -181,8 +181,6 @@ const EditService = (props) => {
 
     delete cleanFormValues.image;
 
-    console.log(cleanFormValues);
-
     setSubmitIsLoading(true);
 
     const updatedService = await ServiceService.updateService(

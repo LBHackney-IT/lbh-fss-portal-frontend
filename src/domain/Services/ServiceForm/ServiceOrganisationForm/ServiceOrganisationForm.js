@@ -7,6 +7,7 @@ import useAllOrganisationFetch from "../../../../hooks/useAllOrganisationFetch/u
 import autocomplete from "autocompleter";
 import "./OrganisationForm.css";
 import FormError from "../../../../components/FormError/FormError";
+import { formatLabel } from "../../../../utils/functions/serviceFunctions";
 
 const StyledOrganisationAutocomplete = styled.input`
   background: white;
@@ -19,19 +20,10 @@ const StyledOrganisationAutocomplete = styled.input`
   max-width: 438px;
 `;
 
-function formatLabel(name, id) {
-  if (name && id) {
-    return name.concat(" [", id, "]");
-  } else {
-    return "";
-  }
-}
-
 const ServiceOrganisationForm = ({
   onSubmit,
   defaultValues = {},
   submitLoading = false,
-  goBackToPreviousStep,
 }) => {
   // fetch all organisations
   const {
