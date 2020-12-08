@@ -5,7 +5,7 @@ import { navigate } from "@reach/router";
 
 function useUserFetch(userId, dependencies = []) {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   let allDependencies = [];
   const baseDependencies = [userId, setUser, setIsLoading];
@@ -22,7 +22,6 @@ function useUserFetch(userId, dependencies = []) {
 
       const newUser = await UserService.getUser(userId);
 
-      setIsLoading(false);
 
       if (newUser) {
         setUser(newUser);
@@ -31,6 +30,8 @@ function useUserFetch(userId, dependencies = []) {
 
         navigate("/organisation");
       }
+
+      setIsLoading(false);
     }
 
     fetchUser();
