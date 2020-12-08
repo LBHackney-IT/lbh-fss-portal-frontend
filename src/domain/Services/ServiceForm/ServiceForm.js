@@ -5,6 +5,7 @@ import ServiceDetailsForm from "./ServiceDetailsForm/ServiceDetailsForm";
 import ServiceLocationsForm from "./ServiceLocationsForm/ServiceLocationsForm";
 import ServiceCategoriesForm from "./ServiceCategoriesForm/ServiceCategoriesForm";
 import ServiceDemographicsForm from "./ServiceDemographicsForm/ServiceDemographicsForm";
+import ServiceOrganisationForm from "./ServiceOrganisationForm/ServiceOrganisationForm";
 import ServiceImageForm from "./ServiceImageForm/ServiceImageForm";
 import scrollToRef from "../../../utils/scrollToRef/scrollToRef";
 import { grey } from "../../../settings";
@@ -70,12 +71,25 @@ const ServiceForm = ({
   submitLoading = false,
 }) => {
   let stepArray = [
+    { id: "organisation", label: "Organisation", internalTeamOnly: true },
     { id: "details", label: "Your details", internalTeamOnly: false },
     { id: "locations", label: "Your location(s)", internalTeamOnly: false },
     { id: "categories", label: "What you do", internalTeamOnly: false },
     { id: "demographics", label: "Who you work with", internalTeamOnly: false },
     { id: "image", label: "Your image", internalTeamOnly: false },
   ];
+
+  const user = useContext(UserContext)[0];
+
+  const isInternalTeam = checkIsInternalTeam(user.roles);
+
+  stepArray = stepArray.filter((step) => {
+    if (isInternalTeam) {
+      return true;
+    } else {
+      return !step.internalTeamOnly;
+    }
+  });
 
   const [showHiddenFieldSnapshot, setShowHiddenFieldSnapshot] = useState(
     defaultValues
@@ -87,19 +101,7 @@ const ServiceForm = ({
 
   const [draftService, setDraftService] = useState(defaultValues);
 
-  const user = useContext(UserContext)[0];
-
-  const isInternalTeam = checkIsInternalTeam(user.roles);
-
   const mainRef = useRef(null);
-
-  stepArray = stepArray.filter((step) => {
-    if (isInternalTeam) {
-      return true;
-    } else {
-      return !step.internalTeamOnly;
-    }
-  });
 
   const handleStepChange = (values) => {
     if (stepNum === stepArray.length - 1) {
@@ -115,6 +117,13 @@ const ServiceForm = ({
   };
 
   const moveToNextStep = (formValues) => {
+    console.log("hereeee");
+    console.log(formValues);
+    console.log(draftService);
+    console.log({
+      ...draftService,
+      ...formValues,
+    });
     setDraftService({
       ...draftService,
       ...formValues,
@@ -145,11 +154,22 @@ const ServiceForm = ({
 
   const renderStepSwitch = () => {
     switch (stepArray[stepNum].id) {
+      case "organisation":
+        return (
+          <ServiceOrganisationForm
+            defaultValues={draftService}
+            onSubmit={moveToNextStep}
+            submitLoading={submitLoading}
+            goBackToPreviousStep={goBackToPreviousStep}
+          />
+        );
       case "details":
         return (
           <ServiceDetailsForm
             defaultValues={draftService}
             onSubmit={moveToNextStep}
+            goBackToPreviousStep={goBackToPreviousStep}
+            isInternalTeam={isInternalTeam}
           />
         );
       case "locations":
@@ -161,6 +181,7 @@ const ServiceForm = ({
             setShowHiddenField={setShowHiddenField}
             setShowHiddenFieldSnapshot={setShowHiddenFieldSnapshot}
             goBackToPreviousStep={goBackToPreviousStep}
+            isInternalTeam={isInternalTeam}
           />
         );
       case "categories":
@@ -189,6 +210,7 @@ const ServiceForm = ({
             onSubmit={moveToNextStep}
             submitLoading={submitLoading}
             goBackToPreviousStep={goBackToPreviousStep}
+            isInternalTeam={isInternalTeam}
           />
         );
       default:
