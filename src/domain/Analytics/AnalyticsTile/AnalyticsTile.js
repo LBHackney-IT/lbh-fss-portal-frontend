@@ -23,6 +23,7 @@ const StyledTileContainer = styled.div`
   `}
   ${breakpoint("md")`
     height: 200px;
+    width: 100%;
   `}
 `;
 

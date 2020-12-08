@@ -9,7 +9,7 @@ const AnalyticsService = {
     try {
       const response = await axios.get(`${BASE_API_URL}/analytics-event`, {
         params: {
-          serviceId: id,
+          organisationId: id,
           from_date: from_date,
           to_date: to_date,
         },

@@ -1,4 +1,4 @@
-var mockAnalytics = require("../mockAddresses.json");
+var mockAnalytics = require("../mockAnalytics.json");
 
 module.exports = (req, res) => {
   res.status(200).json(mockAnalytics);
