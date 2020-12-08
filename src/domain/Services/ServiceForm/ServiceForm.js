@@ -117,13 +117,6 @@ const ServiceForm = ({
   };
 
   const moveToNextStep = (formValues) => {
-    console.log("hereeee");
-    console.log(formValues);
-    console.log(draftService);
-    console.log({
-      ...draftService,
-      ...formValues,
-    });
     setDraftService({
       ...draftService,
       ...formValues,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../../../../components/Button/Button";
 import { useForm } from "react-hook-form";
@@ -19,6 +19,14 @@ const StyledOrganisationAutocomplete = styled.input`
   max-width: 438px;
 `;
 
+function formatLabel(name, id) {
+  if (name && id) {
+    return name.concat(" [", id, "]");
+  } else {
+    return "";
+  }
+}
+
 const ServiceOrganisationForm = ({
   onSubmit,
   defaultValues = {},
@@ -26,26 +34,38 @@ const ServiceOrganisationForm = ({
   goBackToPreviousStep,
 }) => {
   // fetch all organisations
-  const { organisations, organisationsIsLoading } = useAllOrganisationFetch();
+  const {
+    organisations,
+    setOrganisations,
+    organisationsIsLoading,
+  } = useAllOrganisationFetch();
 
+  const [organisationFieldLabel, setOrganisationFieldLabel] = useState(
+    formatLabel(defaultValues.organisation_name, defaultValues.organisation_id)
+  );
   const [organisationFieldValue, setOrganisationFieldValue] = useState(
-    defaultValues.organisation_name ? defaultValues.organisation_name : ""
+    defaultValues.organisation_id ? defaultValues.organisation_id : ""
   );
   const [organisationNotFound, setOrganisationNotFound] = useState(false);
-
-  console.log("defaultValues");
-  console.log(defaultValues);
 
   const { handleSubmit } = useForm({
     defaultValues,
   });
 
-  if (organisations && document.getElementById("organisations")) {
-    organisations.forEach((organisation) => {
-      organisation.label = organisation.name;
-      organisation.value = organisation.id;
-    });
+  useEffect(() => {
+    if (organisations.length === 0) return;
 
+    // add organisation label field if not already available
+    if (!organisations.hasOwnProperty("label")) {
+      organisations.forEach((organisation) => {
+        organisation.label = formatLabel(organisation.name, organisation.id);
+        organisation.value = organisation.id;
+      });
+      setOrganisations(organisations);
+    }
+  }, [organisations, setOrganisations]);
+
+  if (organisations && document.getElementById("organisations")) {
     autocomplete({
       minLength: 1,
       input: document.getElementById("organisations"),
@@ -56,12 +76,11 @@ const ServiceOrganisationForm = ({
           n.label.toLowerCase().startsWith(text)
         );
 
-        console.log(suggestions);
-
         update(suggestions);
       },
       onSelect: function (item) {
-        setOrganisationFieldValue(item.label);
+        setOrganisationFieldLabel(item.label);
+        setOrganisationFieldValue(item.value);
         document.querySelectorAll(".autocomplete").forEach((element) => {
           element.style.display = "none";
         });
@@ -77,35 +96,46 @@ const ServiceOrganisationForm = ({
     <form
       onSubmit={handleSubmit(() => {
         const organisationToLink = organisations.filter(
-          (organisation) => organisation.name === organisationFieldValue
-        )[0];
+          (organisation) => organisation.label === organisationFieldLabel
+        );
 
-        if (organisationToLink) {
+        if (organisationToLink.length === 1) {
           setOrganisationNotFound(false);
 
           onSubmit({
-            organisation_id: organisationToLink.id,
-            organisation_name: organisationToLink.label,
+            organisation_id: organisationToLink[0].id,
+            organisation_name: organisationToLink[0].name,
           });
-        } else {
-          setOrganisationNotFound(true);
         }
+
+        setOrganisationNotFound(true);
       })}
     >
-      <div style={{ marginBottom: "30px" }}>
-        <h3>Link to organisation</h3>
+      <div style={{ marginBottom: "20px" }}>
+        <h3>Organisation</h3>
         <StyledOrganisationAutocomplete
           id="organisations"
           type="text"
           onChange={(e) => {
             setOrganisationNotFound(false);
-            setOrganisationFieldValue(e.target.value);
+            const targetValue = e.target.value;
+            setOrganisationFieldLabel(targetValue);
+            // if user manually types in organisation name and id in the required format, then extract out the id
+            if (targetValue.includes("[") && targetValue.includes("]")) {
+              const id = targetValue.substring(
+                targetValue.lastIndexOf("[") + 1,
+                targetValue.lastIndexOf("]")
+              );
+              setOrganisationFieldValue(parseInt(id));
+            } else {
+              setOrganisationFieldValue("");
+            }
           }}
-          value={organisationFieldValue}
+          value={organisationFieldLabel}
         />
         {organisationNotFound ? (
           <FormError
-            error={`Organisation '${organisationFieldValue}' not found`}
+            error={`Organisation '${organisationFieldLabel}' not found`}
             marginTop={"10px"}
           />
         ) : null}

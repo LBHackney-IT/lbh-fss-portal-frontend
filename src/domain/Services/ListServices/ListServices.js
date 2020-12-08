@@ -21,10 +21,7 @@ const StyledLink = styled(Link)`
 
 const StyledButton = styled(Button)`
   padding: 10px 15px;
-  margin: -10px 5px 0 0;
-  ${breakpoint("sm")`
-    margin: 10px 0;
-  `};
+  margin: 10px 0;
   ${breakpoint("md")`
     margin: auto 0; 
   `};
@@ -35,7 +32,7 @@ const StyledActionDiv = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   padding: 20px;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     flex-direction: row;
     height: 80px;
     padding: 0 10px;

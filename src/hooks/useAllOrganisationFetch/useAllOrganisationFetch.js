@@ -26,6 +26,7 @@ function useAllOrganisationFetch(paramsObject = { limit: 9999, search: "" }) {
 
   return {
     organisations,
+    setOrganisations,
     organisationsIsLoading,
   };
 }

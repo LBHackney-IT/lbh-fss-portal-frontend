@@ -42,9 +42,6 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
       serviceDemographicCheckboxOptions
     );
 
-    console.log("cleanFormValues");
-    console.log(cleanFormValues);
-
     cleanFormValues.user_id = localUser.id;
     cleanFormValues.user_name = localUser.name;
     cleanFormValues.status = "active";
