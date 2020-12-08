@@ -43,9 +43,7 @@ const ServiceOrganisationForm = ({
   const [organisationFieldLabel, setOrganisationFieldLabel] = useState(
     formatLabel(defaultValues.organisation_name, defaultValues.organisation_id)
   );
-  const [organisationFieldValue, setOrganisationFieldValue] = useState(
-    defaultValues.organisation_id ? defaultValues.organisation_id : ""
-  );
+
   const [organisationNotFound, setOrganisationNotFound] = useState(false);
 
   const { handleSubmit } = useForm({
@@ -80,7 +78,6 @@ const ServiceOrganisationForm = ({
       },
       onSelect: function (item) {
         setOrganisationFieldLabel(item.label);
-        setOrganisationFieldValue(item.value);
         document.querySelectorAll(".autocomplete").forEach((element) => {
           element.style.display = "none";
         });
@@ -120,16 +117,6 @@ const ServiceOrganisationForm = ({
             setOrganisationNotFound(false);
             const targetValue = e.target.value;
             setOrganisationFieldLabel(targetValue);
-            // if user manually types in organisation name and id in the required format, then extract out the id
-            if (targetValue.includes("[") && targetValue.includes("]")) {
-              const id = targetValue.substring(
-                targetValue.lastIndexOf("[") + 1,
-                targetValue.lastIndexOf("]")
-              );
-              setOrganisationFieldValue(parseInt(id));
-            } else {
-              setOrganisationFieldValue("");
-            }
           }}
           value={organisationFieldLabel}
         />
