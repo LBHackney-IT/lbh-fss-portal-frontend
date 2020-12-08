@@ -6,4 +6,5 @@ module.exports = (req, res) => {
   });
 
   res.status(200).json(organisations[0]);
+  // res.status(400).json({});
 };
