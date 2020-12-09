@@ -162,6 +162,7 @@ const MyAnalytics = () => {
               <AnalyticsTile
                 label={`Total views of ${metric.service}`}
                 value={metric.count}
+                mdWidth="100%"
               />
             </div>
           );

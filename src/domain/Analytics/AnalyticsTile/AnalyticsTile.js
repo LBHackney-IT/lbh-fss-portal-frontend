@@ -23,7 +23,7 @@ const StyledTileContainer = styled.div`
   `}
   ${breakpoint("md")`
     height: 200px;
-    width: 100%;
+    width: ${(props) => props.mdWidth || "30%"}
   `}
 `;
 
@@ -49,9 +49,9 @@ const StyledValue = styled.div`
   font-weight: bold;
 `;
 
-const AnalyticsTile = ({ label, shortLabel, value, color, col }) => {
+const AnalyticsTile = ({ label, shortLabel, value, color, col, mdWidth}) => {
   return (
-    <StyledTileContainer color={color} col={col}>
+    <StyledTileContainer color={color} col={col} mdWidth={mdWidth}>
       <StyledShortLabel>{shortLabel}</StyledShortLabel>
       <StyledLabel>{label}</StyledLabel>
       <StyledValue>{value}</StyledValue>
