@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import UserContext from "../../../context/UserContext/UserContext";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 import AnalyticsDashboard from "../AnalyticsDashboard/AnalyticsDashboard";
-import MyDashboard from "../MyDashboard/MyDashboard";
+import MyAnalytics from "../MyAnalytics/MyAnalytics";
 
 const HandleAnalytics = () => {
   const user = useContext(UserContext)[0];
@@ -14,7 +14,7 @@ const HandleAnalytics = () => {
   if (isInternalTeam) {
     return <AnalyticsDashboard />;
   } else {
-    return <MyDashboard />;
+    return <MyAnalytics />;
   }
 };
 

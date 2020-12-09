@@ -5,31 +5,9 @@ import styled from "styled-components";
 import AppLoading from "../../../AppLoading";
 import UserContext from "../../../context/UserContext/UserContext";
 import AnalyticsService from "../../../services/AnalyticsService/AnalyticsService";
-import ServiceService from "../../../services/ServiceService/ServiceService";
 import AnalyticsTile from "../AnalyticsTile/AnalyticsTile";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
-import FormError from "../../../components/FormError/FormError";
-import Button from "../../../components/Button/Button";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { green, grey } from "../../../settings";
-
-const StyledActionDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 20px;
-  margin-bottom: 20px;
-  ${breakpoint("md")`
-    flex-direction: row;
-    height: 80px;
-    padding: 0 10px;
-    align-items: center;
-    margin-bottom: 40px;
-  `};
-
-  background-color: ${grey[500]};
-`;
+import DateSelector from "../DateSelector/DateSelector";
 
 const StyledTilesContainer = styled.div`
   margin-bottom: 50px;
@@ -39,15 +17,6 @@ const StyledTilesContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
   `}
-`;
-
-const DatePickerContainer = styled.div`
-  margin-right: 20px;
-  .date-picker {
-    border: 1px solid black;
-    border-radius: 3px;
-    padding: 10px 5px;
-  }
 `;
 
 function grabUniqueUserServices(
@@ -84,24 +53,7 @@ function calculateMetrics(
   setMetrics(calculatedMetrics);
 }
 
-const DateInput = ({ value, onClick }) => (
-  <button
-    style={{
-      cursor: "pointer",
-      padding: "20px",
-      border: "0",
-      borderRadius: "4px",
-      backgroundColor: "#20907719",
-      font: "inherit",
-      color: "black",
-    }}
-    onClick={onClick}
-  >
-    {value}
-  </button>
-);
-
-const MyDashboard = () => {
+const MyAnalytics = () => {
   const user = useContext(UserContext)[0];
   const [uniqueUserServices, setUniqueUserServices] = useState([]);
   const [filteredUserServices, setFilteredUserServices] = useState([]);
@@ -111,7 +63,6 @@ const MyDashboard = () => {
     to_date: null,
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [dateError, setDateError] = useState("");
 
   useEffect(() => {
     async function fetchAnalytics() {
@@ -153,55 +104,17 @@ const MyDashboard = () => {
   }, [uniqueUserServices, filteredUserServices, setMetrics]);
 
   if (isLoading) {
-    return <AppLoading />;
+    return (
+      <>
+        <DateSelector dateRange={dateRange} setDateRange={setDateRange} />;
+        <AppLoading />
+      </>
+    );
   }
-
-  console.log("-----");
-  console.log(dateRange.from_date);
-  console.log(dateRange.to_date);
 
   return (
     <>
-      <StyledActionDiv>
-        <DatePickerContainer>
-          <DatePicker
-            selected={dateRange.from_date}
-            onChange={(date) => {
-              if (date && dateRange.to_date && date > dateRange.to_date) {
-                setDateError("Invalid date range");
-                setDateRange({ ...dateRange, ["from_date"]: null });
-                return;
-              }
-              setDateError("");
-              setDateRange({ ...dateRange, ["from_date"]: date });
-            }}
-            placeholderText="From date"
-            dateFormat="dd/MM/yyyy"
-            isClearable
-            className="date-picker"
-          />
-        </DatePickerContainer>
-        <DatePickerContainer>
-          <DatePicker
-            selected={dateRange.to_date}
-            onChange={(date) => {
-              if (date && dateRange.to_date && date < dateRange.from_date) {
-                setDateError("Invalid date range");
-                setDateRange({ ...dateRange, ["to_date"]: null });
-                return;
-              }
-              setDateError("");
-              setDateRange({ ...dateRange, ["to_date"]: date });
-            }}
-            placeholderText="To date"
-            dateFormat="dd/MM/yyyy"
-            isClearable
-            className="date-picker"
-          />
-        </DatePickerContainer>
-        {dateError ? <FormError error={dateError} marginBottom="0" /> : null}
-      </StyledActionDiv>
-
+      <DateSelector dateRange={dateRange} setDateRange={setDateRange} />
       <StyledTilesContainer>
         {metrics.map((metric, index) => {
           return (
@@ -218,4 +131,4 @@ const MyDashboard = () => {
   );
 };
 
-export default MyDashboard;
+export default MyAnalytics;
