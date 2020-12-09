@@ -228,7 +228,7 @@ const ListOrganisations = ({ location }) => {
 
     setPauseIsLoading(true);
 
-    selectedOrganisation.status = "pause";
+    selectedOrganisation.status = "paused";
     selectedOrganisation.reviewed_at = new Date();
     selectedOrganisation.reviewer_message = reviewerMessage;
 
