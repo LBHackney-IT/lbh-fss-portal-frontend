@@ -43,8 +43,8 @@ const DateSelector = ({ dateRange, setDateRange }) => {
           onChange={(date) => {
             if (date && dateRange.to_date && date > dateRange.to_date) {
               setDateError("Invalid date range");
-              setDateRange({ ...dateRange, ["from_date"]: null });
-              return;
+              // setDateRange({ ...dateRange, ["from_date"]: null });
+              // return;
             }
             setDateError("");
             setDateRange({ ...dateRange, ["from_date"]: date });
@@ -61,8 +61,8 @@ const DateSelector = ({ dateRange, setDateRange }) => {
           onChange={(date) => {
             if (date && dateRange.from_date && dateRange.from_date > date) {
               setDateError("Invalid date range");
-              setDateRange({ ...dateRange, ["to_date"]: null });
-              return;
+              // // setDateRange({ ...dateRange, ["to_date"]: null });
+              // return;
             }
             setDateError("");
             setDateRange({ ...dateRange, ["to_date"]: date });

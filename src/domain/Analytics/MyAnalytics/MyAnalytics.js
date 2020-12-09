@@ -65,26 +65,16 @@ const MyAnalytics = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchAnalytics() {
+    async function fetchAllData() {
       setIsLoading(true);
 
-      let data = false;
+      const data = await AnalyticsService.retrieveAnalytics({
+        id: user.organisation.id,
+        from_date: null,
+        to_date: null,
+      });
 
-      if (uniqueUserServices.length === 0) {
-        data = await AnalyticsService.retrieveAnalytics({
-          id: user.organisation.id,
-          from_date: null,
-          to_date: null,
-        });
-
-        grabUniqueUserServices(data, uniqueUserServices, setUniqueUserServices);
-      } else {
-        data = await AnalyticsService.retrieveAnalytics({
-          id: user.organisation.id,
-          from_date: dateRange.from_date,
-          to_date: dateRange.to_date,
-        });
-      }
+      grabUniqueUserServices(data, uniqueUserServices, setUniqueUserServices);
 
       if (data) {
         setFilteredUserServices(data);
@@ -96,7 +86,30 @@ const MyAnalytics = () => {
       setIsLoading(false);
     }
 
-    fetchAnalytics();
+    fetchAllData();
+  }, [user, setFilteredUserServices, setIsLoading]);
+
+  useEffect(() => {
+    async function fetchFilteredData() {
+      setIsLoading(true);
+
+      const data = await AnalyticsService.retrieveAnalytics({
+        id: user.organisation.id,
+        from_date: dateRange.from_date,
+        to_date: dateRange.to_date,
+      });
+
+      if (data) {
+        setFilteredUserServices(data);
+      } else {
+        toast.error(`Failed to retrieve analytics.`);
+        navigate("/service");
+      }
+
+      setIsLoading(false);
+    }
+
+    fetchFilteredData();
   }, [user, dateRange, setFilteredUserServices, setIsLoading]);
 
   useEffect(() => {
@@ -106,7 +119,7 @@ const MyAnalytics = () => {
   if (isLoading) {
     return (
       <>
-        <DateSelector dateRange={dateRange} setDateRange={setDateRange} />;
+        <DateSelector dateRange={dateRange} setDateRange={setDateRange} />
         <AppLoading />
       </>
     );

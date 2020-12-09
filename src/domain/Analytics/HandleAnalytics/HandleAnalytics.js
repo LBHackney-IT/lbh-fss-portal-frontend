@@ -9,8 +9,6 @@ const HandleAnalytics = () => {
 
   const isInternalTeam = checkIsInternalTeam(user.roles);
 
-  console.log(isInternalTeam);
-
   if (isInternalTeam) {
     return <AnalyticsDashboard />;
   } else {
