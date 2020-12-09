@@ -138,7 +138,6 @@ const OrganisationTable = ({
             return (
               <>
                 {userArray.map((user, index) => {
-                  console.log(user.name);
                   return (
                     <StyledUsers key={index}>
                       <Link to={`/users/${user.id}/edit`}>{user.name}</Link>
