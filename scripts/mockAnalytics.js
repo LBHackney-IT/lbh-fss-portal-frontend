@@ -2,17 +2,16 @@ const faker = require("faker");
 const sample = require("lodash/sample");
 
 const serviceNames = [
-  faker.company.companyName(),
-  faker.company.companyName(),
-  faker.company.companyName(),
-  faker.company.companyName(),
+  "Schulist, Turner and Corwin",
+  "Jacobson, Wisoky and Cormier",
+  "Barrows, Homenick and Jerde",
 ];
 
 module.exports = () => {
   let event = {
     id: faker.random.number(),
     serviceName: sample(serviceNames),
-    timestamp: faker.date.between("2020-01-01", "2020-01-31"),
+    timestamp: faker.date.between("2020-11-01", "2021-01-31"),
   };
 
   return event;

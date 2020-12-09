@@ -8,6 +8,7 @@ import AnalyticsService from "../../../services/AnalyticsService/AnalyticsServic
 import AnalyticsTile from "../AnalyticsTile/AnalyticsTile";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import DateSelector from "../DateSelector/DateSelector";
+import ServiceService from "../../../services/ServiceService/ServiceService";
 
 const StyledTilesContainer = styled.div`
   margin-bottom: 50px;
@@ -19,20 +20,17 @@ const StyledTilesContainer = styled.div`
   `}
 `;
 
-function grabUniqueUserServices(
-  data,
-  uniqueUserServices,
-  setUniqueUserServices
-) {
+function grabUniqueUserServices(user, services, setUniqueUserServices) {
   let serviceNamesArray = [];
-  if (uniqueUserServices.length === 0) {
-    data.forEach((event) => {
-      if (!serviceNamesArray.includes(event.serviceName))
-        serviceNamesArray.push(event.serviceName);
-    });
-
-    setUniqueUserServices(serviceNamesArray);
-  }
+  services.forEach((service) => {
+    // NOTE - currently a service only has a single user, when this
+    // is changed so that a service has an array of users, will need
+    // to update the line of code below, probably to 'service.user_id.includes(user.id)'
+    if (service.user_id === user.id) {
+      serviceNamesArray.push(service.name);
+    }
+  });
+  setUniqueUserServices(serviceNamesArray);
 }
 
 function calculateMetrics(
@@ -69,15 +67,19 @@ const MyAnalytics = () => {
     async function fetchAllData() {
       setIsLoading(true);
 
+      const services = await ServiceService.retrieveServices({
+        limit: 9999,
+      });
+
       const data = await AnalyticsService.retrieveAnalytics({
         id: user.organisation.id,
         from_date: null,
         to_date: null,
       });
 
-      grabUniqueUserServices(data, uniqueUserServices, setUniqueUserServices);
+      if (data && services) {
+        grabUniqueUserServices(user, services, setUniqueUserServices);
 
-      if (data) {
         setFilteredUserServices(data);
       } else {
         toast.error(`Failed to retrieve analytics.`);
@@ -110,7 +112,7 @@ const MyAnalytics = () => {
       setIsLoading(false);
     }
 
-    if (!dateError) fetchFilteredData();
+    if (!dateError && uniqueUserServices.length > 0) fetchFilteredData();
   }, [user, dateRange, setFilteredUserServices, setIsLoading]);
 
   useEffect(() => {
@@ -120,8 +122,27 @@ const MyAnalytics = () => {
   if (isLoading) {
     return (
       <>
-        <DateSelector dateRange={dateRange} setDateRange={setDateRange} />
+        <DateSelector
+          dateRange={dateRange}
+          setDateRange={setDateRange}
+          dateError={dateError}
+          setDateError={setDateError}
+        />
         <AppLoading />
+      </>
+    );
+  }
+
+  if (uniqueUserServices.length === 0) {
+    return (
+      <>
+        <DateSelector
+          dateRange={dateRange}
+          setDateRange={setDateRange}
+          dateError={dateError}
+          setDateError={setDateError}
+        />
+        <h1 style={{ margin: "30px 0 60px 0" }}>No services available</h1>
       </>
     );
   }
