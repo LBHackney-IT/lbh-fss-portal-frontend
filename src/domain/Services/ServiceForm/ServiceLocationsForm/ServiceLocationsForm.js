@@ -1,0 +1,135 @@
+import React, { useState, useEffect } from "react";
+import { render } from "react-dom";
+import { useForm } from "react-hook-form";
+import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
+import Button from "../../../../components/Button/Button";
+import AddAddress from "../AddAddress/AddAddress";
+import FormError from "../../../../components/FormError/FormError";
+import {
+  arrayOfObjhasDuplicates,
+  removeEmptyObjFromArrayObj,
+} from "../../../../utils/functions/functions";
+import { addFormattedAddress } from "../../../../utils/functions/serviceFunctions";
+import Map from "../Map/Map";
+import { Link } from "@reach/router";
+
+function selectedAddressArrayIsEmpty(selectedAddressArray) {
+  return (
+    Object.keys(selectedAddressArray).length === 0 ||
+    JSON.stringify([...selectedAddressArray]) === JSON.stringify([{}]) ||
+    JSON.stringify([...selectedAddressArray]) === JSON.stringify([undefined]) ||
+    JSON.stringify([...selectedAddressArray]) === JSON.stringify([])
+  );
+}
+
+const ServiceLocationsForm = ({
+  onSubmit,
+  defaultValues = {},
+  goBackToPreviousStep,
+}) => {
+  if (defaultValues.locations) {
+    defaultValues.locations = addFormattedAddress(defaultValues.locations);
+  }
+
+  const [selectedAddressArray, setSelectedAddressArray] = useState(
+    defaultValues.locations ? defaultValues.locations : []
+  );
+  const [errorMessage, setErrorMessage] = useState("");
+  const [addressCounter, setAddressCounter] = useState(
+    defaultValues.locations ? defaultValues.locations.length : 1
+  );
+
+  const { handleSubmit } = useForm({});
+
+  useEffect(() => {
+    setErrorMessage("");
+  }, [selectedAddressArray, setErrorMessage]);
+
+  let i = -1;
+
+  return (
+    <>
+      <FormFieldset
+        label="Location(s)"
+        help="This is where you will be located on the map. It may be your office address, 
+              or where you deliver your service."
+      ></FormFieldset>
+      {[...Array(addressCounter)].map(() => {
+        i++;
+        return (
+          <div key={i}>
+            <AddAddress
+              index={i}
+              defaultValues={selectedAddressArray[i] || {}}
+              setSelectedAddressArray={setSelectedAddressArray}
+              selectedAddressArray={selectedAddressArray}
+              addressCounter={addressCounter}
+              setAddressCounter={setAddressCounter}
+              setErrorMessage={setErrorMessage}
+            />
+          </div>
+        );
+      })}
+      <form
+        onSubmit={handleSubmit(() => {
+          if (
+            selectedAddressArray.includes(undefined) &&
+            selectedAddressArray.length === 0
+          ) {
+            return;
+          }
+
+          if (
+            selectedAddressArray.includes(undefined) &&
+            selectedAddressArray.length > 0
+          ) {
+            setErrorMessage("Please enter a location for all postcodes");
+            return;
+          }
+
+          const cleanSelectedAddressArray = removeEmptyObjFromArrayObj(
+            selectedAddressArray
+          );
+
+          if (selectedAddressArrayIsEmpty(selectedAddressArray)) {
+            setErrorMessage("Please enter a location");
+            return;
+          }
+
+          if (arrayOfObjhasDuplicates(cleanSelectedAddressArray)) {
+            setErrorMessage("Duplicate addresses selected");
+            return;
+          }
+
+          onSubmit({ locations: cleanSelectedAddressArray });
+        })}
+      >
+        <div style={{ marginTop: "30px" }}>
+          {!selectedAddressArrayIsEmpty(selectedAddressArray) ? (
+            <>
+              <Map
+                data={selectedAddressArray}
+                mapStyle={{
+                  margin: "0 0 30px 0",
+                  width: "100%",
+                  height: "400px",
+                }}
+              />
+            </>
+          ) : null}
+          {errorMessage ? (
+            <FormError error={errorMessage} marginBottom="10px" />
+          ) : null}
+          <Button type="submit" label="Continue ›" margin="0 0 0 0" />
+        </div>
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+            Go back to previous step
+          </Link>
+        </div>
+      </form>
+    </>
+  );
+};
+
+export default ServiceLocationsForm;

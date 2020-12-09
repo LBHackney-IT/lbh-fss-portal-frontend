@@ -1,4 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# LBH FSS Public Frontend
+
+## Prerequisites
+
+You will need to have [git installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+You will also need [node](https://nodejs.org/en/download/) and [yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable) installed.
+
+## Setting Up
+
+1. Copy and rename the `mapbox.example.js` as `mapbox.js` in `src/settings` and replace the token string with your Mapbox token.
+2. Copy and rename the `apiKey.example.js` as `apiKey.js` in `src/settings` and replace the token string with the API key.
+3. Run `yarn install` from project root to install packages and dependencies.
 
 ## Available Scripts
 
@@ -11,6 +22,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+### `yarn dev`
+
+Runs the app in the development mode, in addition to the mock-api.
 
 ### `yarn test`
 
@@ -37,7 +52,29 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+### `yarn dev`
+
+Runs both the app in development mode and the mock API server.
+
+### `yarn mock-gen:users`
+
+Generates new dummy user data for the mock API.
+
+### `yarn mock-gen:services`
+
+Generates new dummy service data for the mock API.
+
+### `yarn mock-gen:orgs`
+
+Generates new dummy organisations data for the mock API.
+
+### `yarn mock-gen:address`
+
+Generates new dummy address data for the mock API.
+
 ## Learn More
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 

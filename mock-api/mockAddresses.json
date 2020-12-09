@@ -1,0 +1,145 @@
+[
+  {
+    "latitude": "52.563292",
+    "longitude": "-0.123560",
+    "uprn": 3890,
+    "address_1": "5437 Howell Flats",
+    "address_2": "Suite 108",
+    "city": "Lake Aricchester",
+    "state_province": "Avon",
+    "postal_code": "84056",
+    "country": "Tajikistan"
+  },
+  {
+    "latitude": "51.522433",
+    "longitude": "-0.153321",
+    "uprn": 38972,
+    "address_1": "079 Christiansen Flats",
+    "address_2": "Apt. 463",
+    "city": "Port Shayne",
+    "state_province": "Bedfordshire",
+    "postal_code": "72912-6285",
+    "country": "Andorra"
+  },
+  {
+    "latitude": "51.512533",
+    "longitude": "-0.133321",
+    "uprn": 38972,
+    "address_1": "3599 Pfannerstill Ports",
+    "address_2": "Apt. 345",
+    "city": "Welchhaven",
+    "state_province": "Welchhaven",
+    "postal_code": "96891-2962",
+    "country": "Andorra"
+  },
+  {
+    "latitude": "51.580694",
+    "longitude": "-0.170525",
+    "uprn": 62348,
+    "address_1": "272 Vinnie Locks",
+    "address_2": "Apt. 405",
+    "city": "South Francescaland",
+    "state_province": "Bedfordshire",
+    "postal_code": "30025",
+    "country": "Zambia"
+  },
+  {
+    "latitude": "51.780694",
+    "longitude": "-0.179525",
+    "uprn": 62348,
+    "address_1": "81031 Littel Cape",
+    "address_2": "Suite 537",
+    "city": "Larkinstad",
+    "state_province": "Larkinstad",
+    "postal_code": "79536",
+    "country": "Zambia"
+  },
+  {
+    "latitude": "51.597238",
+    "longitude": "-0.204484",
+    "uprn": 2394,
+    "address_1": "46203 Kristoffer Ridge",
+    "address_2": "Apt. 137",
+    "city": "Santaland",
+    "state_province": "Avon",
+    "postal_code": "87709",
+    "country": "Papua New Guinea"
+  },
+  {
+    "latitude": "51.550473",
+    "longitude": "-0.185022",
+    "uprn": 48568,
+    "address_1": "692 Sherwood Parks",
+    "address_2": "Apt. 748",
+    "city": "Baileyland",
+    "state_province": "Borders",
+    "postal_code": "39939",
+    "country": "Mozambique"
+  },
+  {
+    "latitude": "51.542067",
+    "longitude": "-0.207589",
+    "uprn": 82656,
+    "address_1": "273 Shany Trail",
+    "address_2": "Apt. 582",
+    "city": "West Montanashire",
+    "state_province": "Berkshire",
+    "postal_code": "25272",
+    "country": "Norfolk Island"
+  },
+  {
+    "latitude": "51.527763",
+    "longitude": "-0.134711",
+    "uprn": 61941,
+    "address_1": "13011 Enrique Drive",
+    "address_2": "Apt. 899",
+    "city": "South Jordaneside",
+    "state_province": "Cambridgeshire",
+    "postal_code": "43517-2720",
+    "country": "Democratic People's Republic of Korea"
+  },
+  {
+    "latitude": "51.524882",
+    "longitude": "-0.170699",
+    "uprn": 66310,
+    "address_1": "07993 Shawn Lodge",
+    "address_2": "Suite 668",
+    "city": "Schustermouth",
+    "state_province": "Bedfordshire",
+    "postal_code": "78452-8261",
+    "country": "Sri Lanka"
+  },
+  {
+    "latitude": "51.569370",
+    "longitude": "-0.183023",
+    "uprn": 80096,
+    "address_1": "83187 Nikolaus Mill",
+    "address_2": "Apt. 480",
+    "city": "Sylviaton",
+    "state_province": "Buckinghamshire",
+    "postal_code": "46010-3189",
+    "country": "Algeria"
+  },
+  {
+    "latitude": "51.531805",
+    "longitude": "-0.133868",
+    "uprn": 76733,
+    "address_1": "9740 Pfeffer Villages",
+    "address_2": "Apt. 161",
+    "city": "New Rosalee",
+    "state_province": "Buckinghamshire",
+    "postal_code": "96124-8853",
+    "country": "Guinea"
+  },
+  {
+    "latitude": "51.531805",
+    "longitude": "-0.133868",
+    "uprn": 76733,
+    "address_1": "29351 Nathen Mountain",
+    "address_2": "Suite 615",
+    "city": "South Lilliana",
+    "state_province": "South Lilliana",
+    "postal_code": "64288",
+    "country": "Guinea"
+  }
+]
