@@ -37,18 +37,6 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-### `yarn dev`
-
-Runs both the app in development mode and the mock API server.
-
-### `yarn mock-gen:users`
-
-Generates new dummy user data for the mock API.
-
-### `yarn mock-gen:services`
-
-Generates new dummy service data for the mock API.
-
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).

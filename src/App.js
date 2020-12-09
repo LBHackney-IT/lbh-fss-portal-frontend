@@ -1,36 +1,25 @@
-import React, { useState } from "react";
-import Header from "./components/Header/Header";
-import UserContext from "./context/UserContext/UserContext";
-import AppMain from "./AppMain";
-import { GlobalStyle } from "./helpers/GlobalStyle/GlobalStyle";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { ModalProvider, BaseModalBackground } from "styled-react-modal";
-import { grey } from "./settings";
-import styled from "styled-components";
-
-const StyledDiv = styled.div`
-  background-color: ${grey[300]};
-`;
-
-const StyledModalBackground = styled(BaseModalBackground)`
-  background-color: #000000cf;
-`;
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
-  const userState = useState(false);
-
   return (
-    <StyledDiv className="App">
-      <UserContext.Provider value={userState}>
-        <ModalProvider backgroundComponent={StyledModalBackground}>
-          <Header />
-          <AppMain />
-          <ToastContainer />
-          <GlobalStyle />
-        </ModalProvider>
-      </UserContext.Provider>
-    </StyledDiv>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
