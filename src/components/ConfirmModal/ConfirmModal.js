@@ -54,6 +54,7 @@ const ConfirmModal = ({
   onConfirm,
   confirmButtonLabel,
   confirmButtonColor,
+  confirmButtonTextColor,
   confirmMessage,
   borderColor,
   includeReviewerMessage,
@@ -97,6 +98,7 @@ const ConfirmModal = ({
                 type="submit"
                 label={confirmButtonLabel}
                 backgroundColor={confirmButtonColor}
+                color={confirmButtonTextColor}
               />
             </StyledActionContainer>
           </StyledForm>
@@ -114,6 +116,7 @@ const ConfirmModal = ({
               onClick={onConfirm}
               label={confirmButtonLabel}
               backgroundColor={confirmButtonColor}
+              color={confirmButtonTextColor}
             />
           </StyledActionContainer>
         </>
@@ -128,6 +131,7 @@ ConfirmModal.propTypes = {
   confirmMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   confirmButtonLabel: PropTypes.string,
   confirmButtonColor: PropTypes.string,
+  confirmButtonTextColor: PropTypes.string,
   onConfirm: PropTypes.func,
   borderColor: PropTypes.string,
   includeReviewerMessage: PropTypes.bool,
