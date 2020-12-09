@@ -26,27 +26,25 @@ const StyledActionDiv = styled.div`
 const DatePickerContainer = styled.div`
   margin-right: 20px;
   .date-picker {
-    border: 1px solid black;
+    border: ${(props) =>
+      props.dateError ? "2px solid red" : "1px solid black"};
     border-radius: 3px;
     padding: 10px 5px;
   }
 `;
 
-const DateSelector = ({ dateRange, setDateRange }) => {
-  const [dateError, setDateError] = useState("");
-
+const DateSelector = ({ dateRange, setDateRange, dateError, setDateError }) => {
   return (
     <StyledActionDiv>
-      <DatePickerContainer>
+      <DatePickerContainer dateError={dateError}>
         <DatePicker
           selected={dateRange.from_date}
           onChange={(date) => {
             if (date && dateRange.to_date && date > dateRange.to_date) {
               setDateError("Invalid date range");
-              // setDateRange({ ...dateRange, ["from_date"]: null });
-              // return;
+            } else {
+              setDateError("");
             }
-            setDateError("");
             setDateRange({ ...dateRange, ["from_date"]: date });
           }}
           placeholderText="From date"
@@ -55,16 +53,15 @@ const DateSelector = ({ dateRange, setDateRange }) => {
           className="date-picker"
         />
       </DatePickerContainer>
-      <DatePickerContainer>
+      <DatePickerContainer dateError={dateError}>
         <DatePicker
           selected={dateRange.to_date}
           onChange={(date) => {
             if (date && dateRange.from_date && dateRange.from_date > date) {
               setDateError("Invalid date range");
-              // // setDateRange({ ...dateRange, ["to_date"]: null });
-              // return;
+            } else {
+              setDateError("");
             }
-            setDateError("");
             setDateRange({ ...dateRange, ["to_date"]: date });
           }}
           placeholderText="To date"

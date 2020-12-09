@@ -63,6 +63,7 @@ const MyAnalytics = () => {
     to_date: null,
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [dateError, setDateError] = useState("");
 
   useEffect(() => {
     async function fetchAllData() {
@@ -109,7 +110,7 @@ const MyAnalytics = () => {
       setIsLoading(false);
     }
 
-    fetchFilteredData();
+    if (!dateError) fetchFilteredData();
   }, [user, dateRange, setFilteredUserServices, setIsLoading]);
 
   useEffect(() => {
@@ -127,7 +128,12 @@ const MyAnalytics = () => {
 
   return (
     <>
-      <DateSelector dateRange={dateRange} setDateRange={setDateRange} />
+      <DateSelector
+        dateRange={dateRange}
+        setDateRange={setDateRange}
+        dateError={dateError}
+        setDateError={setDateError}
+      />
       <StyledTilesContainer>
         {metrics.map((metric, index) => {
           return (
