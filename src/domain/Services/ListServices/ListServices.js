@@ -12,13 +12,27 @@ import { toast } from "react-toastify";
 import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 import ServiceTable from "../ServiceTable/ServiceTable";
 import AppLoading from "../../../AppLoading";
+import { Link } from "@reach/router";
+import Button from "../../../components/Button/Button";
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const StyledButton = styled(Button)`
+  padding: 10px 15px;
+  margin: 10px 0;
+  ${breakpoint("md")`
+    margin: auto 0; 
+  `};
+`;
 
 const StyledActionDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding: 20px;
-  ${breakpoint("sm")`
+  ${breakpoint("md")`
     flex-direction: row;
     height: 80px;
     padding: 0 10px;
@@ -127,6 +141,9 @@ const ListServices = () => {
       <div>
         <StyledActionDiv>
           <Search setSearch={setSearch} />
+          <StyledLink to="/services/add">
+            <StyledButton label={"Add Service"} />
+          </StyledLink>
         </StyledActionDiv>
       </div>
       <ServiceTable

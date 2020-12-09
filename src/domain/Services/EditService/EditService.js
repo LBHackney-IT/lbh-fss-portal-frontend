@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ServiceForm from "../ServiceForm/ServiceForm";
 import useServiceFetch from "../../../hooks/useServiceFetch/useServiceFetch";
 import ServiceService from "../../../services/ServiceService/ServiceService";
@@ -13,6 +13,8 @@ import {
   doCleanServiceImage,
 } from "../../../utils/functions/serviceFunctions";
 import AppLoading from "../../../AppLoading";
+import UserContext from "../../../context/UserContext/UserContext";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 function doFormatCategoryDefaultValues(values) {
   const categoryIdArray = values.categories.map((category) => {
@@ -128,6 +130,9 @@ const EditService = (props) => {
     props.serviceId
   );
 
+  const user = useContext(UserContext)[0];
+  const isInternalTeam = checkIsInternalTeam(user.roles);
+
   const [defaultValues, setDefaultValues] = useState({});
 
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
@@ -216,6 +221,7 @@ const EditService = (props) => {
   return (
     <>
       <ServiceForm
+        initialStepId={isInternalTeam ? "organisation" : "details"}
         pageTitle={"Edit your service listing"}
         onFormCompletion={doEditService}
         defaultValues={defaultValues}

@@ -13,6 +13,7 @@ import { darken } from "polished";
 import autocomplete from "autocompleter";
 import "./UserForm.css";
 import FormError from "../../../components/FormError/FormError";
+import { formatLabel } from "../../../utils/functions/serviceFunctions";
 
 const StyledSaveButton = styled(Button)`
   background-color: ${green[400]};
@@ -108,7 +109,7 @@ const UserForm = ({
   organisations = [],
   selectedOrganisation = [],
 }) => {
-  const [organisationFieldValue, setOrganisationFieldValue] = useState("");
+  const [organisationFieldLabel, setOrganisationFieldLabel] = useState("");
   const [organisationNotFound, setOrganisationNotFound] = useState(false);
 
   const { register, handleSubmit, errors, getValues } = useForm({
@@ -118,10 +119,10 @@ const UserForm = ({
   let loopIteration = 0;
 
   if (organisations && document.getElementById("organisations")) {
-    organisations.forEach((organisation) => {
-      organisation.label = organisation.name;
-      organisation.value = organisation.id;
-    });
+    // organisations.forEach((organisation) => {
+    //   organisation.label = formatLabel(organisation.name, organisation.id);
+    //   organisation.value = organisation.id;
+    // });
 
     autocomplete({
       minLength: 1,
@@ -136,7 +137,7 @@ const UserForm = ({
         update(suggestions);
       },
       onSelect: function (item) {
-        setOrganisationFieldValue(item.label);
+        setOrganisationFieldLabel(item.label);
         document.querySelectorAll(".autocomplete").forEach((element) => {
           element.style.display = "none";
         });
@@ -309,13 +310,13 @@ const UserForm = ({
             type="text"
             onChange={(e) => {
               setOrganisationNotFound(false);
-              setOrganisationFieldValue(e.target.value);
+              setOrganisationFieldLabel(e.target.value);
             }}
-            value={organisationFieldValue}
+            value={organisationFieldLabel}
           />
           {organisationNotFound ? (
             <FormError
-              error={`Organisation '${organisationFieldValue}' not found`}
+              error={`Organisation '${organisationFieldLabel}' not found`}
               marginTop={"10px"}
             />
           ) : null}
@@ -325,13 +326,12 @@ const UserForm = ({
             border={`1px sold ${green[400]}`}
             onClick={(e) => {
               const organisationToLink = organisations.filter(
-                (organisation) => organisation.name === organisationFieldValue
-              )[0];
+                (organisation) => organisation.label === organisationFieldLabel
+              );
 
-              if (organisationToLink) {
+              if (organisationToLink.length === 1) {
                 setOrganisationNotFound(false);
-                setSelectedOrganisation(organisationToLink);
-
+                setSelectedOrganisation(organisationToLink[0]);
                 onAddOrganisation(e);
               } else {
                 setOrganisationNotFound(true);

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UserForm from "../UserForm/UserForm";
 import UserService from "../../../services/UserService/UserService";
 import { toast } from "react-toastify";
@@ -16,6 +16,7 @@ import {
 import { doCleanFormValues } from "../../../utils/functions/userFunctions";
 import AppLoading from "../../../AppLoading";
 import useAllOrganisationFetch from "../../../hooks/useAllOrganisationFetch/useAllOrganisationFetch";
+import { formatLabel } from "../../../utils/functions/serviceFunctions";
 
 const EditUser = (props) => {
   const [refreshUser, setRefreshUser] = useState(false);
@@ -26,7 +27,11 @@ const EditUser = (props) => {
   ]);
 
   // fetch all organisations
-  const { organisations, organisationsIsLoading } = useAllOrganisationFetch();
+  const {
+    organisations,
+    setOrganisations,
+    organisationsIsLoading,
+  } = useAllOrganisationFetch();
 
   const [selectedOrganisation, setSelectedOrganisation] = useState("");
   const [editIsLoading, setEditIsLoading] = useState(false);
@@ -50,6 +55,19 @@ const EditUser = (props) => {
   const [resendAuthIsLoading, setResendAuthIsLoading] = useState(false);
 
   const { roles } = useContext(UserContext)[0];
+
+  useEffect(() => {
+    if (organisations.length === 0) return;
+
+    // add organisation label field if not already available
+    if (!organisations.hasOwnProperty("label")) {
+      organisations.forEach((organisation) => {
+        organisation.label = formatLabel(organisation.name, organisation.id);
+        organisation.value = organisation.id;
+      });
+      setOrganisations(organisations);
+    }
+  }, [organisations, setOrganisations]);
 
   function doRefreshUser() {
     setRefreshUser(!refreshUser);

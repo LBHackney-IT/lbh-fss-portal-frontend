@@ -41,9 +41,11 @@ const HandleMyService = () => {
   }, [retrieveServices, search, setServices, setServicesIsLoading]);
 
   useEffect(() => {
+    if (!user.organisation) return;
+
     let userServicesArray = [];
     services.forEach((service) => {
-      if (service.user_id === user.id) {
+      if (service.organisation_id === user.organisation.id) {
         userServicesArray.push(service);
       }
     });
@@ -55,12 +57,15 @@ const HandleMyService = () => {
 
   const isInternalTeam = checkIsInternalTeam(user.roles);
 
-  if (servicesIsLoading || !userServicesHasUpdated) {
-    return <AppLoading />;
-  }
-
   if (isInternalTeam) {
     return <Redirect to="/services" noThrow />;
+  }
+  if (!user.organisation) {
+    return <Redirect to="/organisation" noThrow />;
+  }
+
+  if (servicesIsLoading || !userServicesHasUpdated) {
+    return <AppLoading />;
   }
 
   return userServices.length > 0 ? (

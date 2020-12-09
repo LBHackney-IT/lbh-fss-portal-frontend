@@ -33,7 +33,7 @@ function convertStepNumToWord(stepNum) {
 
 function calculateStepPercentage(stepNum, stepArray) {
   const totalNumStep = stepArray.length;
-  return (100 * stepNum) / totalNumStep;
+  return Math.floor((100 * stepNum) / totalNumStep);
 }
 
 function arrayOfObjhasDuplicates(arrayOfObj) {
