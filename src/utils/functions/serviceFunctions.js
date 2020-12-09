@@ -1,5 +1,13 @@
 import { camelCase } from "lodash";
 
+function formatLabel(name, id) {
+  if (name && id) {
+    return name.concat(" [", id, "]");
+  } else {
+    return "";
+  }
+}
+
 function doFormatServiceDemographicFormValues(values, serviceDemographics) {
   let newValues = values;
   let demographicsArray = [];
@@ -220,4 +228,5 @@ export {
   generateInitialShowHiddenField,
   formatServiceCategories,
   formatServiceDemographics,
+  formatLabel,
 };

@@ -4,11 +4,12 @@ import Search from "../../../components/Search/Search";
 import UserContext from "../../../context/UserContext/UserContext";
 import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import OrganisationService from "../../../services/OrganisationService/OrganisationService";
-import { grey, green, red } from "../../../settings";
+import { grey, green, red, yellow } from "../../../settings";
 import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import UserService from "../../../services/UserService/UserService";
 import { ReactComponent as ApproveCircle } from "./icons/approve-circle.svg";
+import { ReactComponent as PauseCircle } from "./icons/pause-circle.svg";
 import { ReactComponent as DeclineCircle } from "./icons/decline-circle.svg";
 import { ReactComponent as Trash } from "./icons/trash.svg";
 import { toast } from "react-toastify";
@@ -18,6 +19,23 @@ import AppLoading from "../../../AppLoading";
 import FormDropDown from "../../../components/FormDropDown/FormDropDown";
 import { useForm } from "react-hook-form";
 import { organisationStatus } from "../../../settings/organisationStatus";
+import { Link } from "@reach/router";
+import Button from "../../../components/Button/Button";
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const StyledButton = styled(Button)`
+  padding: 10px 15px;
+  margin: -10px 5px 0 0;
+  ${breakpoint("sm")`
+    margin: 10px 0;
+  `};
+  ${breakpoint("md")`
+    margin: auto 0; 
+  `};
+`;
 
 const StyledActionDiv = styled.div`
   display: flex;
@@ -100,6 +118,9 @@ const ListOrganisations = ({ location }) => {
   const [approveIsLoading, setApproveIsLoading] = useState(false);
   const [approveModalIsOpen, setApproveModalIsOpen] = useState(false);
 
+  const [pauseIsLoading, setPauseIsLoading] = useState(false);
+  const [pauseModalIsOpen, setPauseModalIsOpen] = useState(false);
+
   const [declineIsLoading, setDeclineIsLoading] = useState(false);
   const [declineModalIsOpen, setDeclineModalIsOpen] = useState(false);
 
@@ -158,6 +179,12 @@ const ListOrganisations = ({ location }) => {
     setApproveModalIsOpen(!approveModalIsOpen);
   }
 
+  function togglePauseModal() {
+    if (pauseIsLoading) return;
+
+    setPauseModalIsOpen(!pauseModalIsOpen);
+  }
+
   function toggleDeclineModal() {
     if (declineIsLoading) return;
 
@@ -194,6 +221,32 @@ const ListOrganisations = ({ location }) => {
     }
 
     setApproveModalIsOpen(false);
+  }
+
+  async function doPause(reviewerMessage) {
+    if (approveIsLoading) return;
+
+    setPauseIsLoading(true);
+
+    selectedOrganisation.status = "paused";
+    selectedOrganisation.reviewed_at = new Date();
+    selectedOrganisation.reviewer_message = reviewerMessage;
+
+    const organisation = await OrganisationService.updateOrganisation(
+      selectedOrganisation.id,
+      selectedOrganisation
+    );
+
+    setPauseIsLoading(false);
+
+    if (organisation) {
+      toast.success(`${selectedOrganisation.name} was paused.`);
+      fetchDataAndFilter(search, setData, organisationFilters, setIsLoading);
+    } else {
+      toast.error(`Unable to pause organisation.`);
+    }
+
+    setPauseModalIsOpen(false);
   }
 
   async function doDecline(reviewerMessage) {
@@ -247,6 +300,11 @@ const ListOrganisations = ({ location }) => {
       title: "Approve",
       onClick: toggleApproveModal,
       icon: ApproveCircle,
+    },
+    {
+      title: "Pause",
+      onClick: togglePauseModal,
+      icon: PauseCircle,
     },
     {
       title: "Decline",
@@ -309,6 +367,9 @@ const ListOrganisations = ({ location }) => {
               }}
             />
           </StyledDropDownDiv>
+          <StyledLink to="/organisations/add">
+            <StyledButton label={"Add Organisation"} />
+          </StyledLink>
         </StyledActionDiv>
       </div>
       <OrganisationTable
@@ -331,6 +392,26 @@ const ListOrganisations = ({ location }) => {
           "Thank you for listing your organisation..."
         }
         confirmTitle={"Approve organisation"}
+      />
+      <ConfirmModal
+        isOpen={pauseModalIsOpen}
+        toggleModal={togglePauseModal}
+        confirmMessage={
+          <>
+            Are you sure you want to pause{" "}
+            <strong>{selectedOrganisation.name}</strong>?
+          </>
+        }
+        confirmButtonLabel={"Pause"}
+        confirmButtonColor={yellow[400]}
+        confirmButtonTextColor={"black"}
+        borderColor={yellow[400]}
+        onConfirm={doPause}
+        includeReviewerMessage={true}
+        reviewerMessagePlaceholder={
+          "We have paused you for the following reasons..."
+        }
+        confirmTitle={"Pause organisation"}
       />
       <ConfirmModal
         isOpen={declineModalIsOpen}

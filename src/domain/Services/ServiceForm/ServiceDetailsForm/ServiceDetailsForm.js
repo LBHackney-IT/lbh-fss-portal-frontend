@@ -5,8 +5,14 @@ import FormInput from "../../../../components/FormInput/FormInput";
 import Button from "../../../../components/Button/Button";
 import FormTextbox from "../../../../components/FormTextbox/FormTextbox";
 import FormHelpText from "../../../../components/FormHelpText/FormHelpText";
+import { Link } from "@reach/router";
 
-const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
+const ServiceDetailsForm = ({
+  onSubmit,
+  defaultValues = {},
+  goBackToPreviousStep,
+  isInternalTeam,
+}) => {
   const { register, handleSubmit, errors } = useForm({
     defaultValues,
   });
@@ -195,6 +201,13 @@ const ServiceDetailsForm = ({ onSubmit, defaultValues = {} }) => {
         />
       </FormFieldset>
       <Button type="submit" label="Continue ›" />
+      {isInternalTeam ? (
+        <div style={{ marginTop: "20px" }}>
+          <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+            Go back to previous step
+          </Link>
+        </div>
+      ) : null}
     </form>
   );
 };

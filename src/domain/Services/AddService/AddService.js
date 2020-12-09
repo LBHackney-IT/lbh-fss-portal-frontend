@@ -64,11 +64,14 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
 
     cleanFormValues.user_id = localUser.id;
     cleanFormValues.user_name = localUser.name;
-    cleanFormValues.organisation_id = localUser.organisation.id;
-    cleanFormValues.organisation_name = localUser.organisation.name;
     cleanFormValues.status = "active";
     cleanFormValues.created_at = new Date();
     cleanFormValues.updated_at = null;
+
+    if (!cleanFormValues.organisation_id) {
+      cleanFormValues.organisation_id = localUser.organisation.id;
+      cleanFormValues.organisation_name = localUser.organisation.name;
+    }
 
     const serviceImage = doCleanServiceImage(cleanFormValues.image);
 
@@ -108,21 +111,16 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
 
   const isInternalTeam = checkIsInternalTeam(localUser.roles);
 
-  if (isInternalTeam) {
-    return <Redirect to="/services" noThrow />;
-  }
-
-  if (taxonomiesIsLoading) {
-    return <AppLoading />;
-  }
-
   return (
     <>
       <ServiceForm
+        initialStepId={isInternalTeam ? "organisation" : "details"}
         pageTitle={"Tell us what you do"}
         onFormCompletion={doAddService}
         defaultValues={
-          localUser.organisation ? { name: localUser.organisation.name } : {}
+          !isInternalTeam && localUser.organisation
+            ? { name: localUser.organisation.name }
+            : {}
         }
         submitLoading={submitIsLoading}
         showHiddenField={showHiddenField}

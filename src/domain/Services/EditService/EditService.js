@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ServiceForm from "../ServiceForm/ServiceForm";
 import useServiceFetch from "../../../hooks/useServiceFetch/useServiceFetch";
 import ServiceService from "../../../services/ServiceService/ServiceService";
@@ -15,11 +15,16 @@ import {
 } from "../../../utils/functions/serviceFunctions";
 import AppLoading from "../../../AppLoading";
 import TaxonomiesService from "../../../services/TaxonomiesService/TaxonomiesService";
+import UserContext from "../../../context/UserContext/UserContext";
+import { checkIsInternalTeam } from "../../../utils/functions/functions";
 
 const EditService = (props) => {
   const { service, isLoading: fetchIsLoading } = useServiceFetch(
     props.serviceId
   );
+
+  const user = useContext(UserContext)[0];
+  const isInternalTeam = checkIsInternalTeam(user.roles);
 
   const [defaultValues, setDefaultValues] = useState({});
 
@@ -148,6 +153,7 @@ const EditService = (props) => {
   return (
     <>
       <ServiceForm
+        initialStepId={isInternalTeam ? "organisation" : "details"}
         pageTitle={"Edit your service listing"}
         onFormCompletion={doEditService}
         defaultValues={defaultValues}

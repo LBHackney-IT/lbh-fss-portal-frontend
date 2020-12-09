@@ -41,6 +41,13 @@ function formatStatus(status) {
         color: "white",
       };
       break;
+    case "paused":
+      return {
+        title: "Paused",
+        backgroundColor: yellow[400],
+        color: "black",
+      };
+      break;
     case "awaiting reverification":
       return {
         title: "Awaiting reverification",
