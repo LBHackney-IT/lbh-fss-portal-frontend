@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useLayoutEffect, useMemo } from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Table from "../../../components/Table/Table";
@@ -7,6 +7,10 @@ import { green, red, yellow } from "../../../settings";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import UserContext from "../../../context/UserContext/UserContext";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
+
+const StyledUsers = styled.div`
+  margin: 10px 0;
+`;
 
 const StyledStatus = styled.div`
   background-color: ${(props) => props.status.backgroundColor};
@@ -125,21 +129,26 @@ const OrganisationTable = ({
         },
       },
       {
-        Header: "User",
+        Header: "Users",
         accessor: "id",
         Cell: (e) => {
-          if (!isInternalTeam) {
-            return organisationUser[e.value].name;
-          }
+          const userArray = organisationUser[e.value];
 
-          if (organisationUser[e.value]) {
+          if (userArray) {
             return (
-              <Link to={`/users/${organisationUser[e.value].id}/edit`}>
-                {organisationUser[e.value].name}
-              </Link>
+              <>
+                {userArray.map((user, index) => {
+                  console.log(user.name);
+                  return (
+                    <StyledUsers key={index}>
+                      <Link to={`/users/${user.id}/edit`}>{user.name}</Link>
+                    </StyledUsers>
+                  );
+                })}
+              </>
             );
           } else {
-            return "User not found";
+            return <StyledUsers>No users</StyledUsers>;
           }
         },
       },

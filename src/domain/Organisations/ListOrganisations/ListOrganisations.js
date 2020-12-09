@@ -155,10 +155,16 @@ const ListOrganisations = ({ location }) => {
             const organisationId = users[key].organisation.id;
             const userName = users[key].name;
             const userId = users[key].id;
-            organisationUserObject[organisationId] = {
+            const userInfo = {
               name: userName,
               id: userId,
             };
+
+            if (!organisationUserObject[organisationId]) {
+              organisationUserObject[organisationId] = [];
+            }
+
+            organisationUserObject[organisationId].push(userInfo);
           }
         });
 
