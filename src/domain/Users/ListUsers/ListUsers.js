@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import UserTable from "../UserTable/UserTable";
 import Search from "../../../components/Search/Search";
 import Button from "../../../components/Button/Button";
@@ -11,6 +11,8 @@ import styled from "styled-components";
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
 import { CSVLink } from "react-csv";
+import { toast } from "react-toastify";
+import AppLoading from "../../../AppLoading";
 
 const StyledActionDiv = styled.div`
   display: flex;
@@ -118,6 +120,9 @@ const ListUsers = ({ location }) => {
 
       if (users) {
         users = users.filter((user) => user.status !== "deleted");
+      } else {
+        toast.error("Could not find users");
+        navigate("/organisation");
       }
 
       setData(users || []);
@@ -128,10 +133,6 @@ const ListUsers = ({ location }) => {
   }, [search, setData, setAllUsers, setIsLoading]);
 
   const isInternalTeam = checkIsInternalTeam(roles);
-
-  if (!isInternalTeam) {
-    return <AccessDenied />;
-  }
 
   const headersForExport = [
     { label: "ID", key: "id" },
@@ -144,7 +145,19 @@ const ListUsers = ({ location }) => {
     { label: "Status", key: "status" },
   ];
 
-  const dataForExport = cleanDataForExport(allUsers);
+  let dataForExport = [];
+
+  if (allUsers) {
+    dataForExport = cleanDataForExport(allUsers);
+  }
+
+  if (!isInternalTeam) {
+    return <AccessDenied />;
+  }
+
+  if (isLoading) {
+    return <AppLoading />;
+  }
 
   return (
     <>
