@@ -22,16 +22,15 @@ function useUserFetch(userId, dependencies = []) {
 
       const newUser = await UserService.getUser(userId);
 
-
       if (newUser) {
         setUser(newUser);
+
+        setIsLoading(false);
       } else {
         toast.error("Unable to find user.");
 
         navigate("/organisation");
       }
-
-      setIsLoading(false);
     }
 
     fetchUser();
