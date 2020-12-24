@@ -167,6 +167,8 @@ const ServiceCategoriesForm = ({
                     name={"lonOrIsDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.lonOrIsDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -178,6 +180,8 @@ const ServiceCategoriesForm = ({
                     name={"anxOrMHDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.anxOrMHDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -189,6 +193,8 @@ const ServiceCategoriesForm = ({
                     name={"safeAndHBDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.safeAndHBDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -200,6 +206,8 @@ const ServiceCategoriesForm = ({
                     name={"exAndWellDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.exAndWellDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -211,6 +219,8 @@ const ServiceCategoriesForm = ({
                     name={"artAndCrtvDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.artAndCrtvDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -222,6 +232,8 @@ const ServiceCategoriesForm = ({
                     name={"foodOrShopDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.foodOrShopDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -233,6 +245,8 @@ const ServiceCategoriesForm = ({
                     name={"faithActDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.faithActDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -244,6 +258,8 @@ const ServiceCategoriesForm = ({
                     name={"monAdvDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.monAdvDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -255,6 +271,8 @@ const ServiceCategoriesForm = ({
                     name={"emplAdvDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.emplAdvDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -266,6 +284,8 @@ const ServiceCategoriesForm = ({
                     name={"houseAdvDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.houseAdvDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -277,6 +297,8 @@ const ServiceCategoriesForm = ({
                     name={"immAdvDetails"}
                     register={register}
                     spellCheck={"true"}
+                    maxLength={255}
+                    error={errors.immAdvDetails}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
