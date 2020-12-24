@@ -37,10 +37,10 @@ const ServiceDetailsForm = ({
           name="description"
           label="Organisation description"
           register={register}
-          maxLength={80}
+          maxLength={400}
           required
           error={errors.description}
-          help="Please describe your organisation in 80 characters (e.g Expert services so no-one has to face a mental health problem alone)"
+          help='Please describe your organisation in 400 characters (e.g "Expert services so no-one has to face a mental health problem alone")'
           textAreaStyle={{ margin: "0" }}
         />
         <FormHelpText helpText="Please review underlined spellings." />
