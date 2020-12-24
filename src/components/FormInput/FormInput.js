@@ -69,7 +69,7 @@ const FormInput = ({
         <FormError error={`${label} is required.`} />
       )}
       {error && error.type === "maxLength" && (
-        <FormError error="Max length exceeded." />
+        <FormError error={`Max length of ${maxLength} characters exceeded.`} />
       )}
       {error && error.type === "minLength" && (
         <FormError
