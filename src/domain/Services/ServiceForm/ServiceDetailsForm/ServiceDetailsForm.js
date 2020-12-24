@@ -71,7 +71,7 @@ const ServiceDetailsForm = ({
           label="Email"
           register={register}
           error={errors.email}
-          maxLength={80}
+          maxLength={255}
           validate={{
             pattern: (value) => {
               if (value === "") return true;
