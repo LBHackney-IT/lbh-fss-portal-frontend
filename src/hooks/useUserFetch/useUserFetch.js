@@ -10,7 +10,7 @@ function useUserFetch(userId, dependencies = []) {
   let allDependencies = [];
   const baseDependencies = [userId, setUser, setIsLoading];
 
-  if (dependencies.legnth === 0) {
+  if (dependencies.length === 0) {
     allDependencies = baseDependencies;
   } else {
     allDependencies = baseDependencies.concat(dependencies);

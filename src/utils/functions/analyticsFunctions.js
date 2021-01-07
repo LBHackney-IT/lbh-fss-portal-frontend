@@ -1,4 +1,5 @@
 import moment from "moment";
+const _ = require('lodash');
 
 const checkIfIsInDateRange = (date, selectedWeek) => {
   let isInDateRange = true;
@@ -65,6 +66,37 @@ const calcUnapprovedOrganisation = (organisations, selectedWeek) => {
   return unpprovedOrganisationsValue;
 };
 
+const calcNeighbourhoods = (services, neighbourhood, selectedWeek) => {
+
+  let neighbourhoodsValue = services.filter((service) => {
+    const createdAtDate = moment(service.created_at).format("DD MMM YYYY"); // TODO: update to createdAt
+
+    const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
+
+    // console.log(organisation);
+    // console.log(service.locations);
+    // for (var i = 0; i < service.locations.length; i++) {
+    // for (var prop in service.locations) {
+      var location = service.locations.map(location => location.neighbourhood);
+      const isNeighbourhood = location.includes(neighbourhood);
+    // }
+    // console.log(test);
+
+    // if(typeof test !== "undefined") {
+    //   isNeighbourhood = test.includes(neighbourhood);
+    //   // console.log(find);
+    // }
+    
+
+    // console.log(organisation);
+    console.log(isNeighbourhood);
+
+    return isInDateRange && isNeighbourhood;
+  }).length;
+
+  return neighbourhoodsValue;
+};
+
 const calcDateRange = () => {
   var weeks = [];
   var startDate = moment(new Date(2020, 0, 1)).isoWeekday(8);
@@ -92,6 +124,7 @@ export {
   calcOrganisations,
   calcApprovedOrganisations,
   calcServices,
+  calcNeighbourhoods,
   calcUnapprovedOrganisation,
   calcDateRange,
 };

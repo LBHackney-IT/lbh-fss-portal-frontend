@@ -6,6 +6,7 @@ import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import useAllServiceFetch from "../../../hooks/useAllServiceFetch/useAllServiceFetch";
 import useAllOrganisationFetch from "../../../hooks/useAllOrganisationFetch/useAllOrganisationFetch";
 import styled from "styled-components";
+import { applyStyleModifiers } from 'styled-components-modifiers';
 import { breakpoint } from "../../../utils/breakpoint/breakpoint";
 import { grey } from "../../../settings";
 import {
@@ -13,6 +14,7 @@ import {
   calcApprovedOrganisations,
   calcServices,
   calcUnapprovedOrganisation,
+  calcNeighbourhoods,
   calcDateRange,
 } from "../../../utils/functions/analyticsFunctions";
 import FormDropDown from "../../../components/FormDropDown/FormDropDown";
@@ -77,14 +79,21 @@ const StyledHr = styled.hr`
   margin: 50px auto;
 `;
 
+export const CONTAINER_MODIFIER = {
+  last: () => `
+      margin-bottom: 50px;
+  `
+}
+
 const StyledTilesContainer = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
   ${breakpoint("sm")`
     flex-direction: row;
     justify-content: space-between;
   `}
+  ${applyStyleModifiers(CONTAINER_MODIFIER)};
 `;
 
 const AnalyticsDashboard = () => {
@@ -96,6 +105,8 @@ const AnalyticsDashboard = () => {
     approvedOrganisations: null,
     services: null,
     unapprovedOrganisation: null,
+    neighbourhoods: null,
+    // need 3 props here? label, shortlabel and value
   });
 
   const dateRangeArray = calcDateRange();
@@ -107,17 +118,13 @@ const AnalyticsDashboard = () => {
 
     newValues.organisations = calcOrganisations(organisations, selectedWeek);
 
-    newValues.approvedOrganisations = calcApprovedOrganisations(
-      organisations,
-      selectedWeek
-    );
+    newValues.approvedOrganisations = calcApprovedOrganisations(organisations, selectedWeek);
 
     newValues.services = calcServices(services, selectedWeek);
 
-    newValues.unapprovedOrganisation = calcUnapprovedOrganisation(
-      organisations,
-      selectedWeek
-    );
+    newValues.unapprovedOrganisation = calcUnapprovedOrganisation(organisations, selectedWeek);
+
+    newValues.neighbourhoodNE1 = calcNeighbourhoods(services, "SW2", selectedWeek);
 
     setValues(newValues);
   }, [services, organisations, selectedWeek, setValues]);
@@ -195,6 +202,84 @@ const AnalyticsDashboard = () => {
           label="Number of organisations waiting approval"
           value={values.unapprovedOrganisation}
           color={"yellow"}
+        />
+      </StyledTilesContainer>
+      <StyledHr />
+      <h2>NHS Neighbourhood</h2>
+      <StyledTilesContainer>
+        <AnalyticsTile
+          // label={values.neighbourhoodLabel}
+          label="Springfield Park Neighbourhood"
+          // shortLabel={values.neighbourhhood}
+          shortLabel="NE1"
+          value={values.neighbourhoodNE1}
+          color={"green"}
+          col={"col-4"}
+        />
+        <AnalyticsTile
+          // label={values.neighbourhoodLabel}
+          label="Hackney Downs Neighbourhood"
+          // shortLabel={values.neighbourhhood}
+          shortLabel="NE2"
+          value={values.unapprovedOrganisation}
+          color={"green"}
+          col={"col-4"}
+        />
+        <AnalyticsTile
+          // label={values.neighbourhoodLabel}
+          label="Woodberry Wetlands Neighbourhood"
+          // shortLabel={values.neighbourhhood}
+          shortLabel="NW1"
+          value={values.unapprovedOrganisation}
+          color={"green"}
+          col={"col-4"}
+        />
+        <AnalyticsTile
+          // label={values.neighbourhoodLabel}
+          label="Clissold Park Neighbourhood"
+          // shortLabel={values.neighbourhhood}
+          shortLabel="NW2"
+          value={values.unapprovedOrganisation}
+          color={"green"}
+          col={"col-4"}
+        />
+      </StyledTilesContainer>
+      <StyledTilesContainer modifiers="last">
+        <AnalyticsTile
+          // label={values.neighbourhoodLabel}
+          label="Hackney Marshes Neighbourhood"
+          // shortLabel={values.neighbourhhood}
+          shortLabel="SE1"
+          value={values.unapprovedOrganisation}
+          color={"green"}
+          col={"col-4"}
+        />
+        <AnalyticsTile
+          // label={values.neighbourhoodLabel}
+          label="Well Street Common Neighbourhood"
+          // shortLabel={values.neighbourhhood}
+          shortLabel="SE2"
+          value={values.unapprovedOrganisation}
+          color={"green"}
+          col={"col-4"}
+        />
+        <AnalyticsTile
+          // label={values.neighbourhoodLabel}
+          label="London Fields Neighbourhood"
+          // shortLabel={values.neighbourhhood}
+          shortLabel="SW1"
+          value={values.unapprovedOrganisation}
+          color={"green"}
+          col={"col-4"}
+        />
+        <AnalyticsTile
+          // label={values.neighbourhoodLabel}
+          label="Shoreditch Park & The City Neighbourhood"
+          // shortLabel={values.neighbourhhood}
+          shortLabel="SW2"
+          value={values.unapprovedOrganisation}
+          color={"green"}
+          col={"col-4"}
         />
       </StyledTilesContainer>
     </>
