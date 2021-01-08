@@ -61,7 +61,7 @@ const RegisterStep1 = () => {
           validate={{
             pattern: (value) => {
               return (
-                value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
+                value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,11}$/i) ||
                 "Enter a valid e-mail address"
               );
             },

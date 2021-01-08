@@ -159,7 +159,7 @@ const UserForm = ({
             validate={{
               pattern: (value) => {
                 return (
-                  value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) ||
+                  value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,11}$/i) ||
                   "Enter a valid e-mail address"
                 );
               },
@@ -175,6 +175,15 @@ const UserForm = ({
           required
           maxLength={255}
         />
+        {!showEmail ? (
+          <FormInput
+            name="email"
+            type="text"
+            label="Email"
+            register={register}
+            disabled={true}
+          />
+        ) : null}
         {showRoles ? (
           <FormFieldset label="Roles">
             {Object.keys(roles).map((item) => {
