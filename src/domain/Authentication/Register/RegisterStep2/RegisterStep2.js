@@ -44,7 +44,7 @@ const RegisterStep2 = () => {
       registerStep1Values.name.length === 0 ||
       registerStep1Values.email.length > 255 ||
       !registerStep1Values.email.match(
-        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,11}$/i
       )
     ) {
       toast.error("Registration failed.");
