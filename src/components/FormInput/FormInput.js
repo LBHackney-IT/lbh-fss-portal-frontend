@@ -44,6 +44,7 @@ const FormInput = ({
   labelStyle,
   autoComplete = "on",
   spellCheck = "false",
+  disabled,
 }) => {
   return (
     <>
@@ -64,6 +65,7 @@ const FormInput = ({
         aria-invalid={error ? "true" : "false"}
         spellCheck={spellCheck}
         autoComplete={autoComplete}
+        disabled={disabled}
       />
       {error && error.type === "required" && (
         <FormError error={`${label} is required.`} />
@@ -92,6 +94,7 @@ FormInput.propTypes = {
   maxLength: PropTypes.number,
   minLength: PropTypes.number,
   error: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 export default FormInput;

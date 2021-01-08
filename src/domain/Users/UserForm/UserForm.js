@@ -175,6 +175,13 @@ const UserForm = ({
           required
           maxLength={255}
         />
+        <FormInput
+          name="email"
+          type="text"
+          label="Email"
+          register={register}
+          disabled={true}
+        />
         {showRoles ? (
           <FormFieldset label="Roles">
             {Object.keys(roles).map((item) => {
