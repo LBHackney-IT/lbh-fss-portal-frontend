@@ -68,33 +68,66 @@ const calcUnapprovedOrganisation = (organisations, selectedWeek) => {
 
 const calcNeighbourhoods = (services, neighbourhood, selectedWeek) => {
 
-  let neighbourhoodsValue = services.filter((service) => {
-    const createdAtDate = moment(service.created_at).format("DD MMM YYYY"); // TODO: update to createdAt
+  let duplicateService = [...services];
 
-    const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
+  let i = 0;
+  while (i < services.length) {
+    // check if any services have multiple locations
+    if (services[i].locations.length > 1) {
+      // store the locations for the specific service
+      const locationsArray = services[i].locations;
+      // iterate through each locationsArray and push to thisService.locations
+      for (const [key, value] of Object.entries(locationsArray.slice(1))) {
+        // duplicate the specific service
+        let thisService = {...services[i]};
+        // reset the specific service locations array to be rewritten
+        thisService.locations = [];
+        // push specific service location object value into the empty array
+        thisService.locations.push(value);
+        // push thisService into duplicateService
+        duplicateService.push(thisService);
+      }
+    }
+    i++;
+  }
 
-    // console.log(organisation);
-    // console.log(service.locations);
-    // for (var i = 0; i < service.locations.length; i++) {
-    // for (var prop in service.locations) {
-      var location = service.locations.map(location => location.neighbourhood);
-      const isNeighbourhood = location.includes(neighbourhood);
-    // }
-    // console.log(test);
+  let neighbourhoodCount = duplicateService.filter((service) => {
 
-    // if(typeof test !== "undefined") {
-    //   isNeighbourhood = test.includes(neighbourhood);
-    //   // console.log(find);
-    // }
-    
+    // ignore services without locations
+    if (service.locations[0] !== undefined) {
+      
+      const createdAtDate = moment(service.created_at).format("DD MMM YYYY"); // TODO: update to createdAt
 
-    // console.log(organisation);
-    console.log(isNeighbourhood);
+      const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
 
-    return isInDateRange && isNeighbourhood;
+      const isNeighbourhood = service.locations[0].neighbourhood === neighbourhood;
+
+      return isInDateRange && isNeighbourhood;
+    }
   }).length;
 
-  return neighbourhoodsValue;
+  var neighbourhoodArray = [];
+  neighbourhoodArray.count = neighbourhoodCount;
+  return neighbourhoodArray;
+};
+
+const calcTotalNeighbourhoods = (services, neighbourhood) => {
+
+  var locationArray = [];
+
+  for (var i = 0; i < services.length; i++) {
+    services[i].locations.forEach(function (item, index) {
+      locationArray.push(item);
+    });
+  }
+
+  var neighbourhoodCount = locationArray.reduce(function(n, val) {
+    return n + (val.neighbourhood === neighbourhood);
+  }, 0);
+
+  var neighbourhoodArray = [];
+  neighbourhoodArray.count = neighbourhoodCount;
+  return neighbourhoodArray;
 };
 
 const calcDateRange = () => {
@@ -125,6 +158,7 @@ export {
   calcApprovedOrganisations,
   calcServices,
   calcNeighbourhoods,
+  calcTotalNeighbourhoods,
   calcUnapprovedOrganisation,
   calcDateRange,
 };
