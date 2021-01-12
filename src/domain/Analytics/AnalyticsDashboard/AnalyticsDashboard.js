@@ -125,7 +125,6 @@ const AnalyticsDashboard = () => {
 
     newValues.unapprovedOrganisation = calcUnapprovedOrganisation(organisations, selectedWeek);
 
-    newValues.neighbourhoodNE1a = calcNeighbourhoods(services, "NE1", selectedWeek);
     newValues.neighbourhoodNE1 = calcTotalNeighbourhoods(services, "NE1");
     newValues.neighbourhoodNE2 = calcTotalNeighbourhoods(services, "NE2");
     newValues.neighbourhoodNW1 = calcTotalNeighbourhoods(services, "NW1");
@@ -219,29 +218,29 @@ const AnalyticsDashboard = () => {
         <AnalyticsTile
           label="Springfield Park Neighbourhood"
           shortLabel="NE1"
-          value={values.neighbourhoodNE1a.count}
-          color={(values.neighbourhoodNE1a.count >= 10) ? "green" : (values.neighbourhoodNE1a.count >= 5) ? "yellow" : "red"}
+          value={values.neighbourhoodNE1.count}
+          color={"green"}
           col={"col-4"}
         />
         <AnalyticsTile
           label="Hackney Downs Neighbourhood"
           shortLabel="NE2"
           value={values.neighbourhoodNE2.count}
-          color={(values.neighbourhoodNE2.count >= 10) ? "green" : (values.neighbourhoodNE2.count >= 5) ? "yellow" : "red"}
+          color={"green"}
           col={"col-4"}
         />
         <AnalyticsTile
           label="Woodberry Wetlands Neighbourhood"
           shortLabel="NW1"
           value={values.neighbourhoodNW1.count}
-          color={(values.neighbourhoodNW1.count >= 10) ? "green" : (values.neighbourhoodNW1.count >= 5) ? "yellow" : "red"}
+          color={"green"}
           col={"col-4"}
         />
         <AnalyticsTile
           label="Clissold Park Neighbourhood"
           shortLabel="NW2"
           value={values.neighbourhoodNW2.count}
-          color={(values.neighbourhoodNW2.count >= 10) ? "green" : (values.neighbourhoodNW2.count >= 5) ? "yellow" : "red"}
+          color={"green"}
           col={"col-4"}
         />
       </StyledTilesContainer>
@@ -250,28 +249,28 @@ const AnalyticsDashboard = () => {
           label="Hackney Marshes Neighbourhood"
           shortLabel="SE1"
           value={values.neighbourhoodSE1.count}
-          color={(values.neighbourhoodSE1.count >= 10) ? "green" : (values.neighbourhoodSE1.count >= 5) ? "yellow" : "red"}
+          color={"green"}
           col={"col-4"}
         />
         <AnalyticsTile
           label="Well Street Common Neighbourhood"
           shortLabel="SE2"
           value={values.neighbourhoodSE2.count}
-          color={(values.neighbourhoodSE2.count >= 10) ? "green" : (values.neighbourhoodSE2.count >= 5) ? "yellow" : "red"}
+          color={"green"}
           col={"col-4"}
         />
         <AnalyticsTile
           label="London Fields Neighbourhood"
           shortLabel="SW1"
           value={values.neighbourhoodSW1.count}
-          color={(values.neighbourhoodSW1.count >= 10) ? "green" : (values.neighbourhoodSW1.count >= 5) ? "yellow" : "red"}
+          color={"green"}
           col={"col-4"}
         />
         <AnalyticsTile
           label="Shoreditch Park &amp; The City Neighbourhood"
           shortLabel="SW2"
           value={values.neighbourhoodSW2.count}
-          color={(values.neighbourhoodSW2.count >= 10) ? "green" : (values.neighbourhoodSW2.count >= 5) ? "yellow" : "red"}
+          color={"green"}
           col={"col-4"}
         />
       </StyledTilesContainer>
