@@ -100,7 +100,7 @@ const calcNeighbourhoods = (services, neighbourhood, selectedWeek) => {
 
       const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
 
-      const isNeighbourhood = service.locations[0].neighbourhood === neighbourhood;
+      const isNeighbourhood = service.locations[0].nhs_area === neighbourhood;
 
       return isInDateRange && isNeighbourhood;
     }
@@ -122,7 +122,7 @@ const calcTotalNeighbourhoods = (services, neighbourhood) => {
   }
 
   var neighbourhoodCount = locationArray.reduce(function(n, val) {
-    return n + (val.neighbourhood === neighbourhood);
+    return n + (val.nhs_area === neighbourhood);
   }, 0);
 
   var neighbourhoodArray = [];
