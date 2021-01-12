@@ -108,7 +108,7 @@ const ServiceCategoriesForm = ({
         )}
         {!image.preview ? (
           <StyledHelp>
-            Upload a landscape image to ensure it displays correctly.
+            Images should be at least 1600 pixels wide.
             <br />
             <br />
             Files supported: JPG, JPEG or PNG <br />

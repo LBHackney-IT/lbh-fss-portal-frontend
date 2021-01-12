@@ -147,7 +147,7 @@ const ServiceCategoriesForm = ({
         <StyledUl>
           <li>Use first person, active voice (e.g. we provide...)</li>
           <li>Be concise, factual, avoid acronyms and jargon.</li>
-          <li>Around 25 words (150 characters) would be great please!</li>
+          <li>Around 50 words or 255 characters.</li>
         </StyledUl>
         {serviceCategoryCheckboxOptions.map((item) => {
           return (
