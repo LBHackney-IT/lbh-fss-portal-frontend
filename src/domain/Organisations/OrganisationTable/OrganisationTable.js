@@ -132,7 +132,12 @@ const OrganisationTable = ({
         Header: "Users",
         accessor: "id",
         Cell: (e) => {
-          const userArray = organisationUser[e.value];
+          let userArray = [];
+          if (isInternalTeam) {
+            userArray = organisationUser[e.value];
+          } else {
+            userArray = organisationUser;
+          }
 
           if (userArray) {
             return (
@@ -140,7 +145,13 @@ const OrganisationTable = ({
                 {userArray.map((user, index) => {
                   return (
                     <StyledUsers key={index}>
-                      <Link to={`/users/${user.id}/edit`}>{user.name}</Link>
+                      {
+                        (isInternalTeam)
+                          ?
+                        <Link to={`/users/${user.id}/edit`}>{user.name}</Link>
+                          :
+                        <span>{user.name}</span>
+                      }
                     </StyledUsers>
                   );
                 })}

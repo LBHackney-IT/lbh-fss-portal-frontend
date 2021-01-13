@@ -61,6 +61,11 @@ const MyOrganisation = () => {
     isLoading: organisationFetchIsLoading,
   } = useOrganisationFetch(user.organisation.id);
 
+  let organisationUsers = [];
+  if (organisation) {
+    organisationUsers = organisation.users;
+  }
+
   const [organisationUser, setOrganisationUser] = useState({});
 
   useEffect(() => {
@@ -135,7 +140,7 @@ const MyOrganisation = () => {
     <>
       <OrganisationTable
         data={[organisation]}
-        organisationUser={organisationUser}
+        organisationUser={organisationUsers}
         showPagination={false}
         setSelectedOrganisation={setSelectedOrganisation}
         actions={actions}

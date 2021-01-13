@@ -90,25 +90,25 @@ const ServiceTable = ({
         Header: "Organisation",
         accessor: "organisation_name",
       },
-      {
-        Header: "User",
-        accessor: "user_name",
-        Cell: (e) => {
-          if (!isInternalTeam) {
-            return e.value;
-          }
+      // {
+      //   Header: "User",
+      //   accessor: "user_name",
+      //   Cell: (e) => {
+      //     if (!isInternalTeam) {
+      //       return e.value;
+      //     }
 
-          if (e.value) {
-            return (
-              <Link to={`/users/${e.row.original.user_id}/edit`}>
-                {e.value}
-              </Link>
-            );
-          } else {
-            return "User not found";
-          }
-        },
-      },
+      //     if (e.value) {
+      //       return (
+      //         <Link to={`/users/${e.row.original.user_id}/edit`}>
+      //           {e.value}
+      //         </Link>
+      //       );
+      //     } else {
+      //       return "User not found";
+      //     }
+      //   },
+      // },
       {
         Header: "Status",
         accessor: "status",
