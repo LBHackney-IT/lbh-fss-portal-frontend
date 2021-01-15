@@ -23,10 +23,7 @@ const StyledTilesContainer = styled.div`
 function grabUniqueUserServices(user, services, setUniqueUserServices) {
   let serviceNamesArray = [];
   services.forEach((service) => {
-    // NOTE - currently a service only has a single user, when this
-    // is changed so that a service has an array of users, will need
-    // to update the line of code below, probably to 'service.user_id.includes(user.id)'
-    if (service.user_id === user.id) {
+    if (service.users.some(e => e.id === user.id)) {
       serviceNamesArray.push(service.name);
     }
   });
