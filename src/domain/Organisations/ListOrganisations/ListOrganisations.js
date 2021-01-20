@@ -307,11 +307,11 @@ const ListOrganisations = ({ location }) => {
       onClick: toggleApproveModal,
       icon: ApproveCircle,
     },
-    {
-      title: "Pause",
-      onClick: togglePauseModal,
-      icon: PauseCircle,
-    },
+    // {
+    //   title: "Pause",
+    //   onClick: togglePauseModal,
+    //   icon: PauseCircle,
+    // },
     {
       title: "Decline",
       onClick: toggleDeclineModal,
