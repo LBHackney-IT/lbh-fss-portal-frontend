@@ -31,7 +31,7 @@ function doFormatCategoryDefaultValues(values) {
 
       newValues[item.id] = true;
       newValues[item.id.concat("Details")] =
-        categoryInfo[0].service_description;
+        categoryInfo[0].description;
     }
   });
 
