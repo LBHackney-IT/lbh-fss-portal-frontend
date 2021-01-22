@@ -11,12 +11,14 @@ import DateSelector from "../DateSelector/DateSelector";
 import ServiceService from "../../../services/ServiceService/ServiceService";
 
 const StyledTilesContainer = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   ${breakpoint("sm")`
     flex-direction: row;
-    justify-content: space-between;
+    margin-left: -20px;
+    margin-right: -20px;
   `}
 `;
 
@@ -38,11 +40,14 @@ function calculateMetrics(
   let calculatedMetrics = [];
 
   uniqueUserServices.forEach((service) => {
-    const eventArray = filteredUserServices.filter((event) => {
-      return event.serviceName === service;
-    });
 
-    calculatedMetrics.push({ service: service, count: eventArray.length });
+    if (filteredUserServices.analyticEvents !== undefined) {
+      const eventArray = filteredUserServices.analyticEvents.filter((event) => {
+        return event.serviceName === service;
+      });
+
+      calculatedMetrics.push({ service: service, count: eventArray.length });
+    }
   });
 
   setMetrics(calculatedMetrics);
@@ -155,7 +160,7 @@ const MyAnalytics = () => {
       <StyledTilesContainer>
         {metrics.map((metric, index) => {
           return (
-            <div key={index} style={{ width: "25%", margin: "0 10px" }}>
+            <div key={index} style={{ width: "33.333%", padding: "0 20px", marginBottom: "40px"}}>
               <AnalyticsTile
                 label={`Total views of ${metric.service}`}
                 value={metric.count}
