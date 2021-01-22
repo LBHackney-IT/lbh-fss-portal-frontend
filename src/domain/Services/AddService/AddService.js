@@ -1,45 +1,65 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ServiceForm from "../ServiceForm/ServiceForm";
 import ServiceService from "../../../services/ServiceService/ServiceService";
 import { navigate, Redirect } from "@reach/router";
 import { toast } from "react-toastify";
 import UserContext from "../../../context/UserContext/UserContext";
 import {
-  serviceCategoryCheckboxOptions,
-  serviceDemographicCheckboxOptions,
-} from "../../../utils/data/data";
-import {
   doCleanServiceFormValues,
   doCleanServiceImage,
+  formatServiceCategories,
+  formatServiceDemographics,
+  generateInitialShowHiddenField,
 } from "../../../utils/functions/serviceFunctions";
-import AccessDenied from "../../Error/AccessDenied/AccessDenied";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
+import AppLoading from "../../../AppLoading";
+import TaxonomiesService from "../../../services/TaxonomiesService/TaxonomiesService";
 
 const AddService = ({ doRetrieveServices = () => {} }) => {
   const localUser = useContext(UserContext)[0];
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
+  const [taxonomiesIsLoading, setTaxonomiesIsLoading] = useState(true);
+  const [serviceCategories, setServiceCategories] = useState([]);
+  const [serviceDemographics, setServiceDemographics] = useState([]);
 
-  const [showHiddenField, setShowHiddenField] = useState({
-    lonOrIsDetails: false,
-    anxOrMHDetails: false,
-    safeAndHBDetails: false,
-    exAndWellDetails: false,
-    artAndCrtvDetails: false,
-    foodOrShopDetails: false,
-    faithActDetails: false,
-    monAdvDetails: false,
-    emplAdvDetails: false,
-    houseAdvDetails: false,
-    immAdvDetails: false,
-  });
+  const [showHiddenField, setShowHiddenField] = useState([]);
+
+  useEffect(() => {
+    async function fetchTaxonomies() {
+      const taxonomies = await TaxonomiesService.retrieveTaxonomies();
+
+      setTaxonomiesIsLoading(false);
+
+      if (taxonomies) {
+        const formattedServiceCategories = formatServiceCategories({
+          serviceCategories: taxonomies.categories,
+        });
+
+        const formattedServiceDemographics = formatServiceDemographics({
+          serviceDemographics: taxonomies.demographics,
+        });
+
+        setServiceCategories(formattedServiceCategories);
+        setServiceDemographics(formattedServiceDemographics);
+        setShowHiddenField(
+          generateInitialShowHiddenField(formattedServiceCategories)
+        );
+      } else {
+        toast.error("An error occured, please try again.");
+        navigate("/service");
+      }
+    }
+
+    fetchTaxonomies();
+  }, [setServiceCategories, setServiceDemographics, setShowHiddenField]);
 
   async function doAddService(formValues) {
     if (submitIsLoading) return;
 
     const cleanFormValues = doCleanServiceFormValues(
       formValues,
-      serviceCategoryCheckboxOptions,
-      serviceDemographicCheckboxOptions
+      serviceCategories,
+      serviceDemographics
     );
 
     cleanFormValues.user_id = localUser.id;
@@ -105,6 +125,8 @@ const AddService = ({ doRetrieveServices = () => {} }) => {
         submitLoading={submitIsLoading}
         showHiddenField={showHiddenField}
         setShowHiddenField={setShowHiddenField}
+        serviceCategories={serviceCategories}
+        serviceDemographics={serviceDemographics}
       />
     </>
   );
