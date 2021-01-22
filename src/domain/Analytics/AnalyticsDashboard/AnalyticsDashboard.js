@@ -125,14 +125,14 @@ const AnalyticsDashboard = () => {
 
     newValues.unapprovedOrganisation = calcUnapprovedOrganisation(organisations, selectedWeek);
 
-    newValues.neighbourhoodNE1 = calcTotalNeighbourhoods(services, "NE1");
-    newValues.neighbourhoodNE2 = calcTotalNeighbourhoods(services, "NE2");
-    newValues.neighbourhoodNW1 = calcTotalNeighbourhoods(services, "NW1");
-    newValues.neighbourhoodNW2 = calcTotalNeighbourhoods(services, "NW2");
-    newValues.neighbourhoodSE1 = calcTotalNeighbourhoods(services, "SE1");
-    newValues.neighbourhoodSE2 = calcTotalNeighbourhoods(services, "SE2");
-    newValues.neighbourhoodSW1 = calcTotalNeighbourhoods(services, "SW1");
-    newValues.neighbourhoodSW2 = calcTotalNeighbourhoods(services, "SW2");
+    newValues.neighbourhoodNE1 = calcTotalNeighbourhoods(services, "NORTH EAST 1");
+    newValues.neighbourhoodNE2 = calcTotalNeighbourhoods(services, "NORTH EAST 2");
+    newValues.neighbourhoodNW1 = calcTotalNeighbourhoods(services, "NORTH WEST 1");
+    newValues.neighbourhoodNW2 = calcTotalNeighbourhoods(services, "NORTH WEST 2");
+    newValues.neighbourhoodSE1 = calcTotalNeighbourhoods(services, "SOUTH EAST 1");
+    newValues.neighbourhoodSE2 = calcTotalNeighbourhoods(services, "SOUTH EAST 2");
+    newValues.neighbourhoodSW1 = calcTotalNeighbourhoods(services, "SOUTH WEST 1");
+    newValues.neighbourhoodSW2 = calcTotalNeighbourhoods(services, "SOUTH WEST 2");
 
     setValues(newValues);
   }, [services, organisations, selectedWeek, setValues]);
