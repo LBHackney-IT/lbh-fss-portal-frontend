@@ -7,7 +7,7 @@ const TaxonomiesService = {
     try {
       const response = await axios.get(`${BASE_API_URL}/taxonomies`);
 
-      return response.data.taxonomies;
+      return response.data;
     } catch (error) {
       console.error(error);
 
@@ -15,6 +15,7 @@ const TaxonomiesService = {
     }
   },
   async createTaxonomyTerm(term) {
+    console.log(term);
     try {
       const response = await axios.post(`${BASE_API_URL}/taxonomies`, term, {
         headers: {
@@ -36,6 +37,7 @@ const TaxonomiesService = {
           "x-api-key": API_KEY,
         },
       });
+
       return response.data;
     } catch (error) {
       console.error(error);
@@ -44,6 +46,7 @@ const TaxonomiesService = {
     }
   },
   async updateTaxonomyTerm(id, values) {
+    console.log(values);
     try {
       const response = await axios.patch(
         `${BASE_API_URL}/taxonomies/${id}`,
@@ -55,7 +58,6 @@ const TaxonomiesService = {
           },
         }
       );
-
       return response.data;
     } catch (error) {
       console.error(error);

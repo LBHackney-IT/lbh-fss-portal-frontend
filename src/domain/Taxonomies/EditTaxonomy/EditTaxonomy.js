@@ -13,7 +13,7 @@ const EditTaxonomy = ({ vocabularyName, vocabularyId, termId }) => {
   useEffect(() => {
     async function fetchTaxonomyTerm() {
       const retrievedTaxonomyTerm = await TaxonomiesService.getTaxonomyTerm(
-        vocabularyId
+        termId
       );
 
       if (retrievedTaxonomyTerm) {
@@ -30,16 +30,17 @@ const EditTaxonomy = ({ vocabularyName, vocabularyId, termId }) => {
   }, []);
 
   async function doEditTaxonomyTerm(values) {
-    values.name = values.label;
+    values.label = values.label;
     values.vocabulary_id = vocabularyId;
-    values.weight = 1;
+    values.weight = parseInt(values.weight);
 
-    delete values.label;
+    // why is this delete here?
+    // delete values.label;
 
     setIsLoading(true);
 
     const termSuccessfullyAdded = await TaxonomiesService.updateTaxonomyTerm(
-      vocabularyId,
+      termId,
       values
     );
 

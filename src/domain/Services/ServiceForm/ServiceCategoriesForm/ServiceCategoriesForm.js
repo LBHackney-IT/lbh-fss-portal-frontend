@@ -113,7 +113,7 @@ const ServiceCategoriesForm = ({
                     register={register}
                     spellCheck={"true"}
                     maxLength={255}
-                    error={errors.immAdvDetails}
+                    // error={errors}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}

@@ -9,11 +9,12 @@ const AddTaxonomy = ({ vocabularyName, vocabularyId }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   async function doAddTaxonomyTerm(values) {
-    values.name = values.label;
-    values.vocabulary_id = vocabularyId;
-    values.weight = 1;
+    values.label = values.label;
+    values.vocabulary_id = parseInt(vocabularyId);
+    values.weight = parseInt(values.weight);
 
-    delete values.label;
+    // why is this delete here?
+    // delete values.label;
 
     setIsLoading(true);
 

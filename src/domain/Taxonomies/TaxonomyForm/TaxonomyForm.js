@@ -28,10 +28,18 @@ const TaxonomyForm = ({ onSubmit, vocabularyName, defaultValues = {} }) => {
           label={`Description`}
           register={register}
           error={errors.description}
+          maxLength={255}
+        />
+        <FormHelpText helpText="A short description of the taxonomy term." />
+        <FormInput
+          name="weight"
+          label={`Weight order`}
+          register={register}
+          error={errors.weight}
           required
           maxLength={255}
         />
-        <FormHelpText helpText="A short description of the taxonomy term" />
+        <FormHelpText helpText="Provide a number value. The lower the number, the higher on the list it will appear." />
 
         <Button
           buttonStyle={{ margin: "40px 0" }}
