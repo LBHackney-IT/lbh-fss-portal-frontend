@@ -21,6 +21,15 @@ const StyledTilesContainer = styled.div`
     margin-right: -20px;
   `}
 `;
+const StyledTilesWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 0;
+  ${breakpoint("md")`
+    width: 33.333%;
+    padding: 0 20px;
+    margin-bottom: 40px;
+  `}
+`;
 
 function grabUniqueUserServices(user, services, setUniqueUserServices) {
   let serviceNamesArray = [];
@@ -160,13 +169,13 @@ const MyAnalytics = () => {
       <StyledTilesContainer>
         {metrics.map((metric, index) => {
           return (
-            <div key={index} style={{ width: "33.333%", padding: "0 20px", marginBottom: "40px"}}>
+            <StyledTilesWrapper key={index}>
               <AnalyticsTile
                 label={`Total views of ${metric.service}`}
                 value={metric.count}
-                mdWidth="100%"
+                color="green"
               />
-            </div>
+            </StyledTilesWrapper>
           );
         })}
       </StyledTilesContainer>
