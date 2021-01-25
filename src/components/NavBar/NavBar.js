@@ -132,8 +132,10 @@ function NavBar() {
           {isInternalTeam ? (
             <>
               <StyledPrimaryLink to="/users">Users</StyledPrimaryLink>
-              <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
             </>
+          ) : null}
+          {isInternalTeam || (!isInternalTeam && user.organisation) ? (
+            <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
           ) : null}
 
           <StyledSecondaryNavMenuContainer>

@@ -11,6 +11,7 @@ module.exports = () => {
   return {
     id: faker.random.number(),
     name: faker.company.companyName(),
+    users: [],
     user_id: faker.random.number(),
     user_name: faker.name.findName(),
     organisation_id: faker.random.number(),
