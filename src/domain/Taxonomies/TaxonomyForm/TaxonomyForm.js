@@ -10,6 +10,11 @@ const TaxonomyForm = ({ onSubmit, vocabularyName, defaultValues = {} }) => {
     defaultValues: defaultValues,
   });
 
+  let requiredCondition = false;
+  if (vocabularyName === "Categories") {
+    requiredCondition = true;
+  }
+
   return (
     <RaisedCard>
       <h1 style={{ margin: "20px 0 30px 0" }}>Taxonomy: {vocabularyName}</h1>
@@ -29,9 +34,11 @@ const TaxonomyForm = ({ onSubmit, vocabularyName, defaultValues = {} }) => {
           register={register}
           error={errors.description}
           maxLength={255}
+          required={requiredCondition}
         />
         <FormHelpText helpText="A short description of the taxonomy term." />
         <FormInput
+          type="number"
           name="weight"
           label={`Weight order`}
           register={register}
