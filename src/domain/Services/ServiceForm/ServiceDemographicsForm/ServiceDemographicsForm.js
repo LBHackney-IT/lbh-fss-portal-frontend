@@ -34,41 +34,9 @@ const ServiceDemographicsForm = ({
   defaultValues = {},
   goBackToPreviousStep,
 }) => {
-  const { register, handleSubmit, setValue, getValues, reset } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues,
   });
-
-  function setEveryoneTrueAllElseFalse() {
-    let resetValues = {};
-
-    serviceDemographicCheckboxOptions.forEach((demographic) => {
-      resetValues[demographic.id] = false;
-    });
-
-    resetValues.everyone = true;
-
-    reset(resetValues);
-  }
-
-  function handleCheckBoxClick(item) {
-    if (item.id === "everyone") {
-      setEveryoneTrueAllElseFalse();
-    }
-    if (item.id !== "everyone") {
-      setValue("everyone", false);
-    }
-    if (objAllFalse(getValues())) {
-      setValue("everyone", true);
-    }
-
-    let valuesCopy = { ...getValues() };
-
-    delete valuesCopy.everyone;
-
-    if (objAllTrue(valuesCopy)) {
-      setEveryoneTrueAllElseFalse();
-    }
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,14 +54,7 @@ const ServiceDemographicsForm = ({
               label={item.label}
               value={item.value}
               register={register}
-              onClick={() => handleCheckBoxClick(item)}
             />
-            {item.id === "everyone" ? (
-              <StyledHelp>
-                If you support or work with a specific audience, please select
-                the appropriate filters below.
-              </StyledHelp>
-            ) : null}
           </div>
         );
       })}
