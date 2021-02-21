@@ -36,6 +36,7 @@ const AddOrganisation = () => {
   const [showHiddenField, setShowHiddenField] = useState({
     notBasedInWarning: false,
     charity_number: false,
+    community_interest_company_number: false,
     RslOrHaAssociation: false,
     lottery_funded_project: false,
     local_offer_link: false,
