@@ -93,6 +93,7 @@ const StyledTilesContainer = styled.div`
   ${breakpoint("sm")`
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
   `}
   ${applyStyleModifiers(CONTAINER_MODIFIER)};
 `;
@@ -107,7 +108,6 @@ const AnalyticsDashboard = () => {
     services: null,
     unapprovedOrganisation: null,
     neighbourhoods: null,
-    // need 3 props here? label, shortlabel and value
   });
 
   const dateRangeArray = calcDateRange();
@@ -192,16 +192,19 @@ const AnalyticsDashboard = () => {
           label="Total number of organisations"
           value={values.organisations}
           color={"green"}
+          col={"col-3"}
         />
         <AnalyticsTile
           label="Number of approved organisations"
           value={values.approvedOrganisations}
           color={"green"}
+          col={"col-3"}
         />
         <AnalyticsTile
           label="Number of services submitted"
           value={values.services}
           color={"green"}
+          col={"col-3"}
         />
       </StyledTilesContainer>
       <StyledHr />
@@ -210,6 +213,7 @@ const AnalyticsDashboard = () => {
           label="Number of organisations waiting approval"
           value={values.unapprovedOrganisation}
           color={"yellow"}
+          col={"col-3"}
         />
       </StyledTilesContainer>
       <StyledHr />

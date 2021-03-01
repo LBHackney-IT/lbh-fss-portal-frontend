@@ -17,12 +17,14 @@ const StyledTileContainer = styled.div`
   align-items: center;
   margin: 20px;
   ${breakpoint("sm")`
-    width: ${(props) => (props.col === "col-4" ? "calc(25% - 15px)" : "30%")};
+    width: ${(props) => (props.col === "col-4" ? "calc(50% - 40px)" : (props.col === "col-3") ? "calc(33.333% - 40px)" : "calc(100% - 40px)")};
     height: 175px;
-    margin: 0;
+    margin: 20px;
   `}
   ${breakpoint("md")`
     height: 200px;
+    width: ${(props) => (props.col === "col-4" ? "calc(25% - 15px)" : (props.col === "col-3") ? "calc(33.333% - 20px)" : "100%")};
+    margin: 0;
   `}
 `;
 
@@ -48,7 +50,7 @@ const StyledValue = styled.div`
   font-weight: bold;
 `;
 
-const AnalyticsTile = ({ label, shortLabel, value, color, col }) => {
+const AnalyticsTile = ({ label, shortLabel, value, color, col}) => {
   return (
     <StyledTileContainer color={color} col={col}>
       <StyledShortLabel>{shortLabel}</StyledShortLabel>

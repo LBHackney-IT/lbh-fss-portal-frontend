@@ -11,102 +11,102 @@ import AppLoading from "../../../../AppLoading";
 import { Link } from "@reach/router";
 
 const StyledHelp = styled.p`
-  color: ${grey[400]};
+  color: ${grey[ 400 ]};
   margin: 5px 0 40px 0;
 `;
 
 const StyledImage = styled.img`
   height: auto;
   width: 200px;
-  ${breakpoint("sm")`
+  ${breakpoint( "sm" )`
     width: 300px;
   `}
-  ${breakpoint("md")`
+  ${breakpoint( "md" )`
     width: 350px;
   `}
 `;
 
-const ServiceCategoriesForm = ({
+const ServiceCategoriesForm = ( {
   onSubmit,
   defaultValues = {},
   submitLoading = false,
   goBackToPreviousStep,
-}) => {
-  if (defaultValues.image) {
+} ) => {
+  if ( defaultValues.image ) {
     defaultValues.image.preview = defaultValues.image.medium;
   }
 
-  const [image, setImage] = useState(defaultValues.image || {});
+  const [ image, setImage ] = useState( defaultValues.image || {} );
 
-  const { handleSubmit } = useForm({
+  const { handleSubmit } = useForm( {
     defaultValues,
-  });
+  } );
 
-  function doRemoveImage(e) {
+  function doRemoveImage( e ) {
     e.preventDefault();
-    setImage({});
+    setImage( {} );
   }
 
-  function doAddImage(picture) {
-    if (picture.length !== 0) {
-      setImage({ file: picture[0], preview: URL.createObjectURL(picture[0]) });
+  function doAddImage( picture ) {
+    if ( picture.length !== 0 ) {
+      setImage( { file: picture[ 0 ], preview: URL.createObjectURL( picture[ 0 ] ) } );
     }
   }
 
-  if (submitLoading) {
+  if ( submitLoading ) {
     return <AppLoading />;
   }
 
   return (
     <form
-      onSubmit={handleSubmit(() => onSubmit({ image: image.file || null }))}
+      onSubmit={ handleSubmit( () => onSubmit( { image: image.file || null } ) ) }
     >
       <FormFieldset label="Add an image">
         <p>
           Upload a picture to show residents what you do. This will be displayed
-          on your listing.
+          on your listing.  Landscape images work best.
         </p>
-        {image.preview ? (
+        { image.preview ? (
           <>
             <div>
-              <StyledImage src={image.preview} />{" "}
+              <StyledImage src={ image.preview } />{ " " }
             </div>
             <Button
-              onClick={(e) => doRemoveImage(e)}
+              onClick={ ( e ) => doRemoveImage( e ) }
               label="Remove"
               margin="20px 0 0 0"
-              backgroundColor={red[400]}
+              backgroundColor={ red[ 400 ] }
               padding="5px 10px"
             />
           </>
         ) : (
-          <ImageUploader
-            withIcon={false}
-            withLabel={false}
-            singleImage={true}
-            buttonText="Upload Image"
-            onChange={doAddImage}
-            imgExtension={[".jpg", ".jpeg", ".png"]}
-            maxFileSize={5242880}
-            fileContainerStyle={{
-              backgroundColor: "transparents",
-              display: "block",
-              padding: "0",
-              margin: "0",
-              boxShadow: "none",
-            }}
-            buttonStyles={{
-              backgroundColor: "white",
-              color: green[400],
-              border: `1px solid ${green[400]}`,
-              borderRadius: "3px",
-              padding: "15px",
-              borderBottom: "2px solid black",
-            }}
-            errorStyle={{ fontSize: "15px" }}
-          />
-        )}
-        {!image.preview ? (
+            <ImageUploader
+              withIcon={ false }
+              withLabel={ false }
+              singleImage={ true }
+              buttonText="Upload Image"
+              onChange={ doAddImage }
+              imgExtension={ [ ".jpg", ".jpeg", ".png" ] }
+              maxFileSize={ 5242880 }
+              fileContainerStyle={ {
+                backgroundColor: "transparents",
+                display: "block",
+                padding: "0",
+                margin: "0",
+                boxShadow: "none",
+              } }
+              buttonStyles={ {
+                backgroundColor: "white",
+                color: green[ 400 ],
+                border: `1px solid ${green[ 400 ]}`,
+                borderRadius: "3px",
+                padding: "15px",
+                borderBottom: "2px solid black",
+              } }
+              errorStyle={ { fontSize: "15px" } }
+            />
+          ) }
+        { !image.preview ? (
           <StyledHelp>
             Images should be at least 1600 pixels wide.
             <br />
@@ -115,16 +115,16 @@ const ServiceCategoriesForm = ({
             <br />
             Max file size: 5MB
           </StyledHelp>
-        ) : null}
+        ) : null }
       </FormFieldset>
       <Button
         type="submit"
         label="Submit service"
-        disabled={submitLoading}
+        disabled={ submitLoading }
         padding="15px"
         margin="0 0 20px 0"
       />
-      <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+      <Link to="/" onClick={ ( e ) => goBackToPreviousStep( e ) }>
         Go back to previous step
       </Link>
     </form>

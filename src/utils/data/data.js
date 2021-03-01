@@ -78,7 +78,6 @@ const serviceDemographicsFields = [
   "oldPe",
   "carers",
   "cultural",
-  "everyone",
 ];
 
 const serviceCategoryCheckboxOptions = [
@@ -151,11 +150,6 @@ const serviceCategoryCheckboxOptions = [
 ];
 
 const serviceDemographicCheckboxOptions = [
-  {
-    id: "everyone",
-    value: 999,
-    label: "Everyone",
-  },
   {
     id: "disbOrAut",
     value: 12,

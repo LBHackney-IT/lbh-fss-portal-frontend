@@ -169,6 +169,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.lonOrIsDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -182,6 +183,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.anxOrMHDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -195,6 +197,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.safeAndHBDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -208,6 +211,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.exAndWellDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -221,6 +225,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.artAndCrtvDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -234,6 +239,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.foodOrShopDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -247,6 +253,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.faithActDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -260,6 +267,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.monAdvDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -273,6 +281,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.emplAdvDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -286,6 +295,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.houseAdvDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -299,6 +309,7 @@ const ServiceCategoriesForm = ({
                     spellCheck={"true"}
                     maxLength={255}
                     error={errors.immAdvDetails}
+                    required
                   />
                 </StyledHiddenFieldContainer>
               ) : null}

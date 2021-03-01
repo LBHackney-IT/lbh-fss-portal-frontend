@@ -47,15 +47,6 @@ function doFormatDemographicDefaultValues(values) {
 
   let newValues = values;
 
-  if (
-    demographicIdArray.length ===
-    serviceDemographicCheckboxOptions.length - 1
-  ) {
-    newValues.everyone = true;
-    delete newValues.demographics;
-    return newValues;
-  }
-
   serviceDemographicCheckboxOptions.forEach((item) => {
     const demographicId = item.value;
     const demographicName = item.id;
