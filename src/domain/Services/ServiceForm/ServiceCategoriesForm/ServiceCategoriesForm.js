@@ -127,6 +127,17 @@ const ServiceCategoriesForm = ({
   }
 
   const pageQuestionNames = serviceCategoryFields;
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+  const [count3, setCount3] = useState(0);
+  const [count4, setCount4] = useState(0);
+  const [count5, setCount5] = useState(0);
+  const [count6, setCount6] = useState(0);
+  const [count7, setCount7] = useState(0);
+  const [count8, setCount8] = useState(0);
+  const [count9, setCount9] = useState(0);
+  const [count10, setCount10] = useState(0);
+  const [count11, setCount11] = useState(0);
 
   return (
     <form
@@ -170,6 +181,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.lonOrIsDetails}
                     required
+                    count={count1}
+                    setCount={setCount1}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -184,6 +198,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.anxOrMHDetails}
                     required
+                    count={count2}
+                    setCount={setCount2}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -198,6 +215,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.safeAndHBDetails}
                     required
+                    count={count3}
+                    setCount={setCount3}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -212,6 +232,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.exAndWellDetails}
                     required
+                    count={count4}
+                    setCount={setCount4}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -226,6 +249,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.artAndCrtvDetails}
                     required
+                    count={count5}
+                    setCount={setCount5}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -240,6 +266,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.foodOrShopDetails}
                     required
+                    count={count6}
+                    setCount={setCount6}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -254,6 +283,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.faithActDetails}
                     required
+                    count={count7}
+                    setCount={setCount7}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -268,6 +300,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.monAdvDetails}
                     required
+                    count={count8}
+                    setCount={setCount8}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -282,6 +317,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.emplAdvDetails}
                     required
+                    count={count9}
+                    setCount={setCount9}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -296,6 +334,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.houseAdvDetails}
                     required
+                    count={count10}
+                    setCount={setCount10}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
@@ -310,6 +351,9 @@ const ServiceCategoriesForm = ({
                     maxLength={255}
                     error={errors.immAdvDetails}
                     required
+                    count={count11}
+                    setCount={setCount11}
+                    showCounter={true}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}

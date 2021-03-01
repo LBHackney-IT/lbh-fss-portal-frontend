@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { neutral } from "../../settings";
+import { neutral, red } from "../../settings";
 import FormError from "../FormError/FormError";
 import { grey } from "../../settings";
 
@@ -27,6 +27,42 @@ const StyledHelp = styled.p`
   margin: 5px 0 20px 0;
 `;
 
+const counterColourNormal = `${grey[400]}`;
+const counterColourWarning = 'red';
+
+const StyledTextboxCharacterCounterLabel = styled.label`
+  display: block;
+  width: x;
+  height: y;
+  text-align: right;
+  color: ${counterColourNormal};
+  font-size: 10px;
+  padding: 0px;
+`;
+
+const StyledTextboxCharacterCounterWarningLabel = styled.label`
+  display: block;
+  width: x;
+  height: y;
+  text-align: right;
+  color: ${counterColourWarning};
+  font-size: 10px;
+  padding: 0px;
+`;
+
+const Counter = ({ count, max }) => {
+  let counter;
+  if(count <= max)
+  {
+    counter = <StyledTextboxCharacterCounterLabel>{count ? count : 0}/{max}</StyledTextboxCharacterCounterLabel>;
+  }
+  else
+  {
+    counter =  <StyledTextboxCharacterCounterWarningLabel>{count ? count : 0}/{max}</StyledTextboxCharacterCounterWarningLabel>;
+  }
+  return counter
+};
+
 const FormInput = ({
   type,
   name,
@@ -35,7 +71,7 @@ const FormInput = ({
   required,
   maxLength,
   minLength,
-  onChange = () => {},
+  //onChange = () => {},
   error,
   inputRef,
   validate,
@@ -45,6 +81,16 @@ const FormInput = ({
   autoComplete = "on",
   spellCheck = "false",
   disabled,
+  count,
+  setCount,
+  showCounter,
+  onChange = () => 
+  {
+      if(showCounter && name){
+        let box = document.getElementById(name);
+        if(box) setCount(box.value.length);
+    }
+  },
 }) => {
   return (
     <>
@@ -56,6 +102,7 @@ const FormInput = ({
         onChange={onChange}
         aria-label={name}
         name={name}
+        id={name}
         type={type}
         placeholder={placeholder}
         ref={(e) => {
@@ -67,6 +114,7 @@ const FormInput = ({
         autoComplete={autoComplete}
         disabled={disabled}
       />
+      { showCounter ? <Counter count={count} max={maxLength}/> : "" }
       {error && error.type === "required" && (
         <FormError error={`${label} is required.`} />
       )}
