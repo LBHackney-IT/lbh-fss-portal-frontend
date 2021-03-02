@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 import FormFieldset from "../../../../components/FormFieldset/FormFieldset";
 import FormInput from "../../../../components/FormInput/FormInput";
@@ -16,6 +16,8 @@ const ServiceDetailsForm = ({
   const { register, handleSubmit, errors } = useForm({
     defaultValues,
   });
+
+  const [count, setCount] = useState(0);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,6 +44,9 @@ const ServiceDetailsForm = ({
           error={errors.description}
           help='Please describe your organisation in 400 characters (e.g "Expert services so no-one has to face a mental health problem alone")'
           textAreaStyle={{ margin: "0" }}
+          count={count}
+          setCount={setCount}
+          showCounter={true}
         />
         <FormHelpText helpText="Please review underlined spellings." />
       </FormFieldset>
