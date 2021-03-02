@@ -111,7 +111,7 @@ const FormTextbox = ( {
         spellCheck={ spellCheck }
         style={ textAreaStyle }
       />
-      { showCounter ? <Counter count={count} max={maxLength}/> : "" }
+      { showCounter && count > 0 ? <Counter count={count} max={maxLength}/> : "" }
       { error && error.type === "required" && (
         <FormError error={ `${label} is required.` } />
       ) }
