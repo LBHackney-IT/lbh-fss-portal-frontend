@@ -16,7 +16,7 @@ import FormHelpText from "../../../../components/FormHelpText/FormHelpText";
 const StyledSubTextContainer = styled.div`
   margin: -15px 0 15px 50px;
   font-size: 15px;
-  ${breakpoint("sm")`
+  ${breakpoint( "sm" )`
     margin: -30px 0 15px 50px;
   `};
 `;
@@ -33,93 +33,93 @@ const StyledUl = styled.ul`
   padding-left: 18px;
 `;
 
-const ServiceCategoriesForm = ({
+const ServiceCategoriesForm = ( {
   onSubmit,
   defaultValues = {},
   showHiddenField,
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
   goBackToPreviousStep,
-}) => {
-  const [showError, setShowError] = useState(false);
+} ) => {
+  const [ showError, setShowError ] = useState( false );
 
-  const { register, handleSubmit, errors, getValues } = useForm({
+  const { register, handleSubmit, errors, getValues } = useForm( {
     defaultValues,
-  });
+  } );
 
-  useEffect(() => {
-    setShowHiddenFieldSnapshot(showHiddenField);
-  }, []);
+  useEffect( () => {
+    setShowHiddenFieldSnapshot( showHiddenField );
+  }, [] );
 
-  function handleHiddenField(id) {
-    setShowError(false);
-    switch (id) {
+  function handleHiddenField( id ) {
+    setShowError( false );
+    switch ( id ) {
       case "lonOrIs":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           lonOrIsDetails: !showHiddenField.lonOrIsDetails,
-        });
+        } );
         break;
       case "anxOrMH":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           anxOrMHDetails: !showHiddenField.anxOrMHDetails,
-        });
+        } );
         break;
       case "safeAndHB":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           safeAndHBDetails: !showHiddenField.safeAndHBDetails,
-        });
+        } );
         break;
       case "exAndWell":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           exAndWellDetails: !showHiddenField.exAndWellDetails,
-        });
+        } );
         break;
       case "artAndCrtv":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           artAndCrtvDetails: !showHiddenField.artAndCrtvDetails,
-        });
+        } );
         break;
       case "foodOrShop":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           foodOrShopDetails: !showHiddenField.foodOrShopDetails,
-        });
+        } );
         break;
       case "faithAct":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           faithActDetails: !showHiddenField.faithActDetails,
-        });
+        } );
         break;
       case "monAdv":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           monAdvDetails: !showHiddenField.monAdvDetails,
-        });
+        } );
         break;
 
       case "emplAdv":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           emplAdvDetails: !showHiddenField.emplAdvDetails,
-        });
+        } );
         break;
       case "houseAdv":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           houseAdvDetails: !showHiddenField.houseAdvDetails,
-        });
+        } );
         break;
       case "immAdv":
-        setShowHiddenField({
+        setShowHiddenField( {
           ...showHiddenField,
           immAdvDetails: !showHiddenField.immAdvDetails,
-        });
+        } );
         break;
       default:
         return false;
@@ -127,28 +127,23 @@ const ServiceCategoriesForm = ({
   }
 
   const pageQuestionNames = serviceCategoryFields;
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
-  const [count3, setCount3] = useState(0);
-  const [count4, setCount4] = useState(0);
-  const [count5, setCount5] = useState(0);
-  const [count6, setCount6] = useState(0);
-  const [count7, setCount7] = useState(0);
-  const [count8, setCount8] = useState(0);
-  const [count9, setCount9] = useState(0);
-  const [count10, setCount10] = useState(0);
-  const [count11, setCount11] = useState(0);
+  const [ count1, setCount1 ] = useState( 0 );
+  const [ count2, setCount2 ] = useState( 0 );
+  const [ count3, setCount3 ] = useState( 0 );
+  const [ count4, setCount4 ] = useState( 0 );
+  const [ count5, setCount5 ] = useState( 0 );
+  const [ count6, setCount6 ] = useState( 0 );
+  const [ count7, setCount7 ] = useState( 0 );
+  const [ count8, setCount8 ] = useState( 0 );
+  const [ count9, setCount9 ] = useState( 0 );
+  const [ count10, setCount10 ] = useState( 0 );
+  const [ count11, setCount11 ] = useState( 0 );
 
   return (
     <form
-      onSubmit={handleSubmit(() => {
-        if (objAllFalse(getValues())) {
-          setShowError(true);
-          return;
-        } else {
-          onSubmit(getValues(), pageQuestionNames);
-        }
-      })}
+      onSubmit={ handleSubmit( () => {
+        onSubmit( getValues(), pageQuestionNames );
+      } ) }
     >
       <FormFieldset label="What you do">
         <p>
@@ -160,214 +155,214 @@ const ServiceCategoriesForm = ({
           <li>Be concise, factual, avoid acronyms and jargon.</li>
           <li>Around 50 words or 255 characters.</li>
         </StyledUl>
-        {serviceCategoryCheckboxOptions.map((item) => {
+        { serviceCategoryCheckboxOptions.map( ( item ) => {
           return (
-            <div key={item.id}>
+            <div key={ item.id }>
               <FormCheckbox
-                name={item.id}
-                label={item.label}
-                value={item.value}
-                register={register}
-                onClick={() => handleHiddenField(item.id)}
+                name={ item.id }
+                label={ item.label }
+                value={ item.value }
+                register={ register }
+                onClick={ () => handleHiddenField( item.id ) }
               />
 
-              {showHiddenField.lonOrIsDetails && item.id === "lonOrIs" ? (
+              { showHiddenField.lonOrIsDetails && item.id === "lonOrIs" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"lonOrIsDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.lonOrIsDetails}
+                    label={ "Please describe what you do" }
+                    name={ "lonOrIsDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.lonOrIsDetails }
                     required
-                    count={count1}
-                    setCount={setCount1}
-                    showCounter={true}
+                    count={ count1 }
+                    setCount={ setCount1 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.anxOrMHDetails && item.id === "anxOrMH" ? (
+              { showHiddenField.anxOrMHDetails && item.id === "anxOrMH" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"anxOrMHDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.anxOrMHDetails}
+                    label={ "Please describe what you do" }
+                    name={ "anxOrMHDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.anxOrMHDetails }
                     required
-                    count={count2}
-                    setCount={setCount2}
-                    showCounter={true}
+                    count={ count2 }
+                    setCount={ setCount2 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.safeAndHBDetails && item.id === "safeAndHB" ? (
+              { showHiddenField.safeAndHBDetails && item.id === "safeAndHB" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"safeAndHBDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.safeAndHBDetails}
+                    label={ "Please describe what you do" }
+                    name={ "safeAndHBDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.safeAndHBDetails }
                     required
-                    count={count3}
-                    setCount={setCount3}
-                    showCounter={true}
+                    count={ count3 }
+                    setCount={ setCount3 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.exAndWellDetails && item.id === "exAndWell" ? (
+              { showHiddenField.exAndWellDetails && item.id === "exAndWell" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"exAndWellDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.exAndWellDetails}
+                    label={ "Please describe what you do" }
+                    name={ "exAndWellDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.exAndWellDetails }
                     required
-                    count={count4}
-                    setCount={setCount4}
-                    showCounter={true}
+                    count={ count4 }
+                    setCount={ setCount4 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.artAndCrtvDetails && item.id === "artAndCrtv" ? (
+              { showHiddenField.artAndCrtvDetails && item.id === "artAndCrtv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"artAndCrtvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.artAndCrtvDetails}
+                    label={ "Please describe what you do" }
+                    name={ "artAndCrtvDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.artAndCrtvDetails }
                     required
-                    count={count5}
-                    setCount={setCount5}
-                    showCounter={true}
+                    count={ count5 }
+                    setCount={ setCount5 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.foodOrShopDetails && item.id === "foodOrShop" ? (
+              { showHiddenField.foodOrShopDetails && item.id === "foodOrShop" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"foodOrShopDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.foodOrShopDetails}
+                    label={ "Please describe what you do" }
+                    name={ "foodOrShopDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.foodOrShopDetails }
                     required
-                    count={count6}
-                    setCount={setCount6}
-                    showCounter={true}
+                    count={ count6 }
+                    setCount={ setCount6 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.faithActDetails && item.id === "faithAct" ? (
+              { showHiddenField.faithActDetails && item.id === "faithAct" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"faithActDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.faithActDetails}
+                    label={ "Please describe what you do" }
+                    name={ "faithActDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.faithActDetails }
                     required
-                    count={count7}
-                    setCount={setCount7}
-                    showCounter={true}
+                    count={ count7 }
+                    setCount={ setCount7 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.monAdvDetails && item.id === "monAdv" ? (
+              { showHiddenField.monAdvDetails && item.id === "monAdv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"monAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.monAdvDetails}
+                    label={ "Please describe what you do" }
+                    name={ "monAdvDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.monAdvDetails }
                     required
-                    count={count8}
-                    setCount={setCount8}
-                    showCounter={true}
+                    count={ count8 }
+                    setCount={ setCount8 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.emplAdvDetails && item.id === "emplAdv" ? (
+              { showHiddenField.emplAdvDetails && item.id === "emplAdv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"emplAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.emplAdvDetails}
+                    label={ "Please describe what you do" }
+                    name={ "emplAdvDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.emplAdvDetails }
                     required
-                    count={count9}
-                    setCount={setCount9}
-                    showCounter={true}
+                    count={ count9 }
+                    setCount={ setCount9 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.houseAdvDetails && item.id === "houseAdv" ? (
+              { showHiddenField.houseAdvDetails && item.id === "houseAdv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"houseAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.houseAdvDetails}
+                    label={ "Please describe what you do" }
+                    name={ "houseAdvDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.houseAdvDetails }
                     required
-                    count={count10}
-                    setCount={setCount10}
-                    showCounter={true}
+                    count={ count10 }
+                    setCount={ setCount10 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
 
-              {showHiddenField.immAdvDetails && item.id === "immAdv" ? (
+              { showHiddenField.immAdvDetails && item.id === "immAdv" ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
-                    label={"Please describe what you do"}
-                    name={"immAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.immAdvDetails}
+                    label={ "Please describe what you do" }
+                    name={ "immAdvDetails" }
+                    register={ register }
+                    spellCheck={ "true" }
+                    maxLength={ 255 }
+                    error={ errors.immAdvDetails }
                     required
-                    count={count11}
-                    setCount={setCount11}
-                    showCounter={true}
+                    count={ count11 }
+                    setCount={ setCount11 }
+                    showCounter={ true }
                   />
                 </StyledHiddenFieldContainer>
-              ) : null}
+              ) : null }
             </div>
           );
-        })}
+        } ) }
         <FormHelpText helpText="Please review underlined spellings." />
       </FormFieldset>
-      {showError ? (
+      { showError ? (
         <FormError error="Please enter at least one category" />
-      ) : null}
+      ) : null }
 
       <Button type="submit" label="Continue ›" margin="0 0 20px 0" />
-      <Link to="/" onClick={(e) => goBackToPreviousStep(e)}>
+      <Link to="/" onClick={ ( e ) => goBackToPreviousStep( e ) }>
         Go back to previous step
       </Link>
     </form>
