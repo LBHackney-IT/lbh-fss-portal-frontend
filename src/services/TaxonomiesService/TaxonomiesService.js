@@ -1,6 +1,6 @@
-import BASE_API_URL from "../../settings/baseApiUrl";
 import axios from "axios";
 import API_KEY from "../../settings/apiKey";
+import BASE_API_URL from "../../settings/baseApiUrl";
 
 const TaxonomiesService = {
   async retrieveTaxonomies() {
@@ -67,17 +67,23 @@ const TaxonomiesService = {
   },
   async deleteTaxonomyTerm(id) {
     try {
-      await axios.delete(`${BASE_API_URL}/taxonomies/${id}`, {
+      const response = await axios.delete(`${BASE_API_URL}/taxonomies/${id}`, {
         headers: {
           "x-api-key": API_KEY,
         },
       });
 
-      return true;
+      return {
+        error: false,
+        status: response.status,
+      };
     } catch (error) {
       console.error(error);
 
-      return false;
+      return {
+        error: true,
+        status: error.response.status,
+      };
     }
   },
 };

@@ -66,18 +66,33 @@ const TaxonomiesDashboard = () => {
   async function doRemoveTaxonomyTerm() {
     setRemoveIsLoading(true);
 
-    const termSuccessfullyRemoved = await TaxonomiesService.deleteTaxonomyTerm(
+    const deleteResponse = await TaxonomiesService.deleteTaxonomyTerm(
       selectedTerm.id
     );
 
     setRemoveIsLoading(false);
 
-    if (termSuccessfullyRemoved) {
+    if (!deleteResponse.error) {
+      // Delete success
       toast.success(
         `Successfully removed '${selectedTerm.label}' taxonomy term.`
       );
     } else {
-      toast.error(`Failed to remove '${selectedTerm.label}' taxonomy term.`);
+      // Check error code
+      switch (deleteResponse.error) {
+        default: {
+          toast.error(
+            `Failed to remove '${selectedTerm.label}' taxonomy term.`
+          );
+          break;
+        }
+        case 400: {
+          toast.error(
+            `You can't delete this category as there are services associated with it.`
+          );
+          break;
+        }
+      }
     }
 
     setRemoveModalIsOpen(false);
