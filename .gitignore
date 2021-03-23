@@ -25,3 +25,4 @@ yarn-error.log*
 src/settings/mapbox.js
 src/settings/apiKey.js
 .vscode/launch.json
+/.vs/slnx.sqlite
