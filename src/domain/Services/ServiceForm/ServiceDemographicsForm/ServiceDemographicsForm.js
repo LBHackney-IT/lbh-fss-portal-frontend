@@ -35,7 +35,7 @@ const ServiceDemographicsForm = ({
   goBackToPreviousStep,
   serviceDemographics,
 }) => {
-  const { register, handleSubmit, setValue, getValues, reset } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues,
   });
 
@@ -87,7 +87,6 @@ const ServiceDemographicsForm = ({
               label={item.label}
               value={item.id}
               register={register}
-              onClick={() => handleCheckBoxClick(item)}
             />
             {item.name === "everyone" ? (
               <StyledHelp>

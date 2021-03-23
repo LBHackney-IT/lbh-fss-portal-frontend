@@ -51,6 +51,14 @@ const EditService = (props) => {
         const formattedServiceDemographics = formatServiceDemographics({
           serviceDemographics: taxonomies.demographics,
         });
+  serviceDemographicCheckboxOptions.forEach((item) => {
+    const demographicId = item.value;
+    const demographicName = item.id;
+
+    if (demographicIdArray.includes(demographicId)) {
+      newValues[demographicName] = true;
+    }
+  });
 
         setServiceCategories(formattedServiceCategories);
         setServiceDemographics(formattedServiceDemographics);

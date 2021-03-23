@@ -19,6 +19,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-csv": "^2.0.3",
+    "react-datepicker": "^3.3.0",
     "react-dom": "^16.13.1",
     "react-gtm-module": "^2.0.11",
     "react-hook-form": "^6.3.0",
@@ -30,6 +31,7 @@
     "react-toastify": "^6.0.8",
     "styled-components": "^5.1.1",
     "styled-components-breakpoint": "^3.0.0-preview.20",
+    "styled-components-modifiers": "^1.2.5",
     "styled-react-modal": "^2.0.1"
   },
   "scripts": {
@@ -42,7 +44,8 @@
     "mock-gen:users": "node ./scripts/generateMockUsers.js",
     "mock-gen:services": "node ./scripts/generateMockServices.js",
     "mock-gen:orgs": "node ./scripts/generateMockOrganisations.js",
-    "mock-gen:address": "node ./scripts/generateMockAddresses.js"
+    "mock-gen:address": "node ./scripts/generateMockAddresses.js",
+    "mock-gen:analytics": "node ./scripts/generateAnalytics.js"
   },
   "eslintConfig": {
     "extends": "react-app"

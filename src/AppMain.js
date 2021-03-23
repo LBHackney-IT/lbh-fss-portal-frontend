@@ -14,7 +14,7 @@ import AddUser from "./domain/Users/AddUser/AddUser";
 import EditUser from "./domain/Users/EditUser/EditUser";
 import ListUsers from "./domain/Users/ListUsers/ListUsers";
 import MyAccount from "./domain/Users/MyAccount/MyAccount";
-import AnalyticsDashboard from "./domain/Analytics/AnalyticsDashboard/AnalyticsDashboard";
+import HandleAnalytics from "./domain/Analytics/HandleAnalytics/HandleAnalytics";
 import ResetPassword from "./domain/Authentication/ResetPassword/ResetPassword";
 import AuthenticationService from "./services/AuthenticationService/AuthenticationService";
 import UserContext from "./context/UserContext/UserContext";
@@ -74,6 +74,7 @@ const AppMain = ({ location }) => {
         as={AddTaxonomy}
         path="/taxonomies/:vocabularyName/:vocabularyId/add"
       />
+      <ProtectedRoute as={HandleAnalytics} path="/analytics" />
       <ProtectedRoute as={Logout} path="/logout" withLayout={false} />
       <ProtectedRoute as={HandleMyService} path="/service" />
       <ProtectedRoute as={AddService} path="/services/add/" />
