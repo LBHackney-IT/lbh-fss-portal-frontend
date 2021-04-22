@@ -142,7 +142,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - /release/.*/
       - build-deploy-staging:
           context: api-assume-role-staging-context
           requires:
@@ -150,7 +150,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - /release/.*/
       # - permit-deploy-production:
       #     type: approval
       #     requires:
