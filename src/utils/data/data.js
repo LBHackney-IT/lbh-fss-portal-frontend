@@ -3,6 +3,8 @@ const organisationFormFields = [
   "is_hackney_based",
   "is_registered_charity",
   "charity_number",
+  "is_registered_community_interest_company",
+  "community_interest_company_number",
   "has_hc_or_col_grant",
   "has_hcvs_or_hg_or_ael_grant",
   "is_tra_registered",
@@ -37,6 +39,7 @@ const organisationFormYesNoRadioFields = [
 
 const organisationFormCheckboxFields = [
   "is_registered_charity",
+  "is_registered_community_interest_company",
   "has_hc_or_col_grant",
   "has_hcvs_or_hg_or_ael_grant",
   "is_tra_registered",
