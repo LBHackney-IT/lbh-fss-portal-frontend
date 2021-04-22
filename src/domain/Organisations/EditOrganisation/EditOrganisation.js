@@ -70,6 +70,9 @@ function doHandleHiddenFieldVisibility(
   if (organisation.is_registered_charity) {
     showHiddenField.charity_number = true;
   }
+  if (organisation.is_registered_community_interest_company) {
+    showHiddenField.community_interest_company_number = true;
+  }
   if (organisation.is_tra_registered) {
     showHiddenField.RslOrHaAssociation = true;
   }
@@ -116,6 +119,7 @@ const EditOrganisation = (props) => {
   const [showHiddenField, setShowHiddenField] = useState({
     notBasedInWarning: false,
     charity_number: false,
+    community_interest_company_number: false,
     RslOrHaAssociation: false,
     lottery_funded_project: false,
     local_offer_link: false,

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
 import { objAllFalse, objAllTrue } from "../../../../utils/functions/functions";
-import { serviceDemographicCheckboxOptions } from "../../../../utils/data/data";
+// import { serviceDemographics } from "../../../../utils/data/data";
 import { Link } from "@reach/router";
 
 const StyledSubTextContainer = styled.div`
@@ -33,10 +33,43 @@ const ServiceDemographicsForm = ({
   onSubmit,
   defaultValues = {},
   goBackToPreviousStep,
+  serviceDemographics,
 }) => {
   const { register, handleSubmit } = useForm({
     defaultValues,
   });
+
+  function setEveryoneTrueAllElseFalse() {
+    let resetValues = {};
+
+    serviceDemographics.forEach((demographic) => {
+      resetValues[demographic.name] = false;
+    });
+
+    resetValues.everyone = true;
+
+    reset(resetValues);
+  }
+
+  function handleCheckBoxClick(item) {
+    if (item.name === "everyone") {
+      setEveryoneTrueAllElseFalse();
+    }
+    if (item.name !== "everyone") {
+      setValue("everyone", false);
+    }
+    if (objAllFalse(getValues())) {
+      setValue("everyone", true);
+    }
+
+    let valuesCopy = { ...getValues() };
+
+    delete valuesCopy.everyone;
+
+    if (objAllTrue(valuesCopy)) {
+      setEveryoneTrueAllElseFalse();
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -46,15 +79,21 @@ const ServiceDemographicsForm = ({
           you support or work with.
         </p>
       </FormFieldset>
-      {serviceDemographicCheckboxOptions.map((item) => {
+      {serviceDemographics.map((item) => {
         return (
           <div key={item.id}>
             <FormCheckbox
-              name={item.id}
+              name={item.name}
               label={item.label}
-              value={item.value}
+              value={item.id}
               register={register}
             />
+            {item.name === "everyone" ? (
+              <StyledHelp>
+                If you support or work with a specific audience, please select
+                the appropriate filters below.
+              </StyledHelp>
+            ) : null}
           </div>
         );
       })}

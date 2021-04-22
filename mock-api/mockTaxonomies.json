@@ -1,0 +1,142 @@
+{
+  "taxonomies": {
+    "categories": [
+      {
+        "id": 1,
+        "label": "Loneliness or isolation",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 1
+      },
+      {
+        "id": 2,
+        "label": "Anxiety or mental health",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 1,
+        "weight": 2
+      },
+      {
+        "id": 3,
+        "label": "Safe and healthy body",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 1,
+        "weight": 3
+      },
+      {
+        "id": 4,
+        "label": "Exercise and wellbeing",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 1,
+        "weight": 4
+      },
+      {
+        "id": 5,
+        "label": "Arts and creativity ",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 5
+      },
+      {
+        "id": 6,
+        "label": "Food or shopping",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 1,
+        "weight": 6
+      },
+      {
+        "id": 7,
+        "label": "Faith-led activities",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary": "Service categories",
+        "vocabulary_id": 1,
+        "weight": 7
+      },
+      {
+        "id": 8,
+        "label": "Money advice",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 1,
+        "weight": 8
+      },
+      {
+        "id": 9,
+        "label": "Employment advice",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 1,
+        "weight": 9
+      },
+      {
+        "id": 10,
+        "label": "Housing advice",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 1,
+        "weight": 10
+      },
+      {
+        "id": 11,
+        "label": "Immigration advice",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 1,
+        "weight": 11
+      }
+    ],
+    "demographics": [
+      {
+        "id": 12,
+        "label": "Disabilities or autism",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 2,
+        "weight": 1
+      },
+      {
+        "id": 13,
+        "label": "Men",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 2,
+        "weight": 2
+      },
+      {
+        "id": 14,
+        "label": "Women",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 2,
+        "weight": 3
+      },
+      {
+        "id": 15,
+        "label": "LGBTQI+",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 2,
+        "weight": 4
+      },
+      {
+        "id": 16,
+        "label": "Children, young people or families",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 2,
+        "weight": 5
+      },
+      {
+        "id": 17,
+        "label": "Older people",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 2,
+        "weight": 6
+      },
+      {
+        "id": 18,
+        "label": "Carers",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 2,
+        "weight": 7
+      },
+      {
+        "id": 19,
+        "label": "Cultural",
+        "description": "A longer description of the taxonomy item",
+        "vocabulary_id": 2,
+        "weight": 8
+      }
+    ]
+  }
+}

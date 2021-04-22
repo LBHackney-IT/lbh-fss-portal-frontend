@@ -23,6 +23,8 @@ module.exports = (teaser = false) => {
     is_hackney_based: faker.random.boolean(),
     is_registered_charity: faker.random.boolean(),
     charity_number: faker.random.alphaNumeric().toUpperCase(),
+    is_registered_community_interest_company: faker.random.boolean(),
+    community_interest_company_number: faker.random.alphaNumeric().toUpperCase(),
     has_hc_or_col_grant: faker.random.boolean(),
     has_hcvs_or_hg_or_ael_grant: faker.random.boolean(),
     is_tra_registered: faker.random.boolean(),

@@ -49,6 +49,8 @@ const OrganisationCharityInformationForm = ({
   const pageQuestionNames = [
     "is_registered_charity",
     "charity_number",
+    "is_registered_community_interest_company",
+    "community_interest_company_number",
     "has_hc_or_col_grant",
     "has_hcvs_or_hg_or_ael_grant",
     "is_tra_registered",
@@ -68,6 +70,12 @@ const OrganisationCharityInformationForm = ({
           charity_number: !showHiddenField.charity_number,
         });
         break;
+      case "is_registered_community_interest_company":
+          setShowHiddenField({
+            ...showHiddenField,
+            community_interest_company_number: !showHiddenField.community_interest_company_number,
+          });
+          break;
       case "is_tra_registered":
         setShowHiddenField({
           ...showHiddenField,
@@ -95,6 +103,10 @@ const OrganisationCharityInformationForm = ({
     {
       id: "is_registered_charity",
       label: "Registered Charity",
+    },
+    {
+      id: "is_registered_community_interest_company",
+      label: "Registered Community Interest Company",
     },
     {
       id: "has_hc_or_col_grant",
@@ -168,13 +180,35 @@ const OrganisationCharityInformationForm = ({
                     Look up your charity number
                   </StyledExternalLink>
                   <FormInput
-                    label={"What is your charity number"}
+                    label={"What is your charity number?"}
                     name={"charity_number"}
                     register={register}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
 
+{/* Ns start of change. */}
+
+{showHiddenField.community_interest_company_number &&
+              item.id === "is_registered_community_interest_company" ? (
+                <StyledHiddenFieldContainer>
+                  <StyledExternalLink
+                    href="https://find-and-update.company-information.service.gov.uk/"
+                    target="_blank"
+                    rel="noreffer noopener"
+                  >
+                    Look up your company number
+                  </StyledExternalLink>
+                  <FormInput
+                    label={"What is your company number?"}
+                    name={"community_interest_company_number"}
+                    register={register}
+                  />
+                </StyledHiddenFieldContainer>
+              ) : null}
+
+{/* Ns end of change. */}
+              
               {showHiddenField.RslOrHaAssociation &&
               item.id === "is_tra_registered" ? (
                 <StyledHiddenFieldContainer>

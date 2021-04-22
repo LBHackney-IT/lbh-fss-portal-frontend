@@ -5,116 +5,18 @@ import ServiceService from "../../../services/ServiceService/ServiceService";
 import { navigate } from "@reach/router";
 import { toast } from "react-toastify";
 import {
-  serviceCategoryCheckboxOptions,
-  serviceDemographicCheckboxOptions,
-} from "../../../utils/data/data";
-import {
   doCleanServiceFormValues,
   doCleanServiceImage,
+  doCleanDefaultValues,
+  doHandleHiddenFieldVisibility,
+  formatServiceCategories,
+  formatServiceDemographics,
+  generateInitialShowHiddenField,
 } from "../../../utils/functions/serviceFunctions";
 import AppLoading from "../../../AppLoading";
+import TaxonomiesService from "../../../services/TaxonomiesService/TaxonomiesService";
 import UserContext from "../../../context/UserContext/UserContext";
 import { checkIsInternalTeam } from "../../../utils/functions/functions";
-
-function doFormatCategoryDefaultValues(values) {
-  const categoryIdArray = values.categories.map((category) => {
-    return category.id;
-  });
-
-  let newValues = values;
-
-  serviceCategoryCheckboxOptions.forEach((item) => {
-    if (categoryIdArray.includes(item.value)) {
-      const categoryInfo = values.categories.filter((category) => {
-        return category.id === item.value;
-      });
-
-      newValues[item.id] = true;
-      newValues[item.id.concat("Details")] =
-        categoryInfo[0].description;
-    }
-  });
-
-  delete newValues.categories;
-
-  return newValues;
-}
-
-function doFormatDemographicDefaultValues(values) {
-  const demographicIdArray = values.demographics.map((demographic) => {
-    return demographic.id;
-  });
-
-  let newValues = values;
-
-  serviceDemographicCheckboxOptions.forEach((item) => {
-    const demographicId = item.value;
-    const demographicName = item.id;
-
-    if (demographicIdArray.includes(demographicId)) {
-      newValues[demographicName] = true;
-    }
-  });
-
-  delete newValues.demographics;
-
-  return newValues;
-}
-
-function doCleanDefaultValues(values) {
-  let cleanDefaultValues = {};
-  cleanDefaultValues = doFormatCategoryDefaultValues(values);
-  cleanDefaultValues = doFormatDemographicDefaultValues(cleanDefaultValues);
-
-  return cleanDefaultValues;
-}
-
-function doHandleHiddenFieldVisibility(
-  cleanDefaultValues,
-  showHiddenField,
-  setShowHiddenField
-) {
-  if (cleanDefaultValues.lonOrIs) {
-    showHiddenField.lonOrIsDetails = true;
-  }
-
-  if (cleanDefaultValues.anxOrMH) {
-    showHiddenField.anxOrMHDetails = true;
-  }
-
-  if (cleanDefaultValues.safeAndHB) {
-    showHiddenField.safeAndHBDetails = true;
-  }
-
-  if (cleanDefaultValues.exAndWell) {
-    showHiddenField.exAndWellDetails = true;
-  }
-
-  if (cleanDefaultValues.artAndCrtv) {
-    showHiddenField.artAndCrtvDetails = true;
-  }
-
-  if (cleanDefaultValues.foodOrShop) {
-    showHiddenField.foodOrShopDetails = true;
-  }
-  if (cleanDefaultValues.faithAct) {
-    showHiddenField.faithActDetails = true;
-  }
-  if (cleanDefaultValues.monAdv) {
-    showHiddenField.monAdvDetails = true;
-  }
-  if (cleanDefaultValues.emplAdv) {
-    showHiddenField.emplAdvDetails = true;
-  }
-  if (cleanDefaultValues.houseAdv) {
-    showHiddenField.houseAdvDetails = true;
-  }
-  if (cleanDefaultValues.immAdv) {
-    showHiddenField.immAdvDetails = true;
-  }
-
-  setShowHiddenField(showHiddenField);
-}
 
 const EditService = (props) => {
   const { service, isLoading: fetchIsLoading } = useServiceFetch(
@@ -129,41 +31,85 @@ const EditService = (props) => {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [serviceImageIsLoading, setServiceImageIsLoading] = useState(false);
 
-  const [showHiddenField, setShowHiddenField] = useState({
-    lonOrIsDetails: false,
-    anxOrMHDetails: false,
-    safeAndHBDetails: false,
-    exAndWellDetails: false,
-    artAndCrtvDetails: false,
-    foodOrShopDetails: false,
-    faithActDetails: false,
-    monAdvDetails: false,
-    emplAdvDetails: false,
-    houseAdvDetails: false,
-    immAdvDetails: false,
+  const [taxonomiesIsLoading, setTaxonomiesIsLoading] = useState(true);
+  const [serviceCategories, setServiceCategories] = useState([]);
+  const [serviceDemographics, setServiceDemographics] = useState([]);
+
+  const [showHiddenField, setShowHiddenField] = useState([]);
+
+  useEffect(() => {
+    async function fetchTaxonomies() {
+      const taxonomies = await TaxonomiesService.retrieveTaxonomies();
+
+      setTaxonomiesIsLoading(false);
+
+      if (taxonomies) {
+        const formattedServiceCategories = formatServiceCategories({
+          serviceCategories: taxonomies.categories,
+        });
+
+        const formattedServiceDemographics = formatServiceDemographics({
+          serviceDemographics: taxonomies.demographics,
+        });
+  serviceDemographicCheckboxOptions.forEach((item) => {
+    const demographicId = item.value;
+    const demographicName = item.id;
+
+    if (demographicIdArray.includes(demographicId)) {
+      newValues[demographicName] = true;
+    }
   });
+
+        setServiceCategories(formattedServiceCategories);
+        setServiceDemographics(formattedServiceDemographics);
+        setShowHiddenField(
+          generateInitialShowHiddenField(formattedServiceCategories)
+        );
+      } else {
+        toast.error("An error occured, please try again.");
+        navigate("/service");
+      }
+    }
+
+    fetchTaxonomies();
+  }, [setServiceCategories, setServiceDemographics, setShowHiddenField]);
 
   useEffect(() => {
     if (fetchIsLoading) return;
 
-    const cleanDefaultValues = doCleanDefaultValues(service);
-
-    doHandleHiddenFieldVisibility(
-      cleanDefaultValues,
-      showHiddenField,
-      setShowHiddenField
+    const cleanDefaultValues = doCleanDefaultValues(
+      service,
+      serviceCategories,
+      serviceDemographics
     );
 
-    setDefaultValues(cleanDefaultValues);
-  }, [service, fetchIsLoading, setDefaultValues]);
+    if (serviceCategories.length > 0 && serviceDemographics.length > 0) {
+      doHandleHiddenFieldVisibility(
+        cleanDefaultValues,
+        showHiddenField,
+        setShowHiddenField,
+        serviceCategories
+      );
+
+      setDefaultValues(cleanDefaultValues);
+    }
+  }, [
+    service,
+    serviceCategories,
+    serviceDemographics,
+    showHiddenField,
+    fetchIsLoading,
+    setDefaultValues,
+    setShowHiddenField,
+  ]);
 
   async function doEditService(formValues) {
     if (submitIsLoading) return;
 
     const cleanFormValues = doCleanServiceFormValues(
       formValues,
-      serviceCategoryCheckboxOptions,
-      serviceDemographicCheckboxOptions
+      serviceCategories,
+      serviceDemographics
     );
 
     cleanFormValues.updated_at = new Date();
@@ -173,6 +119,8 @@ const EditService = (props) => {
     delete cleanFormValues.image;
 
     setSubmitIsLoading(true);
+
+    console.log(cleanFormValues);
 
     const updatedService = await ServiceService.updateService(
       props.serviceId,
@@ -204,7 +152,8 @@ const EditService = (props) => {
   if (
     fetchIsLoading ||
     Object.keys(defaultValues).length === 0 ||
-    serviceImageIsLoading
+    serviceImageIsLoading ||
+    taxonomiesIsLoading
   ) {
     return <AppLoading />;
   }
@@ -219,6 +168,8 @@ const EditService = (props) => {
         showHiddenField={showHiddenField}
         setShowHiddenField={setShowHiddenField}
         submitLoading={submitIsLoading}
+        serviceCategories={serviceCategories}
+        serviceDemographics={serviceDemographics}
       />
     </>
   );

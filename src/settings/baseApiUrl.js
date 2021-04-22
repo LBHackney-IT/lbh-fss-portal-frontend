@@ -7,7 +7,8 @@ if (location.includes("find-support-services-admin.hackney")) {
 } else if (location.includes("find-support-services-staging-admin.hackney")) {
   BASE_API_URL = `https://fjilyjs06h.execute-api.eu-west-2.amazonaws.com/staging/api/v1`;
 } else {
-  BASE_API_URL = "/api";
+  // BASE_API_URL = "/api";
+  BASE_API_URL = `https://fjilyjs06h.execute-api.eu-west-2.amazonaws.com/staging/api/v1`;
 }
 
 export default BASE_API_URL;

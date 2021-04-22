@@ -41,7 +41,7 @@ const calcApprovedOrganisations = (organisations, selectedWeek) => {
 
 const calcServices = (services, selectedWeek) => {
   let servicesValue = services.filter((organisation) => {
-    const createdAtDate = moment(organisation.created_at).format("DD MMM YYYY"); // TODO: update to createdAt
+    const createdAtDate = moment(organisation.created_at).format("DD MMM YYYY");
 
     const isInDateRange = checkIfIsInDateRange(createdAtDate, selectedWeek);
 

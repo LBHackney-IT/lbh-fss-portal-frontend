@@ -6,10 +6,9 @@ import styled from "styled-components";
 import FormCheckbox from "../../../../components/FormCheckbox/FormCheckbox";
 import FormInput from "../../../../components/FormInput/FormInput";
 import { breakpoint } from "../../../../utils/breakpoint/breakpoint";
-import { serviceCategoryFields } from "../../../../utils/data/data";
 import FormError from "../../../../components/FormError/FormError";
 import { objAllFalse } from "../../../../utils/functions/functions";
-import { serviceCategoryCheckboxOptions } from "../../../../utils/data/data";
+// import { serviceCategories } from "../../../../utils/data/data";
 import { Link } from "@reach/router";
 import FormHelpText from "../../../../components/FormHelpText/FormHelpText";
 
@@ -33,6 +32,17 @@ const StyledUl = styled.ul`
   padding-left: 18px;
 `;
 
+function getPageQuestionNames(serviceCategories) {
+  let pageQuestionNames = [];
+
+  serviceCategories.forEach((category) => {
+    pageQuestionNames.push(category.name);
+    pageQuestionNames.push(category.details);
+  });
+
+  return pageQuestionNames;
+}
+
 const ServiceCategoriesForm = ({
   onSubmit,
   defaultValues = {},
@@ -40,10 +50,11 @@ const ServiceCategoriesForm = ({
   setShowHiddenField,
   setShowHiddenFieldSnapshot,
   goBackToPreviousStep,
+  serviceCategories,
 }) => {
   const [showError, setShowError] = useState(false);
 
-  const { register, handleSubmit, errors, getValues } = useForm({
+  const { register, handleSubmit, getValues } = useForm({
     defaultValues,
   });
 
@@ -51,82 +62,16 @@ const ServiceCategoriesForm = ({
     setShowHiddenFieldSnapshot(showHiddenField);
   }, []);
 
-  function handleHiddenField(id) {
+  function handleHiddenField(item) {
     setShowError(false);
-    switch (id) {
-      case "lonOrIs":
-        setShowHiddenField({
-          ...showHiddenField,
-          lonOrIsDetails: !showHiddenField.lonOrIsDetails,
-        });
-        break;
-      case "anxOrMH":
-        setShowHiddenField({
-          ...showHiddenField,
-          anxOrMHDetails: !showHiddenField.anxOrMHDetails,
-        });
-        break;
-      case "safeAndHB":
-        setShowHiddenField({
-          ...showHiddenField,
-          safeAndHBDetails: !showHiddenField.safeAndHBDetails,
-        });
-        break;
-      case "exAndWell":
-        setShowHiddenField({
-          ...showHiddenField,
-          exAndWellDetails: !showHiddenField.exAndWellDetails,
-        });
-        break;
-      case "artAndCrtv":
-        setShowHiddenField({
-          ...showHiddenField,
-          artAndCrtvDetails: !showHiddenField.artAndCrtvDetails,
-        });
-        break;
-      case "foodOrShop":
-        setShowHiddenField({
-          ...showHiddenField,
-          foodOrShopDetails: !showHiddenField.foodOrShopDetails,
-        });
-        break;
-      case "faithAct":
-        setShowHiddenField({
-          ...showHiddenField,
-          faithActDetails: !showHiddenField.faithActDetails,
-        });
-        break;
-      case "monAdv":
-        setShowHiddenField({
-          ...showHiddenField,
-          monAdvDetails: !showHiddenField.monAdvDetails,
-        });
-        break;
 
-      case "emplAdv":
-        setShowHiddenField({
-          ...showHiddenField,
-          emplAdvDetails: !showHiddenField.emplAdvDetails,
-        });
-        break;
-      case "houseAdv":
-        setShowHiddenField({
-          ...showHiddenField,
-          houseAdvDetails: !showHiddenField.houseAdvDetails,
-        });
-        break;
-      case "immAdv":
-        setShowHiddenField({
-          ...showHiddenField,
-          immAdvDetails: !showHiddenField.immAdvDetails,
-        });
-        break;
-      default:
-        return false;
-    }
+    setShowHiddenField({
+      ...showHiddenField,
+      [item.details]: !showHiddenField[item.details],
+    });
   }
 
-  const pageQuestionNames = serviceCategoryFields;
+  const pageQuestionNames = getPageQuestionNames(serviceCategories);
 
   return (
     <form
@@ -149,156 +94,26 @@ const ServiceCategoriesForm = ({
           <li>Be concise, factual, avoid acronyms and jargon.</li>
           <li>Around 50 words or 255 characters.</li>
         </StyledUl>
-        {serviceCategoryCheckboxOptions.map((item) => {
+        {serviceCategories.map((item) => {
           return (
             <div key={item.id}>
               <FormCheckbox
-                name={item.id}
+                name={item.name}
                 label={item.label}
-                value={item.value}
+                value={item.id}
                 register={register}
-                onClick={() => handleHiddenField(item.id)}
+                onClick={() => handleHiddenField(item)}
               />
 
-              {showHiddenField.lonOrIsDetails && item.id === "lonOrIs" ? (
+              {showHiddenField[item.details] ? (
                 <StyledHiddenFieldContainer>
                   <FormInput
                     label={"Please describe what you do"}
-                    name={"lonOrIsDetails"}
+                    name={item.details}
                     register={register}
                     spellCheck={"true"}
                     maxLength={255}
-                    error={errors.lonOrIsDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.anxOrMHDetails && item.id === "anxOrMH" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"anxOrMHDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.anxOrMHDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.safeAndHBDetails && item.id === "safeAndHB" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"safeAndHBDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.safeAndHBDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.exAndWellDetails && item.id === "exAndWell" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"exAndWellDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.exAndWellDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.artAndCrtvDetails && item.id === "artAndCrtv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"artAndCrtvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.artAndCrtvDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.foodOrShopDetails && item.id === "foodOrShop" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"foodOrShopDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.foodOrShopDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.faithActDetails && item.id === "faithAct" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"faithActDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.faithActDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.monAdvDetails && item.id === "monAdv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"monAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.monAdvDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.emplAdvDetails && item.id === "emplAdv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"emplAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.emplAdvDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.houseAdvDetails && item.id === "houseAdv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"houseAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.houseAdvDetails}
-                  />
-                </StyledHiddenFieldContainer>
-              ) : null}
-
-              {showHiddenField.immAdvDetails && item.id === "immAdv" ? (
-                <StyledHiddenFieldContainer>
-                  <FormInput
-                    label={"Please describe what you do"}
-                    name={"immAdvDetails"}
-                    register={register}
-                    spellCheck={"true"}
-                    maxLength={255}
-                    error={errors.immAdvDetails}
+                    // error={errors}
                   />
                 </StyledHiddenFieldContainer>
               ) : null}
