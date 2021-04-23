@@ -26,7 +26,7 @@ commands:
     steps:
       - checkout
       - aws_assume_role/assume_role:
-          account: <<parameters.aws-account>>
+          account: \<<parameters.aws-account\>>
           profile_name: default
           role: "LBH_Circle_CI_Deployment_Role"
       - persist_to_workspace:
@@ -71,9 +71,9 @@ jobs:
       - run:
           name: Create .env file
           command: |
-            cat <<EOF >.env
-              REACT_APP_MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
-              REACT_APP_MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
+            cat \<<EOF >.env
+              REACT_APP_MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/\<<parameters.stage\>>/map-box-url --query Parameter.Value)
+              REACT_APP_MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/\<<parameters.stage\>>/map-box-token --query Parameter.Value)
             EOF
       - run:
           name: build
@@ -94,9 +94,9 @@ jobs:
       - run:
           name: Create .env file
           command: |
-            cat <<EOF >.env
-              REACT_APP_MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
-              REACT_APP_MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
+            cat \<<EOF >.env
+              REACT_APP_MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/\<<parameters.stage\>>/map-box-url --query Parameter.Value)
+              REACT_APP_MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/\<<parameters.stage\>>/map-box-token --query Parameter.Value)
             EOF
       - run:
           name: build
@@ -118,9 +118,9 @@ jobs:
       - run:
           name: Create .env file
           command: |
-            cat <<EOF >.env
-              REACT_APP_MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
-              REACT_APP_MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
+            cat \<<EOF >.env
+              REACT_APP_MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/\<<parameters.stage\>>/map-box-url --query Parameter.Value)
+              REACT_APP_MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/\<<parameters.stage\>>/map-box-token --query Parameter.Value)
             EOF
       - run:
           name: build
