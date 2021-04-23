@@ -27,4 +27,4 @@ src/settings/apiKey.js
 .vscode/launch.json
 /.vs/slnx.sqlite
 /.vs
-./.env
+/.env
