@@ -69,6 +69,13 @@ jobs:
     steps:
       - *attach_workspace
       - run:
+          name: Create .env file
+          command: |
+            cat <<EOF >.env
+              REACT_APP_MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
+              REACT_APP_MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
+            EOF
+      - run:
           name: build
           command: |
             export REACT_APP_ENV=staging
@@ -84,6 +91,13 @@ jobs:
     executor: mtfh-executor
     steps:
       - *attach_workspace
+      - run:
+          name: Create .env file
+          command: |
+            cat <<EOF >.env
+              REACT_APP_MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
+              REACT_APP_MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
+            EOF
       - run:
           name: build
           command: |
@@ -101,6 +115,13 @@ jobs:
     executor: mtfh-executor
     steps:
       - *attach_workspace
+      - run:
+          name: Create .env file
+          command: |
+            cat <<EOF >.env
+              REACT_APP_MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
+              REACT_APP_MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
+            EOF
       - run:
           name: build
           command: |
