@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Map, TileLayer, Marker, FeatureGroup } from "react-leaflet";
 import { removeEmptyObjFromArrayObj } from "../../../../utils/functions/functions";
-import { MAPBOX_ACCESS_TOKEN, MAPBOX_URL } from "../../../../settings/mapbox";
+//import { MAPBOX_ACCESS_TOKEN, MAPBOX_URL } from "../../../../settings/mapbox";
 import "leaflet/dist/leaflet.css";
 const L = require("leaflet");
 
@@ -64,7 +64,7 @@ export default ({ mapStyle, data }) => {
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          url={`${MAPBOX_URL}${MAPBOX_ACCESS_TOKEN}`}
+          url={`${process.env.REACT_APP_MAP_BOX_URL}${process.env.REACT_APP_MAP_BOX_TOKEN}`}
           // url={`https://api.mapbox.com/styles/v1/hackneygis/ck7ounc2t0cg41imjb3j53dp8/tiles/256/{z}/{x}/{y}@2x?access_token=${MAPBOX_ACCESS_TOKEN}`}
         />
         <FeatureGroup ref={groupRef}>
