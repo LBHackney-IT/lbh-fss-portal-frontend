@@ -1,5 +1,4 @@
 import axios from "axios";
-import API_KEY from "../../settings/apiKey";
 import BASE_API_URL from "../../settings/baseApiUrl";
 
 axios.defaults.withCredentials = true;
@@ -34,7 +33,7 @@ const ServiceService = {
     try {
       const response = await axios.post(`${BASE_API_URL}/services`, values, {
         headers: {
-          "x-api-key": API_KEY,
+          //"x-api-key": API_KEY,
           "Content-Type": "application/json",
         },
       });
@@ -64,7 +63,7 @@ const ServiceService = {
         values,
         {
           headers: {
-            "x-api-key": API_KEY,
+            //"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }

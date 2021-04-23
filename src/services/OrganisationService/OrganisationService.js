@@ -1,5 +1,4 @@
 import axios from "axios";
-import API_KEY from "../../settings/apiKey";
 import BASE_API_URL from "../../settings/baseApiUrl";
 
 axios.defaults.withCredentials = true;
@@ -34,7 +33,7 @@ const OrganisationService = {
           reviewed_after: reviewed_after,
         },
         headers: {
-          "x-api-key": API_KEY,
+          //"x-api-key": API_KEY,
         },
       });
 
@@ -52,7 +51,7 @@ const OrganisationService = {
         values,
         {
           headers: {
-            "x-api-key": API_KEY,
+            //"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -69,7 +68,7 @@ const OrganisationService = {
     try {
       const response = await axios.get(`${BASE_API_URL}/organisations/${id}`, {
         headers: {
-          "x-api-key": API_KEY,
+          //"x-api-key": API_KEY,
         },
       });
 
@@ -87,7 +86,7 @@ const OrganisationService = {
         values,
         {
           headers: {
-            "x-api-key": API_KEY,
+            //"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -104,7 +103,7 @@ const OrganisationService = {
     try {
       await axios.delete(`${BASE_API_URL}/organisations/${id}`, {
         headers: {
-          "x-api-key": API_KEY,
+          //"x-api-key": API_KEY,
         },
       });
 
