@@ -1,5 +1,4 @@
 import axios from "axios";
-import API_KEY from "../../settings/apiKey";
 import BASE_API_URL from "../../settings/baseApiUrl";
 
 axios.defaults.withCredentials = true;
@@ -16,7 +15,7 @@ const AuthenticationService = {
         },
         {
           headers: {
-            "x-api-key": API_KEY,
+            ////"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -37,7 +36,7 @@ const AuthenticationService = {
         },
         {
           headers: {
-            "x-api-key": API_KEY,
+            ////"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -57,7 +56,7 @@ const AuthenticationService = {
         },
         {
           headers: {
-            "x-api-key": API_KEY,
+            //"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -75,7 +74,7 @@ const AuthenticationService = {
         { email: email, password: password },
         {
           headers: {
-            "x-api-key": API_KEY,
+            //"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -90,7 +89,7 @@ const AuthenticationService = {
     try {
       const response = await axios.get(`${BASE_API_URL}/account`, {
         headers: {
-          "x-api-key": API_KEY,
+          //"x-api-key": API_KEY,
         },
       });
 
@@ -125,7 +124,7 @@ const AuthenticationService = {
         },
         {
           headers: {
-            "x-api-key": API_KEY,
+            //"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -146,7 +145,7 @@ const AuthenticationService = {
         },
         {
           headers: {
-            "x-api-key": API_KEY,
+            //"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -168,7 +167,7 @@ const AuthenticationService = {
         },
         {
           headers: {
-            "x-api-key": API_KEY,
+            //"x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
