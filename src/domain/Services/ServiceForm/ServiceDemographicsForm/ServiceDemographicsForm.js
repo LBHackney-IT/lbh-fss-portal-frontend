@@ -35,7 +35,7 @@ const ServiceDemographicsForm = ({
   goBackToPreviousStep,
   serviceDemographics,
 }) => {
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, setValue, getValues, reset } = useForm({
     defaultValues,
   });
 

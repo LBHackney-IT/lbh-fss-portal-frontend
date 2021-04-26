@@ -64,7 +64,7 @@ const AppMain = ({ location }) => {
       <ProtectedRoute as={AddUser} path="/users/add" />
       <ProtectedRoute as={EditUser} path="/users/:userId/edit" />
       <ProtectedRoute as={MyAccount} path="/account" />
-      <ProtectedRoute as={AnalyticsDashboard} path="/analytics" />
+      {/* <ProtectedRoute as={AnalyticsDashboard} path="/analytics" /> */}
       <ProtectedRoute as={TaxonomiesDashboard} path="/taxonomies" />
       <ProtectedRoute
         as={EditTaxonomy}
