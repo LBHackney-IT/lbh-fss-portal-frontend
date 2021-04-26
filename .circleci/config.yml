@@ -73,7 +73,7 @@ jobs:
           command: |
             MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
             MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
-            cat \\<<EOF >.env
+            cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
             EOF
@@ -98,7 +98,7 @@ jobs:
           command: |
             MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
             MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
-            cat \\<<EOF >.env
+            cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
             EOF
@@ -124,7 +124,7 @@ jobs:
           command: |
             MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
             MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
-            cat \\<<EOF >.env
+            cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
             EOF
