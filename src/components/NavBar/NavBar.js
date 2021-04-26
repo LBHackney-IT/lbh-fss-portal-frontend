@@ -135,7 +135,6 @@ function NavBar() {
               <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
               <StyledPrimaryLink to="/taxonomies">Taxonomies</StyledPrimaryLink>
             </>
-            </>
           ) : null}
           {isInternalTeam || (!isInternalTeam && user.organisation) ? (
             <StyledPrimaryLink to="/analytics">Analytics</StyledPrimaryLink>
