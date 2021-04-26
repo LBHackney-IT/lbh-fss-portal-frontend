@@ -17,6 +17,10 @@ executors:
       - image: circleci/node:12.9.1-browsers
     working_directory: *workspace_root
 
+  docker-python:
+    docker:
+      - image: circleci/python:3.7
+
 commands:
   assume-role-and-persist-workspace:
     description: "Assumes deployment role and persists credentials across jobs"
@@ -35,9 +39,9 @@ commands:
             - ~/.aws
 jobs:
   install-dependencies:
-    executor: fss-executor
-    working_directory: *workspace_root
+    executor: docker-python
     steps:
+      - *attach_workspace
       - checkout
       - setup_remote_docker
       - run:
