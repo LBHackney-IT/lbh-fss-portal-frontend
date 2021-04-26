@@ -12,7 +12,7 @@ references:
       at: *workspace_root
 
 executors:
-  mtfh-executor:
+  fss-executor:
     docker:
       - image: circleci/node:12.9.1-browsers
     working_directory: *workspace_root
@@ -35,10 +35,11 @@ commands:
             - .aws
 jobs:
   install-dependencies:
-    executor: mtfh-executor
+    executor: fss-executor
     working_directory: *workspace_root
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Install dependencies
           command: yarn install
@@ -56,25 +57,25 @@ jobs:
           paths: .
 
   assume-role-development:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_DEVELOPMENT
 
   assume-role-staging:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_STAGING
 
   assume-role-production:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_PRODUCTION
 
   build-deploy-development:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - *attach_workspace
       - run:
@@ -99,7 +100,7 @@ jobs:
           overwrite: true
 
   build-deploy-staging:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - *attach_workspace
       - run:
@@ -125,7 +126,7 @@ jobs:
           overwrite: true
 
   build-deploy-production:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - *attach_workspace
       - run:
