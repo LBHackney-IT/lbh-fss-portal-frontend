@@ -150,18 +150,18 @@ workflows:
           context: api-assume-role-development-context
           requires:
             - install-dependencies
-          filters:
-            branches:
-              only:
-                - develop
+          # filters:
+          #   branches:
+          #     only:
+          #       - develop
       - build-deploy-development:
           context: api-assume-role-development-context
           requires:
             - assume-role-development
-          filters:
-            branches:
-              only:
-                - develop
+          # filters:
+          #   branches:
+          #     only:
+          #       - develop
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
