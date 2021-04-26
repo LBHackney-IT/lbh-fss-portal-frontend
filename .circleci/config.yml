@@ -1,22 +1,18 @@
 version: 2.1
-​
 orbs:
   aws-s3: circleci/aws-s3@1.0.11
   aws-cli: circleci/aws-cli@0.1.9
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
-​
-references:
+​references:
   workspace_root: &workspace_root "~/repo"
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
-​
 executors:
   fss-executor:
     docker:
       - image: circleci/node:12.9.1-browsers
     working_directory: *workspace_root
-​
 commands:
   assume-role-and-persist-workspace:
     description: "Assumes deployment role and persists credentials across jobs"
@@ -46,25 +42,21 @@ jobs:
       - persist_to_workspace:
           root: *workspace_root
           paths: .
-​
   assume-role-development:
     executor: fss-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_DEVELOPMENT
-​
   assume-role-staging:
     executor: fss-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_STAGING
-​
   assume-role-production:
     executor: fss-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_PRODUCTION
-​
   build-deploy-development:
     executor: fss-executor
     steps:
@@ -95,7 +87,6 @@ jobs:
           arguments: |
             --cache-control "max-age=86400"
           overwrite: true
-​
   build-deploy-staging:
     executor: fss-executor
     steps:
@@ -127,7 +118,6 @@ jobs:
             --acl public-read \
             --cache-control "max-age=86400"
           overwrite: true
-​
   build-deploy-production:
     executor: fss-executor
     steps:
@@ -159,7 +149,6 @@ jobs:
             --acl public-read \
             --cache-control "max-age=86400"
           overwrite: true
-​
 workflows:
   version: 2
   continuous-delivery:
