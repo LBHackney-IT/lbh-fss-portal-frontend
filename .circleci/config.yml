@@ -12,7 +12,7 @@ references:
       at: *workspace_root
 
 executors:
-  mtfh-executor:
+  fss-executor:
     docker:
       - image: circleci/node:12.9.1-browsers
     working_directory: *workspace_root
@@ -35,45 +35,52 @@ commands:
             - .aws
 jobs:
   install-dependencies:
-    executor: mtfh-executor
-    working_directory: *workspace_root
+    executor: fss-executor
     steps:
+      - *attach_workspace
       - checkout
+      - setup_remote_docker
       - run:
           name: Install dependencies
           command: yarn install
+      - run:
+          name: Install AWS CLI
+          command: |
+            curl -L -o awscliv2.zip "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
       - persist_to_workspace:
-          root: "~/repo"
+          root: *workspace_root
           paths: .
 
   assume-role-development:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_DEVELOPMENT
 
   assume-role-staging:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_STAGING
 
   assume-role-production:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_PRODUCTION
 
   build-deploy-development:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - *attach_workspace
       - run:
           name: Create .env file
           command: |
-            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
-            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
-            cat <<EOF >.env
+            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/development/map-box-url --query Parameter.Value)
+            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/development/map-box-token --query Parameter.Value)
+            cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
             EOF
@@ -90,15 +97,15 @@ jobs:
           overwrite: true
 
   build-deploy-staging:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - *attach_workspace
       - run:
           name: Create .env file
           command: |
-            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
-            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
-            cat <<EOF >.env
+            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/staging/map-box-url --query Parameter.Value)
+            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/staging/map-box-token --query Parameter.Value)
+            cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
             EOF
@@ -116,15 +123,15 @@ jobs:
           overwrite: true
 
   build-deploy-production:
-    executor: mtfh-executor
+    executor: fss-executor
     steps:
       - *attach_workspace
       - run:
           name: Create .env file
           command: |
-            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
-            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
-            cat <<EOF >.env
+            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/production/map-box-url --query Parameter.Value)
+            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/production/map-box-token --query Parameter.Value)
+            cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
             EOF
@@ -150,18 +157,18 @@ workflows:
           context: api-assume-role-development-context
           requires:
             - install-dependencies
-          filters:
-            branches:
-              only:
-                - develop
+          # filters:
+          #   branches:
+          #     only:
+          #       - develop
       - build-deploy-development:
           context: api-assume-role-development-context
           requires:
             - assume-role-development
-          filters:
-            branches:
-              only:
-                - develop
+          # filters:
+          #   branches:
+          #     only:
+          #       - develop
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
