@@ -101,6 +101,12 @@ jobs:
     steps:
       - *attach_workspace
       - run:
+          name: Install AWS CLI
+          command: |
+            curl -L -o awscliv2.zip "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+      - run:
           name: Create .env file
           command: |
             MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/staging/map-box-url --query Parameter.Value)
@@ -126,6 +132,12 @@ jobs:
     executor: fss-executor
     steps:
       - *attach_workspace
+      - run:
+          name: Install AWS CLI
+          command: |
+            curl -L -o awscliv2.zip "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
       - run:
           name: Create .env file
           command: |
