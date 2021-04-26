@@ -75,6 +75,7 @@ jobs:
             cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
+              CI = false
             EOF
       - run:
           name: build
@@ -105,6 +106,7 @@ jobs:
             cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
+              CI = false
             EOF
       - run:
           name: build
@@ -136,6 +138,7 @@ jobs:
             cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
+              CI = false
             EOF
       - run:
           name: build
