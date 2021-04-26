@@ -1,5 +1,4 @@
 import axios from "axios";
-import API_KEY from "../../settings/apiKey";
 import BASE_API_URL from "../../settings/baseApiUrl";
 
 axios.defaults.withCredentials = true;
@@ -21,9 +20,6 @@ const UserService = {
           limit: limit,
           search: search,
         },
-        headers: {
-          "x-api-key": API_KEY,
-        },
       });
 
       return response.data.users;
@@ -37,7 +33,6 @@ const UserService = {
     try {
       const response = await axios.post(`${BASE_API_URL}/users`, values, {
         headers: {
-          "x-api-key": API_KEY,
           "Content-Type": "application/json",
         },
       });
@@ -52,9 +47,6 @@ const UserService = {
   async getUser(id) {
     try {
       const response = await axios.get(`${BASE_API_URL}/users/${id}`, {
-        headers: {
-          "x-api-key": API_KEY,
-        },
       });
       return response.data;
     } catch (error) {
@@ -70,7 +62,6 @@ const UserService = {
         values,
         {
           headers: {
-            "x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -86,9 +77,6 @@ const UserService = {
   async deleteUser(id) {
     try {
       await axios.delete(`${BASE_API_URL}/users/${id}`, {
-        headers: {
-          "x-api-key": API_KEY,
-        },
       });
 
       return true;
@@ -105,7 +93,6 @@ const UserService = {
         {},
         {
           headers: {
-            "x-api-key": API_KEY,
             "Content-Type": "application/json",
           },
         }
@@ -121,9 +108,6 @@ const UserService = {
   async unlinkOrganisation(id) {
     try {
       await axios.delete(`${BASE_API_URL}/user-links/${id}`, {
-        headers: {
-          "x-api-key": API_KEY,
-        },
       });
 
       return true;
@@ -137,7 +121,6 @@ const UserService = {
     try {
       const response = await axios.post(`${BASE_API_URL}/user-links`, values, {
         headers: {
-          "x-api-key": API_KEY,
           "Content-Type": "application/json",
         },
       });
