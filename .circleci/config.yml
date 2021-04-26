@@ -1,10 +1,9 @@
 version: 2.1
-​
 orbs:
   aws-s3: circleci/aws-s3@1.0.11
   aws-cli: circleci/aws-cli@0.1.9
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
-references:
+​references:
   workspace_root: &workspace_root "~/repo"
   attach_workspace: &attach_workspace
     attach_workspace:
@@ -159,18 +158,18 @@ workflows:
           context: api-assume-role-development-context
           requires:
             - install-dependencies
-          # filters:
-          #   branches:
-          #     only:
-          #       - develop
+          filters:
+            branches:
+              only:
+                - develop
       - build-deploy-development:
           context: api-assume-role-development-context
           requires:
             - assume-role-development
-          # filters:
-          #   branches:
-          #     only:
-          #       - develop
+          filters:
+            branches:
+              only:
+                - develop
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
