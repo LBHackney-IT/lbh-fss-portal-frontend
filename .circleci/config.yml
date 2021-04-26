@@ -71,8 +71,8 @@ jobs:
       - run:
           name: Create .env file
           command: |
-            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
-            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
+            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/development/map-box-url --query Parameter.Value)
+            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/development/map-box-token --query Parameter.Value)
             cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
@@ -96,8 +96,8 @@ jobs:
       - run:
           name: Create .env file
           command: |
-            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
-            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
+            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/staging/map-box-url --query Parameter.Value)
+            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/staging/map-box-token --query Parameter.Value)
             cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
@@ -122,8 +122,8 @@ jobs:
       - run:
           name: Create .env file
           command: |
-            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-url --query Parameter.Value)
-            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/<<parameters.stage>>/map-box-token --query Parameter.Value)
+            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/production/map-box-url --query Parameter.Value)
+            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/production/map-box-token --query Parameter.Value)
             cat \<<EOF >.env
               REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
               REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
