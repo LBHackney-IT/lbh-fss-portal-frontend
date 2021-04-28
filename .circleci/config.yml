@@ -81,7 +81,7 @@ jobs:
           name: build
           command: |
             export REACT_APP_ENV=staging
-            yarn run build
+            CI=false yarn run build
       - aws-s3/sync:
           from: build
           to: 's3://find-support-services-development/'
@@ -112,7 +112,7 @@ jobs:
           name: build
           command: |
             export REACT_APP_ENV=staging
-            yarn run build
+            CI=false yarn run build
       - aws-s3/sync:
           from: build
           to: 's3://find-support-services-staging-admin.hackney.gov.uk/'
@@ -144,7 +144,7 @@ jobs:
           name: build
           command: |
             export REACT_APP_ENV=production
-            yarn run build
+            CI=false yarn run build
       - aws-s3/sync:
           from: build
           to: 's3://find-support-services-admin.hackney.gov.uk/'
