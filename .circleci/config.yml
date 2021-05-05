@@ -61,22 +61,22 @@ jobs:
     executor: fss-executor
     steps:
       - *attach_workspace
-      # - run:
-      #     name: Install AWS CLI
-      #     command: |
-      #       curl -L -o awscliv2.zip "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
-      #       unzip awscliv2.zip
-      #       sudo ./aws/install
-      # - run:
-      #     name: Create .env file
-      #     command: |
-      #       MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/development/map-box-url --query Parameter.Value)
-      #       MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/development/map-box-token --query Parameter.Value)
-      #       cat \<<EOF >.env
-      #         REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
-      #         REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
-      #         CI = false
-      #       EOF
+      - run:
+          name: Install AWS CLI
+          command: |
+            curl -L -o awscliv2.zip "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+      - run:
+          name: Create .env file
+          command: |
+            MAP_BOX_URL=$(aws ssm get-parameter --name /fss-portal-api/development/map-box-url --query Parameter.Value)
+            MAP_BOX_TOKEN=$(aws ssm get-parameter --name /fss-portal-api/development/map-box-token --query Parameter.Value)
+            cat \<<EOF >.env
+              REACT_APP_MAP_BOX_URL=${MAP_BOX_URL}
+              REACT_APP_MAP_BOX_TOKEN=${MAP_BOX_TOKEN}
+              CI = false
+            EOF
       - run:
           name: build
           command: |
