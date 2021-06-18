@@ -113,17 +113,12 @@ jobs:
           command: |
             export REACT_APP_ENV=staging
             CI=false yarn run build
-      - run:
-          name: deploy
-          command: |
-            aws s3 sync build s3://find-support-services-staging-admin.hackney.gov.uk/ --delete --acl public-read --cache-control "max-age=86400"
-      # - aws-s3/sync:
-      #     from: build
-      #     to: 's3://find-support-services-staging-admin.hackney.gov.uk/'
-      #     arguments: |
-      #       --acl public-read \
-      #       --cache-control "max-age=86400"
-      #     overwrite: true
+      - aws-s3/sync:
+          from: build
+          to: 's3://find-support-services-staging-admin.hackney.gov.uk/'
+          arguments: |
+            --cache-control "max-age=86400"
+          overwrite: true
   build-deploy-production:
     executor: fss-executor
     steps:
@@ -153,7 +148,6 @@ jobs:
           from: build
           to: 's3://find-support-services-admin.hackney.gov.uk/'
           arguments: |
-            --acl public-read \
             --cache-control "max-age=86400"
           overwrite: true
 workflows:
@@ -193,27 +187,27 @@ workflows:
             branches:
               only:
                 - /release/.*/
-      # - permit-deploy-production:
-      #     type: approval
-      #     requires:
-      #       - build-deploy-staging
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - assume-role-production:
-      #     context: api-assume-role-production-context
-      #     requires:
-      #       - permit-deploy-production
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - build-deploy-production:
-      #     context: api-assume-role-production-context
-      #     requires:
-      #       - assume-role-production
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+      - permit-deploy-production:
+          type: approval
+          requires:
+            - build-deploy-staging
+          filters:
+            branches:
+              only:
+                - master
+      - assume-role-production:
+          context: api-assume-role-production-context
+          requires:
+            - permit-deploy-production
+          filters:
+            branches:
+              only:
+                - master
+      - build-deploy-production:
+          context: api-assume-role-production-context
+          requires:
+            - assume-role-production
+          filters:
+            branches:
+              only:
+                - master
